@@ -1,0 +1,18 @@
+= imgsizer -- autogenerate WIDTH and HEIGHT for IMG tags =
+
+This is a little HTML optimization tool that will generate correct 
+Netscape-style WIDTH and HEIGHT parameters for each of your IMG tags.
+This will enable the text parts of your page to load much faster.
+
+Put imgsizer on your execution path and the man page in a man source
+directory somewhere.  `make install' will do the right thing on a Linux box. 
+That's it.
+
+You will need either identify(1) from the ImageMagick tools or
+rdjpgcom(1) and a modern version of file(1) to make this work.  If you
+are using Linux or any of the free BSDs these tools are probably
+already on your system.
+
+
+
+

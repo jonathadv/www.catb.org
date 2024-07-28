@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Trove Design Document: TRL Language Reference</TITLE>
+<LINK HREF="trove-design-6.html" REL=next>
+<LINK HREF="trove-design-4.html" REL=previous>
+<LINK HREF="trove-design.html#toc5" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="trove-design-6.html">Next</A>
+<A HREF="trove-design-4.html">Previous</A>
+<A HREF="trove-design.html#toc5">Contents</A>
+<HR>
+<H2><A NAME="s5">5. TRL Language Reference</A></H2>
+
+<P>
+<A NAME="TRL"></A> 
+TRL (Trove Request Language) is used for two central purposes in the Trove
+architecture.  First, it is the request language used to request updates
+to a Trove archive.  Second, it is the format in which FTP-browseable
+dumps of index data are emitted (and from which the index may be
+regenerated).
+<P>
+<H2><A NAME="ss5.1">5.1 TRL Reference</A>
+</H2>
+
+<P>Lexical analysis of TRL is simple (it's modeled on RFC822 message
+format). It consists of the required begin marker with version,
+followed by any number of tagged logical lines, followed by the
+required end marker, followed by an optional PGP signature.
+<P>A tagged logical line consists of a tag, followed by a colon, followed
+by a line of text, optionally followed by continuation lines.  A tag 
+is any sequence of printable non-space, non-colon characters beginning
+with an alphabetic.  Continuation lines begin with whitespace or tab.
+Blank lines are ignored.  # and end-of-line delimit comments.
+<P>Values in keyword fields (Locked, Action, Icon-Action,
+Resource-Action, Resource-Role) are case-insensitive.
+<P>Semantically, a TRL request consists of a preamble followed by
+any number of person or package updates.
+<P>The preamble consists a Contributor field followed by an optional
+Comment field.  The Contributor should be the name of the person
+submitting the TRL request; it must correspond to the PGP key if both
+are present.
+<P>A person update may include Home-Page, Authorization-Mode, and
+Authorization-Secret fields directly corresponding to the schema.
+A Rename-To field is also supported.
+<P>A package update contains a package section followed by any number of
+resource sections.  Order of lines within sections is not significant.
+<P>The END-TRL field may be followed by MIME-multipart attachments 
+corresponding to `attached' resources in the TRL header.
+<P>An optional cryptosignature following attached resources may be used
+to authenticate the request.
+<P>Here's a motivating example of a package update.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+BEGIN-TRL 0.6
+Contributor: "Eric S. Raymond" &lt;esr@thyrsus.com>
+Comment: This is a sample
+# Replace package metadata
+# Note: if this TRL were a dump rather than an action request, it
+# would include Created and Last-Modified date fields and an
+# Update-Count integer.
+Package: fetchmail
+Summary: A full-featured POP/IMAP mail retrieval daemon.
+Description: fetchmail is a free, full-featured, robust, and
+    well-documented remote mail retrieval and forwarding utility
+    intended to be used over on-demand TCP/IP links (such as SLIP or
+    PPP connections).  It retrieves mail from remote POP and IMAP 
+    servers and forwards it to your local (client) machine's delivery
+    system, so it can then be be read by normal mail user agents such
+    as mutt, elm, pine, or mailx.  Comes with an interactive GUI
+    configurator suitable for end-users.
+Update-Notes: Anybody running a version older than 4.3.0 should
+    definitely upgrade.
+Latest-Version: 4.5.0
+Last-Stable-Version: 4.5.0 
+Icon: http://www.tuxedo.org/~esr/fetchmail/fetchmail.gif
+Icon-Location: replica
+Home-Page: http://www.tuxedo.org/~esr/fetchmail
+Crawl-To: http://www.tuxedo.org/~esr/fetchmail/TROVE-METADATA
+Owner: "Eric S. Raymond" &lt;esr@thyrsus.com>
+#
+# The following are list fields which update package-to-person relations
+#
+Authors: "Eric S. Raymond" &lt;esr@thyrsus.com>
+Contacts: "Eric S. Raymond" &lt;esr@thyrsus.com>
+Maintainers: "Eric S. Raymond" &lt;esr@thyrsus.com>, "Rob Funk" &lt;funk+@osu.edu>,
+              "Dave Bodenstab" &lt;imdave@mcs.net>,
+              "Al Youngwerth" &lt;alberty@apexxtech.com> 
+# This adds a person to the package notification list.
+# The entire list could have been set with a `Notify' header, 
+# or individual unsubscriptions done with an `Unsubscribe' header.
+Subscribe: "Catherine Olanich Raymond" &lt;cor@ccil.org>
+#
+# The following are list fields which update package-to-package
+# relations.  The two other relations are Extends and See-Also.
+#
+Supersedes: popclient
+Requires: smtpdaemon
+#
+Discriminators: system/mail/{pop, imap}, 
+              audience/{end-users, sysadmins},
+              status/production,
+              embedding/application,
+              interaction/utility,
+              license/GPL,
+              platforms/{Linux, BSD}, 
+
+Locked: TRUE
+Action: replace
+
+# Delete old source tarball
+Resource: http://www.tuxedo.org/~esr/fetchmail/fetchmail-4.4.8.tar.gz
+Action: delete
+
+# Create new source tarball.
+# Note: if this TRL were a dump rather than an action request, it
+# would include Created and Last-Modified date fields and an
+# Update-Count integer. 
+Resource: http://www.tuxedo.org/~esr/fetchmail/fetchmail-4.4.9.tar.gz
+Resource-Role: source
+Resource-Location: replica
+Version: 4.4.9
+MIME-Type: application/data
+Description: Gzipped source tarball of fetchmail sources
+Locked: TRUE
+Action: replace
+
+# Change version field of existing metadata for FAQ
+Resource: http://www.tuxedo.org/~esr/fetchmail/fetchmail-FAQ.html
+Resource-Role: documentation
+Version: 4.4.9
+Action: merge
+END-TRL
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>
+<P>
+<P>
+<H3>Person fields</H3>
+
+<P>All Person update requests must be authenticated.
+<P>
+<UL>
+<LI><EM>Person</EM>: RFC822 name/address pair of the person this record
+is about.  This field will be used as the key when attempting to fetch a
+PGP public key to verify requests.</LI>
+<LI><EM>Home-Page</EM>: WWW home page of the person.</LI>
+<LI><EM>Rename-To</EM>: (Updates only)  Specifies an RFC822
+name/address pair to replace the Person address with (replacement will be
+performed throughout the database).</LI>
+</UL>
+<P>This is a test load for the Person record parsing.  It would have the
+effect of replacing all metadata references to "Eric S. Raymond" with
+"Thaddeus Q. Foonly".
+<P>Normally such an update would be used to change a contributor's 
+primary email address, the spelling of his/her name, or his/her
+home page.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+BEGIN-TRL 0.6
+Contributor: "Eric S. Raymond" &lt;esr@thyrsus.com>
+Person: "Eric S. Raymond" &lt;esr@thyrsus.com>
+Home-Page: http://www.tuxedo.org/~esr
+Rename-To: Thaddeus Q. Foonly &lt;foon@random.org>
+END-TRL
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>
+<H3>Package fields</H3>
+
+<P>
+<UL>
+<LI><EM>Action</EM>: (Updates only) Must be one of `merge', `replace', 
+or `delete'; `merge' is the default.  The `delete' action
+requests deletion of the package record.  The `merge' action requests
+that only nonempty fields in the package update should be merged into
+the existing record.  The `replace' action specifies that the data in
+the update should entirely replace the existing record. (It is an
+error to specify any field besides the name in a delete request.)</LI>
+<LI><EM>Authors</EM>: A list of RFC822 name/address pairs, the people 
+considered authors of the package.</LI>
+<LI><EM>Contacts</EM>:  A list of RFC822 name/address pair, the people
+considered public contact people for the package.</LI>
+<LI><EM>Crawl-To</EM>: A URL where the Trove crawler can find updated
+metadata for this package.</LI>
+<LI><EM>Created</EM>: (Dumps only) Date of first creation of this record.</LI>
+<LI><EM>Conflicts-With</EM>: Asserts that this package cannot be 
+concurrently installed with the listed package.</LI>
+<LI><EM>Description</EM>: Description of this package.</LI>
+<LI><EM>Discriminators</EM>: A comma-separated list of discriminators
+of discriminator wildcards (alternation is supported annd implies
+a list of all discriminators matching the expression.
+All discriminators are considered rooted (leading slash is implicit).</LI>
+<LI><EM>Extends</EM>: A comma-separated list of package names (not
+necessarily Trove-registered packages).  This field declares that
+the current package is an extension of the listed package.</LI>
+<LI><EM>Fixes-For</EM>: Asserts that this package contains fixes for
+the listed packages.</LI>
+<LI><EM>Home-Page</EM>: WWW home page of the package.</LI>
+<LI><EM>Icon</EM>: URL of a PNG, JPEG, or GIF to use as a package icon.</LI>
+<LI><EM>Icon-Location</EM>: (Updates only) Must be one of `replica', 
+`original', or `attached'. These specify whether a local copy of
+the icon should be made.  If the value is `original', no copy will
+be made.  If the value is `replica', the resource will be copied
+from the specified URL.  If the value is `attached', the TRL parser
+will expect to find a matching MIME-multipart attachment in the
+update message.  </LI>
+<LI><EM>Last-Modified</EM>: (Dumps only) Date this record was last
+modified.</LI>
+<LI><EM>Last-Stable-Version</EM>: Name of the version considered by
+the maintainer to be the last production version.</LI>
+<LI><EM>Latest-Version</EM>: Name of the version considered by
+the maintainer to be the leading version.</LI>
+<LI><EM>Locked</EM>: Must be `true' or `false',  If `true', this 
+package record may only be modified by an authenticated request from
+a maintainer, author, or Trove archivist.</LI>
+<LI><EM>Maintainers</EM>: List of RFC822 name/address pairs of persons
+allowed to modify this record (even if it is locked).</LI>
+<LI><EM>Notify</EM>: (Updates only) Sets the package notification list,
+those who will be emailed whenever the metadata changes.  Compare
+<EM>Subscribe</EM> and <EM>Unsubscribe</EM>, which modify this list.</LI>
+<LI><EM>Owner</EM>: RFC822 name/address pair of the package owner (the
+person privileged to modify the maintainers/authors/contacts lists).</LI>
+<LI><EM>Package</EM>: Name of the package.</LI>
+<LI><EM>Requires</EM>: A comma-separated list of package names (not
+necessarily Trove-registered packages).  This field declares that
+the current package requires the listed package in order to work.</LI>
+<LI><EM>Rename-To</EM>: (Updates only) Specifies a new name for the
+package (replacement will be performed throughout the database).</LI>
+<LI><EM>See-Also</EM>: A comma-separated list of package names (not
+necessarily Trove-registered packages).  This field declares that
+all listed packages are somehow related to the current package.</LI>
+<LI><EM>Subscribe</EM>: (Updates only) Comma-separated list of RFC822
+name/address pairs to be added to the notification list.  Compare
+<EM>Notify</EM>, which sets (overwrites) the entire list.</LI>
+<LI><EM>Summary</EM>: One-line summary of the package description.</LI>
+<LI><EM>Supersedes</EM>: A comma-separated list of package names (not
+necessarily Trove-registered packages).  This field declares that
+the current package supersedes the listed package.</LI>
+<LI><EM>Unsubscribe</EM>:  (Updates only) Comma-separated list of RFC822
+name/address pairs to be removed from the notification list. Compare
+<EM>Notify</EM>, which sets (overwrites) the entire list.</LI>
+<LI><EM>Update-Count</EM>: (Dumps only) Count of times this package 
+record has been updated.</LI>
+<LI><EM>Update-Notes</EM>: Packager's notes on deprecated versions, 
+upgrade urgency etc, separated from Description so free-text 
+searches will ignore it.</LI>
+<LI><EM>Via</EM>: (Dumps only) Name of the program through which the
+last update was submitted.</LI>
+</UL>
+<P>
+<H3>Resource fields</H3>
+
+<P>
+<UL>
+<LI><EM>Action</EM>: (Updates only) Must be one of `merge', `replace', 
+or `delete'; `merge' is the default.  The `delete' action
+requests deletion of the resource record.  The `merge' action requests
+that only nonempty fields in the resource update should be merged into
+the existing record.  The `replace' action specifies that the data in
+the update should entirely replace the existing record.  (It is an
+error to specify any field besides the name in a delete request.)</LI>
+<LI><EM>Authors</EM>: A list of RFC822 name/address pairs, the people 
+considered authors of the resource.  If this list is empty, the authors
+list is inherited from the containing resource record.</LI>
+<LI><EM>Created</EM>: (Dumps only) Date of first creation of this record.</LI>
+<LI><EM>Description</EM>: Description of this resource.</LI>
+<LI><EM>Last-Modified</EM>: (Dumps only) Date this record was last
+modified.</LI>
+<LI><EM>Locked</EM>: Must be `true' or `false',  If `true', this 
+resource record may only be modified by an authenticated request from
+a maintainer, author, or Trove archivist.</LI>
+<LI><EM>MIME-Type</EM>: The MIME type of the resource file.</LI>
+<LI><EM>Maintainers</EM>: List of RFC822 name/address pairs of persons
+allowed to modify this resource.  If this list is empty, the authors
+list is inherited from the containing resource record.</LI>
+<LI><EM>Notify</EM>: (Updates only) Sets the resource notification list,
+those who will be emailed whenever the metadata changes.</LI>
+<LI><EM>Owner</EM>: RFC822 name/address pair of the resource owner (the
+person privileged to modify the maintainers/authors lists).</LI>
+<LI><EM>Resource</EM>: Name of the resource.  Can be either an URL
+(if the Resource-Location field is `original' or `replica') or a
+bare filename (if the Resource-Location field is `attached').</LI>
+<LI><EM>Resource-Location</EM>:  (Updates only) Must be one of `replica',
+`original', or `attached'. These specify whether a local copy of
+the icon should be made.  If the value is `original', no copy will
+be made.  If the value is `replica', the resource will be copied
+from the specified URL.  If the value is `attached', the TRL parser
+will expect to find a matching MIME-multipart attachment in the
+update message.  </LI>
+<LI><EM>Resource-Role</EM>: Specifies a role for the resource; see
+below.</LI>
+<LI><EM>Update-Count</EM>: (Dumps only) Count of times this resource 
+record has been updated.</LI>
+<LI><EM>Update-Notes</EM>: Packager's notes on deprecated versions, 
+upgrade urgency etc, separated from Description so free-text 
+searches will ignore it.</LI>
+<LI><EM>Version</EM>:</LI>
+</UL>
+<P>
+<H3>Resource roles</H3>
+
+<P>
+<UL>
+<LI><EM>source</EM>: This resource is a source archive of some part
+of the package.</LI>
+<LI><EM>binary</EM>: This resource is an executable binary, or archive
+of executable binaries, generated from the package source.</LI>
+<LI><EM>installable</EM>: This resource is an installable package
+(such as an RPM) generated from the package sources.</LI>
+<LI><EM>documentation</EM>: This resource is documentation
+for the package.</LI>
+<LI><EM>data</EM>: This resource is data of some sort associated
+with the package.</LI>
+<LI><EM>other</EM>: None of the above.</LI>
+</UL>
+<P>
+<H2><A NAME="ss5.2">5.2 TRL Future Directions</A>
+</H2>
+
+<P>Define and implement an XML presentation of TRL semantically
+equivalent to this one (at present, mature XML tools to support this
+are lacking).
+<P>Dates should accepted in 
+<A HREF="http://www.ft.uni-erlangen.de/~mskuhn/iso-time.html">ISO-8601</A>.  This is the format to use with the XML syntax.
+<P>
+<HR>
+<A HREF="trove-design-6.html">Next</A>
+<A HREF="trove-design-4.html">Previous</A>
+<A HREF="trove-design.html#toc5">Contents</A>
+</BODY>
+</HTML>

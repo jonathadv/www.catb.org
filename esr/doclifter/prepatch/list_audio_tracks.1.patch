@@ -1,0 +1,11 @@
+--- list_audio_tracks.1-unpatched	2012-07-04 01:50:54.914552222 -0400
++++ list_audio_tracks.1	2012-07-04 01:51:02.570552077 -0400
+@@ -2,7 +2,7 @@
+ 
+ .PP
+ .SH "NAME"
+-list_audio_tracks is an alias for icedax.
++list_audio_tracks \- an alias for icedax.
+ .PP
+ .SH "SYNOPSIS"
+ .PP

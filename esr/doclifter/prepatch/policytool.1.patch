@@ -1,0 +1,19 @@
+--- policytool.1-unpatched	2013-05-25 14:01:29.856417391 -0400
++++ policytool.1	2013-05-25 14:01:29.584417396 -0400
+@@ -24,8 +24,6 @@
+ .LP
+ .SH "Name"
+ policytool \- PolicyTool Administration GUI Utility
+-.LP
+-\f3policytool\fP reads and writes a plain text policy file based on user input via the utility GUI.   
+ .SH "SYNOPSIS"
+ .LP
+ .LP
+@@ -54,6 +52,7 @@
+ 
+ .LP
+ .SH "DESCRIPTION"
++\f3policytool\fP reads and writes a plain text policy file based on user input via the utility GUI.   
+ .LP
+ .LP
+ \f3policytool\fP is a GUI that allows users to create and manage policy files. For details, see 

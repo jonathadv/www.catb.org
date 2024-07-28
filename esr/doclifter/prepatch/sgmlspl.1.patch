@@ -1,0 +1,21 @@
+--- sgmlspl.1-unpatched	2018-04-17 21:26:36.370728796 -0400
++++ sgmlspl.1	2018-04-17 21:27:54.818574157 -0400
+@@ -9,7 +9,7 @@
+ .\" ----------------------------------------------------------------------
+ .SH "SYNOPSIS"
+ .B sgmlspl
+-.I "spec file"
++.I "spec-file"
+ .\"
+ .\" ----------------------------------------------------------------------
+ .SH "DESCRIPTION"
+@@ -38,7 +38,8 @@
+ .BR /usr/share/doc/sgmls-doc/SGMLSpm/sgmls.html
+ SGMLS documentation in HTML format
+ .TP
+-.BR onsgmls (1)
++.BR nsgmls (1)
++A validating SGML parser.
+ .\"
+ .\" ----------------------------------------------------------------------
+ .SH "AUTHOR"

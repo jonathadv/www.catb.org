@@ -1,0 +1,11 @@
+--- mono-config.5-unpatched	2012-07-27 01:02:40.375637334 -0400
++++ mono-config.5	2012-07-27 01:03:06.107636918 -0400
+@@ -21,7 +21,7 @@
+ .PP
+ The file contains an XML-like file with various sections, all of them
+ contained inside a 
+-.B<configuration> 
++.B <configuration> 
+ section (It actually uses GMarkup
+ to parse the file).
+ .PP

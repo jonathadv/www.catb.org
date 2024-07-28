@@ -1,0 +1,76 @@
+--- co.1-unpatched	2014-03-20 11:29:05.000000000 -0400
++++ co.1	2014-03-20 11:29:05.000000000 -0400
+@@ -275,10 +275,8 @@
+ eight hours west of Coordinated Universal Time (\*u):
+ .RS
+ .LP
+-.RS
+-.nf
+-.ta \w'\f3Thu, 11 Jan 1990 20:00:00 \-0800\fP  'u
+-.ne 10
++.TS
++l l.
+ \f38:00 pm lt\fP
+ \f34:00 AM, Jan. 12, 1990\fP	default is \*u
+ \f31990-01-12 04:00:00+00\fP	\*i 8601 (\*u)
+@@ -289,9 +287,7 @@
+ \f3Fri Jan 12 04:00:00 GMT 1990\fP
+ \f3Thu, 11 Jan 1990 20:00:00 \-0800\fP	Internet RFC 822
+ \f312-January-1990, 04:00 WET\fP
+-.ta 4n +4n +4n +4n
+-.fi
+-.RE
++.TE
+ .LP
+ Most fields in the date and time can be defaulted.
+ The default time zone is normally \*u, but this can be overridden by the
+@@ -502,15 +498,15 @@
+ .RS
+ .LP
+ .RS
+-.nf
+-.ta \w'\f3\-z+05:30\fP  'u +\w'\f31990-01-11 09:30:00+05:30\fP  'u
+ .ne 4
+-\f2option\fP	\f2time output\fP
+-\f3\-z\fP	\f31990/01/12 04:00:00\fP	\f2(default)\fP
+-\f3\-zLT\fP	\f31990-01-11 20:00:00\-08\fP
+-\f3\-z+05:30\fP	\f31990-01-12 09:30:00+05:30\fP
+-.ta 4n +4n +4n +4n
+-.fi
++.TS
++li li
++lb l l.
++option	time output
++\-z	1990/01/12 04:00:00	(default)
++\-zLT	1990-01-11 20:00:00\-08
++\-z+05:30	1990-01-12 09:30:00+05:30
++.TE
+ .RE
+ .LP
+ The
+@@ -664,16 +660,17 @@
+ to keep keyword strings well-formed.
+ .LP
+ .RS
+-.nf
+ .ne 6
+-.ta \w'newline  'u
+-\f2char	escape sequence\fP
+-tab	\f3\et\fP
+-newline	\f3\en\fP
+-space	\f3\e040
++.TS
++li li
++lb l.
++char	escape sequence
++tab	\et
++newline	\en
++space	\e040
+ $	\e044
+-\e	\e\e\fP
+-.fi
++\e	\e\e
++.TE
+ .RE
+ .SH "FILE MODES"
+ The working file inherits the read and execute permissions from the \*r

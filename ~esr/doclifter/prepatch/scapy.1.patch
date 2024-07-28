@@ -1,0 +1,25 @@
+--- scapy.1-unpatched	2018-04-17 20:07:54.884035979 -0400
++++ scapy.1	2018-04-17 20:12:07.243538518 -0400
+@@ -73,7 +73,7 @@
+ 
+ .SH FILES
+ \fB$HOME/.scapy_prestart.py\fR
+-This file is run before scapy core is loaded. Only the \fb\conf\fP object 
++This file is run before scapy core is loaded. Only the \fBconf\fP object 
+ is available. This file can be used to manipulate \fBconf.load_layers\fP 
+ list to choose which layers will be loaded:
+ 
+@@ -100,11 +100,11 @@
+ .LP
+ Test the robustness of a network stack with invalid packets:
+ .nf
+-sr(IP(dst="172.16.1.1", ihl=2, options="\verb$\x02$", version=3)/ICMP())
++sr(IP(dst="172.16.1.1", ihl=2, options="\everb$\ex02$", version=3)/ICMP())
+ .fi
+ 
+ .LP
+-Packet sniffing and dissection (with a bpf filter or thetereal-like output):
++Packet sniffing and dissection (with a bpf filter or ethereal-like output):
+ .nf
+ a=sniff(filter="tcp port 110")
+ a=sniff(prn = lambda x: x.display) 

@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>The Ultimate Linux Box 2001: How to Design Your Dream Machine</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="NEXT"
+TITLE="What To Optimize"
+HREF="optimize.html"></HEAD
+><BODY
+CLASS="ARTICLE"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2">The Ultimate Linux Box 2001: How to Design Your Dream Machine</H1
+><H4
+CLASS="SUBTITLE"
+>(Bigger, Longer, and Uncut)</H4
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 2001 by Eric S. Raymond</P
+><DIV
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="50%"
+CELLSPACING="0"
+CELLPADDING="0"
+ALIGN="CENTER"
+><TR
+><TD
+VALIGN="TOP"
+><B
+>Abstract</B
+></TD
+></TR
+><TR
+><TD
+VALIGN="TOP"
+><P
+>This article is a sequel to my 1996 "Building the Perfect
+	Box" article.  Where that was a guide to building Linux
+	workstations on the cheap, this examines a slightly different
+        question: What do you build when money is no object?</P
+><P
+>A severely truncated version of this article, edited down
+	to about 25% of its length, appeared in the November 2001
+	Linux Journal.</P
+></TD
+></TR
+></TABLE
+></DIV
+><HR
+WIDTH="75%"
+ALIGN="CENTER"
+COLOR="#000000"
+SIZE="1"></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="ulb2001.html#INTRO"
+>Introduction</A
+></DT
+><DT
+><A
+HREF="optimize.html"
+>What To Optimize</A
+></DT
+><DT
+><A
+HREF="economizing.html"
+>But What If I'm Economizing?</A
+></DT
+><DT
+><A
+HREF="twospindles.html"
+>One Disk or Two?</A
+></DT
+><DT
+><A
+HREF="video.html"
+>Monitor And Video</A
+></DT
+><DT
+><A
+HREF="easier.html"
+>Easier Choices</A
+></DT
+><DT
+><A
+HREF="noise.html"
+>Noise Control and Heat Dissipation</A
+></DT
+><DT
+><A
+HREF="recipe.html"
+>The Recipe File</A
+></DT
+><DT
+><A
+HREF="building.html"
+>Building the Machine</A
+></DT
+><DT
+><A
+HREF="horror_story.html"
+>The Inevitable Horror Story</A
+></DT
+><DT
+><A
+HREF="configuration.html"
+>Linux Configuration</A
+></DT
+><DT
+><A
+HREF="conclusion.html"
+>Conclusion</A
+></DT
+><DT
+><A
+HREF="references.html"
+>Acknowledgements and References</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="INTRO">Introduction</H1
+><P
+>Five years ago, in a <I
+CLASS="CITETITLE"
+>Linux Journal</I
+> article I
+wrote during 1996, I developed a recipe for an elegant and economical Linux
+box.  I used this as motivation for a discussion of what makes a good
+balanced system design.  The article became one of the most popular in LJ's
+history, so the editors have invited me back for a second round.</P
+><P
+>This time, however, we're going to involve more people than just me.
+LJ recruited Rick Moen, author of some well-known FAQs on modems and other
+hardware topics, to assist with this article.  Daryll Strauss, the man
+behind the famous all-Linux rendering farm used in the movie "Titanic",
+also contributed sage advice coming from his background in graphics and
+extreme data crunching.</P
+><P
+>Also, we're going to examine system architecture from a different
+perspective.  Instead of going for economy we're going to go for the
+balls-out maximum crunching power.  This time, we're going to ask not what
+the most cost-effective plan is, but how to get the absolute highest
+performance out of hardware we can live with.</P
+><P
+>"Hardware you can live with" means a machine that is stable, easy to
+troubleshoot and inexpensive to maintain after the original
+money-is-no-object build phase.  It should be small and low-maintainance
+enough enough to live beside your desk, as opposed to (say) some
+liquid-cooled monstrosity that needs to be nursed by a full-time
+technician.  It should be, in short, a PC -- an extraordinary gold-plated
+hand-tuned hotrod of a PC but a PC nevertheless.  Another important aspect of
+liveability is level of emitted acoustic noise and heat; we'll be paying
+attention to minimizing both as we design.</P
+><P
+>We'll stick with Intel hardware.  Alphas are fast and have that
+wonderful sexy 64-bit architecture with enough symmetrical registers to
+make an old compiler jock like me drool copiously, but the line has just
+been sold to Intel and seems all too likely to be end-of-lifed in favor of
+the Itanium before long.  The PowerPC has earned its fans, too --
+considered in isolation, I like that chip a lot better than any Intel
+architecture.  But PC hardware has all the advantages of the biggest
+market; it's the easiest to get serviced and least expensive to upgrade,
+and thus scores high on the hardware-you-can-live-with scale.</P
+><P
+>The "ultimate Linux box" that we showcase as a result will, of
+course, inevitably fall behind the leading edge within months.  But walking
+through the process of developing the ULB should will teach you things
+about system design and troubleshooting that you can continue applying long
+after the hardware in this article has become obsolete.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="optimize.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>What To Optimize</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

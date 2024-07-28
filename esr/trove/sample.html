@@ -1,0 +1,203 @@
+
+<!doctype HTML public "-//W3O//DTD W3 HTML 3.2//EN">
+<HTML>
+<HEAD>
+
+<link rev=made href=mailto:esr@thyrsus.com>
+
+<meta name="description" content="Open Source Archive Network package selection">
+
+<TITLE>OSAN submission form</TITLE>
+
+
+</HEAD>
+<BODY>
+
+<H1>Select An OSAN Package</H1>
+
+
+<form method=get action="/cgi-bin/osan/select">
+
+<strong>Name or name pattern:</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="help.html#name">(explanation)</a><br>
+
+<input type=text name=name        size=32 maxlength=32><P>
+
+<strong>Intended audience:</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="help.html#audience">(explanation)</a><br>
+<table>
+<tr>
+<td align=left>
+<input type=checkbox name="audience" value="end-users"> end-users
+<td align=left>
+<input type=checkbox name="audience" value="developers"> developers
+<td align=left>
+<input type=checkbox name="audience" value="sysadmins"> sysadmins
+<td align=left>
+<input type=checkbox name="audience" value="distributors"> distributors
+</table>
+<p>
+
+<strong>Status:</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="help.html#status">(explanation)</a><br>
+<table>
+<tr>
+<td align=left>
+<input type=checkbox name="status" value="demo"> demo
+<td align=left>
+<input type=checkbox name="status" value="alpha"> alpha
+<td align=left>
+<input type=checkbox name="status" value="beta"> beta
+<td align=left>
+<input type=checkbox name="status" value="production"> production
+</table>
+<p>
+
+<strong>Resource Type:</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="embedding.html#status">(explanation)</a><br>
+<table>
+<tr>
+<td align=left>
+<input type=checkbox name="type" value="application"> application
+<td align=left>
+<input type=checkbox name="type" value="applet"> applet
+<td align=left>
+<input type=checkbox name="type" value="library"> library
+<td align=left>
+<input type=checkbox name="type" value="server"> server
+<td align=left>
+<input type=checkbox name="type" value="device-driver"> device-driver
+<tr>
+<td align=left>
+<input type=checkbox name="type" value="database"> database
+<td align=left>
+<input type=checkbox name="type" value="document"> document
+</table>
+<p>
+
+<strong>Interface:</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="help.html#interface">(explanation)</a><br>
+<table>
+<tr>
+<td align=left>
+<input type=checkbox name="interface" value="dumb"> dumb
+<td align=left>
+<input type=checkbox name="interface" value="curses"> curses
+<td align=left>
+<input type=checkbox name="interface" value="SVGAlib"> SVGAlib
+<td align=left>
+<input type=checkbox name="interface" value="X"> X
+<td align=left>
+<input type=checkbox name="interface" value="browser"> browser
+<td align=left>
+<input type=checkbox name="interface" value="Win32"> Win32
+</table>
+<p>
+
+<strong>Interaction:</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="help.html#interaction">(explanation)</a><br>
+<table>
+<tr>
+<td align=left>
+<input type=checkbox name="interaction" value="utility"> utility
+<td align=left>
+<input type=checkbox name="interaction" value="component"> component
+<td align=left>
+<input type=checkbox name="interaction" value="command-interpreter"> command-interpreter
+<td align=left>
+<input type=checkbox name="interaction" value="selection-interface"> selection-interface
+</table>
+<p>
+
+<strong>X toolkit:</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="help.html#X-toolkit">(explanation)</a><br>
+<table>
+<tr>
+<td align=left>
+<input type=checkbox name="toolkit" value="default"> default
+<td align=left>
+<input type=checkbox name="toolkit" value="Xforms"> Xforms
+<td align=left>
+<input type=checkbox name="toolkit" value="Motif"> Motif
+<td align=left>
+<input type=checkbox name="toolkit" value="KDE"> KDE
+<td align=left>
+<input type=checkbox name="toolkit" value="GTK/GNOME"> GTK/GNOME
+<td align=left>
+<input type=checkbox name="toolkit" value="other"> other
+</table>
+<p>
+
+<strong>License:</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="help.html#licenses">(explanation)</a><br>
+<table>
+<tr>
+<td align=left>
+<input type=checkbox name="license" value="GPL"> GPL
+<td align=left>
+<input type=checkbox name="license" value="LGPL"> LGPL
+<td align=left>
+<input type=checkbox name="license" value="BSD"> BSD
+<td align=left>
+<input type=checkbox name="license" value="Artistic"> Artistic
+<td align=left>
+<input type=checkbox name="license" value="MIT"> MIT
+<td align=left>
+<input type=checkbox name="license" value="PD"> PD
+<td align=left>
+<input type=checkbox name="license" value="FRS"> FRS
+<td align=left>
+<input type=checkbox name="license" value="MPL"> MPL
+<td align=left>
+<input type=checkbox name="license" value="non-free"> non-free
+</table>
+<p>
+
+<strong>Platforms:</strong>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="help.html#platforms">(explanation)</a><br>
+<table>
+<tr>
+<td align=left>
+<input type=checkbox name="interface" value="Linux"> Linux
+<td align=left>
+<input type=checkbox name="interface" value="FreeBSD"> FreeBSD
+<td align=left>
+<input type=checkbox name="interface" value="NetBSD"> NetBSD
+<td align=left>
+<input type=checkbox name="interface" value="OpenBSD"> OpenBSD
+<tr>
+<td align=left>
+<input type=checkbox name="interface" value="MS-DOS"> MS-DOS
+<td align=left>
+<input type=checkbox name="interface" value="Win95"> Win95
+<td align=left>
+<input type=checkbox name="interface" value="Win-NT"> Win-NT
+<td align=left>
+<input type=checkbox name="interface" value="OS/2"> OS/2
+<td align=left>
+<input type=checkbox name="interface" value="Mac"> Mac
+<tr>
+<td align=left>
+<input type=checkbox name="interface" value="other"> other
+</table>
+<p>
+
+
+</form>
+
+
+<ADDRESS>Eric S. Raymond <A HREF="mailto:esr@thyrsus.com">&lt;esr@thyrsus.com&gt;</A></ADDRESS>
+
+
+</BODY>
+</HTML>
+

@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>The Magic Cauldron: When To Be Open, When To Be Closed</TITLE>
+ <LINK HREF="magic-cauldron-11.html" REL=next>
+ <LINK HREF="magic-cauldron-9.html" REL=previous>
+ <LINK HREF="magic-cauldron.html#toc10" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="magic-cauldron-11.html">Next</A>
+<A HREF="magic-cauldron-9.html">Previous</A>
+<A HREF="magic-cauldron.html#toc10">Contents</A>
+<HR>
+<H2><A NAME="s10">10. When To Be Open, When To Be Closed</A></H2>
+
+<P>Having reviewed business models that support open-source software
+development, we can now approach the general question of when it makes 
+economic sense to be open-source and when to be closed-source.  First, we
+must be clear what the payoffs are from each strategy.
+<P>
+<H2><A NAME="ss10.1">10.1 What Are the Payoffs?</A>
+</H2>
+
+<P>The closed-source approach allows you to collect rent from your secret
+bits; on the other hand, it forecloses the possibility of truly 
+independent peer review.  The open-source approach sets up conditions
+for independent peer review, but you don't get rent from your secret bits.
+<P>The payoff from having secret bits is well understood; traditionally,
+software business models have been constructed around it.  Until
+recently, the payoff from independent peer review was not well
+understood.  The Linux operating system, however, drives home a lesson
+that we should probably have learned years ago from the history of the
+Internet's core software and other branches of engineering -- that
+open-source peer review is the only scalable method for achieving 
+high reliability and quality.
+<P>In a competitive market, therefore, customers seeking high reliability
+and quality will reward software producers who go open-source and
+discover how to maintain a revenue stream in the service, value-add,
+and ancilliary markets associated with software.  This phenomenon is
+what's behind the astonishing success of Linux, which came from
+nowhere in 1996 to over 17% in the business server market by the end
+of 1998 and seems on track to dominate that market within two years
+(in early 1999 IDC projected that Linux would grow faster than all
+other operating systems combined through 2003).
+<P>An almost equally important payoff of open source is its utility as a
+way to propagate open standards and build markets around them.  The
+dramatic growth of the Internet owes much to the fact that nobody owns
+TCP/IP; nobody has a proprietary lock on the core Internet protocols.
+<P>The network effects behind TCP/IP's and Linux's success are fairly
+clear and reduce ultimately to issues of trust and symmetry --
+potential parties to a shared infrastructure can rationally trust it
+more if they can see how it works all the way down, and will prefer an
+infrastructure in which all parties have symmetrical rights to one in
+which a single party is in a privileged position to extract rents or
+exert control.
+<P>It is not, however, actually necessary to assume network effects in
+order for symmetry issues to be important to software consumers.  No
+software consumer will rationally choose to lock itself into a
+supplier-controlled monopoly by becoming dependent on closed source if
+any open-source alternative of acceptable quality is available.  This
+argument gains force as the software becomes more critical to the 
+software consumer's business -- the more vital it is, the less the
+consumer can tolerate having it controlled by an outside party.
+<P>Finally, an important customer payoff of open-source software related
+to the trust issue is that it's future-proof.  If sources are open,
+the customer has some recourse if the vendor goes belly-up.  This may
+be particularly important for widget frosting, since hardware tends to
+have short life cycles, but the effect is more general and translates
+into increased value for open-source software.
+<P>
+<H2><A NAME="ss10.2">10.2 How Do They Interact?</A>
+</H2>
+
+<P>When the rent from secret bits is higher than the return from open
+source, it makes economic sense to be closed-source.  When the return
+from open source is higher than the rent from secret bits, it makes 
+sense to go open source.
+<P>In itself, this is a trivial observation.  It becomes nontrivial when
+we notice that the payoff from open source is harder to measure and
+predict than the rent from secret bits -- and that said payoff is
+grossly underestimated much more often than it is overestimated.
+Indeed, until the mainstream business world began to rethink its
+premises following the Mozilla source release in early 1998, the
+open-source payoff was incorrectly but very generally assumed to be
+zero.
+<P>So how can we evaluate the payoff from open source?  It's a difficult
+question in general, but we can approach it as we would any other
+predictive problem.  We can start from observed cases where the
+open-source approach has succeeded or failed.  We can try to
+generalize to a model which gives at least a qualitative feel for
+the contexts in which open source is a net win for the investor or
+business trying to maximize returns.  We can then go back to the data
+and try to refine the model.
+<P>From the analysis presented in 
+<A HREF="magic-cauldron-16.html#[CatB]">[CatB]</A>
+, we can expect that
+open source has a high payoff where (a)
+reliability/stability/scalability are critical, and (b) correctness of
+design and implementation is not readily verified by means other than
+independent peer review.  (The second criterion is met in practice by
+most non-trivial programs.)
+<P>A consumer's rational desire to avoid being locked into a monopoly 
+supplier will increase its interest in open source (and, hence, the
+competitive-market value for suppliers of going open) as the software
+becomes more critical to that consumer.  Thus, another criterion (c)
+pushes towards open source when the software is a business-critical
+capital good (as, for example, in many corporate MIS departments).
+<P>As for application area, we observed above that open-source
+infrastructure creates trust and symmetry effects that, over time,
+will tend to attract more customers and to outcompete closed-source
+infrastructure; and it is often better to have a smaller piece of such
+a rapidly-expanding market than a bigger piece of a closed and
+stagnant one.  Accordingly, for infrastructure software, an
+open-source play for ubiquity is quite likely to have a higher
+long-term payoff than a closed-source play for rent from intellectual
+property.
+<P>In fact, the ability of potential customers to reason about the future
+consequences of vendor strategies and their reluctance to accept a
+supplier monopoly implies a stronger constraint; without already
+having overwhelming market power, you can choose either an open-source
+ubiquity play or a direct-revenue-from-closed-source play -- but not
+both.  (Analogues of this principle are visible elsewhere, e.g. in
+electronics markets where customers often refuse to buy sole-source
+designs.)  The case can be put less negatively: where network effects
+(positive network externalities) dominate, open source is likely to be
+the right thing.
+<P>We may sum up this logic by observing that open source seems to be
+most successful in generating greater returns than closed source in
+software that (d) establishes or enables a common computing and
+communications infrastructure.
+<P>Finally, we may note that purveyors of unique or just highly
+differentiated services have more incentive to fear copying of their
+methods by competitors than do vendors of services for which the
+critical algorithms and knowledge bases are well understood.
+Accordingly, open source is more likely to dominate when (e)
+key methods (or functional equivalents) are part of common engineering
+knowledge.
+<P>The Internet core software, Apache, and Linux's implementation of the
+ANSI-standard Unix API are prime exemplars of all five criteria.  The
+path towards open source in the evolution of such markets are
+well-illustrated by the reconvergence of data networking on TCP/IP in
+the mid-1990s following fifteen years of failed empire-building
+attempts with closed protocols such as DECNET, XNS, IPX, and the like.
+<P>On the other hand, open source seems to make the least sense for
+companies that have unique possession of a value-generating software
+technology (strongly fulfilling criterion (e)) which is (a) relatively
+insensitive to failure, which can (b) readily be verified by means
+other than independent peer review, which is not (c)
+business-critical, and which would not have its value substantially
+increased by (d) network effects or ubiquity.
+<P>As an example of this extreme case, in early 1999 I was asked "Should
+we go open source?"  by a company that writes software to calculate
+cutting patterns for sawmills that want to extract the maximum yardage
+of planks from logs.  My conclusion was ``No.''  The only criterion
+this comes even close to fulfilling is (c); but at a pinch, an 
+experienced operator could generate cut patterns by hand.
+<P>An important point is that where a particular product or technology
+sits on these scales may change over time, as we'll see in the
+following case study.
+<P>In summary, the following discriminators push towards open source:
+<P>
+<DL>
+<DT><B>(a)</B><DD><P>reliability/stability/scalability are critical
+<DT><B>(b)</B><DD><P>correctness of design and implementation cannot readily be
+verified by means other than independent peer review
+<DT><B>(c)</B><DD><P>the software is critical to the user's control of
+his/her business
+<DT><B>(d)</B><DD><P>the software establishes or enables a common computing
+and communications infrastructure
+<DT><B>(e)</B><DD><P>key methods (or functional equivalents of them) are
+part of common engineering knowledge.
+</DL>
+<P>
+<H2><A NAME="ss10.3">10.3 Doom: A Case Study</A>
+</H2>
+
+<P>The history of id software's best-selling game Doom illustrates ways
+in which market pressure and product evolution can critically change
+the payoff magnitudes for closed vs. open source.
+<P>When Doom was first released in late 1993, its first-person, real-time
+animation made it utterly unique (the antithesis of criterion (e)).
+Not only was the visual impact of the technique stunning, but for many
+months nobody could figure out how it had been achieved on the
+underpowered microprocessors of that time.  These secret bits were
+worth some very serious rent.  In addition, the potential payoff from
+open source was low.  As a solo game, the software (a) incurred
+tolerably low costs on failure, (b) not tremendously hard to verify,
+(c) not business-critical for any consumer, (d) did not benefit from
+network effects.  It was economically rational for Doom to be closed
+source.
+<P>However, the market around Doom did not stand still.  Would-be
+competitors invented functional equivalents of its animation
+techniques, and other ``first-person shooter'' games like Duke Nukem
+began to appear.  As these games ate into Doom's market share the
+value of the rent from secret bits went down.
+<P>On the other hand, efforts to expand that share brought on new
+technical challenges -- better reliability, more game features, a
+larger user base, and multiple platforms.  With the advent of
+multiplayer `deathmatch' play and Doom gaming services, the market
+began to display substantial network effects.  All this was demanding
+programmer-hours that id would have preferred to spend on the next
+game.
+<P>All of these trends raised the payoff from opening the source.  At
+some point the payoff curves crossed over and it became economically
+rational for id to open up the Doom source and shift to making
+money in secondary markets such as game-scenario anthologies.  And
+sometime after this point, it actually happened.  The full source for
+Doom was released in late 1997. 
+<P>
+<H2><A NAME="ss10.4">10.4 Knowing When To Let Go</A>
+</H2>
+
+<P>Doom makes an interesting case study because it is neither an
+operating system nor communications/networking software; it is thus
+far removed from the usual and obvious examples of open-source
+success.  Indeed, Doom's life cycle, complete with crossover point,
+may be coming to typify that of applications software in today's code
+ecology -- one in which communications and distributed computation
+both create serious robustness/reliability/scalability problems only
+addressible by peer review, and frequently cross boundaries both
+between technical environments and between competing actors (with all
+the trust and symmetry issues that implies).
+<P>Doom evolved from solo to deathmatch play.  Increasingly, the network
+effect <EM>is</EM> the computation.  Similar trends are visible even
+in the heaviest business applications, such as ERPs, as businesses
+network ever more intensively with suppliers and customers -- and, of
+course, they are implicit in the whole architecture of the World Wide
+Web.  It follows that almost everywhere, the open-source payoff is
+steadily rising.
+<P>If present trends continue, the central challenge of software
+technology and product management in the next century will be knowing
+when to let go -- when to allow closed code to pass into the
+open-source infrastructure in order to exploit the peer-review effect
+and capture higher returns in service and other secondary markets.
+<P>There are obvious revenue incentives not to miss the crossover point
+too far in either direction.  Beyond that, there's a serious
+opportunity risk in waiting too long -- you could get scooped by
+a competitor going open-source in the same market niche.
+<P>The reason this is a serious issue is that both the pool of users and
+the pool of talent available to be recruited into open-source
+cooperation for any given product category is limited, and recruitment
+tends to stick.  If two producers are the first and second to
+open-source competing code of roughly equal function, the first is
+likely to attract the most users and the most and best-motivated
+co-developers; the second will have to take leavings.  Recruitment
+tends to stick, as users gain familiarity and developers sink time
+investments in the code itself.
+<P>
+<HR>
+<A HREF="magic-cauldron-11.html">Next</A>
+<A HREF="magic-cauldron-9.html">Previous</A>
+<A HREF="magic-cauldron.html#toc10">Contents</A>
+</BODY>
+</HTML>

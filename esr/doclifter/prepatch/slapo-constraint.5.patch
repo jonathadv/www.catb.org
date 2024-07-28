@@ -1,0 +1,10 @@
+--- slapo-constraint.5-unpatched	2012-07-25 04:18:04.688722303 -0400
++++ slapo-constraint.5	2012-07-25 04:19:00.328721264 -0400
+@@ -68,7 +68,6 @@
+ 
+ Extra parameters can occur in any order after those described above.
+ .RS
+-.TP
+ .B <extra> : restrict=<uri>
+ .RE
+ 

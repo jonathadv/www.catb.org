@@ -1,0 +1,11 @@
+--- calendar.1-unpatched	2018-05-16 06:30:58.643711986 -0400
++++ calendar.1	2018-05-16 06:31:30.003498862 -0400
+@@ -307,7 +307,7 @@
+ flags are Debian-specific enhancements. Option
+ .Fl e
+ used to be called
+-.FL w
++.Fl w
+ in Debian, but this option is now used differently by upstream. Also, the original
+ .Nm
+ program did not accept

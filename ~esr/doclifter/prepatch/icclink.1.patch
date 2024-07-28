@@ -1,0 +1,11 @@
+--- icclink.1-unpatched	2012-06-27 22:45:00.166169590 -0400
++++ icclink.1	2012-06-27 22:46:22.314168053 -0400
+@@ -44,7 +44,7 @@
+ .TP
+ .B \-x 
+ Creatively, guess deviceclass of resulting profile.
+-.TP
++.sp
+ .nf
+ Built-in profiles:
+ 	*Lab  -- D50-based CIEL*a*b (PCS)

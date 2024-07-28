@@ -1,0 +1,35 @@
+--- namespaces.7-unpatched	2018-05-17 22:17:50.110438939 -0400
++++ namespaces.7	2018-05-17 22:18:20.462232667 -0400
+@@ -116,7 +116,7 @@
+ supports being manipulated by
+ .BR setns (2):
+ .PP
+-.in +4n
++.RS
+ .EX
+ $ \fBls \-l /proc/$$/ns\fP
+ total 0
+@@ -129,7 +129,7 @@
+ lrwxrwxrwx. 1 mtk mtk 0 Apr 28 12:46 user \-> user:[4026531837]
+ lrwxrwxrwx. 1 mtk mtk 0 Apr 28 12:46 uts \-> uts:[4026531838]
+ .EE
+-.in
++.RE
+ .PP
+ Bind mounting (see
+ .BR mount (2))
+@@ -163,12 +163,12 @@
+ The content of this symbolic link is a string containing
+ the namespace type and inode number as in the following example:
+ .PP
+-.in +4n
++.RS
+ .EX
+ $ \fBreadlink /proc/$$/ns/uts\fP
+ uts:[4026531838]
+ .EE
+-.in
++.RE
+ .PP
+ The symbolic links in this subdirectory are as follows:
+ .TP

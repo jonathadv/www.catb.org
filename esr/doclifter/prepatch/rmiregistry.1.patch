@@ -1,0 +1,17 @@
+--- rmiregistry.1-unpatched	2013-05-25 14:30:31.280384824 -0400
++++ rmiregistry.1	2013-05-25 14:30:46.576384538 -0400
+@@ -21,14 +21,9 @@
+ ."
+ .TH rmiregistry 1 "16 Mar 2012"
+ 
+-.LP
+ .SH "Name"
+ rmiregistry \- The Java Remote Object Registry
+ .LP
+-.RS 3
+-The \f3rmiregistry\fP command starts a remote object registry on the specified port on the current host. 
+-.RE
+-
+ .LP
+ .SH "SYNOPSIS"
+ .LP

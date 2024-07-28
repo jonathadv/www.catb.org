@@ -1,0 +1,3288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>CML2 Language Reference</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"></HEAD
+><BODY
+CLASS="ARTICLE"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+>CML2 Language Reference</A
+></H1
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 2000 by Eric S. Raymond</P
+><DIV
+CLASS="LEGALNOTICE"
+><A
+NAME="AEN18"
+></A
+><P
+><B
+>Copyright</B
+></P
+><P
+>Permission is granted to copy, distribute and/or modify
+    this document under the terms of the Open Publication License,
+    version 2.0.</P
+></DIV
+><DIV
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="50%"
+CELLSPACING="0"
+CELLPADDING="0"
+ALIGN="CENTER"
+><TR
+><TD
+VALIGN="TOP"
+><B
+>Abstract</B
+></TD
+></TR
+><TR
+><TD
+VALIGN="TOP"
+><P
+>This is a reference manual for CML2, the Configuration Menu Language
+designed to support Linux kernel configuration.  For higher-level
+discussion of the language and the concepts behind it, see the
+paper <I
+CLASS="CITETITLE"
+>The CML2 Language</I
+>, available at the <A
+HREF="http://www.tuxedo.org/~esr/cml2/"
+TARGET="_top"
+>CML2 project website</A
+>.
+Configuration hackers should read that paper first to get a feel
+for the language.</P
+></TD
+></TR
+></TABLE
+></DIV
+><HR
+WIDTH="75%"
+ALIGN="CENTER"
+COLOR="#000000"
+SIZE="1"></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="#AEN25"
+>Roadmap to This Document</A
+></DT
+><DT
+><A
+HREF="#AEN31"
+>Running the <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> tools</A
+></DT
+><DT
+><A
+HREF="#AEN189"
+><SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> Language Elements</A
+></DT
+><DT
+><A
+HREF="#FILE-FORMAT"
+><SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> configuration file format</A
+></DT
+><DT
+><A
+HREF="#HISTORY"
+>Change history</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H1
+CLASS="SECT1"
+><A
+NAME="AEN25"
+>Roadmap to This Document</A
+></H1
+><P
+>First, there's a section on invoking the <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> tools. Then
+there's a complete language reference.  Then there's a description of
+the configuration file output formats.  Finally, a document change
+history.</P
+><P
+>For tips on good menu design, see <I
+CLASS="CITETITLE"
+>The CML2
+Language</I
+>.</P
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H1
+CLASS="SECT1"
+><A
+NAME="AEN31"
+>Running the <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> tools</A
+></H1
+><P
+>The <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> toolkit consists of two Python programs:
+<B
+CLASS="COMMAND"
+>cmlcompile</B
+> and <B
+CLASS="COMMAND"
+>cmlconfigure</B
+>.
+The compiler, <B
+CLASS="COMMAND"
+>cmlcompile</B
+>, generates a pickled
+representation of a rulebase from one or more files of <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> rules.
+The interpreter, <B
+CLASS="COMMAND"
+>cmlconfigure</B
+>, reads in a rulebase
+and uses it to inform a configuration dialogue with the user.</P
+><P
+>The cmlconfigure program queries its environment to discover
+what I/O facilities are available.  It will use X if it's on an
+X display and Tkinter can be found.  Otherwise, it will look for the
+curses library and support a full-screen character interface.  If it
+can't find curses and a <TT
+CLASS="ENVAR"
+>TERM</TT
+> in the environment, it 
+will fall back to a line-oriented mode.</P
+><P
+>The end result is a configuration file, consisting of comments
+and name-value pairs (see <A
+HREF="#FILE-FORMAT"
+>the section called <I
+><SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> configuration file format</I
+></A
+> for complete
+specification). The <TT
+CLASS="FILENAME"
+>defconfig</TT
+> consists of a set
+of variable definitions in shell syntax; it can be re-read by a future
+instance of cmlconfigure to set defaults.  The macrofile is a list of
+C-style <TT
+CLASS="FUNCTION"
+>#define</TT
+> macros intended to be included in
+kernel C code.</P
+><P
+>The compiler, <B
+CLASS="COMMAND"
+>cmlcompiler</B
+>, requires one or
+more <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> rules files as arguments.  It has two options:</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="OPTION"
+>-o</TT
+> <TT
+CLASS="VARNAME"
+>filename</TT
+></DT
+><DD
+><P
+> Set the file to which the compiled rulebase is
+    written.  By default, if no -o option is given, the rulebase goes
+    to <TT
+CLASS="FILENAME"
+>rules.out</TT
+>.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-v</TT
+></DT
+><DD
+><P
+> Enable debugging output to
+  <TT
+CLASS="FILENAME"
+>stdout</TT
+>.</P
+></DD
+></DL
+></DIV
+><P
+>The interpreter, <B
+CLASS="COMMAND"
+>cmlconfigure</B
+>, takes at most
+one filename argument: the rulebase to be interpreted.  If no
+argument is specified, it reads from <TT
+CLASS="FILENAME"
+>rules.out</TT
+>.
+The interpreter recognizes the following options:</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="OPTION"
+>-b</TT
+></DT
+><DD
+><P
+>    Batch mode.  Read in a compiled rulebase, apply any other command-line
+    options, and immediately write out the rulebase.  Most useful with -D
+    to change a single option or a small handful of options from the 
+    command line.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-B</TT
+></DT
+><DD
+><P
+>    Supply a banner string.  Front ends may use this to modify the screen
+    display.  Can be used, for example, to pass in a version number of the
+    system you are configuring.
+  </P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-i</TT
+> <TT
+CLASS="VARNAME"
+>configfile</TT
+></DT
+><DD
+><P
+>   Read in a configuration.  The file is expected to be in the same
+   defconfig format written by <B
+CLASS="COMMAND"
+>cmlconfigure</B
+>.
+   Values (including <TT
+CLASS="CONSTANT"
+>n</TT
+>) are set as though selected
+   interactively by the user.</P
+><P
+>If the file does not exist, complain but continue. This behavior
+   allows the configurator to look for defaults files which may not exist.
+   </P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-I</TT
+> <TT
+CLASS="VARNAME"
+>configfile</TT
+></DT
+><DD
+><P
+>   Read in a configuration.  The file is expected to be in the same
+   defconfig format written by cmlconfigure. Values (including
+   <TT
+CLASS="CONSTANT"
+>n</TT
+>) are frozen and will be displayed but not
+   modifiable during the configure run.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-l</TT
+></DT
+><DD
+><P
+>   List.  Run in batch mode to generate a menu map (that is, a 
+   tree diagram of all the menus and question symbols in the system.)</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-o</TT
+> <TT
+CLASS="VARNAME"
+>outfile</TT
+></DT
+><DD
+><P
+>   Set the location to which cmlconfigure should write its defconfig
+   file of shell variable settings.  This file will be loadable by
+   cmlconfigure.  If there is no <TT
+CLASS="OPTION"
+>-o</TT
+> option, output
+   is written to <TT
+CLASS="FILENAME"
+>config.out</TT
+>.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-t</TT
+></DT
+><DD
+><P
+>   Force tty (line-oriented) mode.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-s</TT
+></DT
+><DD
+><P
+>   Force debugger mode.  This is a variant of tty (line-oriented) mode
+   designed for debugging rulesets.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-c</TT
+></DT
+><DD
+><P
+>   Force curses (screen-oriented) mode.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-x</TT
+></DT
+><DD
+><P
+>   Force X (GUI using Tk) mode.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-q</TT
+></DT
+><DD
+><P
+>   Force alternate X GUI mode based on a tree widget.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-s</TT
+></DT
+><DD
+><P
+>   Select the debugger mode.  This is similar to the ordinary line-oriented
+   mode, and shares many commands with it (type ? for complete list).
+   Unlike <TT
+CLASS="OPTION"
+>-t</TT
+> mode, debugger mode never sets a symbol
+   without an explicit command to do so, doesn't automatically traverse
+   to the next symbol, and doesn't generate elaborate prompts.  Instead
+   it provides a richer set of commands for examining the theorem-prover's
+   state.  Use it to interpret scripts for reproducing bugs. </P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-v</TT
+></DT
+><DD
+><P
+>   Increment the debug flag. (Note: This was -d in earlier versions)</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-d</TT
+></DT
+><DD
+><P
+>    Preset a symbol.  <TT
+CLASS="OPTION"
+>-DFOO</TT
+> sets
+    <SPAN
+CLASS="SYMBOL"
+>FOO</SPAN
+>=<TT
+CLASS="CONSTANT"
+>y</TT
+> at startup.
+    <SPAN
+CLASS="SYMBOL"
+>-dFOO</SPAN
+>=<TT
+CLASS="VARNAME"
+>xxx</TT
+> may be used to
+    specify a value. The trit values y, m, n are understood.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-D</TT
+></DT
+><DD
+><P
+>    Preset a symbol and freeze it.
+  </P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-S</TT
+></DT
+><DD
+><P
+>   Don't hide elided symbols.  When this option is on, suppressions
+   are ignored.  Only symbols that have derived a frozen value from
+   -D or constraints are skipped.  This may be useful if you know
+   that you want to set configuration symbols deep in the hierarchy
+   and have their requirements propagate upwards, as opposed to the
+   normal sequence in which you refine your way down from the top of
+   the tree with symbols becoming visible only when they are unmasked
+   by previous questions.</P
+></DD
+><DT
+><TT
+CLASS="OPTION"
+>-V</TT
+></DT
+><DD
+><P
+>    Print the configurator version and exit.
+  </P
+></DD
+></DL
+></DIV
+><P
+>The environment variable CML2OPTIONS may specify command-line switches
+(but not arguments).  Switches taken from CML2OPTIONS are processed
+before switches specified on the actual command line.</P
+><P
+>The environment variable BROWSER may specify a colon-separated list
+of browser commands, to be used in making URLs in the help widgets
+live.  Each command should have the string "%s" in it where the URL
+can be substituted.  The <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> front end will try the commands in
+succession until one succeeds.  The default sequence is mozilla, then
+any netscape already running, then a new netscape instance, then
+lynx, then w3m.</P
+><P
+>The configurator returns the following status codes to the 
+invoking program:</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>0</DT
+><DD
+><P
+>Normal save and exit.</P
+></DD
+><DT
+>1</DT
+><DD
+><P
+>Quit (exit without save).</P
+></DD
+><DT
+>2</DT
+><DD
+><P
+>Configurator aborted by interrupt.</P
+></DD
+><DT
+>3</DT
+><DD
+><P
+>Configurator aborted due to unsatisfiable rulebase.</P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H1
+CLASS="SECT1"
+><A
+NAME="AEN189"
+><SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> Language Elements</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN192"
+>Syntax</A
+></H2
+><P
+>Lexically, a CML program consists of tokens: barewords,
+whitespace, strings and punctuation (there is one exception associated
+with the <TT
+CLASS="FUNCTION"
+>icon</TT
+> declaration).  A bareword is a token
+composed of alphanumeric characters and <SPAN
+CLASS="KEYSYM"
+>_</SPAN
+>
+(underscore).  Whitespace is any mix of spaces, tabs, and linefeeds.  A
+string is delimited by either single or double quotes and may contain
+whitespace.  Everything else is punctuation.  Some pairs of
+punctuation characters stick together; <SPAN
+CLASS="TOKEN"
+>==</SPAN
+>,
+<SPAN
+CLASS="TOKEN"
+>!=</SPAN
+>, <SPAN
+CLASS="TOKEN"
+>&#60;=</SPAN
+>, <SPAN
+CLASS="TOKEN"
+>&#62;=</SPAN
+>.  All
+other punctuation is treated as single-character tokens.</P
+><P
+>Here are lexical rules, regular expressions describing valid tokens:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+> 
+&#60;symbol&#62;      ::= [A-Za-z][A-Za-z0-9_]*
+&#60;string&#62;      ::= '[^']*'|"[^"]*";
+&#60;decimal&#62;     ::= [0-9]+
+&#60;hexadecimal&#62; ::= 0x[A-Fa-f0-9]+
+&#60;tritval&#62;     ::= [ymn]
+ </PRE
+></TD
+></TR
+></TABLE
+><P
+><SPAN
+CLASS="TOKEN"
+>textdata</SPAN
+>is any number of lines of text data,
+terminated by a line containing a single period and newline.  All
+lines beginning with periods must be byte-stuffed (that is, have an
+extra period prepended).</P
+><P
+><SPAN
+CLASS="TOKEN"
+>base64-data</SPAN
+> is any number of lines in RFC2045 base64
+format, terminated by a newline or comment.</P
+><P
+>Also, note that there is a lexical-level inclusion facility.
+The token <SPAN
+CLASS="QUOTE"
+>"source"</SPAN
+> is interpreted as a request to treat
+the immediately following token as a filename (string quotes are first
+stripped if it is a string).  Upon encountering this directive, the
+compiler opens the file (which may be a relative or absolute
+pathname), and reads input from that file until <SPAN
+CLASS="TOKEN"
+>EOF</SPAN
+>. On
+that <SPAN
+CLASS="TOKEN"
+>EOF</SPAN
+>, the current input source is immediately
+popped back to the including file.  Relative pathnames are interpreted
+relative to the directory of the including file.</P
+><P
+>Comments are supported, and run from a # to end-of-line.</P
+><P
+>Here is a BNF of the grammar.  Following it, each language element
+will be described in detail.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+> 
+;; A helpful thing to define up front...
+;;
+&#60;int&#62;     ::= &#60;decimal&#62; | &#60;hexadecimal&#62; ;; Integer literal
+
+;; A CML system consists of a sequence of declarations.
+;;
+&#60;system&#62; ::= &#60;declaration&#62;*
+
+;; A declaration may be of one of the following types:
+;;
+&#60;declaration&#62; ::= &#60;symbols-declaration&#62;
+	      |   &#60;property-name-declaration&#62;
+	      |   &#60;property-declaration&#62;
+	      |   &#60;visibility-rule&#62;
+	      |   &#60;saveability-rule&#62;
+	      |   &#60;menu-definition&#62;
+	      |   &#60;choices-definition&#62;
+              |   &#60;choicegroup-declaration&#62;
+	      |   &#60;derive-definition&#62;
+	      |   &#60;default-definition&#62;
+	      |   &#60;requirement-definition&#62;
+
+	      |   &#60;start-definition&#62;
+	      |   &#60;prefix-definition&#62;
+	      |   &#60;banner-definition&#62;
+
+	      |   &#60;condition-declaration&#62;
+	      |   &#60;warndepend-declaration&#62;
+	      |   &#60;icon-definition&#62;
+	      |   &#60;debug-definition&#62;
+
+;; A symbols definition creates configuration symbols, 
+;; and associates prompt strings with them.
+;;
+&#60;symbols-declaration&#62; ::= 'menus' {&#60;symbol&#62; &#60;string&#62; 
+                                    {'text' &#60;textdata&#62;|'like' &#60;symbol&#62;}?}*
+
+;; A property declaration declares that the associated symbols should
+;; have the specified property (a label in the output configuation).
+;;
+&#60;property-declaration&#62; ::= 'give' &#60;symbol&#62;* 'property' &#60;symbol&#62;
+
+;; A propertty name declaration sets up aliases for a property
+&#60;property-name-declaration&#62; ::= &#60;symbol&#62;* 'alias' &#60;symbol&#62;
+
+;; A visibility rule associates a visibility predicate with symbols.
+;; Optionally, it may declare that the suppressed symbols are constrained
+;; in value by the predicate symbols.
+;;
+&#60;visibility-rule&#62; ::=  {'unless'|'when'} &#60;logical&#62; 'suppress' ['dependent'] &#60;symbol&#62;*;
+
+;; A saveability rule associates a saveability predicate with symbols.
+;; Optionally, it may declare that the suppressed symbols are constrained
+;; in value by the predicate symbols.
+;;
+&#60;saveability-rule&#62; ::=  {'unless'|'when'} &#60;logical&#62; 'expose' &#60;symbol&#62;*;
+
+;; A menu definition links a sequence or subtree of symbols with a 
+;; menu identifier.  Subtrees generate implied dependency statements.
+;;
+&#60;menu-definition&#62; ::= 'menu' &#60;symbol-tree&#62;+
+
+;; A symbol-tree is an optional label prefix followed by either a 
+;; {}-enclosed list of symbol-trees or a single symbol-declaration.
+&#60;symbol-tree&#62; ::= &#60;label-prefix&#62; '{' &#60;symbol-tree&#62;+ '}'
+               |  &#60;label-prefix&#62; &#60;symbol-declaration&#62;
+
+;; A symbol-declaration consists of a symbol name, followed by an 
+;; optional type suffix.
+&#60;symbol-declaration&#62; ::= &#60;symbol&#62; [&#60;suffix&#62;] 
+
+;; A label prefix is any number of label bindings:
+&#60;label-prefix&#62; ::= 
+                | &#60;symbol&#62; ':' &#60;label-prefix&#62;
+                | '~' &#60;symbol&#62; ':' &#60;label-prefix&#62;
+
+;; Suffixes declare types
+&#60;suffix&#62; ::= '?'      ;; declares trit type
+           | '%'      ;; declares decimal type
+           | '@'      ;; declares hexadecimal type
+           | '$'      ;; declares string type
+
+
+&#60;symbol-or-subtree&#62; ::= &#60;symbol&#62; &#60;suffix&#62;
+                    |   &#60;symbol&#62; &#60;suffix&#62; 
+
+
+
+
+;; A choices-menu definition links a choice of symbols with a menu identifier.
+;;
+&#60;choices-definition&#62; ::= 'choices' &#60;symbol&#62; &#60;symbol&#62;* ['default' &#60;symbol&#62;]
+
+;; A choicegroup declaration constrains a group of symbols so that at most
+;; one can have the y or m value.
+;;
+&#60;choicegroup-declaration&#62; ""= 'choicegroup' &#60;symbol&#62; &#60;symbol&#62;*
+
+;; A derivation binds a symbol to a formula, so the value of that
+;; symbol is always the current value of the formula.
+;;
+&#60;derive-definition&#62; ::= 'derive' &#60;symbol&#62; 'from' &#60;expr&#62;
+
+;; A default definition sets the value a symbol will have unless it is
+;; explicitly set by the user's answer to a question. It may have a 
+;; range or enum specification attached.
+;;
+&#60;default-definition&#62; ::= 'default' &#60;symbol&#62; 'from' &#60;expr&#62; [&#60;default-restrict&#62;]
+
+&#60;default-restrict&#62; ::= 'range' {&#60;int&#62; | {&#60;int&#62; '-' &#60;int&#62;}}+
+                     | 'enum' {&#60;symbol&#62; '=' &#60;int&#62;}+
+
+;; A requirement definition constrains the value of one or more symbols 
+;; by requiring that the given expression be true in any valid configuration.
+;;
+&#60;requirement-definition&#62; ::=  {'require'|'prohibit'} &#60;logical&#62; 
+                              ['explanation &#60;symbol&#62;']
+
+;; We have to declare a start menu, for the beginning of execution
+;;
+&#60;start-definition&#62; ::= 'start' &#60;symbol&#62;
+
+;; A prefix definition sets a string to be prepended to all symbols
+;; when they are named in a configuration file.
+;;
+&#60;prefix-definition&#62; ::= 'prefix' &#60;string&#62;
+
+;; A banner definition sets a string to used in the configurator
+;; greeting line.
+;;
+&#60;banner-definition&#62; ::= 'banner' &#60;symbol&#62;
+
+;; A condition statement sets a CML2 control flag or ties it to a symbol.
+;;
+&#60;condition-declaration&#62; ::= 'condition' &#60;symbol&#62; 'on' {&#60;symbol&#62;|&#60;constant&#62;}
+
+;; A warndepend flags symbols that make dependents dangerous
+;;
+&#60;warndepend-declaration&#62; ::= 'warndepend' &#60;symbol&#62;*
+
+;; An icon definition associates data for a graphic icon with the
+;; rulebase.
+;;
+&#60;icon-definition&#62; := 'icon' &#60;base64-data&#62;
+
+;; A debug definition enables debugging output.
+;;
+&#60;debug-definition&#62; ::= 'debug' &#60;decimal&#62;
+
+;; An expression is a formula
+;;
+&#60;expr&#62; ::= &#60;expr&#62; '+' &#60;expr&#62;
+        | &#60;expr&#62; '-' &#60;expr&#62;
+        | &#60;expr&#62; '*' &#60;expr&#62;
+        | &#60;ternary&#62;
+
+&#60;ternary&#62; ::= &#60;expr&#62; '?' &#60;expr&#62; ':' &#60;expr&#62;
+	   | &#60;logical&#62;
+
+&#60;logical&#62; ::= &#60;logical&#62; 'or' &#60;logical&#62;
+           | &#60;logical&#62; 'and' &#60;logical&#62;
+           | &#60;logical&#62; 'implies' &#60;logical&#62;
+           | &#60;relational&#62;
+
+&#60;relational&#62; ::= &#60;term&#62; '==' &#60;term&#62;
+              | &#60;term&#62; '!=' &#60;term&#62;
+              | &#60;term&#62; '&#60;=' &#60;term&#62;
+              | &#60;term&#62; '&#62;=' &#60;term&#62;
+              | &#60;term&#62; '&#62;' &#60;term&#62;
+              | &#60;term&#62; '&#60;' &#60;term&#62;
+              | &#60;term&#62;
+              | 'not' &#60;relational&#62;
+
+&#60;term&#62; ::= &#60;term&#62; '|' &#60;term&#62;    ;; maximum or sum or union value 
+        | &#60;term&#62; '&#38;' &#60;term&#62;     ;; minimum or multiple or intersection value
+        | &#60;term&#62; '$' &#60;term&#62;     ;; similarity value
+        | &#60;atom&#62;
+
+&#60;constant&#62; ::= &#60;tritval&#62;
+            | &#60;string&#62;
+            | &#60;decimal&#62;
+            | &#60;hexadecimal&#62;
+
+&#60;atom&#62; ::= &#60;symbol&#62;
+        | &#60;constant&#62;
+        | '(' &#60;expr&#62; ')'
+ </PRE
+></TD
+></TR
+></TABLE
+><P
+>Operators have the precedence implied by the above productions.  From
+least to most binding, precedence classes are:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+> 
+      1: ?:
+      2: + -
+      3: *
+      4: implies
+      5: or
+      6: and
+      7: not
+      8: ==, !=, &#62;=, &#60;=, &#62;, &#60;
+      9: &#38;, |, $
+ </PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H2
+CLASS="SECT2"
+><A
+NAME="AEN216"
+>Data types and classes</A
+></H2
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> supports the following data types:</P
+><P
+></P
+><UL
+><LI
+><P
+>  Booleans.  These may have the values `y' or `n'</P
+></LI
+><LI
+><P
+>  Tristates or trits.  These may have the values `y', 'm', or `n'</P
+></LI
+><LI
+><P
+>  Decimal integers.  32-bit signed integers with decimal I/O formatting.</P
+></LI
+><LI
+><P
+>  Hexadecimal integers. 32-bit signed integers with hexadecimal I/O formatting.</P
+></LI
+><LI
+><P
+>  Strings.  Strings are literal data in the ASCII character set encoding.</P
+></LI
+></UL
+><P
+>Support for trits may be disabled at runtime.  See <A
+HREF="#CONDITION-ON"
+>the section called <I
+>Condition statement</I
+></A
+> for discussion of the condition/on
+declaration.</P
+><P
+>There are four classes of symbols; constant symbols, query symbols,
+derivation symbols, and frozen symbols.</P
+><P
+>A constant is one of the boolean/tristate literals
+<TT
+CLASS="CONSTANT"
+>y</TT
+> or <TT
+CLASS="CONSTANT"
+>m</TT
+> or
+<TT
+CLASS="CONSTANT"
+>n</TT
+>, or an integer literal, or a string
+literal.</P
+><P
+>A query symbol is an ordinary, mutable symbol with a prompt string.
+Each query must occur exactly once in the menu tree.  Query symbols
+may be set by the user.</P
+><P
+>A derivation is a symbol bound to an expression.  Derivation
+symbols cannot be set by the user, but may vary in value as the
+symbols in their formula change value (it may help to think of them as
+symbolic macros).  Derived symbols have no associated prompt string
+and may not appear in the menu tree.</P
+><P
+>A frozen symbol is a query symbol which has been immutably bound
+to a particular value.  Once frozen, the value of a symbol may not be
+changed (neither by user action nor by side effect).</P
+></DIV
+><DIV
+CLASS="SECT2"
+><HR><H2
+CLASS="SECT2"
+><A
+NAME="AEN241"
+>Meaning of the language elements</A
+></H2
+><P
+></P
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN244"
+>Source statements</A
+></H3
+><P
+>A <SPAN
+CLASS="SYMBOL"
+>source</SPAN
+> statement declares a file to be
+inserted in place of the source statement in the file, and treated as
+if the entire contents of that file were present in the current file
+at the point of their source statement.</P
+><P
+>Any implementation of <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> must allow
+<SPAN
+CLASS="SYMBOL"
+>source</SPAN
+> statements to be nested to a depth of at
+least 15 levels.  The reference implementation has no hard
+limit.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN251"
+>Symbol declarations</A
+></H3
+><P
+>The body of a <SPAN
+CLASS="SYMBOL"
+>symbols</SPAN
+> section consists of pairs
+of tokens; a symbol (which may be an ordinary configuration symbol, a
+menu name, a message string, or an explanation string) and a
+prompt string.  Each pair may optionally be followed by a text section
+declaring associated help text, or by the keyword
+<SPAN
+CLASS="SYMBOL"
+>like</SPAN
+> and a symbol specifying an existing symbol with
+help text.</P
+><P
+>Rationale: Having these name-to-prompt associations be separate from
+the dependency rules will help make the text parts of the system
+easier to localize for different languages.  Declaring all query symbols
+up front means we can do better and faster sanity checks.  Some
+symbols (derivations) are not pre-declared.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN257"
+>Property declarations</A
+></H3
+><P
+> A property name declaration declares aliases for a given property.
+Usually these aliases are short (often one letter) and are intended to be
+embedded in menus.</P
+><P
+>Associating a property with a symbol means that property will be included
+in a comment following the symbol value dump on its line.</P
+><P
+>Rationale: Annotation label may be used as instructions to
+configuration-file postprocessors. The sets of symbols defined by
+properties may be used by configurators that have knowledge specific
+to a particular rulebase.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN262"
+>Visibility rules</A
+></H3
+><P
+>A visibility declaration associates a visibility predicate with a set of
+configuration symbols.  The fact that several symbols may occur on the
+right side of such a rule is just a notational convenience; the rule</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>      unless GUARD suppress SYMBOL1 SYMBOL2 SYMBOL3</PRE
+></TD
+></TR
+></TABLE
+><P
+>is exactly equivalent to</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>      unless GUARD suppress SYMBOL1
+      unless GUARD suppress SYMBOL2
+      unless GUARD suppress SYMBOL3</PRE
+></TD
+></TR
+></TABLE
+><P
+>Putting a menu on the right side of a visibility rule suppresses that
+menu and all its children.  In general, suppressing a symbol also implicitly 
+suppresses all its dependents.</P
+><P
+>If multiple visibility declarations touch a symbol on the
+right-hand side, the resulting test is the logical conjunction of
+all of them.</P
+><P
+>As a convenience,</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>      when GUARD suppress SYMBOL1 SYMBOL2 SYMBOL3</PRE
+></TD
+></TR
+></TABLE
+><P
+>is syntactic sugar for</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>      unless GUARD==n suppress SYMBOL1 SYMBOL2 SYMBOL3</PRE
+></TD
+></TR
+></TABLE
+><P
+>When a derived symbol is suppressed, this prevents its value from
+being written out to the configuration file.</P
+><DIV
+CLASS="SECT4"
+><HR><H4
+CLASS="SECT4"
+><A
+NAME="DEPENDENCE"
+>Dependence</A
+></H4
+><P
+>Optionally, a rule may declare that the suppressed symbols are
+constrained in value by the predicate symbols.  That is, if there is a
+rule</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>      unless GUARD suppress dependent SYMBOL</PRE
+></TD
+></TR
+></TABLE
+><P
+>then the value of <TT
+CLASS="VARNAME"
+>SYMBOL</TT
+> is constrained by
+the value of <TT
+CLASS="VARNAME"
+>GUARD</TT
+> in the following way:</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN282"
+></A
+><P
+><B
+>Table 1. Effect of suppress depend</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>guard</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>trit</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>bool</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y,m,n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y,n</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>m</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>m,n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y,n</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>The reason for this odd, type-dependent logic table is that we
+want to be able to have boolean option symbols that configure options
+for trit-valued ancestors.  This is why the guard symbol value
+<TT
+CLASS="CONSTANT"
+>m</TT
+> permits a dependent boolean symbol (but not a
+dependent trit-valued symbol) to be <TT
+CLASS="CONSTANT"
+>y</TT
+>.</P
+><P
+>If the guard part is an expression, <TT
+CLASS="VARNAME"
+>SYMBOL</TT
+> is
+made dependent on each symbol that occurs in a pure conjunction in the
+guard.  Thus, if <TT
+CLASS="VARNAME"
+>FOO</TT
+> and <TT
+CLASS="VARNAME"
+>BAR</TT
+> and
+<TT
+CLASS="VARNAME"
+>BAZ</TT
+> are trit symbols,</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>    unless FOO!=n and BAR==m suppress dependent BAZ</PRE
+></TD
+></TR
+></TABLE
+><P
+>is equivalent to the following rules:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>     unless FOO!=n and BAR==m suppress BAZ
+     require BAZ &#60;= FOO and BAZ &#60;= BAR </PRE
+></TD
+></TR
+></TABLE
+><P
+>This rule, on the other hand,</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>    unless FOO!=n and (BAR==m or BAZ==y) suppress dependent QUUX</PRE
+></TD
+></TR
+></TABLE
+><P
+>is equivalent to:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>     unless FOO!=n and (BAR==m or BAZ==y) suppress QUUX
+     require QUUX &#60;= FOO</PRE
+></TD
+></TR
+></TABLE
+><P
+>The compiler does not make symbols connected by disjunctions (or symbols
+connected by any logical-expression operator other than conjunction) into
+ancestors of symbols on the right-hand side.</P
+><P
+>Putting a menu on the right side of a visibility rule with `dependent'
+puts the constraint on all the configuration symbols in that menu.
+Any submenus will inherit the constraint and pass it downward to
+their submenus.</P
+><P
+>Dependency works both ways.  If a dependent symbol is set
+<TT
+CLASS="CONSTANT"
+>y</TT
+> or <TT
+CLASS="CONSTANT"
+>m</TT
+>, the value of the
+ancestor symbol may be forced; see
+<A
+HREF="#SIDE-EFFECTS"
+>the section called <I
+>Symbol Assignment and Side
+Effects</I
+></A
+> for discussion.</P
+><P
+>Rationale: The syntax is <SPAN
+CLASS="SYMBOL"
+>unless...suppress</SPAN
+>
+rather than <SPAN
+CLASS="SYMBOL"
+>if...query</SPAN
+> because the normal state of a
+symbol or menu is visible.  The <SPAN
+CLASS="SYMBOL"
+>dependent</SPAN
+>
+construction replaces the <SPAN
+CLASS="SYMBOL"
+>dep_tristate</SPAN
+> and
+<SPAN
+CLASS="SYMBOL"
+>dep_bool</SPAN
+> constructs in <SPAN
+CLASS="PRODUCTNAME"
+>CML1</SPAN
+>.</P
+></DIV
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN331"
+>Saveability rules</A
+></H3
+><P
+>Normally, CML2 configurators save a symbol to the output 
+configurator if it is either been set during the configuration 
+session or is visible at save time.</P
+><P
+>Occasionally it is necessary to force the default of a symbol
+to be saved even when it is not visible at save time.  For this
+purpose the language supports giving symbols an explicit saceability 
+predicate:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>      when GUARD1 save SYMBOL1 SYMBOL2 SYMBOL3
+      unless GUARD2 save SYMBOL4 SYMBOL5 SYMBOL6</PRE
+></TD
+></TR
+></TABLE
+><P
+>The guard expressions may be any legal expression.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN337"
+>Menu definitions</A
+></H3
+><P
+>A menu definition associates a sequence of configuration symbols and
+(sub)menu identifiers with a menu identifier (and its banner string).
+It is an error for any symbol or menu name to be referenced in more
+than one menu.</P
+><P
+>If there are multiple menu definitions referring to the same
+menu name, the compiler builds a single menu from all of them listing
+their contents in the order they are compiled.  This is explicitly
+permitted in order to allow menu add-ons in CML2 source files generated 
+by concatenation.</P
+><P
+>Any implementation of <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> must allow menus to be nested to a depth of
+at least 15 levels.  The reference implementation has no hard limit.</P
+><P
+>Symbol references in menus may have suffixes which change the default
+boolean type of the symbol.  The suffixes are as follows:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>    ?      trit type
+    %      decimal type
+    @      hexadecimal type
+    $      string type</PRE
+></TD
+></TR
+></TABLE
+><P
+>A choices definition associates a choice of boolean
+configuration symbols with a menu identifier (and its banner
+string). It may optionally declare a default symbol to be set to
+<TT
+CLASS="CONSTANT"
+>y</TT
+> at the time the menu is instantiated; if there
+is no specified default, the first symbol in the menu becomes the
+default.</P
+><P
+>If the default symbol of a choices menu is invisible at menu
+instantiation time, the configurator is expected to search forward 
+into the symbols following the default until a visible alternative is found.
+If a visible alternative is found, it is used.  If no visible alternative is
+found, the behavior is undefined (but the recommended behavior is to throw
+an except and exit).</P
+><P
+>In a complete <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> system, these definitions link all menus together
+into a single big tree, which is normally traversed depth-first
+(except that visibility predicates may suppress parts of it).</P
+><P
+>If the list of symbols has subtrees in it (indicated by curly braces)
+then the symbol immediately before the opening curly brace is declared
+a visibility and dependency guard for all symbols within the braces. 
+That is, the menu declaration</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>    menu foo 
+         SYM1 SYM2 {SYM3 SYM4} SYM5</PRE
+></TD
+></TR
+></TABLE
+><P
+>not only associates SYM[12345] with foo, it also registers rules 
+equivalent to</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>       unless SYM2 suppress dependent SYM3 SYM4</PRE
+></TD
+></TR
+></TABLE
+><P
+>Such submenu declarations may be nested to any depth.</P
+><P
+>Normally, a symbol used as a sub-menu guard will be a bool or trit.
+They are also permitted to be numeric, in which case value zero is considered
+equivalent to boolean <TT
+CLASS="CONSTANT"
+>n</TT
+> and all other values are 
+considered equivalent to boolean <TT
+CLASS="CONSTANT"
+>y</TT
+>.</P
+><P
+>It is perfectly legal for a menu-ID to have no child nodes.  In <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+>,
+this is how you embed text in menus, by making it the banner of
+a menu symbol with no children.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN360"
+>Choice groups</A
+></H3
+><P
+>Declaring a group of logical symbols to be a choice group creates the 
+constraint that at most one of those symbols can have the value
+<TT
+CLASS="CONSTANT"
+>y</TT
+> or <TT
+CLASS="CONSTANT"
+>m</TT
+>.  Setting a symbol in 
+a choicegroup to one of these values clears all other symbols in
+the group.  It is a compile-time error for a choice group to contain
+symbols that are not of logical type.</P
+><P
+>Choices menus are a special case of choicegroups that are constrained
+always to have one choice selected.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN366"
+>Derivations</A
+></H3
+><P
+>A derivation binds a symbol to a formula, so the value of that
+symbol is always the current value of the formula.  Symbols
+may be evaluated either when a menu containing them is instantiated 
+or at the time the final configuration file is written.</P
+><P
+>The compiler performs type inference to deduce the type of a
+derived symbol.  In particular, derived symbols for which the
+top-level expression is an arithmetic operator are deduced to be
+decimal.  Derived symbols for which the top level of the expression is
+a boolean operator are deduced to be <SPAN
+CLASS="TYPE"
+>bool</SPAN
+>.  Derived
+symbols for which the top level of the expression is a
+<SPAN
+CLASS="TYPE"
+>trit</SPAN
+> operator are deduced to be <SPAN
+CLASS="TYPE"
+>trit</SPAN
+>.</P
+><P
+>Derived symbols are never set directly by the user and have no
+associated prompt string.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN374"
+>Defaults</A
+></H3
+><P
+>A default definition sets the value a symbol will have until it is
+explicitly set by the user's answer to a question.  The right-hand
+side of a default is not limited to being a constant value; it
+may be any valid expression.</P
+><P
+>Default expressions are treated as symbolic macros to be
+evaluated either when a menu containing the defaulted symbol is
+instantiated, or at the time the final configuration file is written,
+or during the evaluation of any formula (such as a derivation or
+visibility predicate) referring to the defaulted symbol.</P
+><P
+>Thus, the evaluated default of a symbol may differ depending on
+the timing of evaluation relative to other symbol settings (in
+particular, of the default expression's component symbols).  This is
+intentional.  The compiler detects circularities resulting from cycles
+of default expressions or derivations that would cause infinite
+recursion.</P
+><P
+>If a decimal or hexadecimal symbol is defaulted from a symbol or
+expression that has bool or trit values, the values
+<TT
+CLASS="CONSTANT"
+>y</TT
+> and <TT
+CLASS="CONSTANT"
+>m</TT
+> are cast to 1 and
+the value <TT
+CLASS="CONSTANT"
+>n</TT
+> is cast to 0.  If a boolean or trit
+symbol is defaulted from a decimal- or hexadecimal-valued expression,
+a value of zero is cast to <TT
+CLASS="CONSTANT"
+>n</TT
+> and all other values
+are cast to <TT
+CLASS="CONSTANT"
+>y</TT
+>.  The results of mixing other types
+are undefined, should be considered accidents of the implementation,
+and should not be relied on.</P
+><P
+>If a non-string symbol is not explicitly defaulted, it gets the
+zero value of its type; <TT
+CLASS="CONSTANT"
+>n</TT
+> for bools and trits,
+<TT
+CLASS="CONSTANT"
+>0</TT
+> for decimal and hexadecimal symbols.  String
+symbols always require a default.</P
+><P
+>The optional range or enumeration part may be used to constrain
+legal values for decimal or hexadecimal-valued symbol. A default
+declaration may have either a range or an enumeration part, but not
+both.</P
+><P
+> A range specification consists of any number of either single
+values or paired upper and lower bounds separated by a dash,
+interpreted as inclusive ranges.  The symbol has a legal value if it
+either matches a specified single value or is contained in one of the
+intervals.</P
+><P
+>An enumeration consists of a series of pairs separated by '='.
+Each pair associates a symbol (which must have been previously
+declared in an explanation statement) with an integer value.  The
+symbol must match one of the values.  The front end may use the prompt
+value of the symbol in each pair to stand in for the value (e.g. when
+generating a pull-down menu of alternatives.)</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN391"
+>Requirements</A
+></H3
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="AEN393"
+>Requirements as sanity checks</A
+></H4
+><P
+>A requirement definition constrains the value of one or more
+symbols by requiring that the given expression be true in any valid
+configuration.  All constraints involving a given configuration symbol
+are checked each time that symbol is modified.  Every constraint is
+checked just before the configuration file is written.</P
+><P
+>If the optional explanation clause is present, the string
+associated with the specified symbol is taken to be an explanation that
+the front end can use if when the constraint is violated.  Otherwise,
+the explanation will be a display of the constraint expression.</P
+><P
+>It is up to individual <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> front ends to decide how to handle
+constraint violations.  Here are some possible policies:</P
+><P
+></P
+><UL
+><LI
+><P
+>   Complain and die.  Not recommended, but perhaps appropriate for
+   a batch-mode front end.</P
+></LI
+><LI
+><P
+> Conservative recovery: Disallow the modification that
+   would violate the constraint. (Thus, earlier answers have priority
+   over later ones.) Note that front ends using this policy should
+   back out side-effects of symbol changes as well as the change to
+   the primary symbol.</P
+></LI
+><LI
+><P
+>   Flag-and-continue: visibly flag all symbols involved in a
+   constraint violation (and unflag them whenever a constraint violation
+   is fixed).  Require the user to resolve all constraint violations
+   before the configuration file is saved.</P
+></LI
+><LI
+><P
+>   Backtracking: Present all the menus involved in the
+   constraint.  Accept modifications of any of them, but do not 
+   allow the modifications to be committed until all constraints are
+   satisfied.</P
+></LI
+></UL
+><P
+>The reference implementation uses conservative recovery,
+with side-effects being backed out as well.</P
+><P
+>A <SPAN
+CLASS="SYMBOL"
+>prohibit</SPAN
+> definition requires that the
+attached predicate <I
+CLASS="EMPHASIS"
+>not</I
+> be true.  This is
+syntactic sugar, added to accommodate the fact that human beings have
+trouble reasoning about the distribution of negation in complex
+predicates.</P
+></DIV
+><DIV
+CLASS="SECT4"
+><HR><H4
+CLASS="SECT4"
+><A
+NAME="FORCEVAR"
+>Using requirements to force variables</A
+></H4
+><P
+>Requirements have a second role.  Certain kinds of requirements
+can be used to deduce values for variables the user has not yet set;
+the <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> interpreter does this automatically.</P
+><P
+>Every time a symbol is changed, the change is tried on each
+declared constraint.  The constraint is algebraically simplified by
+substituting in constant, derived and frozen symbols.  If the
+simplified constraint forces an expression of the form <SPAN
+CLASS="SYMBOL"
+>A ==
+B</SPAN
+> to be true, and either <SPAN
+CLASS="SYMBOL"
+>A</SPAN
+> is a query symbol
+and <SPAN
+CLASS="SYMBOL"
+>B</SPAN
+> is a constant or the reverse, then the
+assignment needed to make <SPAN
+CLASS="SYMBOL"
+>A == B</SPAN
+> true is
+forced.</P
+><P
+>Thus, given the rules</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>derive SPARC from SPARC32 or SPARC64
+require SPARC implies ISA==n and PCMCIA==n and VT==y and VT_CONSOLE==y
+    and BUSMOUSE==y and SUN_MOUSE==y and SERIAL==y and SERIAL_CONSOLE==y
+    and SUN_KEYBOARD==y</PRE
+></TD
+></TR
+></TABLE
+><P
+>when either <SPAN
+CLASS="SYMBOL"
+>SPARC32</SPAN
+> or <SPAN
+CLASS="SYMBOL"
+>SPARC64</SPAN
+>
+changes to <TT
+CLASS="CONSTANT"
+>y</TT
+>, the nine assignments implied by the
+right side of the second rule will be performed automatically.  If
+this kind of requirement is triggered by a guard consisting entirely
+of frozen symbols, all the assigned symbols become frozen.</P
+><P
+>If <SPAN
+CLASS="SYMBOL"
+>A</SPAN
+> is a <SPAN
+CLASS="TYPE"
+>boolean</SPAN
+> or
+<SPAN
+CLASS="TYPE"
+>trit</SPAN
+> symbol and <SPAN
+CLASS="SYMBOL"
+>B</SPAN
+> simplifies to a
+<SPAN
+CLASS="TYPE"
+>boolean</SPAN
+> or <SPAN
+CLASS="TYPE"
+>trit</SPAN
+> constant (or vice-versa),
+assignments may be similarly forced by other relationals (notably
+<SPAN
+CLASS="SYMBOL"
+>A != B</SPAN
+>, <SPAN
+CLASS="SYMBOL"
+>A &#60; B</SPAN
+>, <SPAN
+CLASS="SYMBOL"
+>A &#62;
+B</SPAN
+>, <SPAN
+CLASS="SYMBOL"
+>A &#60;= B</SPAN
+>, and <SPAN
+CLASS="SYMBOL"
+>A &#62;=
+B</SPAN
+>).  If forcing the relational to be true implies only one
+possible value for the symbol involved, then that assignment is
+forced.</P
+><P
+>Note that whether a relational forces a unique value may depend on
+whether trits are enabled or not.</P
+></DIV
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN440"
+>Start declaration</A
+></H3
+><P
+>The <SPAN
+CLASS="SYMBOL"
+>start</SPAN
+> definition specifies the name of the
+root menu of the hierarchy.  One such declaration is required per
+<SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> ruleset.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="PREFIX"
+>Prefix declaration</A
+></H3
+><P
+>A <SPAN
+CLASS="SYMBOL"
+>prefix</SPAN
+> declaration sets a string to be
+prepended to each symbol name whenever it is written out to a result
+configuration file.  This prefix is also ignored when present as a
+prefix of symbol names, whether in a rule file or when read in from a
+defconfig file.</P
+><P
+>Rationale: This was added so the <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> rule system for the
+Linux kernel would not have to include the common
+<TT
+CLASS="CONSTANT"
+>CONFIG_</TT
+> prefix, which adds bulk and makes reading
+the rules file visually confusing. The alternative of wiring that
+prefix into the code would compromise <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+>'s potential usefulness
+for other applications. Prefix-stripping in rule files was added as
+a backward-compatibility hack to permit names such as CONFIG_3C515
+that have leading numerics and would be treated as numbers if
+given without prefix.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN453"
+>Banner declaration</A
+></H3
+><P
+>A <SPAN
+CLASS="SYMBOL"
+>banner</SPAN
+> definition sets the menu id banner
+string to used in the configurator greeting line.  The string attached
+to the specified menu id should identify the system being
+configured.</P
+><P
+>Rationale: As for the prefix string.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="CONDITION-ON"
+>Condition statement</A
+></H3
+><P
+>The <SPAN
+CLASS="SYMBOL"
+>condition</SPAN
+> statement ties a <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> feature
+flag to a query symbol; that is, the value of the feature flag is the
+value of the symbol.  The initial value of the flag when a rulebase is
+read in is simply the associated symbol's default.  If there is no
+symbol associated with the the flag, the flag's value is
+<TT
+CLASS="CONSTANT"
+>n</TT
+>.</P
+><P
+>The condition value may also be a constant, in which case the
+value of the feature flag is set to that constant.</P
+><DIV
+CLASS="SECT4"
+><HR><H4
+CLASS="SECT4"
+><A
+NAME="AEN465"
+>The trit flag</A
+></H4
+><P
+>A <SPAN
+CLASS="QUOTE"
+>"trits"</SPAN
+> flag is supported.  When this flag is
+<TT
+CLASS="CONSTANT"
+>n</TT
+>, trit-valued symbols are treated as booleans
+and may only assume the values <TT
+CLASS="CONSTANT"
+>y</TT
+> and
+<TT
+CLASS="CONSTANT"
+>n</TT
+>.</P
+><P
+>When this flag is <TT
+CLASS="CONSTANT"
+>y</TT
+>, modules are enabled
+and questions involving them will be issued normally.</P
+><P
+>If the flag is not tied to a symbol or constant, its value is 
+<TT
+CLASS="CONSTANT"
+>y</TT
+>.</P
+><P
+>This flag may affect the front end's presentation of
+alternatives for trit-valued symbols.  It also affects forcing of ancestor
+symbols.  When the trits flag is <TT
+CLASS="CONSTANT"
+>m</TT
+> or
+<TT
+CLASS="CONSTANT"
+>y</TT
+>, setting a boolean symbol only forces its trit
+ancestors to the value <TT
+CLASS="CONSTANT"
+>m</TT
+>; when trits is off, they
+are forced to <TT
+CLASS="CONSTANT"
+>y</TT
+>.  See <A
+HREF="#SIDE-EFFECTS"
+>the section called <I
+>Symbol Assignment and Side
+Effects</I
+></A
+> for discussion.</P
+></DIV
+><DIV
+CLASS="SECT4"
+><HR><H4
+CLASS="SECT4"
+><A
+NAME="AEN482"
+>The nohelp flag</A
+></H4
+><P
+>A <SPAN
+CLASS="QUOTE"
+>"nohelp"</SPAN
+> flag is supported.  When this flag is
+<TT
+CLASS="CONSTANT"
+>n</TT
+>, symbols without associated help are invisible.
+When it is <TT
+CLASS="CONSTANT"
+>y</TT
+>, symbols without help are visible.
+If the flag is not tied to a symbol, its value is <TT
+CLASS="CONSTANT"
+>y</TT
+>.</P
+><P
+>Rationale: This flag is intended to be tied to a user-visible 
+policy symbol that sets some kind of expert level.</P
+></DIV
+><DIV
+CLASS="SECT4"
+><HR><H4
+CLASS="SECT4"
+><A
+NAME="AEN490"
+>The expert flag</A
+></H4
+><P
+>A <SPAN
+CLASS="QUOTE"
+>"expert"</SPAN
+> flag is supported.  When this flag is
+<TT
+CLASS="CONSTANT"
+>n</TT
+>, the user is presumed to be a novice.
+When it is <TT
+CLASS="CONSTANT"
+>y</TT
+>, the user is presumed to be an expert.
+If the flag is not tied to a symbol, its value is <TT
+CLASS="CONSTANT"
+>n</TT
+>.</P
+><P
+>Rationale: This flag is intended to be used by configurator front ends
+to set UI policy.  In the normal case, it will be tied to some policy
+symbol in the rulebase.</P
+></DIV
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN498"
+>Warndepend declaration</A
+></H3
+><P
+>The <SPAN
+CLASS="SYMBOL"
+>warndepend</SPAN
+> declaration takes a list of
+symbol names.  All dependents of each symbol have their prompts
+suffixed with the name of the symbol in parentheses to indicate that
+they are dependent on it.</P
+><P
+>Rationale: Added to support the <SPAN
+CLASS="SYMBOL"
+>EXPERIMENTAL</SPAN
+>
+symbol in the Linux kernel configuration.  This declaration is better
+than tracking experimental status by hand because it guarantees that
+subsidiary symbols dependent on an experimental feature will always be
+flagged for the user.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN504"
+>Icon declaration</A
+></H3
+><P
+>An <SPAN
+CLASS="SYMBOL"
+>icon</SPAN
+> declaration associates graphic data
+(encoded in RFC2045 base64) with the rulebase.  Front ends may use
+this data as an identification icon.</P
+><P
+>The reference front-end implementation uses the image to iconify
+the configurator when it is minimized while running in X mode.</P
+><P
+>The reference front-end accepts the image in GIF format.  In the
+future (when underlying library support permits) PNG support will be
+added and GIF removed.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN510"
+>Debug</A
+></H3
+><P
+>This declaration enables debugging output from the compiler (it
+has no effect on front-end behavior).  It takes an integer value and
+uses it to set the current debug level.  It may change or be removed
+in future releases.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN513"
+>Expressions</A
+></H3
+><P
+>All arithmetic is integer. The compiler permits some kinds of
+type promotion, described below.</P
+><P
+>For purposes of the relational operators, trit values are
+strictly ordered with <TT
+CLASS="CONSTANT"
+>y</TT
+> &#62;
+<TT
+CLASS="CONSTANT"
+>m</TT
+> &#62; <TT
+CLASS="CONSTANT"
+>n</TT
+>.</P
+><P
+>Arithmetic operations + - * / have the expected semantics on
+decimal and hexadecimal value.</P
+><P
+>Boolean logical expressions may be used as parts of integer-valued
+formulas (e,g in derivations and constraints).  The value of true is 1,
+and of false is 0.</P
+><P
+>It is a compile-time error to apply the logical operators
+or/and/implies to <SPAN
+CLASS="TYPE"
+>trit</SPAN
+> or numeric values.  Also,
+expressions occurring in guards (in <SPAN
+CLASS="SYMBOL"
+>unless/suppress</SPAN
+>,
+or <SPAN
+CLASS="SYMBOL"
+>require/prohibit</SPAN
+> declarations) must yield a value
+of boolean type. The compiler does type propagation in expressions to
+check these constraints.</P
+><P
+>The purpose of these restriction is to enable compile-time
+detection of situations where confusion of <SPAN
+CLASS="TYPE"
+>trit</SPAN
+> or
+numeric with boolean values might induce subtle errors.  For the same
+reason, if the symbol <SPAN
+CLASS="SYMBOL"
+>FOO</SPAN
+> is trit-valued it is a
+compile-time error to say just <SPAN
+CLASS="QUOTE"
+>"FOO"</SPAN
+> in an expression, as
+opposed to <SPAN
+CLASS="QUOTE"
+>"FOO!=n"</SPAN
+> or some other more explicit
+relational.</P
+><P
+>Thus, because the symbol <SPAN
+CLASS="SYMBOL"
+>SCSI</SPAN
+> is trit-valued:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>    unless SCSI suppress A2091_SCSI</PRE
+></TD
+></TR
+></TABLE
+><P
+>is illegal and will raise an error.  Write an unambiguous test
+instead:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>    unless SCSI&#62;=m suppress A2091_SCSI</PRE
+></TD
+></TR
+></TABLE
+><P
+>The obvious booleans operations (and, or) are supported; they are
+commutative and associative. An 'implies' operation is also supported: </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>    FOO implies BAR  &#60;=&#62;  not (FOO and (not BAR))</PRE
+></TD
+></TR
+></TABLE
+><P
+>The implies operation is neither commutative nor associative.</P
+><P
+>The usual relational tests (<SPAN
+CLASS="SYMBOL"
+>==</SPAN
+>,
+<SPAN
+CLASS="SYMBOL"
+>!=</SPAN
+>, <SPAN
+CLASS="SYMBOL"
+>&#62;=</SPAN
+>, <SPAN
+CLASS="SYMBOL"
+>&#60;=</SPAN
+>,
+<SPAN
+CLASS="SYMBOL"
+>&#62;</SPAN
+>, <SPAN
+CLASS="SYMBOL"
+>&#60;</SPAN
+>) are supported.
+Relationals bind more tightly than boolean operators, so
+<SPAN
+CLASS="SYMBOL"
+>FOO!=n and BAR==m</SPAN
+> behaves as expected.  Additionally,
+<SPAN
+CLASS="SYMBOL"
+>and</SPAN
+> binds more tightly than <SPAN
+CLASS="SYMBOL"
+>or</SPAN
+>, so
+that <SPAN
+CLASS="SYMBOL"
+>FOO or BAR and BAZ</SPAN
+> is <SPAN
+CLASS="SYMBOL"
+>FOO or (BAR and
+BAZ)</SPAN
+>.</P
+><P
+>Ternary-select is available as in C.  The value of <SPAN
+CLASS="SYMBOL"
+>a ? b :
+c</SPAN
+> is <SPAN
+CLASS="SYMBOL"
+>b</SPAN
+> if <SPAN
+CLASS="SYMBOL"
+>a</SPAN
+> is true,
+<SPAN
+CLASS="SYMBOL"
+>c</SPAN
+> otherwise.</P
+><P
+>The following additional ternary-logic operations are available.
+It is an error to apply these to operands with types other than
+<SPAN
+CLASS="TYPE"
+>bool</SPAN
+> or <SPAN
+CLASS="TYPE"
+>trit</SPAN
+>.</P
+><P
+>Max or union; notation <SPAN
+CLASS="KEYSYM"
+>|</SPAN
+>.  Here is a truth table:</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN561"
+></A
+><P
+><B
+>Table 2. Union</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>|</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>y</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>m</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>n</I
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>y</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>m</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>m</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>m</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>n</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>m</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Min or intersection; notation <SPAN
+CLASS="KEYSYM"
+>&#38;</SPAN
+>.  Here is a
+truth table:</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN593"
+></A
+><P
+><B
+>Table 3. Intersection</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>&#38;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>y</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>m</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>n</I
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>y</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>m</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>m</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>m</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>m</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>n</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Similarity; notation <SPAN
+CLASS="KEYSYM"
+>$</SPAN
+>.  Here is a truth table:</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN625"
+></A
+><P
+><B
+>Table 4. Similarity</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>$</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>y</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>m</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>n</I
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>y</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>y</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>m</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>m</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><I
+CLASS="EMPHASIS"
+>n</I
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>n</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>The operator precedence implied by the BNF above is implemented
+in the parser.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="SIDE-EFFECTS"
+>Symbol Assignment and Side
+Effects</A
+></H3
+><P
+>Setting a symbol's value may have side-effects on other symbols
+in two ways.</P
+><P
+>First, it may trigger a change in other variables through
+explicit requirements.  See <A
+HREF="#FORCEVAR"
+>the section called <I
+>Using requirements to force variables</I
+></A
+> for
+discussion.</P
+><P
+>Second, each symbol has two implicit lists associated with it:
+of symbols it depends on (ancestors) and symbols that depend on it
+(dependents).  Whenever a symbol is changed, any side-effects are
+propagated through those lists.  Changing the value of the symbol
+upward (<SPAN
+CLASS="SYMBOL"
+>n</SPAN
+> to <SPAN
+CLASS="SYMBOL"
+>m</SPAN
+>, or
+<SPAN
+CLASS="SYMBOL"
+>m</SPAN
+> to <SPAN
+CLASS="SYMBOL"
+>y</SPAN
+>) may change the value of
+ancestors; changing it downward (<SPAN
+CLASS="SYMBOL"
+>y</SPAN
+> to
+<SPAN
+CLASS="SYMBOL"
+>m</SPAN
+> or <SPAN
+CLASS="SYMBOL"
+>m</SPAN
+> to <SPAN
+CLASS="SYMBOL"
+>n</SPAN
+>) may
+affect the value of dependents.</P
+><P
+>See also <A
+HREF="#DEPENDENCE"
+>the section called <I
+>Dependence</I
+></A
+> for discussion of the two
+syntactically different ways dependencies can be created.</P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> interpreters are required to implement all-or-nothing side
+effects; that is, after an assignment, either the assignment and
+all its side-effects have been performed, or (in the event the
+new values would violate a requirement) none of them are. </P
+><P
+>The reference implementation achieves this by implementing two-phase
+commit; the assignment and its side-effects can be made tentatively,
+constraints checked, and then either committed or rolled back.</P
+><P
+>Side-effect bindings remain linked to the symbol whose value change
+triggered them, and are backed out whenever that symbol is changed
+again.  Backing out a side-effect may expose previous side-effects
+on a symbol from other, earlier bindings.</P
+><P
+>To see how this works, consider the following sequence of
+actions given the constraints <SPAN
+CLASS="SYMBOL"
+>A: (FOO==y implies BAR==y)</SPAN
+> and
+<SPAN
+CLASS="SYMBOL"
+>B: (BAZ==y implies BAR==n)</SPAN
+>:</P
+><DIV
+CLASS="PROCEDURE"
+><OL
+TYPE="1"
+><LI
+><P
+>User sets FOO=y.</P
+><OL
+CLASS="SUBSTEPS"
+TYPE="a"
+><LI
+><P
+>As a side-effect, this sets BAR=y through constraint 
+	A</P
+></LI
+></OL
+></LI
+><LI
+><P
+>User sets BAZ=y.</P
+><OL
+CLASS="SUBSTEPS"
+TYPE="a"
+><LI
+><P
+>As a side-effect, this sets BAR=n constraint B</P
+></LI
+><LI
+><P
+>BAR==n implies FOO=n through constraint A</P
+></LI
+></OL
+></LI
+><LI
+><P
+>User sets an unrelated symbol QUUX=y.</P
+></LI
+><LI
+><P
+>User sets BAZ=n.</P
+><P
+>This does not have a direct side-effect on BAR.
+However, since the value BAZ has changed, the side-effects FOO=n 
+and BAR=n of the last BAZ binding is backed out.  The visible value of 
+BAR is again y.</P
+></LI
+></OL
+></DIV
+><P
+>The easiest way to understand this is by visualizing the
+variable-binding transactions as a stack.  After the first step, the
+stack looks like this:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>1: FOO=y:         FOO=y BAR=y</PRE
+></TD
+></TR
+></TABLE
+><P
+>After the second step:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>2: BAZ=y:         FOO=n BAR=n BAZ=y
+1: FOO=y:         FOO=y BAR=y</PRE
+></TD
+></TR
+></TABLE
+><P
+>The third step adds another unrelated binding:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>3: QUUX=y:                          QUUX=y
+2: BAZ=y:         FOO=n BAR=n BAZ=y
+1: FOO=y:         FOO=y BAR=y</PRE
+></TD
+></TR
+></TABLE
+><P
+>The fourth step both adds a binding and backs out the old one:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>4: BAZ=n:                     BAZ=n               
+3: QUUX=y:                          QUUX=y
+1: FOO=y:         FOO=y BAR=y</PRE
+></TD
+></TR
+></TABLE
+><P
+>The reference implementation journals all side-effects and
+always looks for the most recent binding of a symbol (highest in the
+stack) when evaluating it.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><HR><H3
+CLASS="SECT3"
+><A
+NAME="AEN706"
+>Order Dependencies</A
+></H3
+><P
+>In general, the relative order of CML2 declarations does not
+change their effect.  The prefix declaration, however, is used in
+interpreting symbol names, so it must precede symbol
+declarations.</P
+><P
+>There is a subtler kind of order dependency possible 
+between constraints. Consider the following set of constraints:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>1: require FOO==y implies DEP1==y
+2: require DEP1 implies BAR==n
+3: require FOO==y and BAR==y implies DEP2==n</PRE
+></TD
+></TR
+></TABLE
+><P
+>Now suppose we set FOO to y.  Then the values that variables get
+forced to will be different depending on the order in which the
+theorem-prover finds the constraints:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>1, 2, 3: DEP1==y, BAR==n, DEP2 unchanged.
+1, 3, 2: DEP1==y, BAR==n, DEP2==n</PRE
+></TD
+></TR
+></TABLE
+><P
+>In practice this should seldom be a difficulty, but it is well to
+bear such possibilities in mind when writing complex constraints.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H1
+CLASS="SECT1"
+><A
+NAME="FILE-FORMAT"
+><SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> configuration file format</A
+></H1
+><P
+></P
+><DIV
+CLASS="SECT2"
+><HR><H2
+CLASS="SECT2"
+><A
+NAME="DEFCONFIG"
+>Output format</A
+></H2
+><P
+>The output file consists of a series of lines in the format of
+either Unix shell variable assignments or directives.</P
+><P
+>Each ordinary (non-directive) line is led with a symbol name
+(prefixed if there is a <SPAN
+CLASS="SYMBOL"
+>prefix</SPAN
+> declaration in the
+rulebase), continues with a <SPAN
+CLASS="KEYSYM"
+>=</SPAN
+>, and finishes with a
+value.  The value may be <TT
+CLASS="CONSTANT"
+>y</TT
+>,
+<TT
+CLASS="CONSTANT"
+>n</TT
+>, or <TT
+CLASS="CONSTANT"
+>m</TT
+> for
+<SPAN
+CLASS="TYPE"
+>boolean</SPAN
+> or <SPAN
+CLASS="TYPE"
+>tristate</SPAN
+> symbols.  It may be a
+quoted string for <SPAN
+CLASS="TYPE"
+>string</SPAN
+> literals, or an (unquoted)
+numeric literal for <SPAN
+CLASS="TYPE"
+>decimal</SPAN
+> or <SPAN
+CLASS="TYPE"
+>hexadecimal</SPAN
+>
+symbols.</P
+><P
+>The value of a symbol will be written if it has either been 
+set by user action or is visible at configuration-save time.</P
+><P
+>In the reference implementation, symbols are written in depth-first
+traversal order.  Derived symbols are written after the query symbols;
+each derived symbol is written out if any of the symbols in its
+formula has been set.</P
+><P
+>Directives begin with $$.  There are currently two directives
+defined: <SPAN
+CLASS="SYMBOL"
+>__freeze</SPAN
+> and <SPAN
+CLASS="SYMBOL"
+>__commit</SPAN
+>.
+These cause a commit-with-freeze and a commit-without-freeze,
+respectively, of all bindings read since the last directive (or the
+start of file if there were no previous directives).</P
+><P
+>Lines beginning with # are comments.  Postprocessing tools 
+should not attempt to interpret them.</P
+></DIV
+></DIV
+><DIV
+CLASS="SECT1"
+><HR><H1
+CLASS="SECT1"
+><A
+NAME="HISTORY"
+>Change history</A
+></H1
+><P
+>  <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.1</SPAN
+> -- 24 May 2000
+      Original <SPAN
+CLASS="PRODUCTNAME"
+>CML2</SPAN
+> specification.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.2.0</SPAN
+> -- 31 May 2000
+      Removed whenever/sets from the language.  Everything is now done
+      with deduction.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.2.1</SPAN
+> -- 4 June 2000
+      Added <SPAN
+CLASS="SYMBOL"
+>warndepend</SPAN
+>.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.3.0</SPAN
+> -- 9 June 2000
+      Deduction algorithm rewritten and documented in section
+      V.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.4.0</SPAN
+> -- 20 June 2000:
+      Value stacking is implemented.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.5.0</SPAN
+> -- 26 June 2000:
+      Fuller support for ranges.  Spec format converted to
+      DocBook.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.6.0</SPAN
+> -- 30 June 2000:
+      Eliminated a lexical class.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.7.0</SPAN
+> -- 6 July 2000:
+      The "options" directive was removed.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.7.0</SPAN
+> -- 12 Aug 2000:
+      Added the `explanation' declaration.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.9.2</SPAN
+> -- 15 Jan 2001:
+      Reference manual split out of the paper.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>0.9.8</SPAN
+> -- 29 Mar 2001:
+      Module-suppression feature added.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.0.0</SPAN
+> -- 9 April 2001:
+      Ready for production release.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.2.3</SPAN
+> -- 23 April 2001:
+      Added -B option.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.2.5</SPAN
+> -- 25 April 2001:
+      Revisions following comments by Greg Banks.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.3.3</SPAN
+> -- 28 April 2001:
+      Help text sections introduced in menus and symbols declarations.
+      The `helpfile' declaration is gone.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.6.1</SPAN
+> -- 16 June 2001:
+      New section on declaration order.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.6.3</SPAN
+> -- 21 June 2001:
+      Menus may be concatenated from multiple declarations.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.8.5</SPAN
+> -- 14 Nov 2001:
+      It's possible to condition a flag on a constant.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.9.1</SPAN
+> -- 25 Nov 2001:
+      Derived symbols can be suppressed.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.9.4</SPAN
+> -- 1 Dec 2001:
+      Default of a choices menu becomes the specified default if it 
+      is visible, the first visible symbol after it otherwise.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.9.10</SPAN
+> -- 16 Dec 2001:
+      Compiler now handles suppress-depend guards that are not pure
+      conjunctions.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>1.9.11</SPAN
+> -- 19 Dec 2001:
+      Added 'like' keyword conjunctions.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>2.0.0</SPAN
+> -- 2 Jan 2002:
+      Replaced `private' with `label/with'.  Added 
+      $$freeze and $$commit directives.  Added 'choicegroup'.
+      Removed most ordering constraints.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>2.2.0</SPAN
+> -- 14 Jan 2002:
+      Added `save' declaration.  Removed vitality flag.</TD
+></TR
+><TR
+><TD
+><SPAN
+CLASS="PRODUCTNUMBER"
+>2.3.0</SPAN
+> -- 3 Feb 2002:
+      The `menus' and `explanations' declarations are subsumed in
+      the `symbols' declaration.
+    </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+
+
+  </P
+></DIV
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,10 @@
+				TO DO
+
+1. Full dynamic-memory management; no more fixed string-length limits.
+
+2. File handling.  There's no standard FILE syntax, but there are some
+   conventions common in existing versions.
+
+3. Interpreter support for X (Execute)?  Not hard to con the lexer
+   into taking characters from a string, but we'd have to go to Bison or
+   some other method that generates re-entrant parsers.

@@ -1,0 +1,11 @@
+--- x86_64-linux-gnu-objcopy.1-unpatched	2018-05-21 09:27:31.071829370 -0400
++++ x86_64-linux-gnu-objcopy.1	2018-05-21 09:27:43.907742138 -0400
+@@ -194,7 +194,7 @@
+         [\fB\-\-localize\-symbols=\fR\fIfilename\fR]
+         [\fB\-\-globalize\-symbols=\fR\fIfilename\fR]
+         [\fB\-\-weaken\-symbols=\fR\fIfilename\fR]
+-        [\fB\-\-add\-symbol\fR \fIname\fR=[\fIsection\fR:]\fIvalue\fR[,\fIflags\fR]
++        [\fB\-\-add\-symbol\fR \fIname\fR=[\fIsection\fR:]\fIvalue\fR[,\fIflags\fR]]
+         [\fB\-\-alt\-machine\-code=\fR\fIindex\fR]
+         [\fB\-\-prefix\-symbols=\fR\fIstring\fR]
+         [\fB\-\-prefix\-sections=\fR\fIstring\fR]

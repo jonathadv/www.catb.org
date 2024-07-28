@@ -1,0 +1,28 @@
+--- logilab-pytest.1-unpatched	2018-05-16 20:05:36.971532166 -0400
++++ logilab-pytest.1	2018-05-16 20:06:16.491263589 -0400
+@@ -1,12 +1,11 @@
+ .TH logilab-pytest "1" "January 2008" logilab-pytest
+ .SH NAME
+-.B logilab-pytest
+-\- run python unit tests
++.B logilab-pytest \- run python unit tests
+ 
+ .SH SYNOPSIS
+-usage: logilab-pytest [OPTIONS] [testfile [testpattern]]
+-.PP
+-examples:
++logilab-pytest [OPTIONS] [testfile [testpattern]]
++
++.SH EXAMPLE
+ .PP
+ logilab-pytest path/to/mytests.py
+ logilab-pytest path/to/mytests.py TheseTests
+@@ -18,7 +17,7 @@
+ logilab-pytest \fB\-\-coverage\fR test_foo.py
+ .IP
+ (only if logilab.devtools is available)
+-.SS "options:"
++.SH OPTIONS
+ .TP
+ \fB\-h\fR, \fB\-\-help\fR
+ show this help message and exit

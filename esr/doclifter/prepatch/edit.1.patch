@@ -1,0 +1,20 @@
+Unparseable content in Synopsis needs to be moved to a text section.
+
+--- edit.1-unpatched	2012-06-28 16:45:32.680957137 -0400
++++ edit.1	2012-06-28 16:45:55.228956715 -0400
+@@ -12,6 +12,7 @@
+ \-\-action=ACTION [\-\-option[=value]]
+ [MIME-TYPE:[ENCODING:]]FILE [...]
+ 
++.SH DESCRIPTION
+ The
+ .BR see ,
+ .BR edit ,
+@@ -21,7 +22,6 @@
+ versions are just aliases that default to the view, edit, compose, and
+ print actions (respectively).
+ 
+-.SH DESCRIPTION
+ .PP
+ .B run-mailcap
+ (or any of its aliases) will use the given action to process each

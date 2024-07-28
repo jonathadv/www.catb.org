@@ -1,0 +1,13 @@
+--- dvipdf.1-unpatched	2013-06-14 14:13:57.130749099 -0400
++++ dvipdf.1	2013-06-14 14:14:24.878748581 -0400
+@@ -12,8 +12,9 @@
+ .BR gs (1)
+ with the following options:
+ 
+-.ce
++.RS
+ .B -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite
++.RE
+ 
+ as well as 
+ .B -sOutputFile

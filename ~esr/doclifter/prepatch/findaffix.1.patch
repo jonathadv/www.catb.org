@@ -1,0 +1,23 @@
+--- findaffix.1-unpatched	2016-02-27 07:35:16.052721336 -0500
++++ findaffix.1	2016-02-27 07:35:15.628722643 -0500
+@@ -172,7 +172,10 @@
+ .br
+ .B ispell
+ .BR \-v [ v ]
+-.IP \fIcommon-flags\fP:
++
++\fIcommon-flags\fP:
++
++.B ispell
+ .RB [ \-t ]
+ .RB [ \-n ]
+ .RB [ \-H ]
+@@ -198,6 +201,8 @@
+ .IR list ]
+ .RB [ \-F
+ .IR program ]
++
++Helper programs:
+ .PP
+ Helper programs:
+ .PP

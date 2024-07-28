@@ -1,0 +1,38 @@
+--- cherryd.1-unpatched	2018-05-28 15:58:36.674101599 -0400
++++ cherryd.1	2018-05-28 15:59:00.601938983 -0400
+@@ -42,7 +42,7 @@
+ .INDENT 0.0
+ 
+ .TP
+-.BI \-c\  CONFIG_FILE ,\ \-\-config\fn= CONFIG_FILE
++.BI \-c\  CONFIG_FILE ,\ \-\-config= CONFIG_FILE
+ Specifies a config file which is to be read and merged into the
+ CherryPy site\-wide config dict.  This option may be specified
+ multiple times.  For each CONFIG_FILE specified, \fBcherryd\fP will perform
+@@ -55,7 +55,7 @@
+ 
+ 
+ .TP
+-.BI \-e\  ENV_NAME ,\ \-\-environment\fn= ENV_NAME
++.BI \-e\  ENV_NAME ,\ \-\-environment= ENV_NAME
+ Specifies the name of an environment to be applied.  An environment is a
+ canned set of configuration entries.  See \fI\%ENVIRONMENTS\fP below for a
+ list of the built\-in environments.
+@@ -72,7 +72,7 @@
+ 
+ 
+ .TP
+-.BI \-i\  MODULE_NAME ,\ \-\-import\fn= MODULE_NAME
++.BI \-i\  MODULE_NAME ,\ \-\-import= MODULE_NAME
+ Specifies a module to import.  This option may be specified multiple times.
+ For each MODULE_NAME specified, \fBcherryd\fP will import the module.  This
+ is how you tell \fBcherryd\fP to run your application\'s startup code.
+@@ -81,7 +81,7 @@
+ 
+ 
+ .TP
+-.BI \-p\  PIDFILE_PATH ,\ \-\-pidfile\fn= PIDFILE_PATH
++.BI \-p\  PIDFILE_PATH ,\ \-\-pidfile= PIDFILE_PATH
+ Store the process id in PIDFILE_PATH.
+ 
+ 

@@ -1,0 +1,33 @@
+--- libpng.3-unpatched	2016-02-29 13:14:17.443480729 -0500
++++ libpng.3	2016-02-29 13:14:26.443463193 -0500
+@@ -113,7 +113,7 @@
+ 
+ \fBpng_uint_32 png_get_PLTE (png_structp \fP\fIpng_ptr\fP\fB, png_infop \fP\fIinfo_ptr\fP\fB, png_colorp \fP\fI*palette\fP\fB, int \fI*num_palette\fP\fB);\fP
+ 
+-\fBpng_byte png_get_rgb_to_gray_status (png_structp png_ptr) png_uint_32 png_get_rowbytes (png_structp \fP\fIpng_ptr\fP\fB, png_infop \fIinfo_ptr\fP\fB);\fP
++\fBpng_byte png_get_rgb_to_gray_status (png_structp png_ptr) png_uint_32 png_get_rowbytes (png_structp \fP\fIpng_ptr\fP\fB, png_infop\fP \fIinfo_ptr\fP\fB);\fP
+ 
+ \fBpng_bytepp png_get_rows (png_structp \fP\fIpng_ptr\fP\fB, png_infop \fIinfo_ptr\fP\fB);\fP
+ 
+@@ -135,7 +135,9 @@
+ 
+ \fBpng_uint_32 png_get_uint_31 (png_bytep \fIbuf\fP\fB);\fP
+ 
+-\fBpng_uint_32 png_get_uint_32 (png_bytep buf); \fI#endif
++\fBpng_uint_32 png_get_uint_32 (png_bytep buf);
++
++\fI#endif\fP
+ 
+ \fBpng_uint_32 png_get_unknown_chunks (png_structp \fP\fIpng_ptr\fP\fB, png_infop \fP\fIinfo_ptr\fP\fB, png_unknown_chunkpp \fIunknowns\fP\fB);\fP
+ 
+@@ -215,7 +217,9 @@
+ 
+ \fBvoid png_save_uint_32 (png_bytep \fP\fIbuf\fP\fB, png_uint_32 \fIi\fP\fB);\fP
+ 
+-\fBvoid png_set_add_alpha (png_structp \fP\fIpng_ptr\fP\fB, png_uint_32 \fP\fIfiller\fP\fB, int flags); \fI#endif
++\fBvoid png_set_add_alpha (png_structp \fP\fIpng_ptr\fP\fB, png_uint_32 \fP\fIfiller\fP\fB, int flags);
++
++\fI#endif\fP
+ 
+ \fBvoid png_set_background (png_structp \fP\fIpng_ptr\fP\fB, png_color_16p \fP\fIbackground_color\fP\fB, int \fP\fIbackground_gamma_code\fP\fB, int \fP\fIneed_expand\fP\fB, double \fIbackground_gamma\fP\fB);\fP
+ 

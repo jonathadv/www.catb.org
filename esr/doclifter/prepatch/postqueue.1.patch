@@ -1,0 +1,37 @@
+--- postqueue.1-unpatched	2018-04-21 16:31:55.672321234 -0400
++++ postqueue.1	2018-04-21 16:33:26.084143011 -0400
+@@ -8,24 +8,16 @@
+ .SH "SYNOPSIS"
+ .na
+ .nf
+-.ti -4
+-\fBTo flush the mail queue\fR:
+-
+ \fBpostqueue\fR [\fB\-v\fR] [\fB\-c \fIconfig_dir\fR] \fB\-f\fR
+ 
+ \fBpostqueue\fR [\fB\-v\fR] [\fB\-c \fIconfig_dir\fR] \fB\-i \fIqueue_id\fR
+ 
+ \fBpostqueue\fR [\fB\-v\fR] [\fB\-c \fIconfig_dir\fR] \fB\-s \fIsite\fR
+ 
+-.ti -4
+-\fBTo list the mail queue\fR:
+-
+ \fBpostqueue\fR [\fB\-v\fR] [\fB\-c \fIconfig_dir\fR] \fB\-j\fR
+ 
+ \fBpostqueue\fR [\fB\-v\fR] [\fB\-c \fIconfig_dir\fR] \fB\-p\fR
+ .SH DESCRIPTION
+-.ad
+-.fi
+ The \fBpostqueue\fR(1) command implements the Postfix user interface
+ for queue management. It implements operations that are
+ traditionally available via the \fBsendmail\fR(1) command.
+@@ -33,6 +25,9 @@
+ that require super\-user privileges such as deleting a message
+ from the queue or changing the status of a message.
+ 
++The first two forms of this command flush the mail queue.
++The second two forms list it.
++
+ The following options are recognized:
+ .IP "\fB\-c \fIconfig_dir\fR"
+ The \fBmain.cf\fR configuration file is in the named directory

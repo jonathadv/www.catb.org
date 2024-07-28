@@ -1,0 +1,1118 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rev="made" href="mailto:esr@snark.thyrsus.com" />
+<link rel="stylesheet" href="/~esr/sitestyle.css" type="text/css" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="MSSmartTagsPreventParsing" content="TRUE" />
+<title>Manual page glitches</title>
+</head>
+<body>
+
+<div id="Header">
+<table width="100%" cellpadding="0" summary="Canned page header">
+<tr>
+<td>Manual page glitches</td>
+<td align="right">12 Jun 2018</td>
+</tr>
+</table>
+</div>
+
+<div id="Menu">
+	<hr/>
+	<a href="/~esr" title="My home page">Home Page</a><br />
+	<a href="/~esr/whatsnew.html" title="New on this site">What is New</a><br />
+	<a href="/~esr/sitemap.html" title="Map of the site">Site Map</a><br />
+	<a href="/~esr/software.html" title="Software I maintain">Software</a><br />
+	<a href="/~esr/projects.html" title="My projects">Projects</a><br />
+	<a href="/~esr/faqs/" title="My FAQ documents">HOWTOs</a><br />
+	<a href="/~esr/writings/" title="Essays and ruminations">Essays</a><br />
+	<a href="/~esr/personal.html" title="Portrait of the author">Personal</a><br />
+	<a href="http://www.ibiblio.org/esrblog/">Weblog</a><br/>
+        <a href="/~esr/netfreedom/">Freedom!</a><br />
+	<a href="/~esr/guns/">Firearms!</a><br />
+	<hr/>
+    <p>
+      <a href="http://validator.w3.org/check/referer"><img
+          src="http://www.w3.org/Icons/valid-xhtml10"
+          alt="Valid XHTML 1.0!" height="31" width="88" /></a>
+    </p>
+
+</div>
+
+<div id="Content">
+
+<p>I maintain a man-page-to-DocBook converter, <a
+href="index.html">doclifter</a>. A side effect of this program is that
+it serves as a validator for the correctness and portability of the
+markup used on Unix manual pages.  I test it by running it against all
+the manual pages in a full Xubuntu 18.04 with some extras; there are 13699 of these on my development
+machine, of which 566 already have DocBook masters.  It converts 12796
+(97.43%) of the remaining 13133 into valid XML-DocBook.</p>
+
+<p>Most of the remaining 2.57% of errors happen because groff(1)
+and its kin have weak-to-nonexistent validity checking.  Often,
+doclifter fails because of outright errors in macro usage that groff
+does not catch.  Sometime it fails on constructions that are legal but
+perverse.  Very occasionally it throws an error because a man page is
+correct but has a structure that cannot be translated to DocBook.  I
+keep a database of patches for such problems, and periodically
+try to push fix patches out to the manual-page maintainers.</p>
+
+<p>(These are lower numbers and a higher error rate than in some
+previous reports because I now use i3 rather than GNOME or KDE. Many
+of the userland manuals that I used to check are no longer installed
+where my test procedure can see them. Because bad markup tends to be
+concentrated in the older manual pages of core tools, a larger random
+sample pulls down the error rate.)
+
+<p>Even if you do not care about DocBook, this cleanup work benefits
+all third-party manual page viewers, including the GNOME and KDE
+documentation browsers; groff constructions that confuse doclifter
+are very likely to produce visible problems on these.</p>
+
+<p>The table below is a listing of the 324 (2.47%) pages on which
+doclifter fails, but the failure can be prevented with a fix patch to
+the manual page source.  13 pages (0.10%) remain intractable,
+generally due to markup problems more severe than a point patch can
+address.  I am working with the individual projects responsible to get
+those cleaned up.</p>
+
+<p>It is likely that you are reading this because you have received
+email telling you that patches are associated with your name or list
+address.  Please consider incorporating them, or equivalents, in your
+next release.  Also, please write back and tell me what you plan to do
+so I can keep my database up-to-date.</p>
+
+<p>If you are not already considering it, please think about moving
+the documentation masters of your project to DocBook (or some format
+from which you can generate DocBook). If everybody moved to using
+DocBook as a common exchange format, it would become much easier to
+support unified browsing of all system documentation with Web-like
+hypertext capabilities, automatic indexing, and rich search
+facilities.</p>
+
+<p>Tools to generate man pages, HTML, and PostScript from DocBook
+files are open-source and generally available.  My program, doclifter,
+should make moving your manual-page masters to DocBook a fairly
+painless process.</p>
+
+<p>Many major open source projects (including the Linux kernel, the
+Linux Documentation Project, X.org, GNOME, KDE, and FreeBSD) have
+already moved to DocBook or are in the process of doing so.</p>
+
+<p>(Individual entries for accepted patches are no longer shown.) </p>
+
+<p>Summary: 300 patches pending, 618 accepted, 0 rejected.</p>
+
+<p>Status codes are as follows:</p>
+
+<br />
+
+<table width='100%' border='1'>
+<tr><td>n</td>
+<td>No response yet.</td>
+</tr>
+
+<tr><td>p</td>
+<td>Maintainer has informed me that this is fixed in the masters, but
+I have not seen the fix yet.</td>
+</tr>
+
+<tr><td>y</td>
+<td>Accepted</td>
+</tr>
+
+<tr><td>r</td>
+<td>Rejected</td>
+</tr>
+
+<tr><td>s</td>
+<td>Superseded (page lifts correctly without the patch)</td>
+</tr>
+
+<tr><td>[0-9]+</td>
+<td>number of mailings sent</td>
+</tr>
+
+<tr><td>b</td>
+<td>Address is blocked</td>
+</tr>
+</table>
+
+<br />
+
+<p>Problem codes are explained after the table.</p>
+
+<br clear='left'/>
+
+<table width='100%' border='1'>
+<tr><td><b>Patch:</b></td><td><b>Problem code:</b></td><td>Status:</td></tr>
+
+<tr><td><a href='prepatch/acl.5.patch'>acl.5</a><br />
+</td><td><a href='#I'>I</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/afmtodit.1.patch'>afmtodit.1</a><br />
+</td><td><a href='#k'>k</a></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/american.5.patch'>american.5</a><br />
+<a href='prepatch/english.5.patch'>english.5</a><br />
+</td><td></td><td>b</td></tr>
+<tr><td><a href='prepatch/analog.1.patch'>analog.1</a><br />
+</td><td><a href='#C'>C</a> <a href='#Z'>Z</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/AnyEvent::FAQ.3pm.patch'>AnyEvent::FAQ.3pm</a><br />
+</td><td><a href='#W'>W</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/autosp.1.patch'>autosp.1</a><br />
+</td><td><a href='#Q'>Q</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/B::Hooks::EndOfScope::PP.3pm.patch'>B::Hooks::EndOfScope::PP.3pm</a><br />
+<a href='prepatch/B::Hooks::EndOfScope::XS.3pm.patch'>B::Hooks::EndOfScope::XS.3pm</a><br />
+</td><td><a href='#W'>W</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/bash.1.patch'>bash.1</a><br />
+</td><td><a href='#L'>L</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/btcflash.8.patch'>btcflash.8</a><br />
+</td><td><a href='#J'>J</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/BUF_MEM_free.3ssl.patch'>BUF_MEM_free.3ssl</a><br />
+<a href='prepatch/BUF_MEM_grow.3ssl.patch'>BUF_MEM_grow.3ssl</a><br />
+<a href='prepatch/BUF_MEM_grow_clean.3ssl.patch'>BUF_MEM_grow_clean.3ssl</a><br />
+<a href='prepatch/BUF_MEM_new.3ssl.patch'>BUF_MEM_new.3ssl</a><br />
+<a href='prepatch/BUF_MEM_new_ex.3ssl.patch'>BUF_MEM_new_ex.3ssl</a><br />
+<a href='prepatch/BUF_reverse.3ssl.patch'>BUF_reverse.3ssl</a><br />
+</td><td><a href='#W'>W</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/bzfs.6.patch'>bzfs.6</a><br />
+</td><td><a href='#o'>o</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/bzr.1.patch'>bzr.1</a><br />
+<a href='prepatch/bzr.bzr.1.patch'>bzr.bzr.1</a><br />
+</td><td><a href='#J'>J</a> <a href='#X'>X</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/calc_tickadj.1.patch'>calc_tickadj.1</a><br />
+</td><td><a href='#C'>C</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/c_rehash.1ssl.patch'>c_rehash.1ssl</a><br />
+<a href='prepatch/openssl-c_rehash.1ssl.patch'>openssl-c_rehash.1ssl</a><br />
+<a href='prepatch/openssl-rehash.1ssl.patch'>openssl-rehash.1ssl</a><br />
+<a href='prepatch/rehash.1ssl.patch'>rehash.1ssl</a><br />
+</td><td><a href='#W'>W</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/calendar.1.patch'>calendar.1</a><br />
+</td><td><a href='#X'>X</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/cdparanoia.1.patch'>cdparanoia.1</a><br />
+</td><td><a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/cgroups.7.patch'>cgroups.7</a><br />
+<a href='prepatch/cgroup_namespaces.7.patch'>cgroup_namespaces.7</a><br />
+</td><td><a href='#v'>v</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/cherryd.1.patch'>cherryd.1</a><br />
+</td><td><a href='#l'>l</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/chmoddic.1.patch'>chmoddic.1</a><br />
+</td><td><a href='#B'>B</a> <a href='#C'>C</a></td><td>bA</td></tr>
+<tr><td><a href='prepatch/chroot.2.patch'>chroot.2</a><br />
+</td><td><a href='#E'>E</a> <a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/claws-mail.1.patch'>claws-mail.1</a><br />
+</td><td><a href='#L'>L</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/cmake.1.patch'>cmake.1</a><br />
+</td><td><a href='#B'>B</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/CPAN::Meta::History::Meta_1_2.3pm.patch'>CPAN::Meta::History::Meta_1_2.3pm</a><br />
+<a href='prepatch/CPAN::Meta::History::Meta_1_3.3pm.patch'>CPAN::Meta::History::Meta_1_3.3pm</a><br />
+<a href='prepatch/CPAN::Meta::History::Meta_1_4.3pm.patch'>CPAN::Meta::History::Meta_1_4.3pm</a><br />
+</td><td><a href='#t'>t</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/co.1.patch'>co.1</a><br />
+<a href='prepatch/ident.1.patch'>ident.1</a><br />
+</td><td><a href='#o'>o</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/cpio.1.patch'>cpio.1</a><br />
+</td><td><a href='#l'>l</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/codepage.1.patch'>codepage.1</a><br />
+</td><td><a href='#C'>C</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/compose.1.patch'>compose.1</a><br />
+<a href='prepatch/edit.1.patch'>edit.1</a><br />
+</td><td><a href='#*'>*</a> <a href='#y'>y</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/CURLOPT_PROXY_CAPATH.3.patch'>CURLOPT_PROXY_CAPATH.3</a><br />
+</td><td><a href='#X'>X</a> <a href='#Y'>Y</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/dash.1.patch'>dash.1</a><br />
+<a href='prepatch/sh.1.patch'>sh.1</a><br />
+<a href='prepatch/sh.distrib.1.patch'>sh.distrib.1</a><br />
+</td><td><a href='#J'>J</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/DEFINE_STACK_OF.3ssl.patch'>DEFINE_STACK_OF.3ssl</a><br />
+<a href='prepatch/DEFINE_SPECIAL_STACK_OF.3ssl.patch'>DEFINE_SPECIAL_STACK_OF.3ssl</a><br />
+<a href='prepatch/DEFINE_STACK_OF_CONST.3ssl.patch'>DEFINE_STACK_OF_CONST.3ssl</a><br />
+<a href='prepatch/DEFINE_SPECIAL_STACK_OF_CONST.3ssl.patch'>DEFINE_SPECIAL_STACK_OF_CONST.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_deep_copy.3ssl.patch'>OPENSSL_sk_deep_copy.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_delete.3ssl.patch'>OPENSSL_sk_delete.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_delete_ptr.3ssl.patch'>OPENSSL_sk_delete_ptr.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_dup.3ssl.patch'>OPENSSL_sk_dup.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_find.3ssl.patch'>OPENSSL_sk_find.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_find_ex.3ssl.patch'>OPENSSL_sk_find_ex.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_free.3ssl.patch'>OPENSSL_sk_free.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_insert.3ssl.patch'>OPENSSL_sk_insert.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_is_sorted.3ssl.patch'>OPENSSL_sk_is_sorted.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_new.3ssl.patch'>OPENSSL_sk_new.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_new_null.3ssl.patch'>OPENSSL_sk_new_null.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_num.3ssl.patch'>OPENSSL_sk_num.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_pop.3ssl.patch'>OPENSSL_sk_pop.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_pop_free.3ssl.patch'>OPENSSL_sk_pop_free.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_push.3ssl.patch'>OPENSSL_sk_push.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_set.3ssl.patch'>OPENSSL_sk_set.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_set_cmp_func.3ssl.patch'>OPENSSL_sk_set_cmp_func.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_shift.3ssl.patch'>OPENSSL_sk_shift.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_sort.3ssl.patch'>OPENSSL_sk_sort.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_unshift.3ssl.patch'>OPENSSL_sk_unshift.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk_value.3ssl.patch'>OPENSSL_sk_value.3ssl</a><br />
+<a href='prepatch/OPENSSL_sk.3ssl.patch'>OPENSSL_sk.3ssl</a><br />
+<a href='prepatch/zero.3ssl.patch'>zero.3ssl</a><br />
+<a href='prepatch/sk_TYPE_num.3ssl.patch'>sk_TYPE_num.3ssl</a><br />
+<a href='prepatch/sk_TYPE_value.3ssl.patch'>sk_TYPE_value.3ssl</a><br />
+<a href='prepatch/sk_TYPE_new.3ssl.patch'>sk_TYPE_new.3ssl</a><br />
+<a href='prepatch/sk_TYPE_new_null.3ssl.patch'>sk_TYPE_new_null.3ssl</a><br />
+<a href='prepatch/sk_TYPE_free.3ssl.patch'>sk_TYPE_free.3ssl</a><br />
+<a href='prepatch/sk_TYPE_zero.3ssl.patch'>sk_TYPE_zero.3ssl</a><br />
+<a href='prepatch/sk_TYPE_delete.3ssl.patch'>sk_TYPE_delete.3ssl</a><br />
+<a href='prepatch/sk_TYPE_delete_ptr.3ssl.patch'>sk_TYPE_delete_ptr.3ssl</a><br />
+<a href='prepatch/sk_TYPE_push.3ssl.patch'>sk_TYPE_push.3ssl</a><br />
+<a href='prepatch/sk_TYPE_unshift.3ssl.patch'>sk_TYPE_unshift.3ssl</a><br />
+<a href='prepatch/sk_TYPE_pop.3ssl.patch'>sk_TYPE_pop.3ssl</a><br />
+<a href='prepatch/sk_TYPE_shift.3ssl.patch'>sk_TYPE_shift.3ssl</a><br />
+<a href='prepatch/sk_TYPE_pop_free.3ssl.patch'>sk_TYPE_pop_free.3ssl</a><br />
+<a href='prepatch/sk_TYPE_insert.3ssl.patch'>sk_TYPE_insert.3ssl</a><br />
+<a href='prepatch/sk_TYPE_set.3ssl.patch'>sk_TYPE_set.3ssl</a><br />
+<a href='prepatch/sk_TYPE_find.3ssl.patch'>sk_TYPE_find.3ssl</a><br />
+<a href='prepatch/sk_TYPE_find_ex.3ssl.patch'>sk_TYPE_find_ex.3ssl</a><br />
+<a href='prepatch/sk_TYPE_sort.3ssl.patch'>sk_TYPE_sort.3ssl</a><br />
+<a href='prepatch/sk_TYPE_is_sorted.3ssl.patch'>sk_TYPE_is_sorted.3ssl</a><br />
+<a href='prepatch/sk_TYPE_dup.3ssl.patch'>sk_TYPE_dup.3ssl</a><br />
+<a href='prepatch/sk_TYPE_deep_copy.3ssl.patch'>sk_TYPE_deep_copy.3ssl</a><br />
+<a href='prepatch/sk_TYPE_set_cmp_func.3ssl.patch'>sk_TYPE_set_cmp_func.3ssl</a><br />
+</td><td><a href='#n'>n</a></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/Parse::DebControl::Error.3pm.patch'>Parse::DebControl::Error.3pm</a><br />
+</td><td><a href='#W'>W</a> <a href='#y'>y</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/devnag.1.patch'>devnag.1</a><br />
+</td><td><a href='#J'>J</a></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/dh_install.1.patch'>dh_install.1</a><br />
+</td><td><a href='#i'>i</a> <a href='#y'>y</a></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/dhclient.8.patch'>dhclient.8</a><br />
+</td><td><a href='#U'>U</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/dkms.8.patch'>dkms.8</a><br />
+</td><td><a href='#X'>X</a> <a href='#J'>J</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/dmcs.1.patch'>dmcs.1</a><br />
+<a href='prepatch/mcs.1.patch'>mcs.1</a><br />
+<a href='prepatch/gmcs.1.patch'>gmcs.1</a><br />
+</td><td><a href='#L'>L</a> <a href='#A'>A</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/dmstats.8.patch'>dmstats.8</a><br />
+</td><td><a href='#C'>C</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/dosbox.1.patch'>dosbox.1</a><br />
+</td><td><a href='#L'>L</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/driverless.1.patch'>driverless.1</a><br />
+</td><td><a href='#L'>L</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/dump-acct.8.patch'>dump-acct.8</a><br />
+</td><td><a href='#U'>U</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/dv2dt.1.patch'>dv2dt.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/dvipdf.1.patch'>dvipdf.1</a><br />
+<a href='prepatch/font2c.1.patch'>font2c.1</a><br />
+</td><td><a href='#R'>R</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/edgepaint.1.patch'>edgepaint.1</a><br />
+</td><td><a href='#W'>W</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/editres.1.patch'>editres.1</a><br />
+</td><td><a href='#I'>I</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/e2fsck.8.patch'>e2fsck.8</a><br />
+</td><td><a href='#o'>o</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/e2image.8.patch'>e2image.8</a><br />
+</td><td><a href='#J'>J</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/efax.1.patch'>efax.1</a><br />
+</td><td><a href='#J'>J</a> <a href='#u'>u</a> <a href='#g'>g</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/eqn.1.patch'>eqn.1</a><br />
+<a href='prepatch/geqn.1.patch'>geqn.1</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/irb.1.patch'>irb.1</a><br />
+<a href='prepatch/irb2.5.1.patch'>irb2.5.1</a><br />
+</td><td><a href='#a'>a</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/ethtool.8.patch'>ethtool.8</a><br />
+</td><td><a href='#P'>P</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/exiv2.1.patch'>exiv2.1</a><br />
+</td><td><a href='#L'>L</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/extractres.1.patch'>extractres.1</a><br />
+</td><td><a href='#R'>R</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/f2py.1.patch'>f2py.1</a><br />
+<a href='prepatch/f2py2.7.1.patch'>f2py2.7.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/faked-sysv.1.patch'>faked-sysv.1</a><br />
+<a href='prepatch/faked-tcp.1.patch'>faked-tcp.1</a><br />
+<a href='prepatch/faked.1.patch'>faked.1</a><br />
+<a href='prepatch/fakeroot-sysv.1.patch'>fakeroot-sysv.1</a><br />
+<a href='prepatch/fakeroot-tcp.1.patch'>fakeroot-tcp.1</a><br />
+<a href='prepatch/fakeroot.1.patch'>fakeroot.1</a><br />
+</td><td><a href='#r'>r</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/feature_test_macros.7.patch'>feature_test_macros.7</a><br />
+</td><td><a href='#I'>I</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/formail.1.patch'>formail.1</a><br />
+<a href='prepatch/lockfile.1.patch'>lockfile.1</a><br />
+<a href='prepatch/procmail.1.patch'>procmail.1</a><br />
+<a href='prepatch/procmailex.5.patch'>procmailex.5</a><br />
+<a href='prepatch/procmailrc.5.patch'>procmailrc.5</a><br />
+<a href='prepatch/procmailsc.5.patch'>procmailsc.5</a><br />
+</td><td><a href='#K'>K</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/fsck.ext2.8.patch'>fsck.ext2.8</a><br />
+<a href='prepatch/fsck.ext3.8.patch'>fsck.ext3.8</a><br />
+<a href='prepatch/fsck.ext4.8.patch'>fsck.ext4.8</a><br />
+<a href='prepatch/fsck.ext4dev.8.patch'>fsck.ext4dev.8</a><br />
+</td><td><a href='#o'>o</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/fuzzyflakes.6x.patch'>fuzzyflakes.6x</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/fwup_get_fw_type.3.patch'>fwup_get_fw_type.3</a><br />
+<a href='prepatch/fwup_get_fw_version.3.patch'>fwup_get_fw_version.3</a><br />
+<a href='prepatch/fwup_get_guid.3.gz.patch'>fwup_get_guid.3.gz</a><br />
+<a href='prepatch/fwup_get_last_attempt_info.3.patch'>fwup_get_last_attempt_info.3</a><br />
+<a href='prepatch/fwup_get_lowest_supported_version.3.patch'>fwup_get_lowest_supported_version.3</a><br />
+<a href='prepatch/fwup_get_ux_capsule_info.3.patch'>fwup_get_ux_capsule_info.3</a><br />
+<a href='prepatch/fwup_resource_iter_create.3.patch'>fwup_resource_iter_create.3</a><br />
+<a href='prepatch/fwup_resource_iter_destroy.3.patch'>fwup_resource_iter_destroy.3</a><br />
+<a href='prepatch/fwup_resource_iter_next.3.patch'>fwup_resource_iter_next.3</a><br />
+<a href='prepatch/fwup_resource_iter_next.3.patch'>fwup_resource_iter_next.3</a><br />
+<a href='prepatch/fwup_set_up_update.3.patch'>fwup_set_up_update.3</a><br />
+<a href='prepatch/fwup_supported.3.patch'>fwup_supported.3</a><br />
+<a href='prepatch/libfwup.3.patch'>libfwup.3</a><br />
+<a href='prepatch/fwup_clear_status.3.patch'>fwup_clear_status.3</a><br />
+<a href='prepatch/fwup_get_guid.3.patch'>fwup_get_guid.3</a><br />
+<a href='prepatch/libfwup.h.3.patch'>libfwup.h.3</a><br />
+</td><td><a href='#I'>I</a> <a href='#X'>X</a> <a href='#c'>c</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/gacutil.1.patch'>gacutil.1</a><br />
+<a href='prepatch/cli-gacutil.1.patch'>cli-gacutil.1</a><br />
+</td><td><a href='#N'>N</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/gdiffmk.1.patch'>gdiffmk.1</a><br />
+</td><td><a href='#W'>W</a> <a href='#k'>k</a></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/genisoimage.1.patch'>genisoimage.1</a><br />
+</td><td><a href='#o'>o</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/getafm.1.patch'>getafm.1</a><br />
+</td><td><a href='#R'>R</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/getty.8.patch'>getty.8</a><br />
+<a href='prepatch/agetty.8.patch'>agetty.8</a><br />
+</td><td><a href='#m'>m</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/gftodvi.1.patch'>gftodvi.1</a><br />
+</td><td><a href='#I'>I</a></td><td>bA</td></tr>
+<tr><td><a href='prepatch/gource.1.patch'>gource.1</a><br />
+</td><td><a href='#C'>C</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/gpm-types.7.patch'>gpm-types.7</a><br />
+</td><td><a href='#J'>J</a> <a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/grn.1.patch'>grn.1</a><br />
+</td><td><a href='#J'>J</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/groff.1.patch'>groff.1</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/groff_char.7.patch'>groff_char.7</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/groff_man.7.patch'>groff_man.7</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/groff_tmac.5.patch'>groff_tmac.5</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/groffer.1.patch'>groffer.1</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/grog.1.patch'>grog.1</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/gropdf.1.patch'>gropdf.1</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/gtbl.1.patch'>gtbl.1</a><br />
+<a href='prepatch/tbl.1.patch'>tbl.1</a><br />
+</td><td><a href='#*'>*</a></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/gthumb.1.patch'>gthumb.1</a><br />
+</td><td><a href='#L'>L</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/gvcolor.1.patch'>gvcolor.1</a><br />
+</td><td><a href='#C'>C</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/gvpack.1.patch'>gvpack.1</a><br />
+</td><td><a href='#C'>C</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/hddtemp.8.patch'>hddtemp.8</a><br />
+</td><td><a href='#L'>L</a> <a href='#*'>*</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/hfsutils.1.patch'>hfsutils.1</a><br />
+</td><td><a href='#H'>H</a> <a href='#J'>J</a></td><td>7n</td></tr>
+<tr><td><a href='prepatch/hosts_access.5.patch'>hosts_access.5</a><br />
+<a href='prepatch/hosts.allow.5.patch'>hosts.allow.5</a><br />
+<a href='prepatch/hosts.deny.5.patch'>hosts.deny.5</a><br />
+<a href='prepatch/hosts_options.5.patch'>hosts_options.5</a><br />
+</td><td><a href='#I'>I</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/hp-logcapture.1.patch'>hp-logcapture.1</a><br />
+</td><td><a href='#Z'>Z</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/html2text.1.patch'>html2text.1</a><br />
+</td><td><a href='#C'>C</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/html2textrc.5.patch'>html2textrc.5</a><br />
+</td><td><a href='#X'>X</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/hypertorus.6x.patch'>hypertorus.6x</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/icclink.1.patch'>icclink.1</a><br />
+</td><td><a href='#E'>E</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/icctrans.1.patch'>icctrans.1</a><br />
+</td><td><a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/tifficc.1.patch'>tifficc.1</a><br />
+</td><td><a href='#E'>E</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/icedax.1.patch'>icedax.1</a><br />
+</td><td><a href='#A'>A</a> <a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ilbmtoppm.1.patch'>ilbmtoppm.1</a><br />
+</td><td><a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/includeres.1.patch'>includeres.1</a><br />
+</td><td><a href='#R'>R</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/inode.7.patch'>inode.7</a><br />
+</td><td><a href='#I'>I</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/intel_panel_fitter.1.patch'>intel_panel_fitter.1</a><br />
+</td><td><a href='#E'>E</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/inxi.1.patch'>inxi.1</a><br />
+</td><td><a href='#C'>C</a> <a href='#l'>l</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/IO::WrapTie.3pm.patch'>IO::WrapTie.3pm</a><br />
+</td><td><a href='#W'>W</a> <a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ipppd.8.patch'>ipppd.8</a><br />
+</td><td><a href='#L'>L</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/iptables-extensions.8.patch'>iptables-extensions.8</a><br />
+</td><td><a href='#J'>J</a> <a href='#L'>L</a> <a href='#U'>U</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/ipv6calc.8.patch'>ipv6calc.8</a><br />
+<a href='prepatch/ipv6logconv.8.patch'>ipv6logconv.8</a><br />
+<a href='prepatch/ipv6logstats.8.patch'>ipv6logstats.8</a><br />
+<a href='prepatch/ipv6loganon.8.patch'>ipv6loganon.8</a><br />
+</td><td><a href='#L'>L</a></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/irda.7.patch'>irda.7</a><br />
+</td><td><a href='#c'>c</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ispell.1.patch'>ispell.1</a><br />
+<a href='prepatch/buildhash.1.patch'>buildhash.1</a><br />
+<a href='prepatch/munchlist.1.patch'>munchlist.1</a><br />
+<a href='prepatch/findaffix.1.patch'>findaffix.1</a><br />
+<a href='prepatch/tryaffix.1.patch'>tryaffix.1</a><br />
+<a href='prepatch/icombine.1.patch'>icombine.1</a><br />
+<a href='prepatch/ijoin.1.patch'>ijoin.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ispell-wrapper.1.patch'>ispell-wrapper.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/lamd.1.patch'>lamd.1</a><br />
+</td><td></td><td>2n</td></tr>
+<tr><td><a href='prepatch/lam.7.patch'>lam.7</a><br />
+<a href='prepatch/LAM.7.patch'>LAM.7</a><br />
+</td><td><a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/lam-helpfile.5.patch'>lam-helpfile.5</a><br />
+</td><td><a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/lastcomm.1.patch'>lastcomm.1</a><br />
+</td><td><a href='#I'>I</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/lftp.1.patch'>lftp.1</a><br />
+</td><td><a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/libcaca-authors.3caca.patch'>libcaca-authors.3caca</a><br />
+</td><td><a href='#W'>W</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/libcaca-canvas.3caca.patch'>libcaca-canvas.3caca</a><br />
+</td><td><a href='#W'>W</a> <a href='#J'>J</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/libcaca-env.3caca.patch'>libcaca-env.3caca</a><br />
+</td><td><a href='#W'>W</a> <a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/libcaca-font.3caca.patch'>libcaca-font.3caca</a><br />
+</td><td><a href='#W'>W</a> <a href='#J'>J</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/libcaca-ruby.3caca.patch'>libcaca-ruby.3caca</a><br />
+</td><td><a href='#W'>W</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/libcaca-tutorial.3caca.patch'>libcaca-tutorial.3caca</a><br />
+</td><td><a href='#W'>W</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/libinput.4.patch'>libinput.4</a><br />
+</td><td><a href='#L'>L</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/libpng.3.patch'>libpng.3</a><br />
+</td><td><a href='#S'>S</a> <a href='#J'>J</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/libtiff.3tiff.patch'>libtiff.3tiff</a><br />
+</td><td><a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/linkicc.1.patch'>linkicc.1</a><br />
+<a href='prepatch/transicc.1.patch'>transicc.1</a><br />
+</td><td><a href='#L'>L</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/List::Compare::Functional.3pm.patch'>List::Compare::Functional.3pm</a><br />
+</td><td><a href='#H'>H</a> <a href='#Y'>Y</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/list_audio_tracks.1.patch'>list_audio_tracks.1</a><br />
+</td><td><a href='#W'>W</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ln.1.patch'>ln.1</a><br />
+</td><td><a href='#j'>j</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/loadkeys.1.patch'>loadkeys.1</a><br />
+</td><td><a href='#U'>U</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/locate.findutils.1.patch'>locate.findutils.1</a><br />
+</td><td><a href='#U'>U</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/logilab-pytest.1.patch'>logilab-pytest.1</a><br />
+</td><td><a href='#Z'>Z</a> <a href='#w'>w</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/lpr.1.patch'>lpr.1</a><br />
+</td><td><a href='#U'>U</a></td><td>7n</td></tr>
+<tr><td><a href='prepatch/lynx.1.patch'>lynx.1</a><br />
+<a href='prepatch/www-browser.1.patch'>www-browser.1</a><br />
+</td><td><a href='#I'>I</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/mailx.1posix.patch'>mailx.1posix</a><br />
+</td><td><a href='#l'>l</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/makeindex.1.patch'>makeindex.1</a><br />
+</td><td><a href='#J'>J</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/mathspic.1.patch'>mathspic.1</a><br />
+</td><td><a href='#J'>J</a> <a href='#W'>W</a> <a href='#t'>t</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/mawk.1.patch'>mawk.1</a><br />
+</td><td><a href='#R'>R</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/mdoc.7.patch'>mdoc.7</a><br />
+</td><td><a href='#X'>X</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/mke2fs.8.patch'>mke2fs.8</a><br />
+<a href='prepatch/mkfs.ext2.8.patch'>mkfs.ext2.8</a><br />
+<a href='prepatch/mkfs.ext3.8.patch'>mkfs.ext3.8</a><br />
+<a href='prepatch/mkfs.ext4.8.patch'>mkfs.ext4.8</a><br />
+<a href='prepatch/mkfs.ext4dev.8.patch'>mkfs.ext4dev.8</a><br />
+</td><td><a href='#C'>C</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/mkjobtexmf.1.patch'>mkjobtexmf.1</a><br />
+</td><td><a href='#L'>L</a> <a href='#y'>y</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/mmcli.8.patch'>mmcli.8</a><br />
+</td><td><a href='#X'>X</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/mono.1.patch'>mono.1</a><br />
+<a href='prepatch/cli.1.patch'>cli.1</a><br />
+</td><td><a href='#J'>J</a> <a href='#X'>X</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/mono-config.5.patch'>mono-config.5</a><br />
+</td><td><a href='#X'>X</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/mpirun.1.patch'>mpirun.1</a><br />
+<a href='prepatch/mpirun.lam.1.patch'>mpirun.lam.1</a><br />
+</td><td><a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/mplayer.1.patch'>mplayer.1</a><br />
+</td><td><a href='#C'>C</a> <a href='#L'>L</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/mtools.5.patch'>mtools.5</a><br />
+<a href='prepatch/mtools.conf.5.patch'>mtools.conf.5</a><br />
+</td><td><a href='#X'>X</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/mtr.8.patch'>mtr.8</a><br />
+</td><td><a href='#J'>J</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/namespaces.7.patch'>namespaces.7</a><br />
+</td><td><a href='#I'>I</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/nautilus.1.patch'>nautilus.1</a><br />
+</td><td><a href='#L'>L</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/nautilus-connect-server.1.patch'>nautilus-connect-server.1</a><br />
+</td><td><a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/netpbm.1.patch'>netpbm.1</a><br />
+</td><td><a href='#J'>J</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/netstat.8.patch'>netstat.8</a><br />
+</td><td><a href='#f'>f</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/nfsmount.conf.5.patch'>nfsmount.conf.5</a><br />
+</td><td><a href='#C'>C</a> <a href='#Y'>Y</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/nmcli.1.patch'>nmcli.1</a><br />
+</td><td><a href='#C'>C</a> <a href='#L'>L</a> <a href='#f'>f</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/nsenter.1.patch'>nsenter.1</a><br />
+</td><td><a href='#L'>L</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/nsgmls.1.patch'>nsgmls.1</a><br />
+</td><td><a href='#C'>C</a> <a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ntfs-3g.secaudit.8.patch'>ntfs-3g.secaudit.8</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ntfs-3g.usermap.8.patch'>ntfs-3g.usermap.8</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ntfssecaudit.8.patch'>ntfssecaudit.8</a><br />
+</td><td><a href='#C'>C</a> <a href='#Y'>Y</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/ntp-wait.8.patch'>ntp-wait.8</a><br />
+<a href='prepatch/ntp-keygen.8.patch'>ntp-keygen.8</a><br />
+<a href='prepatch/ntp.keys.5.patch'>ntp.keys.5</a><br />
+</td><td><a href='#C'>C</a></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/nvidia-settings.1.patch'>nvidia-settings.1</a><br />
+</td><td><a href='#I'>I</a> <a href='#x'>x</a> <a href='#Y'>Y</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/nvidia-smi.1.patch'>nvidia-smi.1</a><br />
+</td><td><a href='#I'>I</a> <a href='#f'>f</a> <a href='#Y'>Y</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/objcopy.1.patch'>objcopy.1</a><br />
+<a href='prepatch/objdump.1.patch'>objdump.1</a><br />
+<a href='prepatch/x86_64-linux-gnu-objcopy.1.patch'>x86_64-linux-gnu-objcopy.1</a><br />
+<a href='prepatch/x86_64-linux-gnu-objdump.1.patch'>x86_64-linux-gnu-objdump.1</a><br />
+</td><td><a href='#U'>U</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/ode.1.patch'>ode.1</a><br />
+</td><td><a href='#e'>e</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/omfonts.1.patch'>omfonts.1</a><br />
+</td><td><a href='#W'>W</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/openvt.1.patch'>openvt.1</a><br />
+<a href='prepatch/open.1.patch'>open.1</a><br />
+</td><td><a href='#L'>L</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/orbd.1.patch'>orbd.1</a><br />
+</td><td><a href='#W'>W</a> <a href='#y'>y</a> <a href='#Y'>Y</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/orca.1.patch'>orca.1</a><br />
+</td><td><a href='#s'>s</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pandoc.1.patch'>pandoc.1</a><br />
+</td><td><a href='#J'>J</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/pax.1posix.patch'>pax.1posix</a><br />
+</td><td><a href='#D'>D</a> <a href='#X'>X</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/qsub.1posix.patch'>qsub.1posix</a><br />
+</td><td><a href='#D'>D</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/pbmclean.1.patch'>pbmclean.1</a><br />
+<a href='prepatch/pnmcomp.1.patch'>pnmcomp.1</a><br />
+<a href='prepatch/pnmnorm.1.patch'>pnmnorm.1</a><br />
+<a href='prepatch/pnmpad.1.patch'>pnmpad.1</a><br />
+<a href='prepatch/pnmquant.1.patch'>pnmquant.1</a><br />
+<a href='prepatch/pnmremap.1.patch'>pnmremap.1</a><br />
+<a href='prepatch/pnmtotiff.1.patch'>pnmtotiff.1</a><br />
+<a href='prepatch/pgmnorm.1.patch'>pgmnorm.1</a><br />
+<a href='prepatch/ppmcolors.1.patch'>ppmcolors.1</a><br />
+<a href='prepatch/ppmnorm.1.patch'>ppmnorm.1</a><br />
+<a href='prepatch/ppmntsc.1.patch'>ppmntsc.1</a><br />
+<a href='prepatch/ppmquant.1.patch'>ppmquant.1</a><br />
+<a href='prepatch/ppmrainbow.1.patch'>ppmrainbow.1</a><br />
+<a href='prepatch/ppmtogif.1.patch'>ppmtogif.1</a><br />
+<a href='prepatch/ppmtoxpm.1.patch'>ppmtoxpm.1</a><br />
+<a href='prepatch/tifftopnm.1.patch'>tifftopnm.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pbget.1.patch'>pbget.1</a><br />
+<a href='prepatch/pbput.1.patch'>pbput.1</a><br />
+<a href='prepatch/pbputs.1.patch'>pbputs.1</a><br />
+</td><td><a href='#W'>W</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pbmtextps.1.patch'>pbmtextps.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pcap-filter.7.patch'>pcap-filter.7</a><br />
+</td><td><a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pdfroff.1.patch'>pdfroff.1</a><br />
+</td><td><a href='#X'>X</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/pdcp.1.patch'>pdcp.1</a><br />
+</td><td><a href='#J'>J</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/pdsh.1.patch'>pdsh.1</a><br />
+<a href='prepatch/pdsh.bin.1.patch'>pdsh.bin.1</a><br />
+</td><td><a href='#J'>J</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/rpdcp.1.patch'>rpdcp.1</a><br />
+</td><td><a href='#z'>z</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/pidgin.1.patch'>pidgin.1</a><br />
+</td><td><a href='#T'>T</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/plot.1.patch'>plot.1</a><br />
+<a href='prepatch/plotfont.1.patch'>plotfont.1</a><br />
+</td><td><a href='#W'>W</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pnmhisteq.1.patch'>pnmhisteq.1</a><br />
+<a href='prepatch/ppmcie.1.patch'>ppmcie.1</a><br />
+<a href='prepatch/ppmlabel.1.patch'>ppmlabel.1</a><br />
+<a href='prepatch/sbigtopgm.1.patch'>sbigtopgm.1</a><br />
+</td><td><a href='#R'>R</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pnmpaste.1.patch'>pnmpaste.1</a><br />
+</td><td><a href='#X'>X</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pnmtotiffcmyk.1.patch'>pnmtotiffcmyk.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pnmtofiasco.1.patch'>pnmtofiasco.1</a><br />
+</td><td><a href='#e'>e</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/policytool.1.patch'>policytool.1</a><br />
+</td><td><a href='#W'>W</a> <a href='#y'>y</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/postqueue.1.patch'>postqueue.1</a><br />
+</td><td><a href='#C'>C</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/preconv.1.patch'>preconv.1</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/prlimit.1.patch'>prlimit.1</a><br />
+</td><td><a href='#U'>U</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/proc.5.patch'>proc.5</a><br />
+<a href='prepatch/procfs.5.patch'>procfs.5</a><br />
+</td><td><a href='#v'>v</a> <a href='#L'>L</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/pstree.1.patch'>pstree.1</a><br />
+<a href='prepatch/pstree.x11.1.patch'>pstree.x11.1</a><br />
+</td><td><a href='#C'>C</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/pstops.1.patch'>pstops.1</a><br />
+</td><td><a href='#R'>R</a></td><td>bA</td></tr>
+<tr><td><a href='prepatch/ps2epsi.1.patch'>ps2epsi.1</a><br />
+</td><td><a href='#j'>j</a></td><td>7n</td></tr>
+<tr><td><a href='prepatch/ps2pdfwr.1.patch'>ps2pdfwr.1</a><br />
+</td><td><a href='#R'>R</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/pylint.1.patch'>pylint.1</a><br />
+</td><td><a href='#J'>J</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/pytest.1.patch'>pytest.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/rake2.1.1.patch'>rake2.1.1</a><br />
+</td><td><a href='#L'>L</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/random.7.patch'>random.7</a><br />
+</td><td><a href='#m'>m</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/rcsfile.5.patch'>rcsfile.5</a><br />
+</td><td><a href='#d'>d</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/rdma.8.patch'>rdma.8</a><br />
+</td><td><a href='#C'>C</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/refer.1.patch'>refer.1</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/regulatory.bin.5.patch'>regulatory.bin.5</a><br />
+</td><td><a href='#w'>w</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/request-key.8.patch'>request-key.8</a><br />
+</td><td><a href='#q'>q</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/request-key.conf.5.patch'>request-key.conf.5</a><br />
+</td><td><a href='#q'>q</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/rexec.3.patch'>rexec.3</a><br />
+<a href='prepatch/rexec_af.3.patch'>rexec_af.3</a><br />
+</td><td><a href='#M'>M</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/rhythmbox-client.1.patch'>rhythmbox-client.1</a><br />
+</td><td><a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ri.1.patch'>ri.1</a><br />
+<a href='prepatch/ri2.5.1.patch'>ri2.5.1</a><br />
+</td><td><a href='#G'>G</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/rlog.1.patch'>rlog.1</a><br />
+</td><td><a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/rlwrap.1.patch'>rlwrap.1</a><br />
+<a href='prepatch/readline-editor.1.patch'>readline-editor.1</a><br />
+</td><td><a href='#J'>J</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/rmid.1.patch'>rmid.1</a><br />
+</td><td><a href='#W'>W</a> <a href='#y'>y</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/rmiregistry.1.patch'>rmiregistry.1</a><br />
+</td><td><a href='#W'>W</a> <a href='#y'>y</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/roff.7.patch'>roff.7</a><br />
+</td><td></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/rotatelogs.8.patch'>rotatelogs.8</a><br />
+</td><td><a href='#L'>L</a> <a href='#*'>*</a> <a href='#<'><</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/s3.4.patch'>s3.4</a><br />
+</td><td><a href='#I'>I</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/sane-lexmark.5.patch'>sane-lexmark.5</a><br />
+</td><td><a href='#L'>L</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/scapy.1.patch'>scapy.1</a><br />
+</td><td><a href='#l'>l</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/screen.1.patch'>screen.1</a><br />
+</td><td><a href='#L'>L</a> <a href='#I'>I</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/SDL_Init.3.patch'>SDL_Init.3</a><br />
+</td><td><a href='#L'>L</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/SDL_CDPlayTracks.3.patch'>SDL_CDPlayTracks.3</a><br />
+</td><td><a href='#n'>n</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/seccomp.2.patch'>seccomp.2</a><br />
+</td><td><a href='#h'>h</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/see.1.patch'>see.1</a><br />
+<a href='prepatch/run-mailcap.1.patch'>run-mailcap.1</a><br />
+<a href='prepatch/print.1.patch'>print.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/semanage-user.8.patch'>semanage-user.8</a><br />
+<a href='prepatch/semanage-boolean.8.patch'>semanage-boolean.8</a><br />
+<a href='prepatch/semanage-module.8.patch'>semanage-module.8</a><br />
+<a href='prepatch/semanage-permissive.8.patch'>semanage-permissive.8</a><br />
+</td><td><a href='#B'>B</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/semanage-fcontext.8.patch'>semanage-fcontext.8</a><br />
+</td><td><a href='#B'>B</a> <a href='#U'>U</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/semop.2.patch'>semop.2</a><br />
+<a href='prepatch/semtimedop.2.patch'>semtimedop.2</a><br />
+</td><td><a href='#v'>v</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/setcap.8.patch'>setcap.8</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/sg_xcopy.8.patch'>sg_xcopy.8</a><br />
+</td><td><a href='#l'>l</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/sgmlspl.1.patch'>sgmlspl.1</a><br />
+</td><td><a href='#L'>L</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/slapd.conf.5.patch'>slapd.conf.5</a><br />
+</td><td><a href='#L'>L</a> <a href='#I'>I</a></td><td>bA</td></tr>
+<tr><td><a href='prepatch/slapd-config.5.patch'>slapd-config.5</a><br />
+</td><td><a href='#L'>L</a> <a href='#I'>I</a></td><td>bA</td></tr>
+<tr><td><a href='prepatch/slapo-constraint.5.patch'>slapo-constraint.5</a><br />
+</td><td><a href='#L'>L</a></td><td>bA</td></tr>
+<tr><td><a href='prepatch/slapo-retcode.5.patch'>slapo-retcode.5</a><br />
+</td><td><a href='#C'>C</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/software-properties-gtk.1.patch'>software-properties-gtk.1</a><br />
+</td><td><a href='#W'>W</a></td><td>bA</td></tr>
+<tr><td><a href='prepatch/spam.1.patch'>spam.1</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/ssh_config.5.patch'>ssh_config.5</a><br />
+<a href='prepatch/sshd_config.5.patch'>sshd_config.5</a><br />
+</td><td><a href='#F'>F</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/SSL_get_cipher_name.3ssl.patch'>SSL_get_cipher_name.3ssl</a><br />
+<a href='prepatch/SSL_get_current_cipher.3ssl.patch'>SSL_get_current_cipher.3ssl</a><br />
+<a href='prepatch/SSL_get_cipher_bits.3ssl.patch'>SSL_get_cipher_bits.3ssl</a><br />
+<a href='prepatch/ SSL_get_cipher_version.3ssl.patch'> SSL_get_cipher_version.3ssl</a><br />
+</td><td><a href='#p'>p</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/sudoers.5.patch'>sudoers.5</a><br />
+</td><td><a href='#X'>X</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/suffixes.7.patch'>suffixes.7</a><br />
+</td><td><a href='#l'>l</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/synctex.1.patch'>synctex.1</a><br />
+</td><td><a href='#L'>L</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/sysfs.5.patch'>sysfs.5</a><br />
+</td><td><a href='#*'>*</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/rb.1.patch'>rb.1</a><br />
+<a href='prepatch/rx.1.patch'>rx.1</a><br />
+<a href='prepatch/rz.1.patch'>rz.1</a><br />
+<a href='prepatch/sb.1.patch'>sb.1</a><br />
+<a href='prepatch/sx.1.patch'>sx.1</a><br />
+<a href='prepatch/sz.1.patch'>sz.1</a><br />
+</td><td><a href='#e'>e</a></td><td>7n</td></tr>
+<tr><td><a href='prepatch/tar.1.patch'>tar.1</a><br />
+</td><td><a href='#l'>l</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/tc-matchall.8.patch'>tc-matchall.8</a><br />
+<a href='prepatch/tc-sample.8.patch'>tc-sample.8</a><br />
+</td><td><a href='#h'>h</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/tc-cbq-details.8.patch'>tc-cbq-details.8</a><br />
+<a href='prepatch/tc-cbq.8.patch'>tc-cbq.8</a><br />
+<a href='prepatch/tc-mqprio.8.patch'>tc-mqprio.8</a><br />
+<a href='prepatch/tc-prio.8.patch'>tc-prio.8</a><br />
+<a href='prepatch/tc-htb.8.patch'>tc-htb.8</a><br />
+</td><td><a href='#B'>B</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/tcpd.8.patch'>tcpd.8</a><br />
+</td><td><a href='#I'>I</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/tcpdmatch.8.patch'>tcpdmatch.8</a><br />
+</td><td><a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/tcpdump.8.patch'>tcpdump.8</a><br />
+</td><td><a href='#l'>l</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/tek2plot.1.patch'>tek2plot.1</a><br />
+</td><td><a href='#W'>W</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/test.1.patch'>test.1</a><br />
+<a href='prepatch/[.1.patch'>[.1</a><br />
+</td><td><a href='#C'>C</a> <a href='#O'>O</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/thermal-conf.xml.5.patch'>thermal-conf.xml.5</a><br />
+</td><td><a href='#L'>L</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/TIFFGetField.3tiff.patch'>TIFFGetField.3tiff</a><br />
+</td><td><a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/TIFFmemory.3tiff.patch'>TIFFmemory.3tiff</a><br />
+</td><td><a href='#b'>b</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/tnameserv.1.patch'>tnameserv.1</a><br />
+</td><td><a href='#W'>W</a> <a href='#y'>y</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/tidy.1.patch'>tidy.1</a><br />
+</td><td><a href='#m'>m</a></td><td>1bA</td></tr>
+<tr><td><a href='prepatch/top.1.patch'>top.1</a><br />
+</td><td><a href='#C'>C</a> <a href='#Y'>Y</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/tune2fs.8.patch'>tune2fs.8</a><br />
+</td><td><a href='#C'>C</a></td><td>7n</td></tr>
+<tr><td><a href='prepatch/ubuntu-advantage.1.patch'>ubuntu-advantage.1</a><br />
+<a href='prepatch/ua.1.patch'>ua.1</a><br />
+</td><td><a href='#L'>L</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/unrar.1.patch'>unrar.1</a><br />
+<a href='prepatch/unrar-nonfree.1.patch'>unrar-nonfree.1</a><br />
+</td><td><a href='#C'>C</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/upstart-events.7.patch'>upstart-events.7</a><br />
+</td><td><a href='#I'>I</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/usb-creator-gtk.8.patch'>usb-creator-gtk.8</a><br />
+</td><td><a href='#W'>W</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/update-leap.1.patch'>update-leap.1</a><br />
+</td><td><a href='#C'>C</a> <a href='#X'>X</a></td><td><font color='green'>s</font></td></tr>
+<tr><td><a href='prepatch/uuencode.1posix.patch'>uuencode.1posix</a><br />
+</td><td><a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/winemaker.1.patch'>winemaker.1</a><br />
+</td><td><a href='#U'>U</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/vim-addon-manager.1.patch'>vim-addon-manager.1</a><br />
+<a href='prepatch/vam.1.patch'>vam.1</a><br />
+<a href='prepatch/vim-addons.1.patch'>vim-addons.1</a><br />
+</td><td><a href='#V'>V</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/xlogo.1.patch'>xlogo.1</a><br />
+</td><td><a href='#I'>I</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/X509_SIG_getm.3ssl.patch'>X509_SIG_getm.3ssl</a><br />
+<a href='prepatch/X509_SIG_get0.3ssl.patch'>X509_SIG_get0.3ssl</a><br />
+</td><td><a href='#p'>p</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/XML::LibXML::Pattern.3pm.patch'>XML::LibXML::Pattern.3pm</a><br />
+</td><td><a href='#W'>W</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/XML::LibXML::Reader.3pm.patch'>XML::LibXML::Reader.3pm</a><br />
+</td><td><a href='#W'>W</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/XML::LibXML::RegExp.3pm.patch'>XML::LibXML::RegExp.3pm</a><br />
+</td><td><a href='#W'>W</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/XML::LibXML::XPathExpression.3pm.patch'>XML::LibXML::XPathExpression.3pm</a><br />
+</td><td><a href='#W'>W</a></td><td>1n</td></tr>
+<tr><td><a href='prepatch/Xserver.1.patch'>Xserver.1</a><br />
+</td><td><a href='#I'>I</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/xterm.1.patch'>xterm.1</a><br />
+</td><td><a href='#L'>L</a> <a href='#I'>I</a></td><td>3n</td></tr>
+<tr><td><a href='prepatch/zic.8.patch'>zic.8</a><br />
+</td><td><a href='#o'>o</a></td><td>b</td></tr>
+<tr><td><a href='prepatch/zip.1.patch'>zip.1</a><br />
+</td><td><a href='#J'>J</a> <a href='#C'>C</a></td><td>n</td></tr>
+<tr><td><a href='prepatch/zipinfo.1.patch'>zipinfo.1</a><br />
+</td><td><a href='#*'>*</a></td><td>2n</td></tr>
+<tr><td><a href='prepatch/zipcloak.1.patch'>zipcloak.1</a><br />
+<a href='prepatch/zipnote.1.patch'>zipnote.1</a><br />
+<a href='prepatch/zipsplit.1.patch'>zipsplit.1</a><br />
+</td><td><a href='#I'>I</a></td><td><font color='green'>p</font></td></tr>
+<tr><td><a href='prepatch/zlib.3.patch'>zlib.3</a><br />
+</td><td><a href='#C'>C</a></td><td>2n</td></tr>
+</table>
+
+<h1>Error codes:</h1>
+<dl>
+
+<dt><a name='A'>A</a></dt>
+<dd>Dot or single-quote at start of line turns it into a garbage command.
+This is a serious error; some lines of your page get silently lost
+when it is formatted.
+</dd>
+<dt><a name='B'>B</a></dt>
+<dd>( ) notation for mandatory parts of command syntax should be { }.
+</dd>
+<dt><a name='C'>C</a></dt>
+<dd>Broken command synopsis syntax.  This may mean you're using a
+construction in the command synopsis other than the standard
+[ ] | { }, or it may mean you have running text in the command synopsis
+section (the latter is not technically an error, but most cases of it
+are impossible to translate into DocBook markup), or it may mean the
+command syntax fails to match the description.
+</dd>
+<dt><a name='D'>D</a></dt>
+<dd>The .ce macro cannot be rendered in HTML, so I have replaced .ce
+before captions with an .RS/.RE bloxk including both caption
+and table.
+</dd>
+<dt><a name='E'>E</a></dt>
+<dd>My translator trips over a useless command in list markup.
+</dd>
+<dt><a name='F'>F</a></dt>
+<dd>Nonexistent or non-local .Sx target.
+</dd>
+<dt><a name='G'>G</a></dt>
+<dd>.Pp is structurally incorrect in an element list.
+</dd>
+<dt><a name='H'>H</a></dt>
+<dd>Renaming SYNOPSIS because either (a) third-party viewers and
+translators will try to interpret it as a command synopsis and become
+confused, or (b) it actually needs to be named "SYNOPSIS" with no
+modifier for function protoypes to be properly recognized.
+</dd>
+<dt><a name='I'>I</a></dt>
+<dd>Use of low-level troff hackery to set special indents or breaks can't
+be translated. The page will have rendering faults in HTML, and
+probably also under third-party man page browsers such as Xman,
+Rosetta, and the KDE help browser.  This patch eliminates .br, .ta, .ti,
+.ce, .in, and \h in favor of requests like .RS/.RE that have
+structural translations.
+</dd>
+<dt><a name='J'>J</a></dt>
+<dd>Ambiguous or invalid backslash.  This doesn't cause groff a problem.
+but it confuses doclifter and may confuse older troff implementations.
+</dd>
+<dt><a name='K'>K</a></dt>
+<dd>Renaming stock man macros throws warnings in doclifter and is likely
+to cause failures on third-party manual browsers.  Please redo this
+page so it uses distinct names for the custom macros.
+</dd>
+<dt><a name='L'>L</a></dt>
+<dd>List syntax error. This means .IP, .TP or .RS/.RE markup is garbled.
+Common causes include .TP just before a section header, .TP entries
+with tags but no bodies, and mandoc lists with no trailing .El.
+These confuse doclifter, and may also mess up stricter man-page
+browsers like Xman and Rosetta.
+</dd>
+<dt><a name='M'>M</a></dt>
+<dd>Missing Feature Test Macros header
+</dd>
+<dt><a name='N'>N</a></dt>
+<dd>Extraneous . at start of line.
+</dd>
+<dt><a name='O'>O</a></dt>
+<dd>Command-line options described are not actually implemented.
+</dd>
+<dt><a name='P'>P</a></dt>
+<dd>Removed unnecessary \c that confused the doclifter parser.
+</dd>
+<dt><a name='Q'>Q</a></dt>
+<dd>Missing Description header.
+</dd>
+<dt><a name='R'>R</a></dt>
+<dd>.ce markup can't be structurally translated, and is likely
+to cause rendering flaws in generated HTML.
+</dd>
+<dt><a name='S'>S</a></dt>
+<dd>DEPRECATED: in function syntax cannot be translated.  Also, the
+code and examples need to be marked up better.
+</dd>
+<dt><a name='T'>T</a></dt>
+<dd>Junk at the beginning of the manual page.
+</dd>
+<dt><a name='U'>U</a></dt>
+<dd>Unbalanced group in command synopsis. You probably forgot
+to open or close a [ ] or { } group properly.
+</dd>
+<dt><a name='V'>V</a></dt>
+<dd>.SS is not .SH and they cannot be used interchangeably. You get away
+with this by accident in roff, but it will badly confuse other tools
+that look at man pages.
+</dd>
+<dt><a name='W'>W</a></dt>
+<dd>Missing or garbled name section.  The most common form of garbling
+is a missing - or extra -. Or your manual page may have been generated
+by a tool that doesn't emit a NAME section as it should.  Or your page
+may add running text such as a version or authorship banner.  These
+problems make it impossible to lift the page to DocBook.  They
+can also confuse third-party manpage browsers and some implementations
+of man -k.
+</dd>
+<dt><a name='X'>X</a></dt>
+<dd>Unknown or invalid macro.  That is, one that does not fit in the
+macro set that the man page seems to be using.  This is a serious
+error; it often means part of your text is being lost or rendered
+incorrectly.
+</dd>
+<dt><a name='Y'>Y</a></dt>
+<dd>I have been unable to identify an upstream maintainer for this
+Ubuntu/Debian package, and am notifying the generic "Maintainer"
+address in the package.  Please forward appropriately.  Also please
+fix the package metadata so it identifies the upstream maintainers.
+</dd>
+<dt><a name='Z'>Z</a></dt>
+<dd>Your Synopsis is exceptionally creative.  Unfortunately, that means
+it cannot be translated to structural markup even when things like
+running-text inclusions have been moved elswhere.
+</dd>
+<dt><a name='a'>a</a></dt>
+<dd>Incorrect use of BSD list syntax confused doclifter's parser.
+</dd>
+<dt><a name='b'>b</a></dt>
+<dd>\c is an obscure feature; third-party viewers sometimes don't
+intepret it. Plain \ is safer.
+</dd>
+<dt><a name='c'>c</a></dt>
+<dd>Function declarations had to be modified in order to fit into
+the DocBook DTD. This is not an error in troff usage, but it
+reduces the quality of the HTML that can be generated from this page
+through the DocBook toolchain.
+</dd>
+<dt><a name='d'>d</a></dt>
+<dd>.eo/.ec and complex tab-stop hackery can't be translated to XML/HTML
+and are almost certain to confuse third-party readers such as
+Rosetta and Xman.
+</dd>
+<dt><a name='e'>e</a></dt>
+<dd>Macro definitions in the NAME section confuse doclifter and are
+likely to screw up third-party man viewers with their own parsers.
+</dd>
+<dt><a name='f'>f</a></dt>
+<dd>Presentation-level use of .SS could not be structurally
+translated. I changed lower-level instances to .TP or .B.
+</dd>
+<dt><a name='g'>g</a></dt>
+<dd>Use of a double quote for inch measurements often confuses people
+who aren't from the Anglosphere.
+</dd>
+<dt><a name='h'>h</a></dt>
+<dd>Unbalanced .RS or .EE
+</dd>
+<dt><a name='i'>i</a></dt>
+<dd>Non-ASCII character in document synopsis can't be parsed.
+</dd>
+<dt><a name='j'>j</a></dt>
+<dd>Parenthesized comments in command synopsis.  This is impossible
+to translate to DocBook.
+</dd>
+<dt><a name='k'>k</a></dt>
+<dd>Misspelled macro name.
+</dd>
+<dt><a name='l'>l</a></dt>
+<dd>Invalid or unterminated font escape.
+</dd>
+<dt><a name='m'>m</a></dt>
+<dd>Contains a request or escape that is outside the portable subset that
+can be rendered by non-groff viewers such as the KDE and GNOME help
+browsers.
+</dd>
+<dt><a name='n'>n</a></dt>
+<dd>C function syntax has extra or missing paren.
+</dd>
+<dt><a name='o'>o</a></dt>
+<dd>TBL markup not used where it should be.  Tables stitched together
+with .ta or list requests can't be lifted to DocBook and will often
+choke third-party viewers such as TKMan, XMan, Rosetta, etc.
+</dd>
+<dt><a name='p'>p</a></dt>
+<dd>Garbage trailiing \ in function synopsis.
+</dd>
+<dt><a name='q'>q</a></dt>
+<dd>The .ul request used here can't be translated into document structure.
+I put these files in a hanging list, which can be.
+</dd>
+<dt><a name='r'>r</a></dt>
+<dd>I supplied a missing mail address. Without it, the .TP at the end of the
+authors list was ill-formed.
+</dd>
+<dt><a name='s'>s</a></dt>
+<dd>Changed page to use the .URL macro now preferred on man(7).
+</dd>
+<dt><a name='t'>t</a></dt>
+<dd>Synopsis has to be immediately after NAME section for DocBook
+translation to work.
+</dd>
+<dt><a name='u'>u</a></dt>
+<dd>Use local definitions of .EX/.EE or .DS/.DE to avoid low-level troff
+requests in the page body.  There are plans to add these to groff man;
+in the interim, this patch adds a compatible definition to your page.
+</dd>
+<dt><a name='v'>v</a></dt>
+<dd>.in and .EX have crossed or inverted scopes.
+</dd>
+<dt><a name='w'>w</a></dt>
+<dd>.SS markup in name section seriously confuses parsing, and sections
+don't follow standard naming conventions.
+</dd>
+<dt><a name='x'>x</a></dt>
+<dd>Syntax had to be rearranged because of an options callout.
+This is still excessively complicated; third-party man-page
+viewers are likely to choke on it.
+</dd>
+<dt><a name='y'>y</a></dt>
+<dd>This page was generated from some sort of non-man markup.  Please
+fix the upstream markup so that it generates a well-formed
+manual page with the indicated corrections.
+</dd>
+<dt><a name='z'>z</a></dt>
+<dd>Garbled comment syntax.
+</dd>
+
+</dl>
+
+</div>
+<hr />
+</body>
+</html>
+
+<!--
+Local Variables:
+compile-command: "(cd ~/WWW; upload doclifter/problems.html)"
+End:
+-->
+

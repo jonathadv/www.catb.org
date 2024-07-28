@@ -1,0 +1,14 @@
+--- TIFFGetField.3tiff-unpatched	2013-05-25 19:57:31.776017895 -0400
++++ TIFFGetField.3tiff	2013-05-25 19:57:31.508017900 -0400
+@@ -201,9 +201,9 @@
+ void    *data;
+ 
+ TIFFGetField(tiff, 33424, &count, &data);
+-printf("Tag %d: %d, count %d\n", 33424, *(uint32 *)data, count);
++printf("Tag %d: %d, count %d\\n", 33424, *(uint32 *)data, count);
+ TIFFGetField(tiff, 36867, &count, &data);
+-printf("Tag %d: %s, count %d\n", 36867, (char *)data, count);
++printf("Tag %d: %s, count %d\\n", 36867, (char *)data, count);
+ .fi
+ .RE
+ .PP

@@ -1,0 +1,41 @@
+--- ipppd.8-unpatched	2012-06-29 10:15:04.286065485 -0400
++++ ipppd.8	2012-06-29 10:15:22.242065147 -0400
+@@ -699,17 +699,17 @@
+ others.  Which secret to use is chosen based on the names of the host
+ (the `local name') and its peer (the `remote name').  The local name
+ is set as follows:
+-.TP 3
++.IP
+ if the \fBusehostname\fR option is given,
+ then the local name is the hostname of this machine
+ (with the domain appended, if given)
+-.TP 3
++.IP
+ else if the \fBname\fR option is given,
+ then use the argument of the first \fBname\fR option seen
+-.TP 3
++.IP
+ else if the local IP address is specified with a hostname,
+ then use that name
+-.TP 3
++.IP
+ else use the hostname of this machine (with the domain appended, if given)
+ .LP
+ When authenticating ourselves using PAP, there is also a `username'
+@@ -717,13 +717,13 @@
+ option or the \fB+ua\fR option.
+ .LP
+ The remote name is set as follows:
+-.TP 3
++.IP
+ if the \fBremotename\fR option is given,
+ then use the argument of the last \fBremotename\fR option seen
+-.TP 3
++.IP
+ else if the remote IP address is specified with a hostname,
+ then use that host name
+-.TP 3
++.IP
+ else the remote name is the null string "".
+ .LP
+ Secrets are selected from the PAP secrets file as follows:

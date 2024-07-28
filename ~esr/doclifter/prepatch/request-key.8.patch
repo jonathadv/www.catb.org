@@ -1,0 +1,19 @@
+--- request-key.8-unpatched	2016-02-27 08:16:42.517558705 -0500
++++ request-key.8	2016-02-27 08:18:10.917343251 -0500
+@@ -21,14 +21,11 @@
+ .SH ERRORS
+ All errors will be logged to the syslog.
+ .SH FILES
+-.ul
++.TP
+ /etc/request-key.conf
+-.ul 0
+ Instantiation handler configuration file.
+-.P
+-.ul
++.TP
+ /etc/request-key.d/<keytype>.conf
+-.ul 0
+ Keytype specific configuration file.
+ .SH SEE ALSO
+ \fBkeyctl\fR(1), \fBrequest-key.conf\fR(5)

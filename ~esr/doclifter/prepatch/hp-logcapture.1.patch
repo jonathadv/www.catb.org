@@ -1,0 +1,23 @@
+--- hp-logcapture.1-unpatched	2018-05-18 06:49:22.933848813 -0400
++++ hp-logcapture.1	2018-05-18 06:51:35.360948831 -0400
+@@ -1,16 +1,13 @@
+ .TH "hp-logcapture" 1 "1.0" Linux "User Manuals"
+ .SH NAME
+ hp-logcapture \- HPLIP logs capture Utility
+-.SH DESCRIPTION
+-Captures the HPLIP log files.
+-.SH SYNOPSIS
+-.B  [su -c /sudo] hp-logcapture [USER INFO] [OPTIONS]
+ .SH SYNOPSIS
+-.B e.g. su -c 'hp-logcapture'
+-.SH USER INFO
++.B  hp-logcapture [USER INFO] [OPTIONS]
++.SH DESCRIPTION
++Captures the HPLIP log files. Must be run as root.
++.SH OPTIONS
+ .IP "User name for which logs to be collected:"
+ --user=<username> 
+-.SH OPTIONS
+ .IP "This help information:"
+ -h or --help
+ .IP "Set the logging level:"

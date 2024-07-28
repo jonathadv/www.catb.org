@@ -1,0 +1,16 @@
+--- prlimit.1-unpatched	2016-02-27 07:02:47.526365622 -0500
++++ prlimit.1	2016-02-27 07:03:15.470283153 -0500
+@@ -7,11 +7,11 @@
+ prlimit \- get and set process resource limits
+ .SH SYNOPSIS
+ .BR prlimit " [options]"
+-.RB [ \-\-\fIresource\fR [ =\fIlimits\fR]
++.RB [ \-\-\fIresource\fR [ =\fIlimits\fR] ]
+ .RB [ \-\-pid\ \fIPID\fR]
+ 
+ .BR prlimit " [options]"
+-.RB [ \-\-\fIresource\fR [ =\fIlimits\fR]
++.RB [ \-\-\fIresource\fR [ =\fIlimits\fR] ]
+ .IR "command " [ argument ...]
+ 
+ .SH DESCRIPTION

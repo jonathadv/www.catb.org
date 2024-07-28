@@ -1,0 +1,11 @@
+= mad project news =
+
+1.2: 2024-02-20::
+   Forwaed-ported to Python 3 on 64-bit machines.
+   Error messages now use modern GNU format.
+
+1.1: 2015-03-04::
+   A great many improvements by Dave Pitts.
+
+1.0: 2010-09-18::
+   Initial release, with the full manual.

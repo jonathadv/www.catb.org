@@ -1,0 +1,11 @@
+--- dash.1-unpatched	2018-05-16 16:52:28.478288208 -0400
++++ dash.1	2018-05-16 16:52:28.182290220 -0400
+@@ -1825,7 +1825,7 @@
+ .Ic shift
+ will issue an error message, and exit with return status 2.
+ .It test Ar expression
+-.It \&[ Ar expression Cm ]
++.It \&[ Ar expression \&]
+ The
+ .Ic test
+ utility evaluates the expression and, if it evaluates

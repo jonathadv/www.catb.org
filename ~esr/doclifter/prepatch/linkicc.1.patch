@@ -1,0 +1,68 @@
+--- linkicc.1-unpatched	2016-03-03 09:01:45.088342349 -0500
++++ linkicc.1	2016-03-03 09:04:42.179776443 -0500
+@@ -44,38 +44,42 @@
+ .TP
+ .B \-x 
+ Creatively, guess deviceclass of resulting profile.
+-.TP
+-.nf
++.PP
+ Built-in profiles:
+-	*Lab  -- D50-based CIEL*a*b (PCS)
+-	*XYZ  -- CIE XYZ (PCS)
+-	*sRGB -- sRGB color space
+-	*Gray22- Monochrome of Gamma 2.2
+-	*Lin2222- CMYK linearization of gamma 2.2 on each channel
+-.fi					
++.IP
++*Lab  -- D50-based CIEL*a*b (PCS)
++.IP
++*XYZ  -- CIE XYZ (PCS)
++.IP
++*sRGB -- sRGB color space
++.IP
++*Gray22- Monochrome of Gamma 2.2
++.IP
++*Lin2222- CMYK linearization of gamma 2.2 on each channel
++.PP					
+ .SH EXAMPLES
+-.nf
++.TP
+ To create 'devicelink.icm' from a.icc to b.icc:
+-	linkicc a.icc b.icc
+-
++linkicc a.icc b.icc
++.TP
+ To create 'out.icc' from sRGB to cmyk.icc:
+-	linkicc -o out.icc *sRGB cmyk.icc
+-
++linkicc -o out.icc *sRGB cmyk.icc
++.TP
+ To create a sRGB input profile working in Lab:
+-	linkicc -x -o sRGBLab.icc *sRGB *Lab
+-
++linkicc -x -o sRGBLab.icc *sRGB *Lab
++.TP
+ To create a XYZ -> sRGB output profile:
+-	linkicc -x -o sRGBLab.icc *XYZ *sRGB
+-
++linkicc -x -o sRGBLab.icc *XYZ *sRGB
++.TP
+ To create a abstract profile doing softproof for cmyk.icc:
+-	linkicc -t1 -x -o softproof.icc *Lab cmyk.icc cmyk.icc *Lab
+-
++linkicc -t1 -x -o softproof.icc *Lab cmyk.icc cmyk.icc *Lab
++.TP
+ To create a 'grayer' sRGB input profile:
+-	linkicc -x -o grayer.icc *sRGB gray.icc gray.icc *Lab
+-
++linkicc -x -o grayer.icc *sRGB gray.icc gray.icc *Lab
++.TP
+ To embed ink limiting into a cmyk output profile:
+-	linkicc -x -o cmyklimited.icc -k 250 cmyk.icc *Lab
+-.fi
++linkicc -x -o cmyklimited.icc -k 250 cmyk.icc *Lab
++.PP
+ .SH NOTES
+ For suggestions, comments, bug reports etc. send mail to
+ info@littlecms.com.

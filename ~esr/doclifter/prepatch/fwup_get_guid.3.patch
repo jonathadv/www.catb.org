@@ -1,0 +1,172 @@
+--- fwup_get_guid.3-unpatched	2018-05-21 06:46:17.977568254 -0400
++++ fwup_get_guid.3	2018-05-21 06:46:30.341484229 -0400
+@@ -5,107 +5,111 @@
+ .nf
+ #include <\fBfwup.h\fR>
+ .sp
+-\fBint \fRfwup_supported\fB(void);\fR\p
++\fBint \fRfwup_supported\fB(void);\fR
+  \- test if firmware updating is supported on the running machine
+ 
+-\fBtypedef struct fwup_resource_s \fRfwup_resource\fB;\fR\p
+-\fBtypedef struct fwup_resource_iter_s \fRfwup_resource_iter\fB;\fR\p
++\fBtypedef struct fwup_resource_s \fRfwup_resource\fB;\fR
++\fBtypedef struct fwup_resource_iter_s \fRfwup_resource_iter\fB;\fR
++
++\fBint \fRfwup_resource_iter_create\fB(fwup_resource_iter **\fIiter\fB);\fR
++\fBint \fRfwup_resource_iter_next\fB(fwup_resource_iter *\fIiter\fB,
++	fwup_resource **\fIre\fB);\fR
++\fBint \fRfwup_resource_iter_destroy\fB(fwup_resource_iter **\fIiter\fB);\fR
++
++\fBint \fRfwup_set_up_update\fB(fwup_resource *\fIre\fB, uint64_t \fIhw_inst\fB, int \fIinfd\fB);\fR
++\fBint \fRfwup_clear_status\fB(fwup_resource *\fIre\fB);\fR
++\fBint \fRfwup_get_guid\fB(fwup_resource *\fIre\fB, efi_guid_t **\fIguid\fB);\fR
++\fBint \fRfwup_get_fw_version\fB(fwup_resource *\fIre\fB, uint32_t *\fIversion\fB);\fR
++\fBint \fRfwup_get_fw_type\fB(fwup_resource *\fIre\fB, uint32_t *\fItype\fB);\fR
++\fBint \fRfwup_get_lowest_supported_fw_version\fB(fwup_resource *\fIre\fB,
++	uint32_t *\fIversion\fB);\fR
++\fBint \fRfwup_get_last_attempt_info\fB(fwup_resource *\fIre\fB, uint32_t *\fIversion\fB,
++	uint32_t *\fIstatus\fB, time_t *\fIwhen\fB);\fR
++
++\fBvoid \fRfwup_use_existing_media_path\fB(int \fIuse_existing_media_path\fB);\fR
+ 
+-\fBint \fRfwup_resource_iter_create\fB(fwup_resource_iter **\fIiter\fB);\fR\p
+-\fBint \fRfwup_resource_iter_next\fB(\kZfwup_resource_iter *\fIiter\fB,
+-.ta \nZu
+-	fwup_resource **\fIre\fB);\fR\p
+-\fBint \fRfwup_resource_iter_destroy\fB(fwup_resource_iter **\fIiter\fB);\fR\p
+- \- iterate the list of updateable firmware images
+-
+-\fBint \fRfwup_set_up_update\fB(fwup_resource *\fIre\fB, uint64_t \fIhw_inst\fB, int \fIinfd\fB);\fR\p
+-\fBint \fRfwup_clear_status\fB(fwup_resource *\fIre\fB);\fR\p
+-\fBint \fRfwup_get_guid\fB(fwup_resource *\fIre\fB, efi_guid_t **\fIguid\fB);\fR\p
+-\fBint \fRfwup_get_fw_version\fB(fwup_resource *\fIre\fB, uint32_t *\fIversion\fB);\fR\p
+-\fBint \fRfwup_get_fw_type\fB(fwup_resource *\fIre\fB, uint32_t *\fItype\fB);\fR\p
+-\fBint \fRfwup_get_lowest_supported_fw_version\fB(\kZfwup_resource *\fIre\fB,
+-.ta \nZu
+-	uint32_t *\fIversion\fB);\fR\p
+-\fBint \fRfwup_get_last_attempt_info\fB(\kZfwup_resource *\fIre\fB, uint32_t *\fIversion\fB,
+-.ta \nZu
+-	uint32_t *\fIstatus\fB, time_t *\fIwhen\fB);\fR\p
+- \- operate on an individual firmware entry
+-
+-\fBvoid \fRfwup_use_existing_media_path\fB(int \fIuse_existing_media_path\fB);\fR\p
+- \- instruct fwupdate on whether to reuse old capsule filenames on the ESP.
+-
+-\fBvoid \fRfwup_set_esp_mountpoint\fB(char *\fIpath\fB);\fR\p
+- \- Override detection of the mountpoint for the ESP directory
+-
+-\fBint \fRfwup_get_ux_capsule_info\fB(\kZuint32_t *\fIscreen_x_size\fB,
+-.tz \nZu
+-	uint32_t *\fIscreen_y_size\fB);\fR\p
+- \- get the dimensions of the screen during boot
++\fBvoid \fRfwup_set_esp_mountpoint\fB(char *\fIpath\fB);\fR
++
++\fBint \fRfwup_get_ux_capsule_info\fB(uint32_t *\fIscreen_x_size\fB,
++	uint32_t *\fIscreen_y_size\fB);\fR
+ .SH DESCRIPTION
+ .nf
+ .PP
++.TP
+ \fBint \fRfwup_supported\fB(void);\fR
+ Tests if the current machine supports firmware updates
+ .PP
+-\fBtypedef struct fwup_resource_s \fRfwup_resource\fB;\fR\p
+-\fBtypedef struct fwup_resource_iter_s \fRfwup_resource_iter\fB;\fR\p
++.EX
++\fBtypedef struct fwup_resource_s \fRfwup_resource\fB;\fR
++\fBtypedef struct fwup_resource_iter_s \fRfwup_resource_iter\fB;\fR
++.EE
+ 
+-\fBint \fRfwup_resource_iter_create\fB(fwup_resource_iter **\fIiter\fB);\fR\p
++.TP
++\fBint \fRfwup_resource_iter_create\fB(fwup_resource_iter **\fIiter\fB);\fR
+ Create a new firmware resoure iterator \fIiter\fR.
+ 
+-\fBint \fRfwup_resource_iter_next\fB(\kZfwup_resource_iter *\fIiter\fB,
+-.ta \nZu
+-	fwup_resource **\fIre\fB);\fR\p
++.TP
++\fBint \fRfwup_resource_iter_next\fB(fwup_resource_iter *\fIiter\fB,
++	fwup_resource **\fIre\fB);\fR
+ Get the next firmware resource \fIre\fR from iterator \fIiter\fR.
+ 
+-\fBint \fRfwup_resource_iter_destroy\fB(fwup_resource_iter **\fIiter\fB);\fR\p
++.TP
++\fBint \fRfwup_resource_iter_destroy\fB(fwup_resource_iter **\fIiter\fB);\fR
+ Destroy firmware resource iterator \fIiter\fR.
+ 
+-\fBint \fRfwup_set_up_update\fB(fwup_resource *\fIre\fB, uint64_t \fIhw_inst\fB, int \fIinfd\fB);\fR\p
++.TP
++\fBint \fRfwup_set_up_update\fB(fwup_resource *\fIre\fB, uint64_t \fIhw_inst\fB, int \fIinfd\fB);\fR
+ Set up an update for resource \fIre\fR, hardware instance number \fIhw_inst\fR,
+ with the file referenced by the file descriptor \fIinfd\fR.  \fIinfd\fR must
+ support read\fB(3)\fR.
+ 
+-\fBint \fRfwup_clear_status\fB(fwup_resource *\fIre\fB);\fR\p
++.TP
++\fBint \fRfwup_clear_status\fB(fwup_resource *\fIre\fB);\fR
+ Clear the status of the firmware resource \fIre\fR.  This removes any pending
+ attempt to update it, as well as clearing any pending error report.
+ 
+-\fBint \fRfwup_get_guid\fB(fwup_resource *\fIre\fB, efi_guid_t **\fIguid\fB);\fR\p
++.TP
++\fBint \fRfwup_get_guid\fB(fwup_resource *\fIre\fB, efi_guid_t **\fIguid\fB);\fR
+ Set \fIguid\fR to the GUID which uniquely identifies firmware resource \fIre\fR.
+ 
+-\fBint \fRfwup_get_fw_version\fB(fwup_resource *\fIre\fB, uint32_t *\fIversion\fB);\fR\p
++.TP
++\fBint \fRfwup_get_fw_version\fB(fwup_resource *\fIre\fB, uint32_t *\fIversion\fB);\fR
+ Set \fIversion\fR to the version of the firmware resource \fIre\fR.
+ 
++.TP
++\fBint \fRfwup_get_fw_type\fB(fwup_resource *\fIre\fB, uint32_t *\fItype\fB);\fR
++Set \fItype\fR to the type of the firmware resource \fIre\fR.
++Type argumentt is as follows:
++.EX
+ #define \fBFWUP_RESOURCE_TYPE_UNKNOWN\fR         0
+ #define \fBFWUP_RESOURCE_TYPE_SYSTEM_FIRMWARE\fR 1
+ #define \fBFWUP_RESOURCE_TYPE_DEVICE_FIRMWARE\fR 2
+ #define \fBFWUP_RESOURCE_TYPE_UEFI_DRIVER\fR     3
+-\fBint \fRfwup_get_fw_type\fB(fwup_resource *\fIre\fB, uint32_t *\fItype\fB);\fR\p
+-Set \fItype\fR to the type of the firmware resource \fIre\fR.
++.EE
+ 
+-\fBint \fRfwup_get_lowest_supported_fw_version\fB(\kZfwup_resource *\fIre\fB,
+-.ta \nZu
+-	uint32_t *\fIversion\fB);\fR
++.TP
++\fBint \fRfwup_get_lowest_supported_fw_version\fB(fwup_resource *\fIre\fB, uint32_t *\fIversion\fB);\fR
+ Set \fIversion\fR to the lowest firmware version resource \fIre\fR can be
+ updated to.
+ 
+-\fBint \fRfwup_get_last_attempt_info\fB(\kZfwup_resource *\fIre\fB, uint32_t *\fIversion\fB,
+-.ta \nZu
+-	uint32_t *\fIstatus\fB, time_t *\fIwhen\fB);\fR\p
++.TP
++\fBint \fRfwup_get_last_attempt_info\fB(fwup_resource *\fIre\fB, uint32_t *\fIversion\fB, uint32_t *\fIstatus\fB, time_t *\fIwhen\fB);\fR
+ Get the status for the last attempt to update firmware resource \fIre\fR.
+ 
+-\fBvoid \fRfwup_print_update_info\fB(void);\fR\p
++.TP
++\fBvoid \fRfwup_print_update_info\fB(void);\fR
+ Print the information of firmware update status.
+ 
+-\fBvoid \fRfwup_use_existing_media_path\fB(int \fIuse_existing_media_path\fB);\fR\p
++.TP
++\fBvoid \fRfwup_use_existing_media_path\fB(int \fIuse_existing_media_path\fB);\fR
+ Instruct fwupdate on whether to reuse old capsule filenames on the ESP.
+ 
+-\fBvoid \fRfwup_set_esp_mountpoint\fB(char *\fIpath\fB);\fR\p
++.TP
++\fBvoid \fRfwup_set_esp_mountpoint\fB(char *\fIpath\fB);\fR
+ Override detection of the mountpoint for the ESP directory.
+ 
+-\fBint \fRfwup_get_ux_capsule_info\fB(\kZuint32_t *\fIscreen_x_size\fB,
+-.tz \nZu
+-	uint32_t *\fIscreen_y_size\fB);\fR\p
++.TP
++\fBint \fRfwup_get_ux_capsule_info\fB(uint32_t *\fIscreen_x_size\fB, uint32_t *\fIscreen_y_size\fB);\fR
+ Get the dimensions of the screen during boot.
+ .SH AUTHORS
+ .nf

@@ -1,0 +1,11 @@
+--- tcpdump.8-unpatched	2018-05-29 00:50:00.741415714 -0400
++++ tcpdump.8	2018-05-29 00:50:00.429417834 -0400
+@@ -1139,7 +1139,7 @@
+ \fIoffset\fP is the fragment offset field; it is printed whether this is
+ part of a fragmented datagram or not.
+ \fIflags\fP are the MF and DF flags; \fB+\fP is reported if MF is set,
+-and \fBDF\P is reported if F is set.  If neither are set, \fB.\fP is
++and \fBDF\fP is reported if F is set.  If neither are set, \fB.\fP is
+ reported.
+ \fIproto\fP is the protocol ID field.
+ \fIlength\fP is the total length field.

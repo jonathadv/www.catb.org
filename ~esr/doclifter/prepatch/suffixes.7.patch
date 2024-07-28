@@ -1,0 +1,11 @@
+--- suffixes.7-unpatched	2018-06-03 07:55:36.455977698 -0400
++++ suffixes.7	2018-06-03 07:56:21.731670003 -0400
+@@ -64,7 +64,7 @@
+  .S	assembler source with \fBcpp\fP(1) directives
+  .Y	file compressed using yabba
+  .Z	file compressed using \fBcompress\fP(1)
+- .[0-\9]+gf	TeX generic font files
++ .[0\-9]+gf	TeX generic font files
+  .[0\-9]+pk	TeX packed font files
+  .[1\-9]	manual page for the corresponding section
+  .[1\-9][a-z]	manual page for section plus subsection

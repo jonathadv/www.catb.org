@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Trove Design Document: Objectives and Architecture</TITLE>
+<LINK HREF="trove-design-3.html" REL=next>
+<LINK HREF="trove-design-1.html" REL=previous>
+<LINK HREF="trove-design.html#toc2" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="trove-design-3.html">Next</A>
+<A HREF="trove-design-1.html">Previous</A>
+<A HREF="trove-design.html#toc2">Contents</A>
+<HR>
+<H2><A NAME="s2">2. Objectives and Architecture</A></H2>
+
+<P>
+<H2><A NAME="ss2.1">2.1 Objectives</A>
+</H2>
+
+<P>
+<H3>Primary Objectives</H3>
+
+<P>
+<UL>
+<LI>CONTRIBUTOR-DRIVEN: Minimize the need for intervention by archive
+maintainers, so the system scales up to the capacity of the
+automation, rather than the availability of maintainer.</LI>
+<LI>SEARCHABLE: Support access to packages through a rich,
+user-friendly keyword and text-search-based interface, rather than
+topic directories.</LI>
+<LI>NON-RESTRICTIVE: the design should be enabling rather than restrictive -- it
+should not force use of a single interface or server that might become
+a performance or (more importantly) a conceptual bottleneck.</LI>
+<LI>LOCATION-INDEPENDENCE: the metadata representation and Trove tools
+should be indifferent to where resources are actually stored.</LI>
+<LI>RICH METADATA: Per-package metadata should have at least the
+descriptive power of the best-of-breed installable package format, which
+means RPM.</LI>
+<LI>NOTIFICATION: Anyone should be able to sign up to be notified when a
+package's resources or its metadata are updated.</LI>
+<LI>MIRRORABILITY: It must be possible for an entire Trove site (resources
+and metadata both) to be mirrored for load-sharing purposes.</LI>
+<LI>DISTRIBUTOR-FRIENDLINESS: One of the deliverables should be a tool or
+access mode that collects copies of all resources and metadata turned
+up by a given search, so that CD-ROM distributors can make
+distributable snapshots of the archive or subsets of it.</LI>
+<LI>CONFIGURABILITY: Full configurability of things like keyword categories, so the
+software can be used for multiple archives with different
+policies (in particular, both son-of-Sunsite and the Python archive).</LI>
+<LI>SCALABILITY: Must scale well, up to Sunsite's level of traffic and beyond.
+Verifying this scalability before releasing will be important.</LI>
+</UL>
+<P>
+<H3>Secondary Objectives</H3>
+
+<P>
+<UL>
+<LI>PERFORMANCE: It would be a good idea (for performance) if running CGIs
+was only required for searching and for modifying the database, and
+everything else was available as static HTML files.</LI>
+<LI>AUTHENTICATION: Strong authentication for packages and package
+updates, like what Debian does.</LI>
+<LI>META-ARCHIVE: Meta-archive functions -- queries to one Trove service
+may automatically also forwarded to other Trove services.<P>
+<P>
+</LI>
+<LI>EMAIL: Support metadata updates by email to a robot.</LI>
+<LI>CRAWLER:  Support an optional `trusted remote metadata' field in the
+metadata and write a crawler that polls these for metadata updates.</LI>
+</UL>
+<P>
+<H3>Blue Sky</H3>
+
+<P>
+<UL>
+<LI>DEPENDENCIES: Teach Trove to extract inter-resource dependencies by
+analyzing binaries. Long-term project! </LI>
+</UL>
+<P>
+<H2><A NAME="ss2.2">2.2 Architectural Implications</A>
+</H2>
+
+<P>To achieve the CONTRIBUTOR-DRIVEN objective, submissions and updates
+will normally be done through a Web form with upload capability.
+Maintaining metadata will be the responsibility of each package's
+authors and maintainers.
+<P>The ENABLING objective implies that at least package resources (if not the
+metadata) should be directly accessible via FTP or the Web.
+<P>The LOCATION-INDEPENDENCE objective implies that all resource pointers
+in metadata are actually URLs.
+<P>The ENABLING and LOCATION-INDEPENDENCE objectives together require
+that the Trove data architecture must have a clean separation between
+two parts; the <EM>catalog</EM>, a database holding package metadata,
+and the <EM>archive</EM>, a local FTP/Web tree holding some (but necessarily
+all) of the resources pointed to by the catalog.
+<P>The ENABLING and PERFORMANCE objectives further imply that as much
+as possible of the catalog view should be available through unmediated
+Web and FTP access into the archive.  This implies making HTML and
+plaintext versions of package metadata available in the archive,
+updated automatically when the master copy in the catalog database
+changes.
+<P>To achieve RICH METADATA, we must roughly capture RPM's annotation
+semantics. See the appendix on 
+<A HREF="trove-design-6.html#rpm-import">importing RPMs</A>.
+<P>The NOTIFICATION implies that each package's metadata must include a
+mailing list, and that the interface must support subscription and
+unsubscription facilities.
+<P>The SCALABILITY requirement implies using managing the metadata with
+a real database capable of handling high transaction volumes.
+<P>For the ENABLING and EMAIL and CRAWLER objectives, we must define a
+plain-text tag format for rendering metadata.  We'll use this to (1)
+represent the metadata in FTP-accessible files in the archive, 
+(2) define the required format for email submissions, and
+(3) define the required format for trusted remote metadata.
+<P>The plain-text tag format will come up again, so it needs a name:
+TRL, for Trove Request Language.
+<P>
+<H2><A NAME="ss2.3">2.3 Architecture</A>
+</H2>
+
+<P>The forgoing objectives make it pretty clear what the general
+architecture of the system.  A Trove site will consist of the
+following parts:
+<P>
+<UL>
+<LI>The <B>catalog</B> -- a database of metadata records, including URIs
+pointing to resources.</LI>
+<LI>The <B>archive</B>, a local directory tree containing resources
+managed by the Trove software but independently FTP- and Web-accessible.
+(Some Trove sites may not have an archive, instead being purely
+registries of metadata and pointers.)</LI>
+<LI>The <B>shovel</B>, a serializing front end that translates TRL
+requests on its standard input into database actions.  The shovel is
+the only program that modifies the database directly.  It's the
+shovel's job to ensure transaction atomicity.</LI>
+<LI>The <B>librarian</B>, a collection of web pages and CGIs
+that mediates interactive access to the library (the catalog and
+archives together) through Web browsers.   The librarian manipulates
+the database by making TRL service requests through the shovel program.
+It may query the database directly.</LI>
+<LI>The <B>crawler</B>, a program that periodically attempts to
+update the library by polling maintainer sites specified in metadata.
+The crawler makes TRL service requests through the shovel program.
+(Some Trove sites may not have a crawler.)</LI>
+<LI>The <B>mailbot</B>, a program that accepts email updates in TRL
+format.  The mail robot makes service requests through the shovel
+program.</LI>
+</UL>
+<P>The structure of TRL, with an example, is discussed 
+<A HREF="trove-design-5.html#TRL">in the Appendix</A>.
+<P>
+<H3>Fundamental Types and Namespace Control</H3>
+
+<P>To reason about the design, we need to know what kinds of things
+will be in the Trove database and how they are named (e.g. what
+handles they can be retrieved by.  Some of this has been touched
+on in the section on terminology.
+<P>There are three different kind of objects in the Trove universe.
+These are:
+<P>
+<UL>
+<LI><EM>Resource</EM>
+A <EM>resource</EM> is `real' data, a source or binary archive or
+document of the kind a Trove archive is intended to serve.  In the
+Trove universe, a resource it represented by a <EM>resource
+record</EM> that must include a URL to where the resource actually
+lives and may include other metadata (such as a description).
+
+The name of a resource is the URL of the resource.  Accordingly, any given
+resource name always identifies exactly one resource.
+</LI>
+<LI><EM>Package</EM>
+A <EM>package</EM> is a collection of resources tried together by a <EM>package
+record</EM>.  The associated resources may be the same program or
+document in several different forms (such as source archive, binary
+archive, installable package, etc.) or it may be a group of related
+resources such as the individual components of a multiple-program
+project.
+
+Besides resources names, package records contain other metadata
+intended to facilitate finding packages by topic or subject area,
+including both a text description and controlled-vocabulary keywords
+(discriminators).
+
+The name of a package is an arbitrary identifier chosen by the package 
+record creator (its initial owner) and changeable by the package record
+owner.
+
+A package may have any number of resources associated with it.  In general,
+any given resource will only belong to one package, but exceptions are
+harmless.
+</LI>
+<LI><EM>Person</EM>
+A <EM>person</EM> record associates metadata
+with an RFC822 email name/address pair.  The metadata may include such
+things as a home-page location, a PGP public key (as an optimization,
+in order to make a public-key-server lookup on each submission
+unnecessary), etc.
+
+Person records exist so that Trove users can go from a package to its
+maintainers to their home pages and other projects.
+
+A person is named by the email address part of their name (which is unique).</LI>
+</UL>
+<P>All three kinds of resources are always explicitly created, modified,
+and deleted, with a notoification to interested parties on each action.
+<P>The general policy on name validation is that references to
+unregistered people and packages are not.  Thus, maintainers of a
+package need not be in the Person table as long as they have
+syntactically valid email addresses; and package relations may refer
+to packages by name that are not registered in Trove.
+<P>This implies that every creation of a Package or Person record needs
+a global check to mark references it suddenly fills, but that is an
+acceptable price for making the namespace open rather than closed.
+<P>Issue: We know that package names will be unique per site.  Are they
+unique across all sites in the Trove ring? If not, how do we do
+synchronization when rings merge?  And how do crawlers know which
+package they are responsible for?
+<P>
+<H3>Catalog architecture</H3>
+
+<P>The catalog will be stored in a database.  The 
+<A HREF="http://www.tuxedo.org/~esr/trove">schema</A> is available at the Trove
+website.
+<P>
+<H3>Archive architecture</H3>
+
+<P>To make the rest of this document concrete, we need to specify an
+organization for the archive part.  Here it is:
+<P>Each project has a directory.  The name of the directory is the
+name of the project, <EM>without</EM> a version number (this is
+so project directories can contain multiple directories).  Observe
+the implication that project names must be unique per Trove site.
+<P>Project directories may live directly under a per-site root, or (for
+performance) under superdirectories which express some kind of hash on
+the names.  It is important for bare-FTP accessibility that this hash
+be easy for human beings to calculate by inspection.  Example:
+terminfo's scheme of having each terminal type live in a
+superdirectory named after the first character of the terminal type
+name.  Whether such a scheme is used, an what it is, is per-site policy.
+<P>Within each project's directory live all its associated local
+resources.  Other resources may live offsite (the catalog records
+don't care, they use URIs for everything).  The directory will also
+contain FTP and HTML versions of the package's metadata, as files
+named %%INDEX.TRL and index.html respectively.  The former name
+is chosen to sort as early as possible in an FTP directory listing
+without including Unix shell metacharacters; the latter, to be the
+page automatically displayed by a browser pointed at the directory.
+<P>
+<H3>Librarian architecture</H3>
+
+<P>The librarian will be a set of HTML pages and CGIs that mediate
+between users (including uploaders and maintainers) and the library.
+<P>It will be necessary for the librarian to maintain state through
+multiple-form transactions.  For discussion of the librarian design,
+see the major section on 
+<A HREF="trove-design-3.html#interface">user interface design</A> below.
+<P>
+<H3>Mail-Robot and Crawler architecture</H3>
+
+<P>These will be programs that, essentially, translate metadata
+submissions in TRL into actions on the archive.  The only difference
+between them will be that the email robot waits for input fed to it
+though a mail alias, while the crawler looks for descriptions in
+remote locations specified by metadata URIs.
+<P>In both cases, a parse error or package name collision or other
+exception will generate email to the submitting party and contact
+persons given in the both new and old metadata.
+<P>
+<H2><A NAME="ss2.4">2.4 Architecture Open Issues</A>
+</H2>
+
+<P>What do we use as the database back end?   Postgres95?
+SOLID? MySQL?  Something else?
+<P>
+<HR>
+<A HREF="trove-design-3.html">Next</A>
+<A HREF="trove-design-1.html">Previous</A>
+<A HREF="trove-design.html#toc2">Contents</A>
+</BODY>
+</HTML>

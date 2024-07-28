@@ -1,0 +1,13 @@
+--- getafm.1-unpatched	2012-06-27 22:12:15.962206324 -0400
++++ getafm.1	2012-06-27 22:12:30.526206052 -0400
+@@ -13,8 +13,9 @@
+ .I getafm
+ should be sent to a printer, or to GhostScript. For example,
+ .sp
+-.ce
++.RS
+ getafm Times-Roman | gsnd - >Times-Roman.afm
++.RE
+ .sp
+ .SH AUTHOR
+ Robert Joop (rj@rainbow.in-berlin.de), Angus Duggan

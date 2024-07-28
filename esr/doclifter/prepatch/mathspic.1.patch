@@ -1,0 +1,22 @@
+--- mathspic.1-unpatched	2014-06-02 13:03:27.857617089 -0400
++++ mathspic.1	2014-06-02 13:03:39.761886303 -0400
+@@ -4,7 +4,9 @@
+ ..
+ .TH mathsPIC 1 "April 26, 2010"  "mathsPIC perl version"
+ .SH NAME
+-.B mathsPIC
++mathsPIC \- Perl filter program for PiCTeX
++.SH SYNOPSIS
++perl mathspic.pl [-b] [-c] [-h] [-o  <outfile>]  <infile>
+ .SH AUTHORS
+ A. Syropoulos and R.W.D. Nickalls (April 26, 2010)
+ 
+@@ -306,7 +308,7 @@
+ ==============================
+ 
+ .B DrawPoint
+- This command draws the point-symbol at the  point-location. Commas must not be used to separate point names. The default point-symbol is \$\\bullet\$, unless an optional point-symbol (or string of characters) is specified in the associated point command.
++ This command draws the point-symbol at the  point-location. Commas must not be used to separate point names. The default point-symbol is \ebullet, unless an optional point-symbol (or string of characters) is specified in the associated point command.
+ 
+  -----syntax:
+  DrawPoint(<point> [<point> ..])

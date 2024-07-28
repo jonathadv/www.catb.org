@@ -1,0 +1,20 @@
+--- tar.1-unpatched	2018-05-15 21:30:29.656101179 -0400
++++ tar.1	2018-05-15 21:33:26.002902716 -0400
+@@ -13,7 +13,7 @@
+ .\"
+ .\" You should have received a copy of the GNU General Public License
+ .\" along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-.TH TAR 1 "March 23, 2016" "TAR" "GNU TAR Manual"
++.TH TAR 1 "May 15, 2018" "TAR" "GNU TAR Manual"
+ .SH NAME
+ tar \- an archiving utility
+ .SH SYNOPSIS
+@@ -1193,7 +1193,7 @@
+ you can get when using this warning is:
+ 
+ .EX
+-$ \fBtar --warning=decompress-program -x -f archive.Z
++$ tar --warning=decompress-program -x -f archive.Z
+ tar (child): cannot run compress: No such file or directory
+ tar (child): trying gzip
+ .EE

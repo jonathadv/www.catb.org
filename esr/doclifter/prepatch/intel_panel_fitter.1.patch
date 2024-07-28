@@ -1,0 +1,10 @@
+--- intel_panel_fitter.1-unpatched	2013-05-25 10:53:50.568627955 -0400
++++ intel_panel_fitter.1	2013-05-25 10:54:08.112627627 -0400
+@@ -30,7 +30,6 @@
+ .TP
+ .B -h
+ prints the help message.
+-.SS
+ 
+ .SH EXAMPLES
+ .TP

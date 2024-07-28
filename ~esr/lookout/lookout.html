@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>lookout</title><meta name="generator" content="DocBook XSL Stylesheets V1.58.1" /></head><body><div class="refentry" lang="en" xml:lang="en"><a id="lookout.man"></a><div class="titlepage"></div><div class="refnamediv"><a id="name"></a><h2>Name</h2><p> lookout — convert Microsoft Outlook address-book export files to KAB or GnomeCard format</p></div><div class="refsynopsisdiv"><a id="synopsis"></a><h2>Synopsis</h2><div class="cmdsynopsis"><p><tt>lookout</tt>  [--gc] [--kab] [file]</p></div></div><div class="refsect1" lang="en" xml:lang="en"><h2>Description</h2><p>The <b>lookout</b> converts Outlook address-book
+export files, as produced by Outlook 97 or Outlook Express, to either
+the KAB format used by the <b>abbrowser</b> address-book
+browser in KDE or the GnomeCard format used by the GNOME address book
+application.</p><p>You may select the format to be written with <tt>--kab</tt>
+for KAB or <tt>-gc</tt> for GnomeCard.  If you do not select a
+format, <b>lookout</b> will try to determine what format
+it should translate to by looking for a <tt>~/.kde</tt>
+or <tt>~/.gnome</tt> directory.</p><p>Run with a single file argument, <b>lookout</b> will
+interpret it as an Outlook address-book export file to be converted,
+and write the corresponding KAB- or GnomeCard format address file to
+the default location for the calling user's address book. The new
+information will be appended to any previously existing address book.</p><p>Run with no arguments, <b>lookout</b> will act as a
+filter, translating an Outlook address-book export file presented on
+standard input to KAB or GnomeCard address-book data written to standard
+output.</p><p>The fields supported by Outlook do not always have exact
+equivalents in the output address-book formats that
+<b>lookout</b> supports.  Despite this, no information is ever
+discarded in translation; <b>lookout</b> inserts
+untranslated fields into whatever facility for notes or user-defined
+fields the output format supports.</p></div><div class="refsect1" lang="en" xml:lang="en"><h2>Theory of Operation</h2><p>To export your Outlook address book in the format this
+program reads, use the the 'Tab Separated Values (Windows)' export
+format.  To generate this export file:</p><div class="procedure"><ol type="1"><li><p> In Outlook (on your Windows machine), select File -&gt;
+'Import and Export' to call up the import/export wizard.
+</p></li><li><p>
+In that wizard, select 'Export to a file', which
+should be the second entry of the wizard's first menu.  Press Next to continue.
+</p></li><li><p>
+Select the &quot;Contacts&quot; folder. Press Next to continue.
+</p></li><li><p>
+Select 'Tab Separated Values (Windows)'.
+This is the last entry in the list; you may have to scroll down to see it.
+Press Next to continue.
+</p></li><li><p>
+Outlook will prompt you for a path and filename to write to.  Supply
+one, or accept the default. Press Next to continue.
+</p></li><li><p>
+Press `Finish' to write the file.
+</p></li><li><p> Transfer the
+export file to your Unix machine by any available means.  (An
+MS-DOS-formatted floppy disk read on your Unix box by
+mcopy(1)
+will do nicely.)
+</p></li></ol></div><p>To use the export file you have just generated in KDE:</p><div class="procedure"><ol type="1"><li><p>Select <b>abbrowser</b>
+as your address-book interface.  Note that it is not (at time of
+writing) the default address-book interface of KMail.  To enable it,
+run <b>kmail</b> select Settings -&gt; Configuration to pull
+up the Configuration dialog, then select `Appearance' and select the
+`Addressbook' tab.  Change the pulldown from `Traditional Kmail' (the
+default) to `Abbrowser'.  
+</p></li><li><p>
+Make sure that the directory in which your
+contact manager expects to find address-book files exists before
+running <b>lookout</b>.  The easiest way to make sure is
+to run <b>abbrowser</b> once before converting, to
+create a dummy address-book file in the right location.
+</p></li></ol></div><p>As of KDE 2.1.1 (as shipped in Red Hat 7.1)
+<b>abbrowser</b> is the only address-book interface
+shipped with KDE which can handle anything like the full set of
+Outlook address-book fields.  The KAB format that
+<b>lookout</b> writes can be written and read by some
+other KDE address books, however.</p><p>Under either KDE or GNOME:</p><div class="procedure"><ol type="1"><li><p>
+Run <b>lookout <i><tt>file</tt></i></b>,
+replacing <i><tt>file</tt></i> with the actual name of your
+Outlook export file.
+</p></li><li><p>
+Call up your address-book application to verify that the transfer was
+successful.
+</p></li></ol></div></div><div class="refsect1" lang="en" xml:lang="en"><h2>Files</h2><div class="variablelist"><dl><dt><span class="term"><tt>~/.kde/share/apps/kab/addressbook.kab</tt></span></dt><dd><p>
+location of the address book used by <b>abbrowser</b> and
+other KDE address book plugins.
+</p></dd><dt><span class="term"><tt>~/.gnome/GnomeCard.gcrd</tt></span></dt><dd><p>
+location of the address book used by the GNOME address-book application.
+</p></dd></dl></div></div><div class="refsect1" lang="en" xml:lang="en"><h2>Requirements</h2><p>Requires Python 1.5.2 or greater.</p></div><div class="refsect1" lang="en" xml:lang="en"><h2>Compatibility</h2><p>This version of <b>lookout</b> was written for the
+1.2.0 of <b>gnomecard</b> and the KDE 2.1.1 version of 
+<b>abbrowser</b>.  Future versions of these addressbook 
+applications may add more fields matching Outlook fields.  Therefore,
+you should check which version of your addressbook you are using;
+it may be that a more up-to-date version of <b>lookout</b>
+will do a better semantic translation, relegating less data to the
+notes or extension fields.  You can find the latest version of
+<b>lookout</b> at the <a href="http://www.tuxedo.org/~esr/lookout/" target="_top">lookout project page</a>.
+</p></div><div class="refsect1" lang="en" xml:lang="en"><h2>Authors</h2><p>Eric S. Raymond &lt;esr@thyrsus.com&gt;</p><p>Rob Landley &lt;telomerase@yahoo.com&gt;</p></div></div></body></html>

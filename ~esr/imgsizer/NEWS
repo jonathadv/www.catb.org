@@ -1,0 +1,61 @@
+= imgsizer project news =
+
+2.12: 2024-02-14::
+  Documentation refresh and markup fixes.
+
+2.11: 2021-09-20::
+  Ubuntu has removed /usr/bin/python, move all shebangs to python3.
+
+2.10: 2019-06-12::
+  Forward-ported to run under either current Python 2 or Python 3.
+
+2.9: 2015-04-05::
+  pylint and test cleanup.
+
+2.8: 2010-10-20::
+  Preferred style in HTML has changed, default to emitting lowercase tags.
+  Changed license to BSD.
+
+2.7: 2004-07-05::
+  Added capability to use PIL if both file(1) and identify(1) fail.  
+  Added BUGS section to manual page.
+
+2.6: 2003-12-29::
+  Source RPMs no longer depend on --define myversion.
+
+2.5: 2003-11-15::
+  Verify and merge Lucien Saviot's patch to produce XHTML from XHTML input.
+  Also his change to handle spurious lin e breaks produced by Dave Raggett's
+  tidy(1) utility.
+
+2.4: 2003-04-25::
+  Documentation improvements.
+
+2.3: 2002-07-30::
+  XML conversion of manual page.
+
+2.2: 2001-09-06::
+  Documentation improvements.
+
+2.1: 2001-07-30::
+  Build typo fix.
+
+2.0: 2001-07-11::
+  RPM fix.
+
+1.9: 2001-03-09::
+  Two bug fixes by Michael C. Toren <michael@toren.net>.
+
+1.8: 2000-08-31::
+  Build tweak.
+
+1.7: 2000-08-19::
+  Michael C. Toren <michael@toren.net> added -q and -l switches
+  and two minor bug fixes.
+
+1.6: 1999-06-11::
+  Remove some prerequisites and improve documentation.
+
+Some older history is in the source header comment.
+
+

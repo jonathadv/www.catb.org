@@ -1,0 +1,2521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 9.0.0rc2" />
+<title>The Compleat Classic Keyboard</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overridden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>The Compleat Classic Keyboard</h1>
+<span id="author">Eric S. Raymond</span><br />
+<span id="email"><code>&lt;<a href="mailto:esr@thyrsus.com">esr@thyrsus.com</a>&gt;</code></span><br />
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>Nothing beats an old-school tactile-clicky keyboard for typing feel,
+durability, and classic engineering style.  A surface feature of this
+kind of keyboard that contributes to the typing feel and durability is
+a heavy and rigid case.</p></div>
+<div class="paragraph"><p>The center of any discussion of classic heavy keyboards is always the line of
+development that ran from IBM beam-spring keyboards in the 1970s down
+through the buckling-spring Model F and Model M in the 1980s
+and 1990s to today&#8217;s Unicomps and the New Model F.</p></div>
+<div class="paragraph"><p>This document is a guide to recognizing, restoring, maintaining, and
+modifying classic heavy keyboards. "Restoring" is prominent because the
+type has not been manufactured in volume since cost pressure drove
+them out of the market in the mid-1990s in favor of flimsier and
+cheaper products.</p></div>
+<div class="paragraph"><p>This document was formerly the "Model M Troubleshooting FAQ", until it
+got mission creep.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_background">Background</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_model_m">Model M</h3>
+<div class="paragraph"><p>Production of Model Ms began in 1985 and continues to the present day,
+though spread across four different manufacturers and with major
+fluctuations in volume and quality. The details are complex and best
+summarized at its
+<a href="https://en.wikipedia.org/wiki/Model_M_keyboard">Wikipedia article</a>,
+which the author of this FAQ helped fill out.</p></div>
+<div class="paragraph"><p>Troubleshooting and restoration of vintage Model Ms remains attractive
+because, while the buckling-spring keyswitch is unchanged dince its
+beginnings, relentless cost pressure led to a steady decrease in build
+quality of the cases and structral backplates.  This decline was partly
+reversed by Unicomp&#8217;s tooling refresh in 2020, but the old-style IBM
+heavy case that is so valued by enthusiasts has not been returned to
+production.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_model_f">Model F</h3>
+<div class="paragraph"><p>The very first buckling-spring keyboard, the Model M&#8217;s predecessor,
+was the Model F, produced mainly from 1981 to 1985 and at much lower
+volume until 1994. This was the keyboard attached to the original IBM
+Personal Computer, the PC XT, and early versions of the PC AT. It is
+nowadays referred to as the "XT keyboard", though it predated the XT.
+The PC version had 83 keys (88 distinct switches); some industrial
+versions had 122 keys.</p></div>
+<div class="paragraph"><p>Many buckling-springs enthusiasts consider the Model F variant of
+the buckling-spring switch to be superior to the Model M&#8217;s; the
+actuation force is lower and the tactility a bit crisper.  Despite
+this, vintage model Fs are in much less use today than Ms. Fewer
+were produced, fewer have survived, and the pre-ANSI layout is
+offputting to a lot of potential users.</p></div>
+<div class="paragraph"><p>Model F Labs will sell you a
+<a href="https://www.modelfkeyboards.com/">hand-crafted recreation of the Model
+F</a> with a somewhat more modern ANSIfied layout.  While it is
+eye-wateringly expensive, it speaks USB natively and almost no
+interoperability issues have been reported with modern hardware.
+(I&#8217;ve heard of one sporadic failure to initialize connecting to Windows.)</p></div>
+</div>
+<div class="sect2">
+<h3 id="_beam_spring_keyboards">Beam-spring keyboards</h3>
+<div class="paragraph"><p>Before the Model F, the beam spring.  Very few of these survive, and
+this FAQ cannot yet say much about troubleshooting and restoring them
+beyond reporting on some known issues and failure modes.  Watch this
+space.</p></div>
+<div class="paragraph"><p>Model F Labs has
+<a href="https://deskthority.net/viewtopic.php?f=50&amp;p=491832">announced</a> a
+revival of the beam spring for after their New Model F production
+run finishes.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_identification">Identification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_model_m_2">Model M</h3>
+<div class="paragraph"><p>The <a href="https://en.wikipedia.org/wiki/Model_M_keyboard">Wikipedia article
+on the Model M</a> has a "Features by part number" chart that may help
+you identify the precise variant you are troubleshooting. The model
+number can usually be found on a sticker applied to the lower surface
+of the case.</p></div>
+<div class="paragraph"><p>The following table may help in identifying the manufacturing
+generation of a Model M keyboard, and expresses the reduction in unit
+weight over time.  It is originally from Thomas Ran
+(chyrosran22). Each model number is representative, but there are
+typically many other models per generation. The sample size for each
+was 1; weights may vary slightly from those listed.</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="hsides"
+cellspacing="0" cellpadding="4">
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<thead>
+<tr>
+<th align="left" valign="top"> Model   </th>
+<th align="left" valign="top"> Badge         </th>
+<th align="left" valign="top"> Year </th>
+<th align="left" valign="top"> Generation </th>
+<th align="left" valign="top"> Total wt </th>
+<th align="left" valign="top"> Case wt </th>
+<th align="left" valign="top"> Plate thickness</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">1388302</p></td>
+<td align="left" valign="top"><p class="table">square black</p></td>
+<td align="left" valign="top"><p class="table">1985</p></td>
+<td align="left" valign="top"><p class="table">0</p></td>
+<td align="left" valign="top"><p class="table">2.38kg</p></td>
+<td align="left" valign="top"><p class="table">900g</p></td>
+<td align="left" valign="top"><p class="table">1.3mm, rainbow</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">1390136</p></td>
+<td align="left" valign="top"><p class="table">square silver</p></td>
+<td align="left" valign="top"><p class="table">1987</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">2.24kg</p></td>
+<td align="left" valign="top"><p class="table">800g</p></td>
+<td align="left" valign="top"><p class="table">1.2mm, rainbow</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">1351406</p></td>
+<td align="left" valign="top"><p class="table">black oval</p></td>
+<td align="left" valign="top"><p class="table">1987</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">2.25kg</p></td>
+<td align="left" valign="top"><p class="table">806g</p></td>
+<td align="left" valign="top"><p class="table">1.2mm, rainbow</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">1391401</p></td>
+<td align="left" valign="top"><p class="table">black oval</p></td>
+<td align="left" valign="top"><p class="table">1991</p></td>
+<td align="left" valign="top"><p class="table">2</p></td>
+<td align="left" valign="top"><p class="table">2.06kg</p></td>
+<td align="left" valign="top"><p class="table">820g</p></td>
+<td align="left" valign="top"><p class="table">1.0mm, gray</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">1391406</p></td>
+<td align="left" valign="top"><p class="table">blue oval</p></td>
+<td align="left" valign="top"><p class="table">1996</p></td>
+<td align="left" valign="top"><p class="table">3</p></td>
+<td align="left" valign="top"><p class="table">2.01kg</p></td>
+<td align="left" valign="top"><p class="table">799g</p></td>
+<td align="left" valign="top"><p class="table">1.0mm, gray</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">1370477</p></td>
+<td align="left" valign="top"><p class="table">blue oval</p></td>
+<td align="left" valign="top"><p class="table">1995</p></td>
+<td align="left" valign="top"><p class="table">3</p></td>
+<td align="left" valign="top"><p class="table">2.00kg</p></td>
+<td align="left" valign="top"><p class="table">943g</p></td>
+<td align="left" valign="top"><p class="table">0.8mm, gray</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UB343H4</p></td>
+<td align="left" valign="top"><p class="table">unicomp</p></td>
+<td align="left" valign="top"><p class="table">2009</p></td>
+<td align="left" valign="top"><p class="table">4</p></td>
+<td align="left" valign="top"><p class="table">1.67kg</p></td>
+<td align="left" valign="top"><p class="table">626g</p></td>
+<td align="left" valign="top"><p class="table">0.8mm, gray</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>The most common single type is the 1391401, which shipped with the IBM
+PS/2 beginning in 1987.</p></div>
+<div class="paragraph"><p>More details on generations 1-4 can be found under "Generations"
+<a href="https://deskthority.net/wiki/IBM_Enhanced_Keyboard">here</a>. Note that
+the earliest Generation 4 variants were shipped by Lexmark and are not
+represented in the table above.</p></div>
+<div class="paragraph"><p>There were many iterations of the Model M controller board.  They
+can be told apart by the number of ribbon cables running from the
+keyboard membrane.  Membranes and controllers from different
+generations are not compatible.</p></div>
+<div class="paragraph"><p>The initial design had three ribbon connectors with 16 column, 8 row,
+and 4 LED pins. These were used on all 101- and 102-key Model Ms
+before 1991, and continued to ship on some keyboards into the early
+1990s.  These controllers exposed an SDL jack on the back of the case,
+and had through holes that mate to plastic pegs to either side of the
+opening for the jack.</p></div>
+<div class="paragraph"><p>Around 1993 Lexmark switched to fixed cables and occluded the jack
+opening with a plastic shim that locked to a strain reliever on the
+cable, which was internally wired to a cheaper Molex connector.</p></div>
+<div class="paragraph"><p>At some point in the early 1990s the 16-8-4 arrangement of the connectors
+changed to two connectors with 16 row pins and 12 column plus LED
+pins.</p></div>
+<div class="paragraph"><p>The final variant, first shipped in 1995 and still being made today by
+Unicomp, had no ribbon cables at all.  In these, a small PCB with
+integrated LEDs sat just below the lock light panel with connectors on
+it touching the membrane, replacing the larger PCB that formerly sat
+behind the backplate or was bolted to it.</p></div>
+<div class="paragraph"><p>Aficionados refer to the small PCB as the "press-fit controller".
+It has a known problem that the plastic pegs holding down the
+contact surface on the PCB tend to degrade and snap off in 5-7
+years. This makes the keyboard unsalvageable and good only as
+a parts donor.</p></div>
+<div class="paragraph"><p>M122s use a controller with 20- and 8-pin membrane connectors.
+Controller boards for these are not interchangeable with any of the
+previous varieties.</p></div>
+<div class="paragraph"><p>Up until Unicomp, the physical dimensions of the M were normally
+19.3" (48.9 cm) x 8.2" (20.8 cm) x 1.9" (4.9 cm).  Some variants such
+as 122s and Space Savers differed.  Unicomp Ms have smaller, lighter
+cases.  The New Model M is 17.9" = 45.5cm x 7.5" = 19.0cm x 196" =
+5.0cm).</p></div>
+<div class="paragraph"><p>Until some time in the Unicomp period (after 2001) cases and keys were
+both PBT.  Unicomp retained PBT keys but the cases became an
+ABS/polycarbonate blend.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_model_f_2">Model F</h3>
+<div class="paragraph"><p>Model F keyboards also usually have a provenance sticker giving the
+part number. For identification tips on Model F types, see the
+<a href="https://en.wikipedia.org/wiki/Model_F_keyboard">Wikipedia entry</a></p></div>
+</div>
+<div class="sect2">
+<h3 id="_beam_spring">Beam spring</h3>
+<div class="paragraph"><p>Surviving examples of beam-spring keyboards are extremely rare,
+enough so that I have not been able to gather systematic information
+on identifying them. A Google Images search for "beam-spring keyboard"
+does yield images of several relatively common types.  Many of the
+survivors were built for either the Displaywriter or the 3278 and
+5250-series terminals.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testing">Testing</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>If you are running Linux and have doubts about whether any keys are
+operating, xev(1) will display keypress/key-release events and what
+keystroke X interprets them as. Here&#8217;s the command:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>$ xev -event_mask keyboard</code></pre>
+</div></div>
+<div class="paragraph"><p>Visually easier testers that are less stringent (don&#8217;t give you
+separate confirmation of a key release) abound on the web and can be
+found with a search for "keyboard tester".
+<a href="https://mechanicalkeyboard.com/keyboard-tester/">This one</a> is well
+adapted to testing ModeL Ms.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_disassembly_and_reassembly">Disassembly and reassembly</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Before disassembling any of these keyboards it&#8217;s a good idea to
+search the web for restoration videos to see how it&#8217;s done.
+Links to some of the better ones can be found in the <a href="#references">[references]</a> near
+the end of this FAQ.</p></div>
+<div class="paragraph"><p>Take pictures before disassembling, especially if the keyboard has
+a layout anything other than bog-standard ANSI.  You want to be able
+to put the keycaps back on correctly&#8230;</p></div>
+<div class="paragraph"><p>One thing to be careful of during reassembly of either an M or an F,
+before you start re-inserting keys: check carefully that no spring is
+caught over the edge of its barrel.  If you try reinserting a key with
+the spring caught like that, you will crush and deform the spring,
+ruining it.  Then you&#8217;ll have to take the board back apart and replace
+the flapper, which is a huge pain.</p></div>
+<div class="sect2">
+<h3 id="_model_m_3">Model M</h3>
+<div class="paragraph"><p>Once the case is removed, a Medel M has four layers.  The topmost is a
+plastic barrel plate. Underneath it are the switch flappers; they sit
+on top of a thin mat and two layers of sensor membranes. Beneath those
+is a metal backplate that provides structural support.</p></div>
+<div class="paragraph"><p>One special tool is required for disassembling all model Ms prior to
+Unicomp&#8217;s "New Model M" reissue in late 2020 - a 5.5mm (7/32in, metric
+M3) socket hex driver with walls thin enough to fit in the screw wells
+of the case.  Some of the recent Unicomps with "Ultra" slimline cases
+have the screw heads more exposed, but a thin-wall tool is still what
+you need to get past the case shoulders near them.</p></div>
+<div class="paragraph"><p>Note that while these screws look like generic PC case screws, they&#8217;re
+not - they&#8217;re actually #6 sheet-metal screws designed to self-tap into
+screw holes that were not molded with threads. The drivers for them are
+a common tool in the radio-controlled-airplane hobby. A web search for
+"5.5mm hex driver" turns up many sources.</p></div>
+<div class="paragraph"><p>The Unicomp New Model M (both full-sized and SSK "Space Saver
+Keyboard" variants) dispenses with the 5.5mm screws in favor of
+Pozidriv screws (a variant of Philips). You&#8217;ll need a Pozidriv #1
+screwdriver to work them.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">The kind of ribbon sockets the Model M uses are only rated
+for 10 insertions before the finish on the contacts might wear to the
+point when they no longer establish a good conductive path for the
+signal.  Worse than that, the ribbon ends get significant wear on each
+insertion; if you put them through too many you might make them
+unusable too.  It might be possible to repair damaged ribbon ends
+with a conductive-ink pen, but better to avoid that.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>So, minimize ribbon removal and insertion operations as much as
+possible. This is actually a good reason to store your parts donor keyboards
+intact rather than disassembling them into parts.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_model_f_3">Model F</h3>
+<div class="paragraph"><p>Once the case is removed, a Model F has six layers.  There&#8217;s a
+perforated metal front plate through which the switch barrels protrude, a thin
+rubber mat, the switch barrels and flappers, the PCB, an insulating
+sheet of plastic, and a metal backplate.</p></div>
+<div class="paragraph"><p>On an F XT, the controller electronics sit on a peninsula of the PCB
+holding the capacitative sensor pads.  On some Fs, notably including
+the 3178, the controller electronics are on a daughterboard connected
+to the PCB by ribbon cables.</p></div>
+<div class="paragraph"><p>I have restored one 1984 Model F XT that had hex-head sheet metal
+case screws looking exactly like Model M screws, but a half-millimeter
+larger and requiring a 0.25in hex driver.  They&#8217;re very similar to
+#10 sheet metal screws, but with a longer shaft than those have.</p></div>
+<div class="paragraph"><p>I have seen video evidence of other screw sizes on F122s. All
+have hex heads; if you&#8217;re going to restore those you probably want
+a full nut-driver set.</p></div>
+<div class="paragraph"><p>Beware of trying to remove the spacebar on Model Fs - don&#8217;t force it
+if you feel resistance! On early versions you actually have to
+separate the front and back plates before it can be done without
+risk of snapping the clips that hold the spacebar to its stabilizer
+wire.</p></div>
+<div class="paragraph"><p><a href="https://deskthority.net/viewtopic.php?f=2&amp;t=24967">This Deskthority
+thread</a> is about a mod to the F spacebar you can do that will prevent
+this problem.  Use something like a jewelry file or even the kind of
+emory board made for filing fingernails; shave material off gradually
+until you reach a point where the clip can be rotated into place
+without forcing it&#8230;</p></div>
+<div class="paragraph"><p>To get the fore- and back-plates apart you need to get the top one to
+move sideways so it disengages from the locking tabs on the bottom
+plate. Some variants have an odd-shaped tab near one corner
+that needs to be bent outward slightly first.</p></div>
+<div class="paragraph"><p>The best way I&#8217;ve found to get the top plate loose is to stand the
+sandwich on end tap one end of the top plate lightly with a hammer.
+Hold the the plates together with your other hand while you do this,
+because when they separate all the switch flappers will unseat and
+fall out.  It&#8217;s better to remove them when the top plate has been
+returned to a horizontal position so you don&#8217;t risk losing any.</p></div>
+<div class="paragraph"><p>You may want to separate the spacebar flapper from the others and
+make sure you use it for the spacebar on reassembly, as it tends
+to wear a little differently from the other keys.</p></div>
+<div class="paragraph"><p>Reassembly begins with placing the mat on the upcurved side of the
+front plate. If you didn&#8217;t choose to do the spacebar mod, here are the
+steps you need to do next:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Begin by supporting the long sides of the front plate on a couple
+  of pieces of half-inch-thick scrap wood (or something similar) so
+  that when you install the flappers there won&#8217;t be pressure on the
+  springs and barrels to push them up and out of the openings in the
+  front plate.  Turn the plat mat-side up - it should be convex
+  towards you.
+</p>
+</li>
+<li>
+<p>
+Before placing any of the other barrels or flappers, begin by
+  removing the stabilizer wire from the spacebar barrel piece if
+  it&#8217;s not already loose.  If it isn&#8217;t, take note of the way it&#8217;s
+  caught under two small lugs near either end.
+</p>
+</li>
+<li>
+<p>
+With the spacebar slot nearest you, insert the spacebar barrel
+  piece through its three holes. Choose the orientation that puts the
+  barrel opening further from the nearest plate edge and you.
+</p>
+</li>
+<li>
+<p>
+Insert the spacebar up underneath the front plate, pushing its legs
+  through the three holes in the spacebar barrel piece.  Orient it so
+  the left-hand and right-hand slots to hold the spring ends open face
+  away from the nearest plate edge and you.
+</p>
+</li>
+<li>
+<p>
+Wedge something undeneath the spacebar to put it in a fully depressed
+  position, projecting the three plastic legs through the spacebar
+  barrel piece as far towards you as possible.  You&#8217;re doing this for
+  easier access to the stabilizer retention slots on the left- and
+  right-hand legs.
+</p>
+</li>
+<li>
+<p>
+The spacebar stabilizer wire is not vertically symmetrical.  You
+  want the slight V in it shaped to point downwards, towards the
+  front plate.  Pointed in the other direction (upward) it would
+  interfere with tye spacebar flapper too much to let it seat.
+</p>
+</li>
+<li>
+<p>
+Examine the spacebar underpiece carefully. The inner wall of the
+  square well for each outer leg ends in a small overhanging lug
+  (previously mentioned); locate these.
+</p>
+</li>
+<li>
+<p>
+During this next three steps it helps to be holding the stabilizer wire
+  vertically, at a 90-degree angle to the front plate.  Insert one
+  end of the stabilizer wire into one of the slots on an outer leg.
+</p>
+</li>
+<li>
+<p>
+Snap the nearest corner of the stabilizer wire into the small lug
+  nearest the wire end you just inserted in its slot. This will help
+  prevent that spring end from popping out doring the next few steps.
+</p>
+</li>
+<li>
+<p>
+Then maneuver the other wire end into the other slot. Snap its
+  corner into the corresponding lug
+</p>
+</li>
+<li>
+<p>
+The stabilizer wire should now be lying flat against the barrel
+  piece, clearing the hole for the spacebar flapper. Reach underneath
+  to press and release the spacebar a couple times; the travel should
+  feel normal ans smooth.  If it doesn&#8217;t, you may have the stabilizer
+  wire inverted.
+</p>
+</li>
+<li>
+<p>
+Wedge the something between the spacebar and front plate to keep
+  the spacebar in the most open position you can get it to
+  assume. You need to do this so the spavcenar flapper will seat
+  properly.  Poster putty or folded and refolded cardboard will
+  do for this
+</p>
+</li>
+<li>
+<p>
+Drop the spacebar flapper into place. Note that the spacebar
+  stabilizer wire has to go between the flapper and the spacebar
+  barrel piece, not between the flapper and the PCB when it would
+  prevent the flapper from making contact.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p><a href="https://www.youtube.com/watch?v=bgIkM2_Ns4U">This video</a> has
+good footage of installing the XT spacebar at about 11:50 in.
+Note that he also installs an internal TMK converter - more about this
+under <a href="#conversion">[conversion]</a>.</p></div>
+<div class="paragraph"><p>After getting the spacebar in place this you can proceed to installing
+the other barrels and flappers.</p></div>
+<div class="paragraph"><p>You&#8217;ll find the spacebar flapper doesn&#8217;t want to seat properly because
+there isn&#8217;t enough room for the spring in the well created by the
+little feet on the spacebar&#8217;s central post.  The best tool to solve
+this with is a thin wooden wedge about the size and shape of a
+doorstop.  Insert the wedge between the spacebar and the front plate
+(being careful not to collide with the flapper spring!)  Push on the
+wedge to gradually pry the spacebar away from the front plate until
+the spring has enough room in thw well that the flapper can seat
+evenly with the others.  Leave the wedge in place until you have the
+backplate secured.</p></div>
+<div class="paragraph"><p>Reassembling the plates without disturbing the flappers and barrels
+takes some delicacy.  Lay the back plate down on top of the front
+plate, avoiding any sideways motion and letting the locking tabs on
+the front plate protrude through the cutouts in the back plate.
+Carefully apply six carpenter&#8217;s spring clamps around the plate edges
+to hold the sandwich together tightly enough that the flippers and
+barrels can&#8217;t shift around.</p></div>
+<div class="paragraph"><p>It&#8217;s a good idea to put the keycaps on and test your keyboard at this
+point, <strong>before</strong> you reengage the locking tabs, when you can easily
+reseat any flappers that need it just by unclamping the backplate. But
+if you find a key that isn&#8217;t responding, try removing and reinserting
+the keycap before concluding that the flapper needs an intervention.</p></div>
+<div class="paragraph"><p>To finish reassembly, position a trigger clamp with a 24-inch throw so
+that one jaw is on a front-plate end and the other on the opposite
+back-plate end.  There are two different combinations like this; you
+know you have the right one when compressing the clamp drives the
+edges of the back-plate cutouts under the locking tabs.</p></div>
+<div class="paragraph"><p>To put the plate assembly back in the case, turn cover (the upper case half)
+upside down and support its edges with pieces of scrap wood or books
+or other things a half-inch or so thick.  Your objective is to leave
+room for the keycaps not to touch your worktable when you place the
+plate assembly in it.  Which is what you do next.</p></div>
+<div class="paragraph"><p>There&#8217;s only one way for the plate assemply to fit, constrained by the
+cutouts in the cover. Put the tabs on the front edge of the pan (the case
+bottom half) in corresponding slots in the inner wall of the cover,
+and let the pan rest on the backplate.</p></div>
+<div class="paragraph"><p>There will be some tricky fiddling as you position the cable strain
+relief in its exit notch and hang the ground washer on the nearby case
+screw. The most important thing to understrand is that the pan is
+dsigned to bow out slightly and be under tension when the case is
+closed.  That tension is what holds the plate assembly in place.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cleaning">Cleaning</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Grubby keycaps can be effectively cleaned by popping them off with the
+tip of a butter knife (or you can be fancy and use a keypuller),
+dropping them in a glass of lukewarm water, adding denture cleaner or
+dishwashing soap, and letting them soak for a while.  Rinse and let
+dry thoroughly before reinstalling.  Don&#8217;t use extremely hot water as
+PBT begins to deform at around 66C = 151F - spacebars are the most
+likely to get warped.</p></div>
+<div class="paragraph"><p>Despite some YouTube videos, I strongly recommend against throwing
+your Model M or F in the dishwasher. It&#8217;s not uncommon for dishwashers
+to have a main cycle temperature up to 170F, well above PBT
+deformation temperature. Fully immersing the backplate is also risky
+in other ways: (1) the factory sticker could be damaged, (2) random
+bits of crud can get washed into the path of the switch flappers and
+stuck there, (3) water on the PCB can lead to long-term corrosion
+issues, and (4) the membrane contwct points can be corroded by the
+moisture. Some of these problems might be prevented if you have access
+to a vacuum dryer and can reliably boil off all the residual moisture
+shortly after immersion, but I wouldn&#8217;t chance it myself.</p></div>
+<div class="paragraph"><p>Many Unicomps, including the New Model M and Mini-M, have cases made
+from a ABS/polycarbonate blend rather than PBT.  The deformation
+temperature will be slightly lower; the same caveats apply.</p></div>
+<div class="paragraph"><p>While caps are off is a good time to blow out dust and hairballs
+with a can of air or spray-painting compressor. For a really thorough
+job, Q-tips can get down between the barrels.</p></div>
+<div class="paragraph"><p>Light rust on an F can be lifted off the metal fore- and back-plates
+by moistening them with a cloth soaked in white vinegar and letting it
+sit on the rust for a few minutes, then re-wiping with a clean rag. A
+small wire brush of the kind used to clean stove burners is helpful
+for stubborn spots. Where the plate is actually pitted, a bit of
+scrubbing with steel wool can at least scour the rust out of the pits.
+If you have access to a bench grinder (or even a Dremel tool) with a
+wire brush, by all means use that.</p></div>
+<div class="paragraph"><p>If you have to disassemble an M or F entirely to deep-clean it, check
+to see if it still has its surface coating - I&#8217;ve seen a Model F where
+it was mostly gone.  If you&#8217;re looking at uncoated metal it&#8217;s not a
+bad idea to paint the plates for rustproofing before you reassemble it
+- I have used primer and industrial-grade enamel but I understand
+Clearkote works well.  You must remove the PCB and the plastic
+insulator sheet from the backplate before doing this to an F!</p></div>
+<div class="paragraph"><p>I&#8217;ve restored one Model F that had a worse problem than rust: mold all
+over the front and back plates. If your keyboard is functional but
+smells nasty this may be the reason.  The same vinegar soak and
+scrubbing that lifts rust will do for the mold. The mold stink, which
+doesn&#8217;t come directly from molds or mold spores but is due to organic
+volatiles excreted by the molds as they grow, is much more difficult
+to eradicate. Vinegar and isopropyl alchohol looked promising for this
+but didn&#8217;t do a thorough job, but I found an enymatic cleaner called
+Moldzyme that does.  Rinse thoroughly afterwords as the Moldzyme can
+be a bit pungent itself.</p></div>
+<div class="paragraph"><p>The case halves can be washed with warm soapy water.  Isopropyl
+alcohol can be useful for going after serious stains.  Note that
+removing or damaging the provenance label on the bottom of the case
+will reduce the board&#8217;s value in case you ever want to sell it; you
+may want to be careful of this when washing the bottom case half.</p></div>
+<div class="paragraph"><p>Be wary of inverting the keyboard with the buckling springs bared, as
+they can occasionally fall out.  If this happens they can sometimes be
+reinstalled by spearing them on a sharpened chopstick and twisting the
+wire tip of the spring coil into its attachment point on the flapper.</p></div>
+<div class="paragraph"><p>I have not yet been able to gether any specific information on
+techniques for cleaning beam-spring keyboards.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_storage">Storage</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>If at all possible, don&#8217;t store M and F keyboards with the cable
+insulation in contact with the case.  Given prolonged contact,
+plasticizers in the cable can leach out and damage the case.
+In all other ways model Ms and Fs are very stable in storage.</p></div>
+<div class="paragraph"><p>While the the anodization on the back plate of Ms is very durable, the
+surface coating on the fore and back plates of Fs is less so and they
+have some tendency to rust out. Avoid exposing them to moisture,
+especially salty moisture.</p></div>
+<div class="paragraph"><p>Beam-spring keyboards have metal cases and thus can&#8217;t be damaged by
+plasticizers.  On the other hand, they have a known and serious
+tendency to rust out internally over time, probably due to lack of
+anti-corrosive coating on the metals. The caveat for Fs applies much
+more strongly: do not expose these to moisture, especially salty
+moisture.</p></div>
+<div class="paragraph"><p>Sterilite 28-quart/27-liter plastic storage boxes are well-suited
+for storing Model Ms (and the slightly smaller Model Fs).  The
+long dimension is 23" but they narrow to just enough more than 19"
+at the bottom. Each will hold three keyboards, with some space
+for cables.  The closed boxes stack.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_restoration">Restoration</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_philosophy">Philosophy</h3>
+<div class="paragraph"><p>Vintage buckling-spring and beam-spring keyboards are both tools and
+collector&#8217;s items.  When restoring them, keep an eye on both roles.</p></div>
+<div class="paragraph"><p>Fortunately, they almost never cause a conflict. Collectors are very
+tolerant - even approving - of changes to these keyboards that
+increase either durability or utility (such as internal USB
+conversions).  Beware, though, of irreversible case modifications;
+those are frowned upon.</p></div>
+<div class="paragraph"><p>If you have an eye on value as a collectible, there are two major
+things you can do: (1) Protect the provenance label, and (2) don&#8217;t
+mix keycap types.  We&#8217;ll cover both issues later in this section.</p></div>
+<div class="paragraph"><p>The collector value of a high-quality restoration increases with the
+age of the keyboard. Also with its mass, as the decreasing weight over
+time affected the durability and feel and is considered an indicator
+of progressive cheaping-out of the manufacturing.  In descending
+order of value the categories are:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Really ancient square-badge Ms, and terminal Ms of any age (because
+of rarity).
+</p>
+</li>
+<li>
+<p>
+Pre-Lexmark variants with an SDL jack (until 1991)
+</p>
+</li>
+<li>
+<p>
+Lexmark variants with an SDL jack (until 1993)
+</p>
+</li>
+<li>
+<p>
+Fixed-cable Lexmarks with the original controller location (until 1995)
+</p>
+</li>
+<li>
+<p>
+Fixed-cable Lexmarks with press-fit controller (until 1996)
+</p>
+</li>
+<li>
+<p>
+Unicomps with PBT cases.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>Unicomps with ABS/polycarbonate cases have no collector value at all.
+Those, along with categories 5 and 6, aren&#8217;t generally worth restoring
+due to their shorter expected lifetime.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_finding_small_parts">Finding small parts</h3>
+<div class="paragraph"><p>M and F switch flappers are not interchangeable. They can be
+purchased from Unicomp or Model F Labs.</p></div>
+<div class="paragraph"><p>Model F stems (the barrel-shaped guards for the keycaps)
+can be purchased from Model F labs.</p></div>
+<div class="paragraph"><p>Model M membranes and barrel plates can be purchased from Unicomp.</p></div>
+<div class="paragraph"><p>All manner of small F and M parts can sometimes be found on eBay
+with adroit searches.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_keycap_considerations">Keycap considerations</h3>
+<div class="paragraph"><p>Model M and Model F keycaps are interchangeable.  They can be
+purchased new from Unicomp and Model F Labs; old stock is
+often available on eBay.</p></div>
+<div class="paragraph"><p>Keycaps from the IBM/Lexmark area are of extremely high quality, as
+are Unicomp keycaps from after their tooling refresh in 2020. If
+you&#8217;re buying keycaps for restoration or taking them from a donor
+keyboard, you may want to avoid Unicomp keycaps from between 2010 or
+so and 2020; during that period increasingly worn tooling produced
+defects like uneven heights, slightly blurry edges, and legends a bit
+out of place.</p></div>
+<div class="paragraph"><p>When restoring, be aware of the difference between one-piece and
+two-piece keycaps. IBM Model Ms from before the Lexmark spinout in
+1991 had two-piece keycaps, with an inner shell intended to ride on
+and protect the buckling spring supporting a keytop (sometimes called
+an overlay) that could carry variable legends and be specialized for
+particular applications.  As time went on and GUI interfaces made
+keycap overlays comparatively less useful, Lexmark and (later) Unicomp
+sought cost savings by producing single-piece keycaps.</p></div>
+<div class="paragraph"><p>Generally speaking it&#8217;s bad form (and reduces the value of the
+keyboard) when a restorer mixes types.  An M should have either all
+two-piece or all one-piece keycaps, and which it carries should be
+appropriate to its year of mamufacture - notably, this means all Model
+Fs, and all Model Ms from before 1991, should always be restored with
+two-piece keycaps.</p></div>
+<div class="paragraph"><p>Simplifying matters, some large keys (especially large keys with
+stabilizer wires) were one-piece even before the Lexmark spinout:
+Spacebar, both Shift keys, Caps Lock, Enter, Backspace, the numpad
+large +, and the numpad -.</p></div>
+<div class="paragraph"><p>As shipped, two-piece caps usually had shells matching the keytop
+background color.  A really high-quality restoration preserves this
+property on a keybopard that has it, even though it is normally
+invisible.</p></div>
+<div class="paragraph"><p>Almost all Model M, F and beam-spring keycaps are made from PBT and
+will not yellow with age. Very occasionally you will encounter
+spacebars that were cast from ABS and have yellowed.
+<a href="https://en.wikipedia.org/wiki/Retr0bright">Retr0bright</a> will fix that
+up. Alternatively, Unicomp can sell you a PBT spacebar that will fit
+an M or F.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_model_m_4">Model M</h3>
+<div class="paragraph"><p>If lock lights fail to flash on power-up, you probably have a dead
+controller board.  It is possible to replace these; see the discussion
+of controller modding later in this document.  You may be able to buy
+a replacement 4th-generation "press-fit" controller from Unicomp.</p></div>
+<div class="paragraph"><p>I have seen cases in which the controller was OK but the LEDs are
+dead.  This is unusual, but if yoou get keystroke echo</p></div>
+<div class="paragraph"><p>Partial failure is usually due to the plastic rivets securing the
+back plate to the barrel plate becoming brittle and shearing off over
+time.  See the disussion of bolt-modding later in this document for
+details on how to fix this.</p></div>
+<div class="paragraph"><p>If any individual key is failing to register ior or doesn&#8217;t feel
+right, the flapper is probaly stuck; that will mute all kets the whole
+row and column it&#8217;s in.</p></div>
+<div class="paragraph"><p>Another mode of partial failure is due to damaged traces on the
+membrane or membrane connectors.  This will usually take out an entire
+row, but not an intersecting column the way a stuck flapper does. Of
+course it is possible to have both row and column traces damaged
+in whch these cases get tricky to distinguish.</p></div>
+<div class="paragraph"><p>Usually trace damage is due to liquids having been spilled on the
+keyboard (the phosphoric acid in colas is especially harmful), though
+I know of one case caused by vaping. Occasionally you hear reports of
+applying a conductive-ink pen to repair breaks, but this isn&#8217;t a
+long-term fix - the conductive ink degrades over time and it is likely
+that your trouble will come back.  Unicomp sells replacement
+membranes, including old stock for pre-4th-generation keyboards.</p></div>
+<div class="paragraph"><p>Cracks in the barrel plate are not uncommon and not usually a problem;
+the rivets will do a good job of holding the pieces in place.  If you
+are bolt-modding or doing any other procedure that isolates a barrel
+plate, any adhesive that will take on plastic can be used to repair
+small cracks; I have used Gorilla Glue with good results.</p></div>
+<div class="paragraph"><p>The factory label on the bottom of your M case may have been sealed
+over with a protective plastic film at the factory.  If it hasn&#8217;t,
+adding such protection is good idea - a removed or damaged label
+reduces the value of the keyboard. To protect it, cut a rectangle
+of wax paper to size. Position the wax paper on the label, cover it
+with a larger swatch of transparent packing tape, then trim the
+packing tape to size - 1/8" margin around the label is enough.</p></div>
+<div class="paragraph"><p>Damaged springs can be replaced without taking the plate assembly
+entirely apart if you have a spare flapper you can raid for its
+spring. Find a disposable chopstick and whittle the tip until you
+can just manage to insert it in a flapper spring. Pull the old damaged
+one up and out with a par of pliers. Spear the new one and shine a
+good enough light into the barrel that you can see the spring peg on
+the flapper. Push the news oring onto the peg and twiat it
+counterclockwise. When you feel a catch in the rotation, twist it a
+quarter-turn clockwise and gently withdraw the chopstick.  This
+is actually easier than it sounds!</p></div>
+</div>
+<div class="sect2">
+<h3 id="_model_f_4">Model F</h3>
+<div class="paragraph"><p>If a Model F is totally unresponsive the control electronics are
+dead. It is difficult to recover from this as they form a physical
+unit with the curved board holding all the capactive sensors and there
+is nowhere to buy a replacement for that.  In this case the best you
+can do is keep the F as a parts donor.</p></div>
+<div class="paragraph"><p>Partial failure likely means some switch flappers need to be reseated
+or there is debris blocking the path to the capacitive sensor pads.
+You will have to disassemble the front and back plates to investigate.</p></div>
+<div class="paragraph"><p>While the bottom case half of an F is metal, the top is a plastic that
+is somewhat more brittle than the PBT of a Model M and (unlike the M)
+prone to hairline cracks.  Additionally Fs have a painted or
+powdercoated finish that can be damaged by rough handling.  When
+acquiring Fs for restoration, inspect them carefully for these defects
+as there aren&#8217;t any known remediations other than replacing the part
+from a donor.</p></div>
+<div class="paragraph"><p>The Model F backplate is secured with metal locking tabs rather than
+plastic rivets and thus never requires a bolt mod. However, it does
+have a foam-rubber spacer mat which can degrade over time (more likely
+if exposed to heat and moisture) and may need to be replaced.  A new
+one is relatively easy to make from 2mm sheet foam with a blade and a
+12mm hole punch; mats for some variants can be purchased from Model F
+Labs.  In case Model F labs doesn&#8217;t have what you need in stock, here
+are some resources:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<a href="ModelF_XT_Layout1.pdf">Model F XT mat cutting template</a>
+</dt>
+<dd>
+<p>
+    You can print this out on A2 or C paper as a template for
+    hand-cutting an F XT mat. I got it from a
+    <a href="https://deskthority.net/viewtopic.php?f=2&amp;t=8033">thread on
+    Deskthority</a>; the author, Snufkin, notes "the only things I&#8217;d
+    change would be to move the tab holes a couple of mm further
+    apart".
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="Model_F_AT.dxf">DXF description of an F AT mat</a>
+</dt>
+<dd>
+<p>
+    This can be fed to a blade- or laser cutter directly or mailed to
+    a service such as <a href="https://snijlab.nl/en/">Snijlab</a> that will cut
+    2mm neoprene foam and ship it back to you (in June 2021 they would
+    do this one for about $30).  Note that this file is in US units;
+    there&#8217;s a note in the Deskthority thread that "[I]t should be 435
+    mm x 134 mm as far as I know. When I open the DXF (and also upload
+    it for cutting) it gives me a 17mm x 5mm size (probably the
+    conversion from inch to mm is causing the problem here)."
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>More PDFs for other variants can be found
+<a href="https://deskthority.net/viewtopic.php?p=233627#p233627">on
+Deskthority</a>. Note: if you are skilled with CAD, please convert
+the PDFs to DXF or some other portable CAD drawing format and
+send them back to me so I can make them available here.</p></div>
+<div class="paragraph"><p>Replacement mats can sometimes be found on eBay.  Try "model F foam".</p></div>
+<div class="paragraph"><p>If you&#8217;re replacing a mat, try to choose a foam like Neoprene that is
+not biodegradable. Otherwise somebody else will probably have to do a
+mat replacement in another few decades.</p></div>
+<div class="paragraph"><p><a href="https://www.youtube.com/watch?v=ynoTHMPC0mc">This video</a> on cleaning
+and restoring a Model F should be helpful.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_beam_spring_2">Beam spring</h3>
+<div class="paragraph"><p>Beam-spring keyboards are almost unbelievably heavy and rugged and
+should still be in good mechanical shape even after having endured
+since the 1970s, providing they haven&#8217;t rusted out.  The switches
+are, however, more vulnerable to dust and contaminants than the
+buckling springs on Models M and F; therefore the switches may require
+disassembly and cleaning, which is likely to be an extremely delicate
+process.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_terminal_model_m_f_and_beam_spring_issues">Terminal Model M, F and beam-spring issues</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Some Model Ms (and Fs) were built for use with IBM terminal types
+beginning with the IBM 3100 series and notably including the 5250.
+You can spot terminal model Ms by the blank plastic panel at the upper
+right where you would expect lock lights to be on a PC keyboard.</p></div>
+<div class="paragraph"><p>You might find them with either a standard 101-key or the 122-key
+"battleship" layout.  The 122-key variants were associated with 3270
+or 5250 terminals and are relatively easy to find; the 101-key layout
+shipped with the 3151 and successors, and is rather rare.</p></div>
+<div class="paragraph"><p>These terminals used a poorly documented variety of interface
+connectors, notably including RJ-45 jacks and a 5-pin DIN that
+resembles an AT connector but speaks a different protocol.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="240din.jpeg" alt="240-degree 50pin DIN" />
+</div>
+</div>
+<div class="paragraph"><p>Compare this image with the AT connector shown in the next section.
+Note the square arrangement of the uppermost 4 pins.</p></div>
+<div class="paragraph"><p>Search for "RJ45 to USB Soarer&#8217;s Converter" on eBay for one
+possible solution.  There&#8217;s a different variant of the Soarer&#8217;s
+Converter you might find for the 5-pin DIN; the magic search term is
+"240 Degree" describing the pin placement.</p></div>
+<div class="paragraph"><p>At time of writing in 2021, there&#8217;s a particular eBay seller named
+"orihalcon" who has a reputation in the keyboard-enthusiast community
+for making and shipping well-built Soarer&#8217;s converters. Note that
+there are at least three different variants of Soarer&#8217;s Converter and
+make sure you get the right one.</p></div>
+<div class="paragraph"><p>Otherwise you are deep in the weeds trying to get one of these
+working. One way is to get your hands on a pre-4th-generation
+controller PCB that speaks PS/2 or AT and transplant it in - I&#8217;ve seen
+this being done and it appears all versions of that PCB were very
+sensibly designed to mount to the case in the same way.</p></div>
+<div class="paragraph"><p>However: 122-key variants have a different matrix than 101-key
+variants and export ribbon cables with a different connector count, 20
+vs. 16.  Make sure your donor controller matches your ribbon cable.</p></div>
+<div class="paragraph"><p>Another option would be the Teensy. Model H, or Rump mods described
+later in this document. All 101-key Model Ms before the 4th-generation
+redesign used the same two (or three if there are lock lights) ribbon
+connectors from the sensor membrane and can thus use the same mods.</p></div>
+<div class="paragraph"><p>Beam-spring terminals can only be made to work with modern computers
+via controller replacement.  Model F labs sells
+<a href="https://www.modelfkeyboards.com/product/xwhatsit-beam-spring-or-model-f-controller/">xwhatsit
+controller PCBs</a> for two different types of beam-spring keyboard that
+turns them into USB devices.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_xt_model_m_issues">XT Model M issues</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Some of the very earliest variants of the Model M (1390148, 1390639,
+1389969, 1390120) spoke XT protocol. Not much is known about
+these and it is possible they never shipped in the US.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_at_model_m_issues">AT Model M issues</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Many older model Ms have an AT keyboard connector, using a 5-pin DIN
+plug larger than the PS/2 mini-DIN.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="at-keyboard-connector-din.fit_lim.size_800x.gif" alt="AT and PS/2" />
+</div>
+</div>
+<div class="paragraph"><p>To make these work, you&#8217;ll need an AT-to-PS/2 adapter.  These are no
+longer common, the AT connector having been phased out after the
+introduction of the PS/2 in 1987, but can still be found with a web
+search in 2021.</p></div>
+<div class="paragraph"><p>Then follow the next set of directions for hooking up a PS/2 Model M.</p></div>
+<div class="paragraph"><p>Alternatively, if your Model M has a detachable cable (later versions
+went to an integral cable to cut manufacturing costs), the
+Ethernet-like connector on the keyboard is a style called "SDL".  It
+is sometime possible to find SDL-to-USB cables (with active converter
+logic) on eBay and elsewhere.  Search for "USB to SDL Model
+M" or "SDL Soarer&#8217;s Converter"</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ps_2_model_m_issues">PS/2 Model M issues</h2>
+<div class="sectionbody">
+<div class="paragraph" id="power"><p>You may be able to plug your PS/2 Model M directly into a PS/2 port,
+if your machine still has one.  But maybe not - a IBM or Lexmark Model
+M draws more power (100-120mA) than some modern PS/2 ports are
+designed to supply.  Nominally PS/2 pin 4 is supposed to ship +5 V DC
+at 275 mA but a lot of later PS/2 implementations took advantage of
+the low amperage requirements of more modern keyboards (3-50mA) amd
+cheaped out on power management.</p></div>
+<div class="paragraph"><p>The high power draw remained true of older PS/2 Unicomp keyboards made
+to the Model M design, which had the same core keyboard electronics as
+late Lexmarks.  The main chips on these, the Motorola 6805 processor
+and Intel 8042 PIC, are old and power-hungry designs.</p></div>
+<div class="paragraph"><p>You have two routes to recover.  One (if your Model M has a detachable
+cable) is the aforementioned active SDL-to-USB cable.  Otherwise
+you&#8217;ll need a PS/2-to-USB adaptor.  However, not all of these will
+work.  Passive USB adaptors, which just pass through the PS/2 signals,
+will fail.</p></div>
+<div class="paragraph"><p>Alas, the fabled "Blue Cube" active PS/2 to USB adapter seems to have
+been discontinued.  However, the
+<a href="https://www.amazon.com/gp/product/B000BSJFJS/ref=ppx_yo_dt_b_asin_title_o01_s00?pldnSite=1">Sanoxy
+adapter</a> has been
+<a href="https://www.reddit.com/r/MechanicalKeyboards/comments/kpzxk7/possible_blue_cube_successor_in_the_sanoxy_ps2_to/">reported</a>
+to work.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ps_2_unicomp_issues">PS/2 Unicomp issues</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>At <a href="https://deskthority.net/viewtopic.php?f=2&amp;t=25718">https://deskthority.net/viewtopic.php?f=2&amp;t=25718</a> there&#8217;s a resort
+that PS/2 Unicomps do not report Ctrl-Pause correctly as a Break
+scancode. Unicomp is aware of the issue.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usb_unicomp_issues">USB Unicomp issues</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Unicomp keyboards prior to the 2020 "New Model M" could be purchased
+with a USB interface, but had continuing interoperability problems.</p></div>
+<div class="sect2">
+<h3 id="_boot_mode_problems">Boot-mode problems</h3>
+<div class="paragraph"><p>The UB HID standard describes two ways that keyboards can behave on
+power-up. There is a normal "report mode" and "boot mode" which
+interrupts the CPU every time the keyboard is polled; this is intended
+to allow the BIOS to handle a USB keyboard in the absence of a
+USB-aware operating system. USB keyboards are supposed to come up in
+report mode, and be switched into and out of boot mode by your host
+system&#8217;s BIOS.</p></div>
+<div class="paragraph"><p>Some (but not all) older Unicomp model Ms may not have correctly
+responded to the control sequence telling them to drop into boot mode
+mode.  Suspect this if yours won&#8217;t talk to a PC at boot time and has
+to be unplugged/replugged to establish communication with the PCS&#8217;s
+internal hub. Alas, there is no fix; the workaround is the
+unplug/replug.</p></div>
+<div class="paragraph"><p>We have <a href="https://www.youtube.com/watch?v=kxT1ja8OWRY">one report</a> that
+even the prototype SSK version of the New Model M (part number UB40E7A)
+needs to be unplugged and replugged after boot.  Possibly this was
+fixed in production versions; I have seen no such issue with my
+full-sized production New Model M (UT40U4A).</p></div>
+<div class="paragraph"><p>(The CY8C24493 the prototype SSK is using as a controller draws 250mA,
+which is pretty high for a keyboard without RGB lights, but runs on
+anything between 1.7v and 5.5v so this is definitely not an
+undervoltage issue.)</p></div>
+<div class="paragraph"><p>A subtler problem arises because some PC hubs fail to transmit the
+command required to switch a USB keyboard in boot mode to normal mode
+after boot.  If this does not occur, the keyboard will be limited to
+6-key rollover rather than supporting the N-key rollover of
+normal-mode USB.  This limit is never pushed by older model Ms, which
+due to the way their sensor matrix is constructed are limited to 2KRO,
+but may be an issue with the Unicomp Mini-M SSK which has a reworked
+larger matrix with individual traces for the WASD cluster.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_controller_incompatibility">Controller incompatibility</h3>
+<div class="paragraph"><p>I have checked operation of two Unicomp keyboards on each of two test
+machines.  One, snark, uses an Intel NM10/ICH7 (rev 01) USB
+controller.  The other, minx, uses an AMD SB7x0/SB8x0/SB9x0 USB
+controller.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+A UB40PGA (the nipple mouse variant, "EnduraPro") manufactured in
+  Oct 2012 works reliably on both machines.
+</p>
+</li>
+<li>
+<p>
+A UB404LA (the trackball variant, "Ruffian") manufactured in Oct
+  2012 has flaky behavior on both machines.  On minx it disconnects
+  from the hub every few minutes, needing to be replugged.  On snark
+  it has once failed to register at boot time but is generally
+  reliable.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>We have a confirming report from one Alex Lustenberg, in a comment
+<a href="https://web.archive.org/web/20151220011519/https://plus.google.com/108967323530519754654/posts/6wZzR3e4bXd">here</a>,
+that the UB404LA is flaky even as the only device on his machine and
+doesn&#8217;t enumerate on boot.</p></div>
+<div class="paragraph"><p>Alex also reports the UB404LA failing to initialize correctly with these
+host controllers: NVIDIA MCP55 (rev a1/a2), Intel series/C200 series
+(rev 05), and NEC uPD720200 (USB3).</p></div>
+</div>
+<div class="sect2">
+<h3 id="_undervoltage_sensitivity">Undervoltage sensitivity</h3>
+<div class="paragraph"><p>Alex Lustenberg reports "according to some accounts, the USB
+controller in the unicomp isnt exactly USB compatible; undervoltage
+within USB spec will cause it to not init properly"</p></div>
+<div class="paragraph"><p><a href="https://plus.google.com/110394678113306441540/posts/jB9pUGC9rU4">This
+post</a> and its comments display some evidence that undervoltage
+probably isn&#8217;t an issue, but a keyboard controller failure to
+respond properly during the initialization sequence may be.</p></div>
+<div class="paragraph"><p>This theory is reinforced by experiments with two cheap hubs
+containing the Terminus Manufacturing 4-port USB hub chip (1a40:0101)
+and a hub containing a chip by Genesys Logic, Inc. (05e3:0608).  The
+UB404LA fails to initialize on powerup connected to either of these,
+but becomes visible when unplugged and replugged.  The UB40PGA
+exhibits normal behavior.</p></div>
+<div class="paragraph"><p>I disassembled the UB404LA and found that the only chip in it is a
+Cypress 24794 SOC (manufacturer data sheet
+<a href="http://www.cypress.com/?mpn=CY8C24794-24LTXI">here</a>) sitting on a mini
+PCB behind the LED panel that is wired to both the USB cable and the
+keyboard proper.</p></div>
+<div class="paragraph"><p>I also disassembled the UB404PGA. There are two chips on the mini-PCB
+in this one, an LM393 differential comparator and a CY763513-PVC
+(data sheet <a href="http://www.datasheets.org.uk/CY7C6351-datasheet.html">here</a>).</p></div>
+<div class="paragraph"><p>The key point about these Cypress chips is that while they&#8217;re both USB
+controllers they&#8217;re different SOCs; it could easily be that the USB
+stage in the first is flawed but the second is not.</p></div>
+<div class="paragraph"><p>We have a
+<a href="https://plus.google.com/u/0/+SusanSons/posts/AiEadho2Vq4">report</a> that
+flaky failures on a UB40B5A (the 122-key variant) were resolved by
+plugging it into the sort of high-amperage USB2 port used to recharge
+cellphones.</p></div>
+<div class="paragraph"><p>On the other hand, the undervoltage theory gets a boost from one
+Andrew Hutchings, who reports: "I&#8217;ve just come back from a micro
+electronics lab where we have been testing [the Cypress 24794 SOC on a
+Ruffian v2 board] and it seems the problem is to do with voltage.  If
+the USB port is 4.9-5.0v it works fine, 5.1-5.2v the handshake does
+not succeed."  A day later he said "We jury-rigged a TPS73150
+regulator in front of the USB power input to the PCB.  It now works
+perfectly on every PC and powered hub I have.  Not sure how permanent
+a fix it is but it will do until I can buy a replacement PCB from
+Unicomp."</p></div>
+<div class="paragraph"><p>I can no longer recommend buying any of these older Unicomp models. The
+New Model M appears to have solved the USB incompatibility issues of
+older Unicomps. In addition, it is plainly visible from the finish
+of the case and keycaps that they bought new tooling to produce these
+and the build quality has gone way up.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_cable_failure_due_to_nonexistent_strain_relief">Cable failure due to nonexistent strain relief</h3>
+<div class="paragraph"><p>It has been reported in a comment attached to sa now vanished
+G+ post that one UB4044A (Classic Black with no pointing device) has
+exhibited intermittent USB disconnect issues which turned out to be
+cable failure; there is no strain relief where the USB cable enters
+the keyboard.</p></div>
+<div class="paragraph"><p>I have opened up the UB404LA and UB404PGA, both manufactured in
+October 2012, and verified that there is no strain relief on the USB
+cable.  It looks like this is a consistent design error across the
+Unicomp USB line - up to and including the full-size New Model M -
+that may account for a lot of problems. It&#8217;s inherited from the
+fixed-cable Lexmark and IBM versions, which didn&#8217;t have strain relief
+either.</p></div>
+<div class="paragraph"><p>One product that does not have this issue is the narrow tenkeyless
+(SSK) version of the New Model M. It has a USB A connector in the
+rare locking variant on the keyboard chassis, and a cable that mates
+with it And has a conventional Model A connector on the other end.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_power_usage">Power usage</h3>
+<div class="paragraph"><p>The UB404PGA reports 98mA draw and says it is "Bus Powered"; the
+UB404LA reports 100mA draw and says it is "Self Powered".  The USB 2.0
+spec allows a 500mA draw.</p></div>
+<div class="paragraph"><p>On opening up these keyboards, I discovered that both use Cypress
+programmable SOCs, replacing the 6805/8042 found on older Model Ms.
+These are low-power chips that should have no issues drawing from
+a USB 2.0 controller.</p></div>
+<div class="paragraph"><p>On this evidence, I think the theory that the Unicomps still have the
+Model M&#8217;s physical power-draw issues can be dismissed.  However, there
+is evidence that some sort of logic error triggered by under-voltage
+or under-amperage may have mimicked such problems in several Unicomp
+models pror to the New Model M; refer to the previous section on
+USB Unicomp issues for details.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_buggy_firmware_on_unicomp_mini_m">Buggy firmware on Unicomp Mini-M</h3>
+<div class="paragraph"><p>The firmware on the Unicomp Mini-M is flaky.  The most common bugs
+is the Q key becoming unresponsive; also it sometimes fails to work
+when the host system is reawakened from a sleep state.  Usually these
+problems can generally be fixed by unplugging and replugging the
+keyboard.</p></div>
+<div class="paragraph"><p>The full-sized New Model M doesn&#8217;t have this problem.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_reaching_unicomp_technical_support">Reaching Unicomp technical support</h3>
+<div class="paragraph"><p>I haven&#8217;t found a way to reach a live human being yet. The Unicomp
+website carefully avoids giving any technical support email addresses
+or phone numbers. The company has a main number at (859) 233-2130, but
+you can&#8217;t get to an engineer that way.</p></div>
+<div class="paragraph"><p>You can open support tickets through <a href="mailto:support@pckeyboard.com">support@pckeyboard.com</a> and I have
+received replies.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_model_f_issues">Model F issues</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Keyboards speaking XT protocol are not directly usable with modern
+machines, even with the dual-adaptor setup described for the Model M.
+IBM changed the Model M&#8217;s keyboard scan codes in a way seriously
+incompatible with the Model F.</p></div>
+<div class="paragraph"><p>(This change wasn&#8217;t done gratuitously; the microcontroller technology
+of the time made it expensive to assign scan codes in violation of a
+natural sequence determined by the wire layout.  And no, I don&#8217;t know
+how that squares with the reports of very early Ms speaking XT
+protocol.)</p></div>
+<div class="paragraph"><p>One variant of the "Soarer&#8217;s Converter" family of active cables
+bridges the gap from the F to USB.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mods_and_hacking">Mods and hacking</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_bumper_modding">Bumper modding</h3>
+<div class="paragraph"><p>Despite the weight of the Model M, some case variants have a tendency
+to skid around on a smooth desk surface, expecially on a glass-topped
+desk. Serious typists can forestall this by applying stick-on rubber
+or cork bumpers to the case bottom.</p></div>
+<div class="paragraph"><p>On an M, there are two 5mm x 5mm square-shaped contact areas adjacent to
+the wells that the fold-out feet sit in, and/or near the front corners
+of the case.  Lots of places on line sell neoprene stick-on-feet in
+that size: search for "5mm square rubber feet".</p></div>
+<div class="paragraph"><p>Model Fs ship with 4 cork feet that are disks 1" in diameter and 1/16"
+thick.  They have a tendency to disintagrate or peel off over
+time. Model F Labs can sell you exact matches for the originals, and
+the same can sometimes be found on eBay at "Model F pads"; if
+you&#8217;re less fussy about color, there are many sources on line.</p></div>
+<div class="paragraph"><p>(Note: If you find an exact match from an original vendor, please
+email me so I can cite it here.)</p></div>
+</div>
+<div class="sect2">
+<h3 id="_bolt_modding">Bolt modding</h3>
+<div class="paragraph"><p>The Model M is a notoriously rugged device which routinely clocks in a
+service life of over 30 years.  However, it has one known mechanical failure
+mode. Its metal backplate is secured to the barrel plate holding the
+keyswitches by a large number of plastic rivets protruding through
+holes in the backplate.</p></div>
+<div class="paragraph"><p>Over decades these can degrade and break, affecting key feel and
+in extreme cases rendering the device inoperable. You can tell this
+is required if you hear rivet fragments rattling around when you shake
+the keyboard.</p></div>
+<div class="paragraph"><p>Function can be restored with a procedure called a
+<a href="https://wiki.geekhack.org/index.php?title=Modifications:IBM_Model_M:Nut_and_Bolt_Mod">bolt
+mod</a> that replaces the rivets with bolts or screws.</p></div>
+<div class="paragraph"><p>There are two different ways to bolt-mod.  You can do it in-place ot
+full-disassembly.  Either will require the following tools and supplies:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+5.5mm nut driver
+</p>
+</li>
+<li>
+<p>
+Hobby blade
+</p>
+</li>
+<li>
+<p>
+Dremel tool or cordless drill with 1/16 bit
+</p>
+</li>
+<li>
+<p>
+4mm nut diver
+</p>
+</li>
+<li>
+<p>
+#1 Phillips head screwdriver
+</p>
+</li>
+<li>
+<p>
+M2 screws, 10mm, McMaster Carr 92005A033
+</p>
+</li>
+<li>
+<p>
+M2 nuts, McMaster Carr 90592A004
+</p>
+</li>
+<li>
+<p>
+M2 washers, McMaster Carr 93475A196
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>There are helpful videos of the full-disassembly procedure on YouTube;
+the best I&#8217;ve found is
+<a href="https://www.youtube.com/watch?v=dStgzMpOTOA&amp;t=93s">this one</a>. To do his
+procedure as described you will need one additional tool: a pair of
+nail nippers.</p></div>
+<div class="paragraph"><p>You may prefer to trim off the rivet stubs with flush-cut nippers - I
+found this worked better than nail nippers.  Those are cheap anywhere
+that sells electrician&#8217;s tools.  Harbor Freight sells very inexpensive
+"Micro Flush Cutters" that are an ideal size for this job.</p></div>
+<div class="paragraph"><p>Flexing the barrel plate to pry it loose risks cracking it.  Instead,
+push out each of the the rivet stems with a screwdiver tip.</p></div>
+<div class="paragraph"><p>Note that keyfiender uses 8mm screws with a different McMaster Carr
+part number; I&#8217;ve found these don&#8217;t leave enough room for both washer
+and nut on some older Model Ms with thicker plates.</p></div>
+<div class="paragraph"><p>Rather than using 10mm screws, you can stick with keyfiender&#8217;s 8mm
+screws (McMaster Carr part number 92005A029) but omit the washers. If
+you omit the washers it&#8217;s a good idea to seal the nuts with Loctite -
+use Loctite Purple so turning the nut with a hand tool can break the
+adhesion when required without risking stripping the screws.  Best
+to do this only when the keyboard is verified working.</p></div>
+<div class="paragraph"><p>There is also the screw mod, described some way down in
+<a href="https://photos.google.com/share/AF1QipOkRh4Wn0OBdTQppsHGt_hizKJ_D73hiwTTOsZsvn9ZJFifN0-klXLtLuJNfa2Axg?key=OENXSXY5NVk3alZDZ0dCcEMxR05kZHZtaFBqanN3">Bitten&#8217;s
+Model M Restoration Megaguide</a>. I haven&#8217;t tried his self-tapping
+screws.  I have used <a href="https://www.mcmaster.com/#90380A327">self-forming
+screws</a>, driving in the screws from the backplate side.  This method
+doesn&#8217;t require the nuts, but you will need the washers under the
+screw heads on the plate side.</p></div>
+<div class="paragraph"><p>I shall at some point try this with M2 screws with a 3.5mm head width,
+which should eliminate the need for washers entirely.</p></div>
+<div class="paragraph"><p>Keyfiender says that the row of rivers right near the low board edge
+(where the spacebar is) don&#8217;t need screws, but diesn&#8217;t explain why.
+Answer: if you have the rest of the plate assembly properly riveted,
+that edge of the barrel plate won&#8217;t flex enough to natter.  Also
+putting nuts on the barrel plate there interferes with how it sts in
+the pan.</p></div>
+<div class="paragraph"><p>I recommend wearing a filter mask while drilling as the process
+generates fine particulates that are not friendly to your lungs.
+Also, getting 8 or so cheap 3-inch spring clamps and clamping them on
+the edges of the plate assembly will ensure that when it&#8217;s inverted
+on your work surface the springs protruding from the barrel plate
+don&#8217;t drag and get damaged.</p></div>
+<div class="paragraph"><p>A subtle gotcha in full reassembly: It is normal for there to be one unfilled
+barrel on an M101, which you might have missed if you weren&#8217;t paying
+attention.  This is what the flappers should look like when
+reassembling:</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="flappers.jpg" alt="flappers.jpg" />
+</div>
+</div>
+<div class="paragraph"><p>Note where the unfilled barrel is at the lower right, between LAlt
+and the spacebar.</p></div>
+<div class="paragraph"><p>In-place is the easier way.  Use it if you&#8217;re confident the sensor
+membranes are clean and undamaged.  Simply invert your M and, without
+dissassmbling it, drill out the holes from the backplate side.  Apply
+bolts and nuts as you drill so the plate assembly never separates.</p></div>
+<div class="paragraph"><p>The one risk of the in-place mod is that if you don&#8217;t make clean
+holes at an appropriate low-speed setting (15000rpm works well)
+you may push fragments of plastic between the sensor membranes that
+interferes with operation.  Test thoroughly; if you have unresponsive
+kewys your fallback is to take out all the bolts, disassemble the
+plates, and clean everything up before proceeding.</p></div>
+<div class="paragraph"><p>There turn out to be 48 bolt positions on my 1988 1391401.</p></div>
+<div class="paragraph"><p>Having done both in-place bolt mods and keyfiender&#8217;s full-disassembly
+technique, I can report that you really want to de-burr the entry hole
+for each screw, otherwise you&#8217;ll have a miserable time trying to get
+them started. I inserted the point of a triangular hobby blade so both
+edge and back contracted the edges of the hole, then twisted it around
+applying light pressure.</p></div>
+<div class="paragraph"><p>Also, go easy on tightening the nuts and bolts.  The screws are not
+particularly hard steel and their threads are very fine; it&#8217;s easy
+to strip them by overtightening.  Even when you don&#8217;t strip the bolts,
+if you tighten the down too much you can compress the plate
+essembly enough to force some sensor locations permantly closed,
+deadening sections of the keyboard or even the entire thing. If your
+keyboard is unresponsive after a bolt mod, loosen it up.</p></div>
+<div class="paragraph"><p>I recommend the Picquic "Teeny Turner" for screwing in the bolts.  The
+effect of the magnetic tip makes it easier to place the screws in
+tight locations</p></div>
+<div class="paragraph"><p>Dremel, Inc. sells a thing it calls a "WorkStation" that&#8217;s like a baby
+drill-press mount for its Dremel tools.  If you are as unsure of your
+ability to drill true vertical holes as I am, you&#8217;ll find it very
+useful.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_floss_modding">Floss Modding</h3>
+<div class="paragraph"><p>The Model M (and even more the Model F) is quite noisy compared to
+modern keyboards, and this is not to everybody&#8217;s taste. There&#8217;s a
+procedure called a "floss mod" that consists of inserting little
+lengths of dental floss or paracord core fibers down the middle of
+each buckling spring.  This considerably reduces the action noise,
+especially the pingy high-freqency transients.</p></div>
+<div class="paragraph"><p>Be careful to trim the fibers flush with the spring tops rather
+than allowing them to protrude, as protruding ends can degrade the
+crispness of the key feel.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_retrojacking">Retrojacking</h3>
+<div class="paragraph"><p>This is a term I coined for a mod that exploits the way Lexmark did
+their fixed-cable cheapout to make an SDL jack magically appear in
+your case.</p></div>
+<div class="paragraph"><p>This mod becomes necessary because the fixed cables are flimsy and
+their insulation has a nasty tendency to fray, especially where it
+attaches to the strain reliever (the gray rectangle of plastic where
+the cable meets the case).  This can actually make the keyboard
+an electrical hazard.</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Open the case of your M and take off the top half.  Look at the
+rear edge and note the number and lead count of ribbon cables going to the
+PCB. Usually it&#8217;s going to be either 16-8-4 or 16-12.
+</p>
+</li>
+<li>
+<p>
+The hard part: get your hands on an M controller board with an SDL
+jack and sockets matching your ribbon cables, and which is the same
+size or smaller than your installed board.  You&#8217;ll need an SDL
+cable, too. These parts can sometimes be salvaged from Ms that are too
+beat up to be restored.  Or they can sometimes be purchased on eBay.
+</p>
+</li>
+<li>
+<p>
+Disengage your cable. Start by pulling the male Molex plug
+terminating it from its socket on the PCB; you may also need to unbolt
+a ground wire running from the cable to the backplate.
+</p>
+</li>
+<li>
+<p>
+Free the cable. At one rear corner of the PCB there&#8217;s a small
+plastic shim with Mickey Mouse ears, each surrounding a vertical peg;
+pull it up and out.  Lo! An SDL-jack aperture magically appears!
+</p>
+</li>
+<li>
+<p>
+Extract the cable. Push the Molex plug through the jack aperture.
+</p>
+</li>
+<li>
+<p>
+The board is held in place by the pegs you revealed in step 4, and
+possibly by two plastic clips to the rear. Lift it off the pegs.
+</p>
+</li>
+<li>
+<p>
+Align the jack on your replacement board with the recently-revealed
+jack aperture and drop your replacement board onto the pegs (and into
+the clips if present). Connect up the ribbon cables.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>That&#8217;s it.  Your M now has a jack and a sturdier cable.</p></div>
+</div>
+<div class="sect2">
+<h3 id="conversion">Conversion and controller mods</h3>
+<div class="paragraph"><p>The easiest way to adapt a pre-USB Model M to do USB is to use
+an adapter that plus into the existing cable.  Some people
+are unsatisfied with this, preferring a modification inside the
+Model M&#8217;s case and exposing a USB jack or cable.  One reason for
+this dissatisfaction is <a href="#power">power drain issues</a>.</p></div>
+<div class="paragraph"><p>Several people have published USB conversion mods using the Teensy
+development board. You can find them by searching the Web for "model m
+teensy"; <a href="http://straypoetry.com/ibm-model-m-keyboard/">this one</a> is
+representative.  These don&#8217;t replace the keyboard controller; instead
+they mount the Teensy connected to it inside the case to do protocol
+conversion and provide a USB micro-B jack.</p></div>
+<div class="paragraph"><p>Mods that replace the controller are more difficult, and generally
+require a small custom PCB.  While they are generally open-source,
+none has yet made it to true volume production.</p></div>
+<div class="paragraph"><p>The <a href="https://modelh.club/">Model H</a> by John Hawthorn comes in two
+different variants, one to match each of the two earlier (16-8-4 and
+16-12) configurations of Model M ribbon cables.  It uses the actively
+maintained and well documented QMK firmware.</p></div>
+<div class="paragraph"><p>The <a href="http://mg8.org/rump/">Rump Mod</a> by Chris
+Lee replaces the Model M&#8217;s controller with a tiny custom PCB
+running open-source keyboard firmware.</p></div>
+<div class="paragraph"><p>The <a href="https://geekhack.org/index.php?topic=103648.0">TMK converter</a> is an
+internal mod that covers all F XT and F AT keyboards. Because the F
+controller is integrated on to the sensor PCB, this mod mod doesn&#8217;t
+replace it. Rather, a micrboard plugs into the connector exposed by
+the stock controller and exports its own controller cable.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="references">Related resources</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<a href="https://en.wikipedia.org/wiki/Model_M_keyboard">Wikipedia on the Model M</a>
+</dt>
+<dd>
+<p>
+        History of the device and how to identify variants.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href=":ibm_hitrc11.pdf">Hardware Interface Technical Reference, Keyboard 101- and 102-Key</a>
+</dt>
+<dd>
+<p>
+       IBM&#8217;s interface manual for the M101.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="https://ardent-tool.com/docs/patent/US4118611.pdf">https://ardent-tool.com/docs/patent/US4118611.pdf</a>
+</dt>
+<dd>
+<p>
+        The buckling-spring patent.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="https://deskthority.net/wiki/IBM_Enhanced_Keyboard#Fourth_generation">IBM Enhanced Keyboard</a>
+</dt>
+<dd>
+<p>
+        Lots of information on the history of the product.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="http://www.preater.com/modelm/">Care and feeding of the IBM Model M keyboard</a>
+</dt>
+<dd>
+<p>
+        Just what it says on the tin; applies to Unicomps as well.
+        Particularly good stuff about how to clean the beast.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="https://www.pckeyboard.com/">Unicomp</a>
+</dt>
+<dd>
+<p>
+        The only place to buy new Model Ms.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="http://www.clickykeyboards.com/">http://www.clickykeyboards.com/</a>
+</dt>
+<dd>
+<p>
+        Resells vintage IBM Model Ms (and occasionally Model Fs)
+        scavenged from various sources.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="http://www.ebay.com/sch/sis.html?_kw=IBM+Model+M+Buckling+Spring+keyboard">http://www.ebay.com/sch/sis.html?_kw=IBM+Model+M+Buckling+Spring+keyboard</a>
+</dt>
+<dd>
+<p>
+        Various vendors on eBay sell used and reconditioned Model Ms.
+        Quality is much more hit or miss than if you buy from
+        www.clickykeyboards.com, beware.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="https://www.modelfkeyboards.com/">Model F Labs</a>
+</dt>
+<dd>
+<p>
+        Produces an authentic though expensive clone of the Model F.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="https://www.ebay.com/str/barcodemaverick/Vintage-Keyboards-Cables/_i.html?_storecat=7992169018">https://www.ebay.com/str/barcodemaverick/Vintage-Keyboards-Cables/_i.html?_storecat=7992169018</a>
+</dt>
+<dd>
+<p>
+        orihalcon&#8217;s eBay store.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="http://catb.org/~esr/faqs/tactile-keyboard-faq.html">Tactile Keyboard FAQ</a>
+</dt>
+<dd>
+<p>
+        Many links to related resources can be found at this FAQ.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="https://www.youtube.com/watch?v=r5H58uudo1Y">https://www.youtube.com/watch?v=r5H58uudo1Y</a>
+</dt>
+<dd>
+<p>
+        Thomas Ran&#8217;s "The Ultimate IBM Model M review"
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="https://swvincent.com/ibm-model-m-power/index.html">https://swvincent.com/ibm-model-m-power/index.html</a>
+</dt>
+<dd>
+<p>
+        Power consumption of IBM Model M Keyboards
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="https://www.reddit.com/r/MechanicalKeyboards/wiki/modifications_ibm#wiki_model_m_repair">https://www.reddit.com/r/MechanicalKeyboards/wiki/modifications_ibm#wiki_model_m_repair</a>
+</dt>
+<dd>
+<p>
+        Links to many articles on repairing and modifying the Model M.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="http://boxes.shippingsupply.com/Shop/P20104-C60.aspx">http://boxes.shippingsupply.com/Shop/P20104-C60.aspx</a>
+</dt>
+<dd>
+<p>
+        Best fit I&#8217;ve found in shipping boxes for a Model M, 20"x10"x4".
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-XT-Keyboard-Protocol">https://github.com/tmk/tmk_keyboard/wiki/IBM-PC-XT-Keyboard-Protocol</a>
+</dt>
+<dd>
+<p>
+        Very detailed reverse engineerung if IBM XT protocol.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_history">History</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This document is a tale that grew in the telling.  It started out as a
+series of bug notes about problems with the USB controllers on Unicomp
+model Ms, and expanded as the author learned more about
+troubleshooting and restoring buckling-spring keyboards.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+2.2: 2001-08-31
+</dt>
+<dd>
+<p>
+  TMK controller, and a video on spacebar installation.
+</p>
+</dd>
+<dt class="hdlist1">
+2.3: 2001-09-12
+</dt>
+<dd>
+<p>
+  Web keyboard testsers, uses of Q-tips, what a stuck key looks like.
+</p>
+</dd>
+<dt class="hdlist1">
+2.1: 2001-08-16
+</dt>
+<dd>
+<p>
+  Conductive-ink pens don&#8217;t work. Use 10mm screws and a mask for bolt
+  modding. The use of LocTite.
+</p>
+</dd>
+<dt class="hdlist1">
+2.1: 2001-08-12
+</dt>
+<dd>
+<p>
+  Describe the M spring-replacement procedure.  In-place bolt modding.
+</p>
+</dd>
+<dt class="hdlist1">
+2.0: 2001-08-10
+</dt>
+<dd>
+<p>
+  Name change to "The Compleat Classic Keyboard."
+</p>
+</dd>
+<dt class="hdlist1">
+1.34: 2001-08-09
+</dt>
+<dd>
+<p>
+  Details on how to reassemble a Model F.
+</p>
+</dd>
+<dt class="hdlist1">
+1.33: 2001-08-06
+</dt>
+<dd>
+<p>
+  More restoration advice.
+</p>
+</dd>
+<dt class="hdlist1">
+1.32: 2001-07-23
+</dt>
+<dd>
+<p>
+  Restoration philosophy.  The collectibility gradient.  About keycaps.
+</p>
+</dd>
+<dt class="hdlist1">
+1.31: 2001-07-20
+</dt>
+<dd>
+<p>
+  Describe the retrojacking mod.
+</p>
+</dd>
+<dt class="hdlist1">
+1.30:2001-07-15
+</dt>
+<dd>
+<p>
+  Avoiding F spacebar breakage.  The right size of Pozidriv.
+</p>
+</dd>
+<dt class="hdlist1">
+1.29:2001-07-10
+</dt>
+<dd>
+<p>
+  Much more on diagnostics. More on F disassembly.  Dimensions of bumpers.
+</p>
+</dd>
+<dt class="hdlist1">
+1.28: 2001-07-08
+</dt>
+<dd>
+<p>
+  A better bolt-mod video. Describe the Model H.  Three board generations.
+</p>
+</dd>
+<dt class="hdlist1">
+1.27: 2021-07-02
+</dt>
+<dd>
+<p>
+  More on Model F restration.
+</p>
+</dd>
+<dt class="hdlist1">
+1.26: 2021-06-29
+</dt>
+<dd>
+<p>
+  Links to Model F mat templates.
+</p>
+</dd>
+<dt class="hdlist1">
+1.25: 2021-06-27
+</dt>
+<dd>
+<p>
+   Ctrl-Pause issue with Unicomp PS/2 keyboard. Dealing with rust and mold.
+</p>
+</dd>
+<dt class="hdlist1">
+1.24: 2021-05-19
+</dt>
+<dd>
+<p>
+   Coverage of beam-spring keyboards.
+</p>
+</dd>
+<dt class="hdlist1">
+1.23: 2021-05-18
+</dt>
+<dd>
+<p>
+   Note incompatibility among product generations.  The perils of
+   dishwashers. Terminal Ms.
+</p>
+</dd>
+<dt class="hdlist1">
+1.22: 2021-05-15
+</dt>
+<dd>
+<p>
+   Mention the Teensy mods.
+</p>
+</dd>
+<dt class="hdlist1">
+1.21: 2021-05-10
+</dt>
+<dd>
+<p>
+   The Blue Cube is dead. Long live the Sanoxy adapter.
+</p>
+</dd>
+<dt class="hdlist1">
+1.20: 2021-05-09
+</dt>
+<dd>
+<p>
+   Explain boot-mode issues.
+</p>
+</dd>
+<dt class="hdlist1">
+1.19: 2021-05-08
+</dt>
+<dd>
+<p>
+   Added Thomas Ran&#8217;s table.
+</p>
+</dd>
+<dt class="hdlist1">
+1.18: 2021-05-05
+</dt>
+<dd>
+<p>
+   Note existence of Model Ms speaking XT protocol. Describe bolt, floss, and
+   spacer modding.  How to clean and test.
+</p>
+</dd>
+<dt class="hdlist1">
+1.17: 2021-04-28
+</dt>
+<dd>
+<p>
+   The full-sized New Model M has no strain relief, alas.
+</p>
+</dd>
+<dt class="hdlist1">
+1.16: 2021-04-26
+</dt>
+<dd>
+<p>
+   Note the existence of Soarer&#8217;s Converter for the old Model F.
+   Mention the new Model F. Add some links.
+</p>
+</dd>
+<dt class="hdlist1">
+1.15: 2021-04-24
+</dt>
+<dd>
+<p>
+   Controller incompatibility on the Unicomp SSK, correct "Phillips"
+   to "Pozidriv", add history section.
+</p>
+</dd>
+<dt class="hdlist1">
+1.14: 2021-04-18
+</dt>
+<dd>
+<p>
+    Update for the Unicomp New Model M.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2021-09-12 07:38:37 EDT
+</div>
+</div>
+</body>
+</html>

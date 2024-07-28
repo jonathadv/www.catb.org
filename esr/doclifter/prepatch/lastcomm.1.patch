@@ -1,0 +1,26 @@
+--- lastcomm.1-unpatched	2018-05-19 07:02:38.305264248 -0400
++++ lastcomm.1	2018-05-19 07:02:38.133265417 -0400
+@@ -38,9 +38,9 @@
+ only records containing those items will be displayed.  For 
+ example, to find out which users used command `a.out' 
+ and which users were logged into `tty0', type:
+-.ce
++.RS
+ lastcomm a.out tty0
+-.ce 0
++.RE
+ .LP
+ This will print any entry for which `a.out' or `tty0' 
+ matches in any of the record's fields (command, name, or terminal).  If 
+@@ -49,9 +49,9 @@
+ all of the executions of command 
+ .IR a.out " by user " root " on terminal " tty0, 
+ type:
+-.ce 
++.RS 
+ lastcomm \-\-strict-match \-\-command a.out \-\-user root \-\-tty tty0
+-.ce 0
++.RE
+ .LP
+ The order of the arguments is not important.
+ .LP

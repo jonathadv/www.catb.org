@@ -1,0 +1,21 @@
+--- netpbm.1-unpatched	2012-06-30 18:16:48.507909145 -0400
++++ netpbm.1	2012-06-30 18:17:10.251908739 -0400
+@@ -914,15 +914,15 @@
+ per file, with awk or perl.  Here's how to brighten 30 YUV images that
+ make up one second of a movie, keeping the images in the same files:
+ 
+-.B ls *.yuv \
++.B ls *.yuv \e
+ .br
+ .B   | perl -ne 'chomp; 
+ .br
+ .B               print "yuvtoppm $_ | ppmbrighten -v 100 | ppmtoyuv >tmp$$.yuv;", 
+ .br
+-.B                     "mv tmp$$.yuv $_\n" 
++.B                     "mv tmp$$.yuv $_\en" 
+ .br
+-.B              ' \
++.B              ' \e
+ .br
+ .B   | sh 
+ 

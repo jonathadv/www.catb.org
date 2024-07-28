@@ -1,0 +1,25 @@
+--- gpm-types.7-unpatched	2012-06-29 09:23:30.514123342 -0400
++++ gpm-types.7	2012-06-29 09:25:17.630121339 -0400
+@@ -2,10 +2,10 @@
+ .UC 4
+ .SH NAME
+ gpm-types \- pointer types (mice, tablets, etc.) managed by gpm.
+-.br
+-The information below is extracted from the texinfo file, which is the
+-preferred source of information.
+ .SH DESCRIPTION
++This description is extracted from the texinfo file, which is the
++preferred source of information.
++
+ This manpage
+ describes the various pointer types currently available in gpm. If you
+ look at the source code, you'll find that pointer-specific code is
+@@ -149,7 +149,7 @@
+ 
+ .TP
+ genitizer
+-The \"Genitizer\" tablet, in relative mode.
++The "Genitizer" tablet, in relative mode.
+ This mouse decoder accepts standard serial options, although
+ they should not be needed.
+ 

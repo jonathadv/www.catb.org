@@ -1,0 +1,18 @@
+--- sbigtopgm.1-unpatched	2012-06-29 16:30:00.205644782 -0400
++++ sbigtopgm.1	2012-06-29 16:30:39.949644039 -0400
+@@ -11,12 +11,13 @@
+ produces a portable graymap as output.  Additional information
+ on SBIG cameras and documentation of the file format is available
+ at the Web site:
+-.ce 1
++.RS
+ .B http://www.sbig.com/
++.RE
+ .SH "SEE ALSO"
+ .BR pgm (5)
+ .SH AUTHOR
+ John Walker 
+-.RB ( http://www.fourmilab.ch/ ),
++.RB < http://www.fourmilab.ch/ >,
+ January 1998.
+ This program is in the public domain.

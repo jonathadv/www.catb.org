@@ -1,0 +1,12 @@
+--- random.7-unpatched	2018-05-18 10:06:27.717486930 -0400
++++ random.7	2018-05-18 10:06:54.589304308 -0400
+@@ -133,8 +133,7 @@
+ lbw13 lbw12 lbw14 lbw18
+ l l l l.
+ Interface	Pool	T{
+-Blocking
+-\%behavior
++Blocking behavior
+ T}	T{
+ Behavior when pool is not yet ready
+ T}

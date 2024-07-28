@@ -1,0 +1,17 @@
+--- plotfont.1-unpatched	2012-07-05 17:31:24.527881120 -0400
++++ plotfont.1	2012-07-05 17:31:41.015880808 -0400
+@@ -1,12 +1,9 @@
+ .TH PLOTFONT 1 "Jun 2000" "FSF" "GNU Plotting Utilities"
+-.SH NAME
+-plotfont \- produce character maps of fonts supported by the plotting utilities
+-.ig
+-Not all man macros define SB (and not all whatis parsers stop on .\")
+-..
+ .de SB
+ \&\fB\s-1\&\\$1 \\$2\s0\fR
+ ..
++.SH NAME
++plotfont \- produce character maps of fonts supported by the plotting utilities
+ .SH SYNOPSIS
+ .B plotfont
+ [

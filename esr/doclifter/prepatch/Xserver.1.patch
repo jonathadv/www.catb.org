@@ -1,0 +1,20 @@
+--- Xserver.1-unpatched	2018-05-18 14:15:55.627764185 -0400
++++ Xserver.1	2018-05-18 14:15:55.423765571 -0400
+@@ -416,7 +416,7 @@
+ Yet another XDMCP specific value, this one allows the display manager to
+ identify each display so that it can locate the shared key.
+ .SH XKEYBOARD OPTIONS
+-X servers that support the XKEYBOARD (a.k.a. \*qXKB\*q) extension accept the
++X servers that support the XKEYBOARD (a.k.a. XKB) extension accept the
+ following options.  All layout files specified on the command line must be
+ located in the XKB base directory or a subdirectory, and specified as the
+ relative path from the XKB base directory.  The default XKB base directory is
+@@ -566,7 +566,7 @@
+ .fi
+ 
+ This will add /usr/share/X11/fonts/misc as the first FPE with the attribute
+-\N'39'unscaled', second FPE will be /usr/share/X11/fonts/75dpi, also with
++\&'unscaled', second FPE will be /usr/share/X11/fonts/75dpi, also with
+ the attribute 'unscaled' etc. This is functionally equivalent to setting
+ the following font path:
+ 

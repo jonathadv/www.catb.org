@@ -1,0 +1,23 @@
+--- tryaffix.1-unpatched	2016-02-28 22:13:22.658314548 -0500
++++ tryaffix.1	2016-02-28 22:13:22.266315379 -0500
+@@ -172,7 +172,10 @@
+ .br
+ .B ispell
+ .BR \-v [ v ]
+-.IP \fIcommon-flags\fP:
++
++\fIcommon-flags\fP:
++
++.B ispell
+ .RB [ \-t ]
+ .RB [ \-n ]
+ .RB [ \-H ]
+@@ -198,6 +201,8 @@
+ .IR list ]
+ .RB [ \-F
+ .IR program ]
++
++Helper programs:
+ .PP
+ Helper programs:
+ .PP

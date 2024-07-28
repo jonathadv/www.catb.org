@@ -1,0 +1,10 @@
+--- edgepaint.1-unpatched	2016-02-19 07:14:25.894154731 -0500
++++ edgepaint.1	2016-02-19 07:14:39.878108357 -0500
+@@ -2,6 +2,7 @@
+ .SH NAME
+ edgepaint \- edge coloring to disambiguate crossing edges
+ .SH SYNOPSIS
++edgepaint
+ .B 
+ [
+ .I options

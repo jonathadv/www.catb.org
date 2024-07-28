@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+# fortune.pl.
+# Generates a signature randomly from a single file of witty quotes which
+# the user maintains; the quotes can be multi-line, and are separated by
+# lines containing only a percent sign (same format as fortune files).
+
+#Insert your constant tagline here.
+$sigline = 
+  "		<a href=\"http://www.ccil.org/~esr\">Eric S. Raymond</a>\n";
+
+#Put your sigfile in ~/.randsig, or else change the following appropriately
+open(FI, $ARGV[0]) or die "Can't open sigfile $ARGV[0]";
+
+$sig[0] = 0;
+while (<FI>) { $sig[$#sig + 1] = tell if /^%$/; }
+
+srand;
+seek(FI, $sig[int rand ($#sig + .9999)], SEEK_SET) or die "Can't seek";
+while (<FI>) {
+	last if /^%$/;
+	$msg .= $_;
+}
+
+print "$sigline\n$msg";
+
+# fortune.pl ends here
+

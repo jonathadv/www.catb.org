@@ -1,0 +1,661 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>shipper</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry"><a name="shipper.1"></a><div class="titlepage"></div><div class="refnamediv"><a name="name"></a><h2>Name</h2><p> shipper &#8212; automated shipping of project releases</p></div><div class="refsynopsisdiv"><a name="synopsis"></a><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">shipper</code>  [-d] [-v] [-w] [-x] [-n] [-g] [-i] [-N] [<em class="replaceable"><code>var</code></em>=<em class="replaceable"><code>val</code></em>...]</p></div></div><div class="refsect1"><a name="idm25"></a><h2>Description</h2><p><span class="application">shipper</span> is a tool that tries to
+reduce the friction cost of shipping software releases to as near zero as
+possible.</p><p>Its job is to make it possible for you to run the command
+<span class="command"><strong>shipper version=NNN | sh -e -x</strong></span> in the top-level
+directory of a project and have a release be properly exported to all
+the places that you normally deliver it &#8212; your personal website,
+Linux source code archive sites, forge sites, and distribution
+submission queues; also, to send appropriate notifications to
+freshcode.club, mailing lists, project IRC channels, and Twitter.</p><p>Another goal is to arrange your shipping process in such a way
+that any one piece of metadata (like your project name, version, or
+synoptic description) only has to be kept in one place and modified
+once per release.  Metadata is collected from several locations that
+naturally own pieces of it.</p><p>In normal use, you only absolutely need to set only two variables:
+<code class="varname">destinations</code> which is the list of destinations to
+ship to, and <code class="varname">version</code> which is the release version
+of the software you are shipping. The default package name is the
+basename of the directory from which
+<span class="application">shipper</span> is run.</p><p>When adding freshcode.club as a destination, you may also want to
+add <span class="quote">&#8220;<span class="quote">Project-Tags</span>&#8221;</span> headers to your project specfiles
+that will become Project tags.</p><p>Once you have <span class="application">shipper</span> up and running, you
+can experiment with more advanced features such as: having the program
+generate project web pages for you using a simple templating
+system, and automatically tagging your shipped releases.</p><p>The output of <span class="application">shipper</span>, run in your
+top-level project source directory, is a shellscript. To ship your
+project, feed the script to a shell (of course you can review it
+before you run it).  The only shell features required are command
+execution and here-documents. No wildcard expansion, shell control
+syntax, or shell variable evaluation will be required.  In practical
+use you will probably want to pass the shell the -e option (any
+command failure aborts the script, so notifications sent later don't
+go out if an early upload fails) and the -x option (to echo shipping
+commands as they are performed).</p></div><div class="refsect1"><a name="idm42"></a><h2>Theory of Operation</h2><p><span class="application">shipper</span> generates commands to push
+<span class="emphasis"><em>deliverables</em></span> out to
+<span class="emphasis"><em>destinations</em></span>.  Deliverables include: source
+tarballs, tarball checksums, zip archives, ChangeLog files,
+README files,and various other project metadata files.  Destinations
+include both <span class="emphasis"><em>private destinations</em></span> like websites,
+FTP archive sites and mailing lists, and <span class="emphasis"><em>public
+destinations</em></span> like soureceforge.net, freshcode.com,
+savannah.nongnu.org and berlios.de.</p><p><span class="application">shipper</span> goes through the following
+steps each time it runs:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Perform pre-shipping checks</p><ol type="a" class="substeps"><li class="step"><p>Exit with a complaint if run from a repository with
+uncommitted changes.</p></li><li class="step"><p>Run the validation check (if any) aborting if it fails.</p></li></ol></li><li class="step"><p>Collect metadata, stage 1.</p><ol type="a" class="substeps"><li class="step"><p>Read <code class="filename">~/.shipper</code>.</p></li><li class="step"><p>Read <code class="filename">~/.config/shipper</code>.</p></li></ol></li><li class="step"><p>Deduce your identity, if it can.</p></li><li class="step"><p>Collect metadata, stage 2.</p><ol type="a" class="substeps"><li class="step"><p>Read <code class="filename">./control</code>.</p></li><li class="step"><p>Read an RPM spec, if there is just one.</p></li><li class="step"><p>Read any [shipper] section in your git configuration.</p></li><li class="step"><p>Apply command-line overrides..</p></li></ol></li><li class="step"><p>Find deliverables</p></li><li class="step"><p>Generate shipping commands</p><ol type="a" class="substeps"><li class="step"><p>File and directory uploads.</p></li><li class="step"><p>Repository release tagging.</p></li><li class="step"><p>freshcode.com announcement.</p></li><li class="step"><p>Mailing-list announcements.</p></li><li class="step"><p>Notifications to IRC channels.</p></li></ol></li></ol></div><p>First, <span class="application">shipper</span> performs pre-ship
+checks (this may be disabled by the <code class="option">-N</code> or
+<code class="option">--no-check</code>).  If the current directory is a
+version-control repository (git, hg, and svn are supported) it
+complains and bails out if the repository has uncommitted local
+changes. Then, if the project metadata includes a validation check
+command, that is run and <span class="application">shipper</span> bails out
+with a complaint if it returns a nonzero status.</p><p>Next, <span class="application">shipper</span> reads the
+<code class="filename">.shipper</code> file in your home directory and the
+current directory (if you like XDG conventions, make a
+<code class="filename">~/.config/shipper</code> instead).  These can set
+various control variables and templates that aren't project specific.
+These are regular Python files; see <a class="xref" href="#configuration_detail" title="Configuration in More Detail">the section called &#8220;Configuration in More Detail&#8221;</a> for more detail.</p><p>If that step didn't find your identity (a nonempty value of
+<code class="varname">whoami</code>), the program's second step is to try to
+figure out what your name and email address are. It snoops the
+profiles associated with git, bzr, and hg looking for these. If it
+can't deduce this information, it will complain and exit.</p><p>Next, <span class="application">shipper</span> reads per-project
+information from a project metadata file in the current directory,
+either a Debian control file or an RPM spec. This is where it will
+normally find the project name, a short text description, its declared
+homepage location, and other similar things.</p><p>The program then reads <code class="filename">.shipper</code> for
+project-specific configuration settings.</p><p>Next, if there is a <code class="filename">.git/config</code> file, it
+looks for project-specific settings in a [shipper] section.  This
+is where you put settings that you don't want to export in the 
+tarball, like hosting-site links.</p><p>Finally, any override settings specified on the 
+<span class="application">shipper</span> command line are applied.
+Normally <code class="varname">version</code>, the release version
+designation, will be set here.</p><p>The <code class="option">-d</code> (dump) option causes
+<span class="application">shipper</span> to dump all configuration values
+and exit immediately after collecting them in step 3.</p><p>The next phase is finding deliverables.  These are either
+unversioned project metadata (like a README or NEWS file) or versioned
+product files such as source tarballs.</p><p>For some unversioned metadata - README, COPYING, AUTHORS, NEWS,
+BUGS, and TODO - the program looks for a corresponding asciidoc (.adoc) file and
+renders it to HTML, which will be used in generating the resource
+table that goes in the default templated web page.</p><p>The last step before generating upload commands may be to
+generate an HTML file for uploading, if you have specified the
+<code class="varname">html_target</code> variable. (Under some circumstances
+informational files for a remote Gitweb repository may be generated
+at this stage as well.)</p><p>The -g option tells <span class="application">shipper</span> to use
+gitlab-igor to put tarballs and their checksums on the project's
+GitLab Releases page rather than on the normal resource page.  For
+this to work, gitlab-igor.py must be in your $PATH and you must have a
+Personal Access Token declared in your ~/.netrc file.</p><p>The option <code class="option">-w</code> (web-only) tells shipper to
+generate upload commands for web pages and updates for gitweb views
+only, rather than for shipping (and possibly tagging) a
+release.</p><p>The option <code class="option">-p</code> (phase) tells shipper to
+commands for some phases only. The phases are:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">payload</span></dt><dd><p>Tarballs and other code products.</p></dd><dt><span class="term">web</span></dt><dd><p>Web content.</p></dd><dt><span class="term">gitolite</span></dt><dd><p>Gitweb repository decorations</p></dd><dt><span class="term">tagging</span></dt><dd><p>Repository tagging.</p></dd><dt><span class="term">notify</span></dt><dd><p>Notifications to Freshcode.</p></dd><dt><span class="term">broadcast</span></dt><dd><p>Email, IRC and other broadcast notifications.</p></dd></dl></div><p>The -w option is equivalent to "-p web". Any -p option overrides
+-w.</p><p>Otherwise, <span class="application">shipper</span> then generates
+commands to upload deliverables.  The <code class="option">-x</code> may be used
+to suppress delivery to specified destinations that would normally be
+performed (e.g., due to a destination variable set in one of your
+<code class="filename">.shipper</code> files); it may be a comma-separated
+list.</p><p>After deliverables have shipped successfully
+<span class="application">shipper</span> determines if the directory it is
+in is a working copy in a version-control system that supports release
+tagging.  If so, and the <code class="option">tag_template</code> variable is set
+to a nonempty value, it generates commands to tag the release just
+shipped.  See <a class="xref" href="#postinstall" title="After Uploads">the section called &#8220;After Uploads&#8221;</a> for discussion of what
+version-control systems are supported and what actions will be
+taken.</p><p>Note that <span class="application">shipper</span> makes one
+important assumption about the structure of your website(s).  Beneath
+each directory in your <code class="varname">destinations</code> list, there
+will be one subdirectory for each project, with the directory leaf
+name being the same as the project.  Thus, for example, if you have
+three projects named ruby, diamond and sapphire, and your personal
+site is at <code class="filename">gemstones.net:/public/www/precious/</code>,
+<span class="application">shipper</span> will expect to be able to drop
+deliverables in three directories
+<code class="filename">gemstones.net:/public/www/precious/ruby</code>,
+<code class="filename">gemstones.net:/public/www/precious/diamond/</code>, and
+<code class="filename">gemstones.net:/public/www/precious/sapphire/</code>.
+Note that <span class="application">shipper</span> will not create these
+project directories for you if they're missing; this is deliberate, so
+that uploads to sites that are not prepared for them will fail
+noisily.</p><p>After generating commands to do uploads,
+<span class="application">shipper</span> may generate additional commands 
+to perform project release notifications to freshcode.com, 
+email lists, and IRC channels.</p></div><div class="refsect1"><a name="configuration_detail"></a><h2>Configuration in More Detail</h2><p>The behavior of <span class="application">shipper</span> depends on a
+handful of internal variables.  Some of these variables have defaults
+computed at startup time.  All can be set or overridden in the
+per-user <code class="filename">~/.config/shipper</code> and
+<code class="filename">~/.shipper</code> files, and overridden again in any
+per-project control file, specfile, or <code class="filename">.shipper</code>
+file.  All .shipper files are Python code and the syntax of variable
+settings is Python's; control and RPM files are parsed according to
+their native conventions.</p><p>If a variable is set in a config file, that value is locked in
+(except for the <code class="varname">destinations</code> variable which can be
+appended to from a specfile, see below) Variables that are
+<span class="emphasis"><em>not</em></span> set in a config file may be set by the values
+of fields in your project specfile.</p><p>Any variable, locked or not, can be overidden from the command
+line by an argument of the form "name=value".</p><p>For basic use, it is only necessary to set one variable in your
+<code class="filename">~/.config/shipper</code> or
+<code class="filename">~/.shipper</code> file: <code class="varname">destinations</code>,
+the list of destinations to ship to.  Normally you'll set this
+globally, pointing all your projects at your main distribution website
+and public drop sites.  It is also possible to add destinations on a
+per-project basis by giving a comma-separated list in a #Destinations:
+comment in one of the specfile.  Finally, you can set the variable in
+a per-project <code class="filename">.shipper</code> to ignore your global
+destination list.</p><p>Here are the configuration variables you will normally set in
+your <code class="filename">~/.config/shipper</code> or
+<code class="filename">~/.shipper</code> file:</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col><col><col><col><col></colgroup><thead><tr><th>Variable</th><th>RPM specfile field</th><th>Debian specfile field</th><th>git config entry</th><th>Meaning</th></tr></thead><tbody><tr><td><code class="varname">destinations</code></td><td>#Destinations:</td><td>XBS-Destinations:</td><td>shipper.destinations</td><td>
+<p>A list of destinations to ship to. Each location is a place to drop deliverables:
+either a [user@]site:path destination that
+<span class="citerefentry"><span class="refentrytitle">scp</span>(1)</span> can use, or an FTP url that
+<span class="citerefentry"><span class="refentrytitle">lftp</span>(1)</span>
+can use, or a mail URL, or an IRC URL, or one of the special public
+destination names.</p>
+
+<p>Note that when the destination is a web or FTP site actual
+project directory is computed by appending the value of
+<code class="varname">project</code> to the destination you're shipping
+to.</p>
+
+<p>A destination entry of <span class="quote">&#8220;<span class="quote">~</span>&#8221;</span> can be used to clear the
+previously-set value, so an individual project control file can ignore
+destinations set in your home-directory
+<code class="filename">~/.config/shipper</code> or
+<code class="filename">~/.shipper</code> file.  Additionally, <span class="quote">&#8220;<span class="quote">~</span>&#8221;</span>
+followed by a destination causes that individual destination to be
+removed.</p>
+
+<p><span class="bold"><strong>There is no default.</strong></span>.  If you
+do not set this variable, <span class="application">shipper</span> won't
+generate any shipping commands.</p>
+</td></tr><tr><td><code class="varname">Gitolite-Pattern</code></td><td>#Gitolite-Pattern:</td><td>XBS-Gitolite-Pattern:</td><td align="center">-</td><td>
+<p>A pattern which, if a Developer-Clone is present and matches it,
+tells shipper that the repository is manages by gitolite. This in turn
+tells shipper how to upload description and README.html to the
+repository where a Gitweb instance will see and use them.</p>
+</td></tr><tr><td><code class="varname">whoami</code></td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td>
+<p>A name and email address for the user; should be RFC-822 form,
+e.g. "J. Random User &lt;user@fubar.com&gt;. If you don't configure
+this, shipper will snoop the configuration files of other programs
+attempting to deduce it.</p>
+</td></tr><tr><td><code class="varname">savannah.id</code></td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td>
+<p>Your ID on <a class="ulink" href="https://savannah.nongnu.org" target="_top">Savannah</a>. Defaults to the username
+part of <code class="varname">whoami</code>.</p>
+</td></tr><tr><td><code class="varname">sourceforge.id</code></td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td>
+<p>Your ID on <a class="ulink" href="https://sourceforge.net" target="_top">SourceForge</a>. Defaults to the username
+part of <code class="varname">whoami</code>.</p>
+</td></tr><tr><td><code class="varname">patreon_id</code></td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td>
+<p>Your ID on <a class="ulink" href="http//patreon.com" target="_top">patreon.com</a>. If
+present, generated web pages will include a link to your patreon
+page where people can leave tips.</p>
+</td></tr><tr><td><code class="varname">date</code></td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td>
+<p>The program's startup time. This can be used in the web page and
+email announcement templates.</p>
+
+<p>You can use the Python function time.strftime("...") in your
+<code class="filename">~/.shipper</code> file to format this date to your
+taste.  If you don't set this in the config file, the program will
+set a default for you.</p>
+</td></tr><tr><td><code class="varname">validate</code></td><td align="center">-</td><td align="center">-</td><td>shipper.validate</td><td>
+<p>If present, a validation command to run before shipping
+anything; if it returns a nozero status shipping is aborted.  Standard
+output of the command is redirected to standard error. If your project
+uses standard convebtions, "make check" is likely to be a good value
+for this.</p>
+</td></tr><tr><td><code class="varname">html_template</code></td><td align="center">-</td><td align="center">-</td><td>shipper.html_template</td><td>
+
+<p>Template HTML from which to generate the page_file for shipping.
+There is a default which generates a very simple page containing a
+title, a date, and a table listing downloadable resources.  This
+template is used when shipping to a web directory if the
+<code class="varname">html_target</code> is set. If this variable is None or an
+empty string, index page generation is suppressed.</p>
+</td></tr><tr><td><code class="varname">body_attributes</code></td><td align="center">-</td><td align="center">-</td><td>shipper.body_attributes</td><td>
+<p>Attributes to be inserted in the body tag of the templated web page.</p>
+</td></tr><tr><td><code class="varname">bkgimage</code></td><td align="center">-</td><td align="center">-</td><td>shipper.bkgimage</td><td>
+<p>Background image to use for web page.</p>
+</td></tr><tr><td><code class="varname">gitweb_template</code></td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td>
+<p>Template HTML from which to generate a Gitweb-style README.html
+into the .git subdirectory (if that directory is present).  There is a
+default which generates a very simple page section containing a home=page
+link, Git clone URL, and description.  If this variable is None or an
+empty string, README.html generation is suppressed.
+</p>
+</td></tr><tr><td><code class="varname">mail_template</code></td><td align="center">-</td><td align="center">-</td><td align="center">-</td><td>
+<p>Template text from which to generate the message
+shipped to destinations that are mailto URLs.  There is a default which
+generates a very simple email containing a subject, a pointer to the 
+project web page, and the last entry in the project changelog.</p>
+</td></tr></tbody></table></div><p>Here are the variables you will normally set in a project
+control file or git config:</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col><col><col><col><col></colgroup><thead><tr><th>Variable</th><th>RPM specfile field</th><th>Debian specfile field</th><th>git config entry</th><th>Meaning</th></tr></thead><tbody><tr><td><code class="varname">project</code></td><td>Name:</td><td>Project:</td><td align="center">-</td><td>
+<p>Project name, used to generate the stem part of the names
+deliverables that <span class="application">shipper</span> builds. If the
+specfile is a Debian control file, the Debian-specific part of the
+version number (after the dash) is removed.</p>
+</td></tr><tr><td><code class="varname">summary</code></td><td>Summary</td><td>Description:</td><td>shipper.summary</td><td>
+<p>The one-line project summary field from the first line of
+description in your control file, or the Summary field in your specfile.</p>
+</td></tr><tr><td><code class="varname">description</code></td><td>%description</td><td>Description:</td><td align="center">-</td><td>
+<p>The Description field from your specfile.</p>
+</td></tr><tr><td><code class="varname">html_target</code></td><td>#HTML-Target</td><td>XBS-HTML-Target</td><td>shipper.htmltarget</td><td>
+<p>File to which a templated web page generated from the release
+data should be generated.  If this variable is an empty string (the
+default), templated page generation is suppressed.  The most likely
+value for this, if you set it, is "index.html"</p>
+</td></tr><tr><td><code class="varname">website</code></td><td>URL:</td><td>Website:</td><td>shipper.website</td><td>
+<p>Project website URL. Used when generating project announcements. When your
+upload destination is SourceForge, this will be generated for you
+if you don't specify it.</p>
+</td></tr><tr><td><code class="varname">freshcode_tags</code></td><td>#Project-Tags:</td><td>XBS-Project-Tags:</td><td>shipper.projecttags</td><td>
+<p>Topic tags, used on Freshcode.</p>
+</td></tr><tr><td><code class="varname">freshcode_name</code></td><td>#Freshcode-Name:</td><td>XBS-Freshcode-Name:</td><td>shipper.freshcodename</td><td>
+<p>Freshcode shortname, used in generating freshcode.com
+announcements. If this isn't present, it defaults to the project
+name; you only need to set it if they differ.</p>
+</td></tr><tr><td><code class="varname">savannah.name</code></td><td>#Savannah-Name:</td><td>XBS-Savannah-Name:</td><td align="center">-</td><td>
+<p>Savannah shortname, used in generating announcements and
+computing the location of your project web directory on
+savannah.nongnu.org (no support for gnu projects yet). If this isn't
+present, it defaults to the project name; you only need to set it if
+they differ.</p>
+</td></tr><tr><td><code class="varname">sourceforge.name</code></td><td>#SourceForge-Name:</td><td>XBS-SourceForge-Name:</td><td align="center">-</td><td>
+<p>SourceForge shortname, used in generating announcements and
+computing the location of your project directories on SourceForge. If
+this isn't present, it defaults to the project name; you only need to
+set it if they differ.</p>
+
+<p>If your SourceForge-Name has a '@' in it, the prefix before that
+is removed and interpreted as your SourceForge user ID. If no such prefix
+is present, the user ID from whoami will be assumed.</p>  
+</td></tr><tr><td><code class="varname">sourceforge.folder</code></td><td>#SourceForge-Folder:</td><td>XBS-SourceForge-Folder:</td><td align="center">-</td><td>
+<p>Path componenent to be appended to the destination for file
+updates. Useful when you want to organize release tarballs into
+subdirectories for historical or other reasons.</p>
+</td></tr><tr><td><code class="varname">repository_url</code></td><td>#Repository-URL:</td><td>XBS-Repository-URL:</td><td>shipper.repositoryurl</td><td>
+<p>URL pointing at a repository web page for the project.</p>
+</td></tr><tr><td><code class="varname">developer_clone</code></td><td>#Developer-Clone:</td><td>XBS-Developer-Clone:</td><td>shipper.developerclone</td><td>
+<p>Reference to a git repository from which the project can be
+cloned via ssh, for push privileges.
+</p>
+</td></tr><tr><td><code class="varname">anonymous_clone</code></td><td>#Anonymous-Clone:</td><td>XBS-Anonymous-Clone:</td><td>shipper.anonymousclone</td><td>
+<p>Reference to a git repository from which the project can be
+cloned read-only.
+</p>
+</td></tr><tr><td><code class="varname">openhub_url</code></td><td>#OpenHub-URL:</td><td>XBS-OpenHub-URL:</td><td>shipper.openhuburl</td><td>
+<p>URL pointing at OpenHub statistics.</p>
+</td></tr><tr><td><code class="varname">irc_channel</code></td><td>#IRC-Channel:</td><td>XBS-IRC-Channel:</td><td>shipper.ircchannel</td><td>
+<p>URL pointing at one IRC chat channel for the project, or 
+a comma-separated list of such channels.</p>
+</td></tr><tr><td><code class="varname">debian_packages</code></td><td>#IRC-Channel:</td><td>XBS-Debian-Packages:</td><td>shipper.debian_packages</td><td>
+<p>A comma-separated list of Debian pachage names.</p>
+</td></tr><tr><td><code class="varname">logo</code></td><td>#Logo</td><td>XBS-Logo</td><td>shipper.logo</td><td>
+<p>A logo or icon for the project.  The default web page template will
+embed this in the page header.</p>
+</td></tr><tr><td><code class="varname">webdir</code></td><td>#Web-Directory</td><td>#XBS-Web-Directory</td><td>shipper.webdir</td><td>
+<p>The relative path of a web directory to be mirrored to project
+webspace at a forge location. If this is defined it overrides the
+normal web page templating mechanism associated with the
+<code class="varname">html_template</code> and <code class="varname">html_target</code>
+variables.</p>
+</td></tr><tr><td><code class="varname">tag_template</code></td><td>#VC-Tag-Template</td><td>#XBS-VC-Tag-Template</td><td>shipper.tagtemplate</td><td>
+<p>You can change tagging behavior by setting the variable
+<code class="varname">tagtemplate</code>. If you set it to None, release tagging
+will be suppressed entirely.  If you set it to a nonempty string, that
+will become the template for the name of the tag.  The "%(version)s"
+in the string will be replaced with the version number, and other
+globals are available for substitution in the same way.</p>
+</td></tr><tr><td><code class="varname">tag_message</code></td><td>#VC-Tag-Message</td><td>#XBS-VC-Tag-Message</td><td>shipper.tagmessage</td><td>
+<p>You can also customize the actual log message by setting
+the variable <code class="varname">tag_message</code>.  See the default with
+<span class="command"><strong>shipper -N</strong></span>; the "%(version)s" in it will be
+replaced with the version, and other globals
+are available for substitution in the same way.</p>
+
+<p>bzr, however, cannot annotate tags.  The <code class="varname">tag_message</code>
+variable will be ignored in this case.</p>
+</td></tr><tr><td><code class="varname">irc_message</code></td><td>#Instant-Message</td><td>#XBS-Instant-Message</td><td>shipper.instant_message</td><td>
+<p>You can customize the message(s) sent over IRC and Twitter on release by setting
+the variable <code class="varname">instant_message</code>.  See the default with
+<span class="command"><strong>shipper -n</strong></span>; variable cookies in it will be 
+replaced in obvious ways.</p>
+</td></tr></tbody></table></div><p>There is one variable you will normally set as a shipper
+command-line option:</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th>Variable</th><th>RPM specfile field</th><th>Debian specfile field</th><th>Meaning</th></tr></thead><tbody><tr><td><code class="varname">version</code></td><td>Version:</td><td>Version:</td><td>
+<p>Project version, used in generating the names of deliverables
+that <span class="application">shipper</span> builds.  In order to run,
+<span class="application">shipper</span> requires that version be set
+somewhere, in a profile or spec file or as a command-line override.</p>
+</td></tr></tbody></table></div><p>Finally, these variables are computed and available for
+substitution:</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col><col></colgroup><thead><tr><th>Variable</th><th>Meaning</th></tr></thead><tbody><tr><td><code class="varname">lastchange</code></td><td>
+<p>The most-recent-changes entry from your NEWS, NEWS.adoc, HISTORY,
+Changelog, or RPM spec file. In a specfile, all lines up to and
+including %changelog are skipped.  Then the first nonblank line (which
+is assumed to be the date/release information) is skipped.  Then all
+lines before the next blank one are grabbed.  The rules used on NEWS
+and HISTORY files are described in a later section.</p>
+<p>This is used in the
+default template for announcement mail.</p> 
+</td></tr><tr><td><code class="varname">resourcetable</code></td><td>
+<p>The HTML table of links to downloadable resources.  This
+variable is only computed if the you specified
+<code class="varname">html_template</code>.  Any setting of it in the startup
+files is ignored.</p>
+</td></tr><tr><td><code class="varname">extralines</code></td><td>
+<p>Lines to be inserted after the table of resources. Shipper will
+fill this with generated links to, e.g., Freshcode, OpenHub, and 
+your project IRC channel. If you set it in a profile, the generated
+links will be appended to your text.</p>
+</td></tr></tbody></table></div><p>All these variables are available for substitution at the time a
+web page or email announcement is generated. In general, any variable
+you set in your <code class="filename">~/.shipper</code> file will be available
+at the time the web page or email announcement is generated.  Use the
+Python "%(variable)s" syntax, not shell-substitution syntax.</p></div><div class="refsect1"><a name="idm570"></a><h2>Finding Local Deliverables</h2><p>The following files are considered stock deliverables and may be
+shipped if they are present when <span class="application">shipper</span>
+starts up:</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col><col></colgroup><thead><tr><th>File</th><th>Explanation</th></tr></thead><tbody><tr><td>README or READ.ME</td><td>
+<p>Project roadmap file.</p>
+</td></tr><tr><td>tarballs</td><td>
+<p>Current source tarballs, that is any files named
+${project}.*-${version}.tar.gz or ${project}.*-${version}.tgz or
+${project}.*-${version}.tar.bz2.</p>
+</td></tr><tr><td>checksum files</td><td>
+<p>Current source tarball checksums, that is any files named
+${project}.*-${version}.md5 or 
+${project}.*-${version}.sh{224,356,384,512}.</p>
+</td></tr><tr><td>RPMs</td><td>
+<p>Current RPMs, that is any files named
+${project}.*-${version}.*.rpm.</p>
+</td></tr><tr><td>debs</td><td>
+<p>Current deb files, that is any files named
+${project}.*-${version}.*.deb.</p>
+</td></tr><tr><td>zipfiles</td><td>
+<p>Current source zip archives, that is any file named ${project}.*-${version}.zip.</p>
+</td></tr><tr><td>COPYING</td><td>
+<p>Project license file.</p>
+</td></tr><tr><td>NEWS or NEWS.adoc</td><td>
+<p>Project news file.</p>
+</td></tr><tr><td>ChangeLog</td><td>
+<p>Project change log.</p>
+</td></tr><tr><td>HISTORY</td><td>
+<p>Project history file.</p>
+</td></tr><tr><td>BUGS or BUGS.adoc</td><td>
+<p>Project bug list.</p>
+</td></tr><tr><td>TODO or TODO.adoc</td><td>
+<p>Current to-do list.</p>
+</td></tr><tr><td>*.{html,xhtml,css,js}</td><td>
+<p>Any files with an .html, .js, or .css extension will normally be
+shipped to all website destinations. This is overridden if you have
+declared a web directory to mirror to website destinations.</p>
+</td></tr></tbody></table></div><p>Stock deliverables which are textfiles and contain the string
+"shipper: ignore this." will not be shipped by the generated script.
+This is especially useful for archival GNU-style ChangeLogs, which you
+may want to avoid shipping but which need to be present to pacify
+autotools.</p><p>Additionally, if the <code class="varname">html_template</code> and
+<code class="varname">html_target</code> variables are set, a templated HTML
+page named by it will be composed and shipped to websites by the
+generated script.</p><p>In the resource-table element of the generated web page, 
+<span class="application">shipper</span> generates explanatory
+text to go with each deliverable.  For web pages, it tries to extract
+the contents of the title element. Anything else gets a canned
+description of its type.</p></div><div class="refsect1"><a name="idm639"></a><h2>Shipping to Destinations</h2><p>In operation, <span class="application">shipper</span> walks through a
+list of destinations, finding the required deliverables for each one and
+generating the required shipping actions to push them out to the
+destination.  Here are the destination types
+<span class="application">shipper</span> knows about:</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col align="left"><col align="left"><col align="center"><col align="left"></colgroup><thead><tr><th align="left">Destination Type</th><th align="left">Deliverables</th><th align="center">Specified by</th><th align="left">Explanation</th></tr></thead><tbody><tr><td align="left">sourceforge</td><td align="left">tarball, zipfile, RPMs, debs, README, COPYING, ChangeLog, NEWS, HISTORY, *.{html,css,js}, 
+BUGS, TODO.</td><td align="center">-</td><td align="left">
+<p>If the sourceforge destination is on your list,
+<span class="application">shipper</span> will generate commands to ship a
+tarball and source and binary RPMs to the prject's frs directory via
+rsync; the deliverables will be placed in a subdirectory named after
+the version.  It will also attempt to upload all web deliverables
+(README, CHANGES, NEWS, HISTORY, *.{html,css,js}, BUGS, TODO or their
+.adoc-suffixed variants) to the project's SourceForge web directory.</p>
+</td></tr><tr><td align="left">savannah</td><td align="left">tarball, zipfile, RPMs, debs, 
+BUGS, TODO, BUGS.adoc, TODO.adoc.</td><td align="center">-</td><td align="left">
+<p>If the savannah destination is on your list,
+<span class="application">shipper</span> will generate commands to ship a
+tarball and source and binary RPMs to your project's download
+directory.  It does not attempt to do anything with web content,
+as Savannah's web-update protocol involves CVS and is too painful
+to cope with.
+</p>
+</td></tr><tr><td align="left">freshcode</td><td align="left">-</td><td align="center">-</td><td align="left">
+<p>If the freshcode destination is on your list,
+<span class="application">shipper</span> will generate a command to post a release
+announcement on freshcode.com using
+<span class="citerefentry"><span class="refentrytitle">freshcode-submit</span>(1)</span>.
+The announcement will include URLs for whichever of the following
+deliverables are shipped, using the URL field from your specfile:
+tarballs, zipfiles, RPMs, debs, ChangeLog.</p>
+</td></tr><tr><td align="left">Generic Web site</td><td align="left">README[.adoc], COPYING, tarball, zipfile, RPMs, debs, ChangeLog, NEWS[.adoc], HISTORY,
+*.{html,css,js}, BUGS[.adoc], TODO[.adoc].</td><td align="center">scp destination ([user@]host:dir)</td><td align="left">
+<p>This destination type represents a website.
+<span class="application">shipper</span> generates commands using
+<span class="citerefentry"><span class="refentrytitle">scp</span>(1)</span>
+to put deliverables on websites.  If the user part of the scp
+destination is absent, it will be taken from the environment variable
+<code class="envar">USERNAME</code>.</p>
+
+<p>No generic Web sites are shipped to by default. You must declare
+them by putting scp destinations in the <code class="varname">destinations</code>
+variable.</p>
+</td></tr><tr><td align="left">Generic FTP site</td><td align="left">tarball, RPMs, debs</td><td align="center">FTP URL</td><td align="left">
+<p>Old-fashioned FTP site with no metadata.  The FTP URL is parsed
+to get the sitename and directory where deliverables should be dropped.  The
+FTP username to be used will be taken from the environment variable
+<code class="envar">USERNAME</code>.  The FTP password will be looked up in your
+<code class="filename">~/.netrc</code> file.</p>
+
+<p>No generic FTP sites are shipped to by default.  You must
+declare them by putting FTP urls in the
+<code class="varname">destinations</code> variable.</p>
+</td></tr><tr><td align="left">Email address</td><td align="left">-</td><td align="center">mailto URL</td><td align="left">
+<p>A message expanded from the <code class="varname">mail_template</code> is
+emailed to each email address specified as a destination.</p>
+
+<p>No email destinations are set up by default.  You must
+declare them by putting mailto: URLs in the
+<code class="varname">destinations</code> variable.</p>
+</td></tr><tr><td align="left">IRC</td><td align="left">-</td><td align="center">IRC URL</td><td align="left">
+<p>A generated announcement is sent to a specified IRC channel.</p>
+
+<p>No IRC destinations are set up by default.  You must declare
+them by putting IRC urls in the <code class="varname">destinations</code>
+variable. IRC URLs specified in the IRC-Channel variable are
+announced to as well; they're also listed on the templated web page,
+if templating has been selected.</p>
+</td></tr></tbody></table></div><p>informational files for a remote Gitweb repository may also be
+shipped at this stage. These are <code class="filename">description</code> and
+<code class="filename">README.html</code>, and are generated on the theory that
+a gitolite instance is likely to have a Gitweb view as well.</p><p>For this update to work, the repository must have the
+<code class="option">writer-is-owner</code> option set.  Additionally, in
+<code class="filename">.gitolite.rc</code> on the server, the
+<span class="command"><strong>readme</strong></span> must be uncommented.</p></div><div class="refsect1"><a name="postinstall"></a><h2>After Uploads</h2><p>After upload commands have been generated,
+<span class="application">shipper</span> looks at where it is running. If it
+can recognize that the current directory is under version control, and
+the <code class="varname">tag_template</code> option has been enabled, it will
+generate additional commands to tag the just-shipped tree as an
+external release.</p><p>Currently, the version-control systems supported for tagging
+after shipping are Subversion, git, hg, and bzr.  Due to variations
+in tagging behavior in these systems, this feature behaves slightly
+differently depending on which one is in use.</p><p>If the run is in the trunk of a Subversion repository (that is,
+the current directory is name <code class="filename">trunk</code> and has a
+subdirectory named <code class="filename">.svn</code>) and there is a
+<code class="filename">tags</code> peer directory, and the tags directory does
+not have a subdirectory named for the release version, then
+<span class="application">shipper</span> generates commands to copy and tags
+the contents of trunk.</p><p>If it is in a git, hg, or bzr repository (that is, there is a
+subdirectory named <code class="filename">.git</code>,
+<code class="filename">.bzr</code>, or <code class="filename">.hg</code>) it will
+generare commands to tag the release. If there is a remote repo to be
+pushed to, local changes and tags wil be pushed. In all three of these
+cases the tag attempt will fail if the tag previously existed.  See
+also the discussion of the <code class="varname">tagtemplate</code>
+variable.</p><p>After tagging, commands to ship email notifications are
+generated.</p><p>The last command generated, if applicable, will be the IRC
+and Twitter broadcasts.</p></div><div class="refsect1"><a name="twitter"></a><h2>Configuring Twitter broadcasts</h2><p>To enable Twitter broadcasters, you first need to get
+developer access on Twitter, then register an app.  It doesn't
+matter what you call the app; what you need are the four credentials
+that Twitter calls an API key, an API secret key, an access token,
+and an access token secret.</p><p>Once you have these, put them in your shipper config file by
+setting for variables like this (with the actual values filled
+in):</p><pre class="programlisting">
+twitter_consumer_key="AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" # (API key)
+twitter_consumer_secret="BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+twitter_access_token="CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+twitter_access_token_secret="DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+</pre><p>Then make sure the Twython library is installed on your system.
+The commnd "sudo pip3 install twython" should do this. Once this is set
+up, shipper will generate tweets with the same subsitutions it uses
+for IRC notifications: the relevant config variable is
+"Instant-Message".</p><p>Twitter broacasting is performed only when shipper is passed the -i
+option. This is not intended to be used manually; rater, it's there so
+that another instance can generate a "shipper -i" command as
+the last part of a series of shipping and notification actions.</p><p>Finally, install gitlab-igor if you intend to use the -g option
+to park your release deliverables on GitLab.</p></div><div class="refsect1"><a name="idm754"></a><h2>NEWS/HISTORY/ChangeLog format</h2><p>In order to generate its various kinds of announcements,
+<span class="application">shipper</span> needs to extract the version number
+and relase notes particular to the current release.  In order to
+accomplish this, it tries to parse your NEWS, HISTORY, or ChangeLog
+files, in that order.  It also recognizes these with the subset .adoc
+in case they are in asciidoc markup in conformance with GitHub and
+GitLab conventions</p><p>The file is analyzed as a list of stanzas - continuous stretches
+of nonblank lines separated by blank lines. If the first line of the
+first stanza begins with a digit, it is selected.  Otherwise the
+first stanza is assumed to be a title header and skipped; then the
+second stanza is selected.</p><p>The first line of the selected stanza is examined.  If it
+begins with a decimal digit, the leading part of the line consisting
+of decimal digits and periods is interpreted as the version number
+of the release. (This will be overridden if the invocation of 
+<span class="application">shipper</span> specifies a version.)</p><p>That line is then scanned for a date of the form yyyy-mm-dd.
+If no such date is found, or the date does not match today's date
+in local time, shipper aborts.</p><p>The first line of the selected stanza is discarded. All
+subsequent lines are treated as release notes.</p><p>These rules match conventions that are very widely used in NEWS
+files.  If you normally use a different format, you can play nicely
+with both human viewers and the parser by adding a title line and
+following stanza with a first line something like <span class="quote">&#8220;<span class="quote">Recent
+Changes</span>&#8221;</span>.</p></div><div class="refsect1"><a name="idm765"></a><h2>Command-line Options</h2><p>The <code class="option">-d</code> option generates a
+configuration dump to standard output.</p><p>The <code class="option">-x</code> option specifies a destination, or a 
+comma-separated list of destinations, not to ship to. This overrides 
+the setting of the destinations variable by shippper config files and
+control or spec files.</p><p>The <code class="option">-v</code> option makes
+<span class="application">shipper</span> chatty about what it's doing.  The
+-h option prints a usage message and exits.</p><p>The <code class="option">-n</code> option disables normal evaluation of the
+user's profile under $HOME in faver of a profile specified as the
+argument. It is intended to support regression testing of shipper and
+is not likely to be of general interest.</p><p>Arguments, if present, must be of the form name=value and can be
+used to override earlier settings from your profiles.  The most frequently 
+useful override will probably be "version=".</p></div><div class="refsect1"><a name="idm777"></a><h2>Hints and Tips</h2><p>The following variable definition in your makefile will ensure
+that the makefile version is derived from (and thus always consistent
+with) the specfile version.</p><pre class="programlisting">
+VERSION=$(shell sed &lt;*.spec control -n -e '/Version: \(.*\)/s//\1/p')
+</pre><p>A makefile production like the following will allow
+you to type <span class="command"><strong>make release</strong></span> and be sure that all
+the deliverables <span class="application">shipper</span> knows about
+will be rebuilt before being shipped.</p><pre class="programlisting">
+release: <span class="emphasis"><em>project</em></span>-$(VERS).tar.gz <span class="emphasis"><em>project</em></span>-$(VERSION).md5 index.html
+	shipper version=$(VERS) | sh -e -x
+</pre><p>The -e option is recommended to make all errors fatal.  This
+way if an upload fails for some reason, the later notifications won't
+happen. The -x option makes the script echo its commands as they're 
+performed.</p><p>You will want to change <span class="emphasis"><em>project</em></span> to your 
+project name. You will need to write a production that builds your
+tarball and checksum files.</p><p>It is also a good idea to have a similar production that just
+refreshes web pages and other public metadata without shipping
+tarballs or touching repositories.</p><pre class="programlisting">
+refresh: index.html
+	shipper -N -w version=$(VERS) | sh -e -x
+</pre><p>In an SConstruct file, you may want something like this:
+
+</p><pre class="programlisting">
+version = <span class="emphasis"><em>version</em></span>
+</pre><p>
+
+and something like
+
+</p><pre class="programlisting">
+env.Alias("release", [tarball], 'shipper version=%s | sh -e -x' % version)
+</pre><p>
+
+with 'tarball' being a production that makes a release tarball (and
+checksum file, if desired).
+</p></div><div class="refsect1"><a name="idm796"></a><h2>Requirements</h2><p>This program requires the following helpers for shipping to
+specific destination types:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">freecode-submit</span></dt><dd><p>For shipping release notifications to freshcode.club.
+The freshcode-submit program is <a class="ulink" href="http://www.catb.org/~esr/freshcode-submit" target="_top">separately
+maintained</a>.</p></dd><dt><span class="term">irkerd</span></dt><dd><p>For shipping notices to IRC channels. The irkerd
+program is <a class="ulink" href="http://www.catb.org/~esr/irkerd" target="_top">separately
+maintained</a>.</p></dd><dt><span class="term">lftp</span></dt><dd><p>For shipping to ftp sites.  The lftp
+program is <a class="ulink" href="http://lftp.yar.ru/" target="_top">separately
+maintained</a>.</p></dd><dt><span class="term">ssh/scp</span></dt><dd><p>For shipping to websites. There are several different
+implementations of scp; one widely-used version is shipped by the
+<a class="ulink" href="http://www.openssh.com/" target="_top">OpenSSH project</a>.
+</p></dd><dt><span class="term">sendmail</span></dt><dd><p>For shipping email announcements. Either classic
+sendmail or Postfix sendmail will work. All it has to be able to do
+is ship mail presented on standard input to a list of addresses
+specified as arguments.</p></dd><dt><span class="term">imgsizer</span></dt><dd><p>Used to put size attributes in the page's logo
+inclusion, if there is one. Without this, large logos will slop out of
+the table generated for the page title and date.</p></dd><dt><span class="term">Twython</span></dt><dd><p>For shipping release announcements to Twitter.</p></dd><dt><span class="term">gitlab-igor</span></dt><dd><p>For putting release taballs and checksums on GitLab.</p></dd></dl></div><p>The first four must be on your executable $PATH at the time this program
+is invoked, or shipping to the relevant destination types will fail.
+If the Twython library is not importable, shipping announcements to
+Twitter will fail silently.</p></div><div class="refsect1"><a name="idm837"></a><h2>EXAMPLES</h2><p>This is most of my <code class="filename">.config/shipper</code> file.
+I have omitted a bulky customized web page template.</p><pre class="programlisting">
+# Set defaults for shipper(1)
+
+# Identify myself
+whoami = "Eric S. Raymond &lt;esr@thyrsus.com&gt;"
+
+# My ID on patreon
+patreon_id = "esr"
+
+# By default, ship to my primary website
+destinations = ["login.ibiblio.org:/public/html/catb/esr/"]
+
+# Customize date format
+date = time.strftime("%d %b %Y")
+</pre><p>Here is the control file for the shipper project:</p><pre class="programlisting">
+# This is not a real Debian control file, though the syntax is compatible.
+# It's project metadata for the shipper tool
+
+Package: shipper
+
+Description: Automated shipping of open-source project releases.
+ shipper is a power distribution tool for developers with multiple
+ projects who do frequent releases.  It automates the tedious process
+ of shipping a software release and (if desired) templating a project
+ web page. It can deliver releases in correct form to SourceForge,
+ and Savannah, and knows how to post a release announcement via
+ freecode-submit.
+
+Homepage: http://www.catb.org/~esr/shipper
+
+XBS-IRC-Channel: irc://chat.freenode.net/shipper
+
+XBS-Logo: shipper-logo.png
+
+#XBS-Project-Tags: packaging, distribution
+
+XBS-Validate: make check
+</pre><p>And here is the shipper config section in its repository:</p><pre class="programlisting">
+[shipper]
+	destinations =  mailto:esr@thyrsus.com
+	htmltarget = index.html
+	repositoryurl = http://thyrsus.com/gitweb/?p=shipper.git
+	developerclone = git@thyrsus.com:shipper
+	anonymousclone = git://thyrsus.com/repositories/shipper.git
+	tagtemplate = %(version)s
+</pre><p>Note that by putting these entries in the git configuration
+rather than the control file you make it possible to (a) hide
+potentially senstive email addresses, and (b) rehost the project
+repository without having to ship a release to update the control-file
+contents. Instead, just update these entries and use shipper to
+regenerate the displayed URLs on the project web page.</p><p>This shipper project does not have a
+<code class="filename">.shipper</code> in its directory.</p></div><div class="refsect1"><a name="idm849"></a><h2>Bugs</h2><p>The program cannot update Savannah webspace, which is only
+accessible through a CVS checkin procedure.</p><p>The program can put downloadables in place on SourceForge, but not set
+the "Preferred Download". Usually this will point to the most recent download
+subdirectory by default, which is the right thing.</p><p>The <span class="application">shipper</span> framework is extensible
+and it is relatively easy to add new destination types and new
+deliverables; it is a bug that we do not yet support all major forge sites
+as destinations.</p></div><div class="refsect1"><a name="idm855"></a><h2>Files</h2><p>
+<code class="filename">$HOME/.shipper</code>;
+<code class="filename">$HOME/.config/shipper</code>;
+<code class="filename">$PWD/.shipper</code>.
+<code class="filename">$PWD/.git/config</code>.
+</p></div><div class="refsect1"><a name="idm862"></a><h2>Author</h2><p>Eric S. Raymond <code class="email">&lt;<a class="email" href="mailto:esr@thyrsus.com">esr@thyrsus.com</a>&gt;</code>.</p><p>There is a project web page at
+<a class="ulink" href="http://www.catb.org/~esr/shipper/" target="_top">http://www.catb.org/~esr/shipper/</a>.</p></div><div class="refsect1"><a name="idm868"></a><h2>See Also</h2><p>
+<span class="citerefentry"><span class="refentrytitle">freecode-submit</span>(1)</span>,
+<span class="citerefentry"><span class="refentrytitle">lftp</span>(1)</span>,
+<span class="citerefentry"><span class="refentrytitle">scp</span>(1)</span>,
+<span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span>.</p></div></div></body></html>

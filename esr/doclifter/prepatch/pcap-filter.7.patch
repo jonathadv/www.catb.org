@@ -1,0 +1,209 @@
+--- pcap-filter.7-unpatched	2018-06-03 06:29:09.759226777 -0400
++++ pcap-filter.7	2018-06-03 06:29:09.511228462 -0400
+@@ -165,17 +165,17 @@
+ .IP
+ Any of the above host expressions can be prepended with the keywords,
+ \fBip\fP, \fBarp\fP, \fBrarp\fP, or \fBip6\fP as in:
+-.in +.5i
++.RS
+ .nf
+ \fBip host \fIhost\fR
+ .fi
+-.in -.5i
++.RE
+ which is equivalent to:
+-.in +.5i
++.RS
+ .nf
+ \fBether proto \fI\\ip\fB and host \fIhost\fR
+ .fi
+-.in -.5i
++.RE
+ If \fIhost\fR is a name with multiple IP addresses, each address will
+ be checked for a match.
+ .IP "\fBether dst \fIehost\fP"
+@@ -198,11 +198,11 @@
+ mechanisms (host name file, DNS, NIS, etc.) and by the machine's
+ host-name-to-Ethernet-address resolution mechanism (/etc/ethers, etc.).
+ (An equivalent expression is
+-.in +.5i
++.RS
+ .nf
+ \fBether host \fIehost \fBand not host \fIhost\fR
+ .fi
+-.in -.5i
++.RE
+ which can be used with either names or numbers for \fIhost / ehost\fP.)
+ This syntax does not work in IPv6-enabled configuration at this moment.
+ .IP "\fBdst net \fInet\fR"
+@@ -268,28 +268,28 @@
+ .IP
+ Any of the above port or port range expressions can be prepended with
+ the keywords, \fBtcp\fP or \fBudp\fP, as in:
+-.in +.5i
++.RS
+ .nf
+ \fBtcp src port \fIport\fR
+ .fi
+-.in -.5i
++.RE
+ which matches only tcp packets whose source port is \fIport\fP.
+ .IP "\fBless \fIlength\fR"
+ True if the packet has a length less than or equal to \fIlength\fP.
+ This is equivalent to:
+-.in +.5i
++.RS
+ .nf
+ \fBlen <= \fIlength\fP.
+ .fi
+-.in -.5i
++.RE
+ .IP "\fBgreater \fIlength\fR"
+ True if the packet has a length greater than or equal to \fIlength\fP.
+ This is equivalent to:
+-.in +.5i
++.RS
+ .nf
+ \fBlen >= \fIlength\fP.
+ .fi
+-.in -.5i
++.RE
+ .IP "\fBip proto \fIprotocol\fR"
+ True if the packet is an IPv4 packet (see
+ .IR ip (4P))
+@@ -320,11 +320,11 @@
+ and contains protocol header with type \fIprotocol\fR
+ in its protocol header chain.
+ For example,
+-.in +.5i
++.RS
+ .nf
+ \fBip6 protochain 6\fR
+ .fi
+-.in -.5i
++.RE
+ matches any IPv6 packet with TCP protocol header in the protocol header chain.
+ The packet may contain, for example,
+ authentication header, routing header, or hop-by-hop option header,
+@@ -422,19 +422,19 @@
+ .RE
+ .IP "\fBip\fR, \fBip6\fR, \fBarp\fR, \fBrarp\fR, \fBatalk\fR, \fBaarp\fR, \fBdecnet\fR, \fBiso\fR, \fBstp\fR, \fBipx\fR, \fBnetbeui\fP"
+ Abbreviations for:
+-.in +.5i
++.RS
+ .nf
+ \fBether proto \fIp\fR
+ .fi
+-.in -.5i
++.RE
+ where \fIp\fR is one of the above protocols.
+ .IP "\fBlat\fR, \fBmoprc\fR, \fBmopdl\fR"
+ Abbreviations for:
+-.in +.5i
++.RS
+ .nf
+ \fBether proto \fIp\fR
+ .fi
+-.in -.5i
++.RE
+ where \fIp\fR is one of the above protocols.
+ Note that not all applications using
+ .BR pcap (3PCAP)
+@@ -467,7 +467,7 @@
+ LLC-encapsulated ATM packets, for SunATM on Solaris.
+ .IP
+ 
+-.IP "\fBllc\fP \Fitype\fR"
++.IP "\fBllc\fP \fItype\fR"
+ True if the packet has an 802.2 LLC header and has the specified
+ .IR type .
+ .I type
+@@ -675,17 +675,17 @@
+ by 4.
+ .IP
+ For example:
+-.in +.5i
++.RS
+ .nf
+ \fBvlan 100 && vlan 200\fR
+ .fi
+-.in -.5i
++.RE
+ filters on VLAN 200 encapsulated within VLAN 100, and
+-.in +.5i
++.RS
+ .nf
+ \fBvlan && vlan 300 && ip\fR
+ .fi
+-.in -.5i
++.RE
+ filters IPv4 protocols encapsulated in VLAN 300 encapsulated within any
+ higher order VLAN.
+ .IP "\fBmpls \fI[label_num]\fR"
+@@ -700,18 +700,18 @@
+ filter offsets by 4.
+ .IP
+ For example:
+-.in +.5i
++.RS
+ .nf
+ \fBmpls 100000 && mpls 1024\fR
+ .fi
+-.in -.5i
++.RE
+ filters packets with an outer label of 100000 and an inner label of
+ 1024, and
+-.in +.5i
++.RS
+ .nf
+ \fBmpls && mpls 1024 && host 192.9.200.1\fR
+ .fi
+-.in -.5i
++.RE
+ filters packets to or from 192.9.200.1 with an inner label of 1024 and
+ any outer label.
+ .IP \fBpppoed\fP
+@@ -755,11 +755,11 @@
+ \fBclnp\fP, \fBesis\fP, or \fBisis\fP.
+ .IP "\fBclnp\fR, \fBesis\fR, \fBisis\fR"
+ Abbreviations for:
+-.in +.5i
++.RS
+ .nf
+ \fBiso proto \fIp\fR
+ .fi
+-.in -.5i
++.RE
+ where \fIp\fR is one of the above protocols.
+ .IP "\fBl1\fR, \fBl2\fR, \fBiih\fR, \fBlsp\fR, \fBsnp\fR, \fBcsnp\fR, \fBpsnp\fR"
+ Abbreviations for IS-IS PDU types.
+@@ -896,23 +896,23 @@
+ If an identifier is given without a keyword, the most recent keyword
+ is assumed.
+ For example,
+-.in +.5i
++.RS
+ .nf
+ \fBnot host vs and ace\fR
+ .fi
+-.in -.5i
++.RE
+ is short for
+-.in +.5i
++.RS
+ .nf
+ \fBnot host vs and host ace\fR
+ .fi
+-.in -.5i
++.RE
+ which should not be confused with
+-.in +.5i
++.RS
+ .nf
+ \fBnot ( host vs or ace )\fR
+ .fi
+-.in -.5i
++.RE
+ .SH EXAMPLES
+ .LP
+ To select all packets arriving at or departing from \fIsundown\fP:

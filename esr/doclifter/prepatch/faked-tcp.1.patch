@@ -1,0 +1,10 @@
+--- faked-tcp.1-unpatched	2012-07-04 00:41:23.086630237 -0400
++++ faked-tcp.1	2012-07-04 00:42:23.278629114 -0400
+@@ -86,6 +86,7 @@
+ .RI < clint@debian.org >
+ .TP
+ Timo Savola
++.RI < timo.savola@iki.fi >
+ .SH MANUAL PAGE
+ mostly by J.H.M. Dassen 
+ .RI <jdassen@debian.org> 

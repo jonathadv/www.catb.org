@@ -1,0 +1,466 @@
+<!-- received="Tue Oct 22 02:14:38 1996 EST" -->
+<!-- sent="Mon, 21 Oct 96 23:05 PDT" -->
+<!-- name="Daniel Quinlan" -->
+<!-- email="quinlan@proton.pathname.com" -->
+<!-- subject="current draft of POSIX 1003.2B file" -->
+<!-- id="m0vFZyL-000Sp3C@proton.pathname.com" -->
+<!-- inreplyto="" -->
+<title>magic-numbers: current draft of POSIX 1003.2B file</title>
+<h1>current draft of POSIX 1003.2B file</h1>
+Daniel Quinlan (<i>quinlan@proton.pathname.com</i>)<br>
+<i>Mon, 21 Oct 96 23:05 PDT</i>
+<p>
+<ul>
+<li> <b>Messages sorted by:</b> <a href="date.html#17">[ date ]</a><a href="index.html#17">[ thread ]</a><a href="subject.html#17">[ subject ]</a><a href="author.html#17">[ author ]</a>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0018.html">Greg Roelofs: "Re: current draft of POSIX 1003.2B file"</a>
+<li> <b>Previous message:</b> <a href="0016.html">Daniel Quinlan: "file(1) specification"</a>
+<!-- nextthread="start" -->
+<li> <b>Next in thread:</b> <a href="0018.html">Greg Roelofs: "Re: current draft of POSIX 1003.2B file"</a>
+</ul>
+<!-- body="start" -->
+This is of peripheral interest to the members of this mailing list,<br>
+especially since 3 of the 4 of us are in the file@mx.gw.com mailing<br>
+list.<br>
+<p>
+POSIX 1003.2B is a set of changes that are being made to the base<br>
+1003.2 document that was published in 1992.  Here I have taken those<br>
+changes and applied them to the original standard.<br>
+<p>
+There are two areas that readers of this list may want to focus on:<br>
+<p>
+  1. Incompatibilities between "our" file and this specification.<br>
+<p>
+  2. Problems in the standard itself.  It looks quite similar to SVR4<br>
+     version of file.  It looks even more similar to the Sun version.<br>
+<p>
+I would like to collect any comments and relay them to the POSIX<br>
+standards group.  Since we can't expect another revision of POSIX.2<br>
+for a while, we should really push POSIX to get it right this time.<br>
+<p>
+The first RATIONALE is a "rationale" of the changes.  The second is<br>
+the RATIONALE for the file specification.  I can detect no changes<br>
+since the drafting I received a year ago.<br>
+<p>
+==========================================================================<br>
+<p>
+ BEGIN_RATIONALE<br>
+<p>
+ Rationale:  The changes in this clause, except for those related to<br>
+ symbolic links, satisfy the following requirement from ISO/IEC 9945-<br>
+ 2:1993 Annex H.1:<br>
+<p>
+    (12)  The file utility should allow user-specified algorithms for file<br>
+          type recognition, similar to those used in the historical<br>
+          /etc/magic file.<br>
+<p>
+ END_RATIONALE<br>
+<p>
+==========================================================================<br>
+<p>
+ 5.14  file - Determine file type<br>
+<p>
+ 5.14.1  Synopsis<br>
+<p>
+ file  [-dhi] [-M file] [-m file] file ...<br>
+<p>
+ 5.14.2  Description<br>
+<p>
+ The file utility shall perform a series of tests on each specified file<br>
+ in an attempt to classify it.<br>
+<p>
+     (1)  If the file is not a regular file, its file type shall be<br>
+          identified.  The file types directory, FIFO, block special, and<br>
+          character special shall be identified as such.  Other<br>
+          implementation-defined file types may also be identified.<br>
+<p>
+     (2)  If the file is a regular file, and<br>
+<p>
+           (a)  The file is zero-length, it shall be identified as an<br>
+                empty file.<br>
+<p>
+           (b)  The file is not zero-length, file shall examine an initial<br>
+                segment of the file and shall make a guess at identifying<br>
+                its contents or whether it is an executable binary file.<br>
+                (The answer is not guaranteed to be correct.)<br>
+<p>
+ If file does not exist, cannot be read, or its file status could not be<br>
+ determined, the output shall indicate that the file was processed, but<br>
+ that its type could not be determined.<br>
+<p>
+ If file is a symbolic link, by default the link shall be resolved and<br>
+ file shall test the type of file referenced by the symbolic link.<br>
+<p>
+ 5.14.3  Options<br>
+<p>
+ The file utility shall conform to the utility argument syntax<br>
+ guidelines described in 2.10.2.<br>
+<p>
+ The following options shall be supported by the implementation:<br>
+<p>
+    -d          Apply any default system tests to the file.<br>
+<p>
+    -h          When a symbolic link is encountered, identify the file<br>
+                as a symbolic link.  If -h is not specified and file is<br>
+                a symbolic link that refers to a nonexistent file, file<br>
+                shall identify the file as a symbolic link, as if -h<br>
+                had been specified.<br>
+<p>
+    -i          If a file is a regular file, do not attempt to classify<br>
+                the type of the file further, but identify the file as<br>
+                specified in 5.14.6.1, using a &lt;type&gt; string that<br>
+                contains the string regular file.<br>
+<p>
+    -M file     Specify the name of a file containing tests that shall<br>
+                be applied to a file in order to classify it (see<br>
+                5.14.7).  No default system tests shall be applied.<br>
+<p>
+    -m file     Specify the name of a file containing tests that shall<br>
+                be applied to a file in order to classify it (see<br>
+                5.14.7).<br>
+<p>
+ If multiple instances of the -m, -d, or -M options are specified, the<br>
+ concatenation of the tests specified, in the order specified, shall be<br>
+ the set of tests that are applied.  If a -M option is specified, no<br>
+ tests other than those specified using the -d, -M, and -m options<br>
+ shall be applied to the file.  If neither the -d nor -M options are<br>
+ specified, any default system tests shall be applied after any tests<br>
+ specified using the -m option.<br>
+<p>
+ 5.14.4  Operands<br>
+<p>
+ The following operand shall be supported by the implementation:<br>
+<p>
+    file        A pathname of a file to be tested.<br>
+<p>
+ 5.14.5  External Influences<br>
+<p>
+ 5.14.5.1  Standard Input<br>
+<p>
+ None.<br>
+<p>
+ 5.14.5.2  Input Files<br>
+<p>
+ The file can be any file type.<br>
+<p>
+ 5.14.5.3  Environment Variables<br>
+<p>
+ The following environment variables shall affect the execution of file:<br>
+<p>
+    LANG               This variable shall determine the locale to use for<br>
+                       the locale categories when both LC_ALL and the<br>
+                       corresponding environment variable (beginning with<br>
+                       LC_) do not specify a locale.  See 2.6.<br>
+<p>
+    LC_ALL             This variable shall determine the locale to be used<br>
+                       to override any values for locale categories<br>
+                       specified by the settings of LANG or any<br>
+                       environment variables beginning with LC_.<br>
+<p>
+    LC_CTYPE           This variable shall determine the interpretation of<br>
+                       sequences of bytes of text data as characters<br>
+                       (e.g., single- versus multibyte characters in<br>
+                       arguments and input files).<br>
+<p>
+    LC_MESSAGES        This variable shall determine the language in which<br>
+                       messages should be written.<br>
+<p>
+ 5.14.5.4  Asynchronous Events<br>
+<p>
+ Default.<br>
+<p>
+ 5.14.6  External Effects<br>
+<p>
+ 5.14.6.1  Standard Output<br>
+<p>
+ In the POSIX Locale, the following format shall be used to identify each<br>
+ file operand specified:<br>
+<p>
+       "%s: %s\n", &lt;file&gt;, &lt;type&gt;<br>
+<p>
+ The values for &lt;type&gt; are unspecified, except that in the POSIX Locale,<br>
+ if file is identified as one of the types listed in Table 5-1, &lt;type&gt;<br>
+ shall contain (but is not limited to) the corresponding string.  Each<br>
+ space shown in the strings shall be exactly one &lt;space&gt; character.<br>
+<p>
+                     Table 5-1  -  file Output Strings<br>
+<p>
+ _________________________________________________________________________<br>
+<i>|            If file is a             |  &lt;type&gt; shall contain the string |</i><br>
+<i>|_____________________________________|__________________________________|</i><br>
+<i>|  Directory                          |  directory                       |</i><br>
+<i>|  FIFO                               |  fifo                            |</i><br>
+<i>|  Block special                      |  block special                   |</i><br>
+<i>|  Character special                  |  character special               |</i><br>
+<i>|  Symbolic link                      |  symbolic link to                |</i><br>
+<i>|  Executable binary                  |  executable                      |</i><br>
+<i>|  Empty regular file                 |  empty                           |</i><br>
+<i>|  ar archive library (see 6.1)       |  archive                         |</i><br>
+<i>|  Extended cpio format (see Section  |  cpio archive                    |</i><br>
+<i>|  10.1.2 of POSIX.1 {8})             |                                  |</i><br>
+<i>|  Extended tar format (see Section   |  tar archive                     |</i><br>
+<i>|  10.1.1 of POSIX.1 {8})             |                                  |</i><br>
+<i>|  Shell script                       |  commands text                   |</i><br>
+<i>|  C-language source                  |  c program text                  |</i><br>
+<i>|  FORTRAN source                     |  fortran program text            |</i><br>
+<i>|  Other text file                    |  text                            |</i><br>
+<i>|_____________________________________|__________________________________|</i><br>
+<p>
+ If file is identified as a symbolic link (see -h), the following<br>
+ alternative output format shall be used:<br>
+<p>
+       "%s: %s %s\n", &lt;file&gt;, &lt;type&gt;, &lt;contents of link&gt;<br>
+<p>
+ If the file named by the file operand does not exist or cannot be<br>
+ read, the string cannot open shall be included as part of the &lt;type&gt;<br>
+ field, but this shall not be considered an error that affects the exit<br>
+ status.  If the type of the file named by the file operand cannot be<br>
+ determined, the string unknown type shall be included as part of the<br>
+ &lt;type&gt; field, but this shall not be considered an error that affects<br>
+ the exit status.<br>
+<p>
+ 5.14.6.2  Standard Error<br>
+<p>
+ Used only for diagnostic messages.<br>
+<p>
+ 5.14.6.3  Output Files<br>
+<p>
+ None.<br>
+<p>
+ 5.14.7  Extended Description<br>
+<p>
+ A file specified as an option-argument to the -m or -M options shall<br>
+ contain one test per line, which shall be applied to the file.  If the<br>
+ test succeeds, the message field of the line shall be printed and no<br>
+ further tests shall be applied, with the exception that tests on<br>
+ immediately following lines beginning with a single &gt; character shall<br>
+ be applied.<br>
+<p>
+ Each line shall be composed of the following four &lt;blank&gt;-separated<br>
+ fields:<br>
+<p>
+    offset An unsigned number (optionally preceded by a single &gt;<br>
+           character) specifying the offset, in bytes, of the value in<br>
+           the file that is to be compared against the value field of<br>
+           the line.  If the file is shorter than the specified offset,<br>
+           the test shall fail.<br>
+<p>
+           If the offset begins with the character &gt;, the test<br>
+           contained in the line shall not be applied to the file<br>
+           unless the test on the last line for which the offset did<br>
+           not begin with a &gt; was successful.  By default, the offset<br>
+           shall be interpreted as an unsigned decimal number.  With a<br>
+           leading 0x or 0X, the offset shall be interpreted as a<br>
+           hexadecimal number; otherwise, with a leading 0, the offset<br>
+           shall be interpreted as an octal number.<br>
+<p>
+    type   The type of the value in the file to be tested.  The type<br>
+           shall consist of the type specification characters c, d, f,<br>
+           s, and u, specifying character, signed decimal, floating<br>
+           point, string, and unsigned decimal, respectively.<br>
+<p>
+           The type string shall be interpreted as the bytes from the<br>
+           file starting at the specified offset and including the same<br>
+           number of bytes specified by the value field.  If<br>
+           insufficient bytes remain in the file past the offset to<br>
+           match the value field, the test shall fail.<br>
+<p>
+           The type specification characters d, f, and u can be<br>
+           followed by an optional unsigned decimal integer that<br>
+           specifies the number of bytes represented by the type.  The<br>
+           type specification character f can be followed by an<br>
+           optional F, D, or L, indicating that the value is of type<br>
+           float, double, or long double, respectively.  The type<br>
+           specification characters d and u can be followed by an<br>
+           optional C, S, I, or L, indicating that the value is of type<br>
+           char, short, int, or long, respectively.<br>
+<p>
+           The default number of bytes represented by the type<br>
+           specifiers d, f, and u shall correspond to their respective<br>
+           C-language types as follows.  If the system claims<br>
+           conformance to the C-Language Development Utilities Option,<br>
+           those specifiers shall correspond to the default sizes used<br>
+           in the c89 utility.  Otherwise, the default sizes shall be<br>
+           implementation defined.<br>
+<p>
+           For the type specifier characters d and u, the default<br>
+           number of bytes shall correspond to the size of the basic<br>
+           integral data type of the implementation.  For these<br>
+           specifier characters, the implementation shall support<br>
+           values of the optional number of bytes to be converted<br>
+           corresponding to the number of bytes in the C-language types<br>
+           char, short, int, or long. These numbers can also be<br>
+           specified by an application as the characters C, S, I, and<br>
+           L, respectively.  The byte order used when interpreting<br>
+           numeric values is implementation defined, but shall<br>
+           correspond to the order in which a constant of the<br>
+           corresponding type is stored in memory on the system.<br>
+<p>
+           For the type specifier f, the default number of bytes shall<br>
+           correspond to the number of bytes in the basic double<br>
+           precision floating-point data type of the underlying<br>
+           implementation.  The implementation shall support values of<br>
+           the optional number of bytes to be converted corresponding<br>
+           to the number of bytes in the C-language types float,<br>
+           double, and long double. These numbers can also be specified<br>
+           by an application as the characters F, D, and L,<br>
+           respectively.<br>
+<p>
+           All type specifiers, except for s, can be followed by a mask<br>
+           specifier of the form &amp;number. The mask value shall be ANDed<br>
+           with the value before the comparison with the value from the<br>
+           file is made.  By default, the mask shall be interpreted as<br>
+           an unsigned decimal number.  With a leading 0x or 0X, the<br>
+           mask shall be interpreted as a unsigned hexadecimal number;<br>
+           otherwise, with a leading 0, the mask shall be interpreted<br>
+           as an unsigned octal number.<br>
+<p>
+           The strings byte, short, long, and string shall also be<br>
+           supported as type fields, being interpreted as dC, dS, dL,<br>
+           and s, respectively.<br>
+<p>
+    value  The value to be compared with the value from the file.<br>
+<p>
+           Any value that contains a character that is not a digit,<br>
+           other than a leading sign (+ or -) or a leading 0x or 0X,<br>
+           shall be interpreted as a string.  The test shall succeed<br>
+           only when a string value exactly matches the bytes from the<br>
+           file.<br>
+<p>
+           If the value is a string, it can contain the following<br>
+           sequences:<br>
+<p>
+              \character<br>
+                 The backslash-escape sequences in Table 2-16 (see<br>
+                 2.12).  The results of using any other character,<br>
+<p>
+                 other than an octal digit, following the backslash are<br>
+                 unspecified.<br>
+<p>
+              \octal<br>
+                 Octal sequences that can be used to represent<br>
+                 characters with specific coded values.  An octal<br>
+                 sequence shall consist of a backslash followed by the<br>
+                 longest sequence of one, two, or three octal-digit<br>
+                 characters (01234567).  If the size of a byte on the<br>
+                 system is greater than 9 b, the valid escape sequence<br>
+                 used to represent a byte is implementation defined.<br>
+<p>
+           By default, any value that is not a string shall be<br>
+           interpreted as a signed decimal number.  Any such value,<br>
+           with a leading 0x or 0X, shall be interpreted as an unsigned<br>
+           hexadecimal number; otherwise, with a leading zero, the<br>
+           value shall be interpreted as an unsigned octal number.<br>
+<p>
+           If the value is not a string, it can be preceded by a<br>
+           character indicating the comparison to be performed.<br>
+           Permissible characters and the comparisons they specify are<br>
+           as follows:<br>
+<p>
+              =  The test shall succeed if the value from the file<br>
+                 equals the value field.<br>
+<p>
+              &lt;  The test shall succeed if the value from the file is<br>
+                 less than the value field.<br>
+<p>
+<i>              &gt;  The test shall succeed if the value from the file is</i><br>
+                 greater than the value field.<br>
+<p>
+              &amp;  The test shall succeed if all of the bits in the value<br>
+                 field are set in the value from the file.<br>
+<p>
+              ^  The test shall succeed if at least one of the bits in<br>
+                 the value field is not set in the value from the file.<br>
+<p>
+              x  The test shall succeed if there is any value in the<br>
+                 file.<br>
+<p>
+    message<br>
+           The message to be printed if the test succeeds.  The message<br>
+           shall be interpreted using the notation for the printf<br>
+           formatting specification; see 4.50.7.  If the value field<br>
+           was a string, the the value from the file shall be the        b<br>
+           argument for the printf formatting specification; otherwise,<br>
+           the value from the file shall be the argument.<br>
+<p>
+<p>
+<p>
+ 5.14.8  Exit Status<br>
+<p>
+ The file utility shall exit with one of the following values:<br>
+<p>
+     0    Successful completion.<br>
+<p>
+<i>    &gt;0    An error occurred.</i><br>
+<p>
+ 5.14.9  Consequences of Errors<br>
+<p>
+ Default.<br>
+<p>
+==========================================================================<br>
+<p>
+ Editor's Note:  The rationale in E.5.14 (IEEE Std 1003.2-1992 pages 987-<br>
+ 88, lines 9703-49) will be replaced by the following:<br>
+<p>
+ BEGIN_RATIONALE<br>
+<p>
+ file_Rationale._(This_subclause_is_not_a_part_of_P1003.2)<br>
+<p>
+ Historical systems have used a ``magic file'' named /etc/magic to help<br>
+ identify file types.  Because it is generally useful for users and<br>
+ scripts to be able to identify special file types, the -m flag and a<br>
+ portable format for user-created magic files has been specified.  No<br>
+ requirement is made that an implementation of file use this method of<br>
+ identifying files, only that users be permitted to add their own<br>
+ classifying tests.<br>
+<p>
+ In addition, three options have been added to historical practice.  The -<br>
+ d flag has been added to permit users to cause their tests to follow any<br>
+ default system tests.  The -i flag has been added to permit users to test<br>
+ portably for regular files in shell scripts.  The -M flag has been added<br>
+ to permit users to ignore any default system tests.<br>
+<p>
+ The historical -c option was omitted as not particularly useful to users<br>
+ or portable shell scripts.  In addition, a reasonable implementation of<br>
+ the file utility would report any errors found each time the magic file<br>
+ is read.<br>
+<p>
+ The historical format of the magic file was the same as that specified by<br>
+ the rationale in the previous version of this standard for the offset,<br>
+ value, and message fields; however, it used less precise type fields than<br>
+ the format specified by the current normative text.  The new type field<br>
+ values are a superset of the historical ones.<br>
+<p>
+ The following is an example magic file:<br>
+<p>
+       0  short       070707       cpio archive<br>
+       0  short       0143561      byte-swapped cpio archive<br>
+       0  string      070707       ASCII cpio archive<br>
+       0  long        0177555      very old archive<br>
+       0  short       0177545      old archive<br>
+       0  short       017437       old packed data<br>
+       0  string      \037\036     packed data<br>
+       0  string      \377\037     compacted data<br>
+       0  string      \037\235     compressed data<br>
+<i>       &gt;2 byte&amp;0x80   &gt;0           block compressed</i><br>
+<i>       &gt;2 byte&amp;0x1f   x            %d bits</i><br>
+       0  string      \032\001     Compiled Terminfo Entry<br>
+       0  short       0433         Curses screen image<br>
+       0  short       0434         Curses screen image<br>
+       0  string      &lt;ar&gt;         System V Release 1 archive<br>
+       0  string      !&lt;arch&gt;\n__.SYMDEF   archive random library<br>
+       0  string      !&lt;arch&gt;      archive<br>
+       0  string      ARF_BEGARF   PHIGS clear text archive<br>
+       0  long        0x137A2950   scalable OpenFont binary<br>
+       0  long        0x137A2951   encrypted scalable OpenFont binary<br>
+<p>
+ END_RATIONALE<br>
+<!-- body="end" -->
+<p>
+<ul>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0018.html">Greg Roelofs: "Re: current draft of POSIX 1003.2B file"</a>
+<li> <b>Previous message:</b> <a href="0016.html">Daniel Quinlan: "file(1) specification"</a>
+<!-- nextthread="start" -->
+<li> <b>Next in thread:</b> <a href="0018.html">Greg Roelofs: "Re: current draft of POSIX 1003.2B file"</a>
+</ul>

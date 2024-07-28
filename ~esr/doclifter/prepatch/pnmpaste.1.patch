@@ -1,0 +1,11 @@
+--- pnmpaste.1-unpatched	2012-06-29 15:05:02.501740116 -0400
++++ pnmpaste.1	2012-06-29 15:05:21.041739774 -0400
+@@ -42,7 +42,7 @@
+ rectangle.  You can also have the inserted image be translucent, so the
+ resulting image is a mixture of the inserted image and the base image.
+ 
+-.OPTIONS
++.SH OPTIONS
+ .PP
+ The optional flag specifies the operation to use when doing the paste.
+ The default is

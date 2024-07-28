@@ -1,0 +1,56 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>imgsizer</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry"><a name="imgsizer.man"></a><div class="titlepage"></div><div class="refnamediv"><a name="name"></a><h2>Name</h2><p>imgsizer &#8212; automatically splice in height and width params for HTML IMG tags</p></div><div class="refsynopsisdiv"><a name="synopsis"></a><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">imgsizer</code>  [<code class="option">-d</code> <em class="replaceable"><code>file</code></em>] [--document-root <em class="replaceable"><code>file</code></em>] [<code class="option">-h</code> <em class="replaceable"><code>file</code></em>] [--help <em class="replaceable"><code>file</code></em>] [<code class="option">-n</code>] [<code class="option">--no-overwrite</code>] [<em class="replaceable"><code>HTMLFile</code></em>] [<code class="option">-v</code> <em class="replaceable"><code>file</code></em>] [--version]</p></div></div><div class="refsect1"><a name="options"></a><h2>OPTIONS</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+<div class="cmdsynopsis"><p> -V,    --version  </p></div>
+</span></dt><dd><p>Display version information and exit.</p></dd><dt><span class="term">
+<div class="cmdsynopsis"><p> -h,    --help  </p></div>
+</span></dt><dd><p>Display usage information.</p></dd><dt><span class="term">
+<div class="cmdsynopsis"><p> -d <em class="replaceable"><code>&lt;directory&gt;,</code></em>   --document-root <em class="replaceable"><code>&lt;directory&gt;</code></em> </p></div>
+</span></dt><dd><p>Directory where absolute image filenames (i.e, ones which contain
+a leading "/") may be found.</p></dd><dt><span class="term"><span class="bold"><strong>-n, --no-overwwrite</strong></span></span></dt><dd><p>Don't overwrite existing width and height tags if both are present.</p></dd></dl></div></div><div class="refsect1"><a name="description"></a><h2>DESCRIPTION</h2><p>The <span class="command"><strong>imgsizer</strong></span> script automates away the
+tedious task of creating and updating the extension HEIGHT and WIDTH
+parameters in HTML IMG tags.  These parameters help many browsers
+(including the Netscape/Mozilla family) to multi-thread image loading,
+instead of having to load images in strict sequence in order to have
+each one's dimensions available so the next can be placed.  This
+generally allows text on the remainder of the page to load much
+faster.</p><p>This script will try create such attributes for any IMG tag that lacks
+them.  It will correct existing HEIGHT and WIDTH tags unless either
+contains a percent (%) sign, in which case the existing dimensions
+are presumed to be relative and left unaltered.</p><p>This script may be called with no arguments.  In this mode, it filters
+HTML presented on stdin to HTML (unaltered except for added or
+corrected HEIGHT and WIDTH attributes) on stdout.  If called with file
+arguments, it will attempt to transform each file in place.  Each
+argument file is not actually modified until the script completes a
+successful conversion pass.</p><p>The <code class="option">-d</code> &lt;directory&gt; option sets the
+DocumentRoot, where images with an absolute filename (i.e., ones which
+contain a leading "/") may be found.  If none is specified, the
+DocumentRoot defaults to the current working directory.</p><p>The -n (no-overwrite) opion prevents the program from overwriting 
+existing width and height tags if both are present.</p><p>Additional options may also be specified in the environmental
+variable "IMGSIZER".  For example, to avoid typing "imgsizer
+<code class="option">-d</code> /var/www/docs" each time
+<span class="command"><strong>imgsizer</strong></span> is invoked, you might tell sh (or one of
+its descendants):</p><pre class="programlisting">
+IMGSIZER="-d /var/www/docs"; export IMGSIZER
+</pre><p>or, if you use csh:</p><pre class="programlisting">
+setenv IMGSIZER "-d /var/www/docs"
+</pre><p>This script is written in Python, and thus requires a Python
+interpreter on the host system.  It also requires either the
+<span class="citerefentry"><span class="refentrytitle">identify</span>(1)</span>
+utility distributed in the open-source ImageMagick suite of
+image-display and manipulation tools, or a modern version of
+<span class="citerefentry"><span class="refentrytitle">file</span>(1)</span>
+and
+<span class="citerefentry"><span class="refentrytitle">rdjpgcom</span>(1)</span>.
+These utilities are used to extract sizes from the images;
+<span class="command"><strong>imgsizer</strong></span> itself has no knowledge of graphics
+formats.  The script will handle any image format known to
+<span class="citerefentry"><span class="refentrytitle">identify</span>(1)</span>
+including PNG, GIF, JPEG, XBM, XPM, PostScript, BMP, TIFF, and
+anything else even remotely likely to show up as an inline
+image.</p></div><div class="refsect1"><a name="bugs"></a><h2>NOTE</h2><p>The -q, -l, and -m options of the 1.0 versions are gone.  What they
+used to do has been made unnecessary by smarter logic.</p></div><div class="refsect1"><a name="note"></a><h2>BUGS</h2><p>The code uses regular expressions rather than true HTML/XML parsing. 
+Some perverse but legal constructions, like extraneous space within quoted
+numeric attributes, will be mangled.</p></div><div class="refsect1"><a name="author"></a><h2>AUTHOR</h2><p>Originally created by Eric S. Raymond &lt;esr@thyrsus.com&gt;.
+Additional code contributed by Erik Rossen, Michael C. Toren
+&lt;michael@toren.net&gt;, and others.  For updates, see &lt;<a class="ulink" href="http://www.catb.org/~esr" target="_top">http://www.catb.org/~esr</a>&gt;</p></div><div class="refsect1"><a name="see_also"></a><h2>SEE ALSO</h2><p><span class="citerefentry"><span class="refentrytitle">identify</span>(1)</span>,
+<span class="citerefentry"><span class="refentrytitle">file</span>(1)</span>,
+<span class="emphasis"><em>rdjpgcom(1).</em></span></p></div></div></body></html>

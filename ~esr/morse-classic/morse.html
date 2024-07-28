@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>morse</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /></head><body><div class="refentry"><a id="morse.1"></a><div class="titlepage"></div><div class="refnamediv"><a id="name"></a><h2>Name</h2><p>morse, QSO — Morse-code trainer and QSO generator for aspiring radio hams</p></div><div class="refsynopsisdiv"><a id="synopsis"></a><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">morse</code>  [-i ] [-I ] [-r ] [-n <em class="replaceable"><code>num</code></em>] [-R <em class="replaceable"><code>num</code></em>] [-N <em class="replaceable"><code>num</code></em>] [-C <em class="replaceable"><code>charset</code></em>] [-w <em class="replaceable"><code>num</code></em>] [-f <em class="replaceable"><code>num</code></em>] [-v <em class="replaceable"><code>num</code></em>] [-g <em class="replaceable"><code>num</code></em>] [-f <em class="replaceable"><code>num</code></em>] [-e ] [-c ] [-b ] [-a ] [-l ] [-m ] [-t ] [-T ] [-s ] [-q ] [-p <em class="replaceable"><code>num</code></em>] [-E <em class="replaceable"><code>num</code></em>] [-M <em class="replaceable"><code>num</code></em>] [-d ] [-A ] [-B ] [-S ] [-x <em class="replaceable"><code>num</code></em>] [-X <em class="replaceable"><code>num</code></em>] [<em class="replaceable"><code>word</code></em>...]</p></div></div><div class="refsect1"><a id="description"></a><h2>DESCRIPTION</h2><p>The <span class="command"><strong>morse</strong></span> program is a Morse-code trainer
+intended to help aspiring radio hams pass the 5-word-per-minute
+Element 1 test.  It can take test text from a text file on standard
+input, or test words from its command-line arguments, or generate
+random text (-r) or play back what you type (-i).</p><p>A helper program, <span class="command"><strong>QSO</strong></span>, generates plausible
+QSOs that can be fed to the standard input of <span class="command"><strong>morse</strong></span>.</p><p>The following options control the behavior of
+<span class="command"><strong>morse</strong></span>:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">-i</span></dt><dd><p>Play what you type.</p></dd><dt><span class="term">-I</span></dt><dd><p>Like -i but don't turn off keyboard echoing.</p></dd><dt><span class="term">-r</span></dt><dd><p>Generate random text. Starts out slanted towards easy
+    letters, then slants towards ones you get wrong.</p></dd><dt><span class="term">-n NUM</span></dt><dd><p>Make words (groups) NUM characters long.
+    Valid values are between 1 and 20.</p></dd><dt><span class="term">-R NUM</span></dt><dd><p>Set the total time (in minutes) to generate text.</p></dd><dt><span class="term">-N NUM (default 0 means unlimited)</span></dt><dd><p>Set the total number of words (groups) to generate.</p></dd><dt><span class="term">-C 'STRING' (default all available characters)</span></dt><dd><p>Select characters to send from this STRING only.</p></dd><dt><span class="term">-w </span></dt><dd><p>words_per_minute</p></dd><dt><span class="term">-f</span></dt><dd><p>frequency_in_hertz</p></dd><dt><span class="term">-v</span></dt><dd><p>volume (zero to one, rather nonlinear)</p></dd><dt><span class="term">-g</span></dt><dd><p>alternate_frequency (toggles via control-G in input FILE 
+    at a word break)</p></dd><dt><span class="term">-F</span></dt><dd><p>Farnsworth_character_words_per_minute</p></dd><dt><span class="term">-e</span></dt><dd><p>leave off the &lt;SK&gt; sound at the end</p></dd><dt><span class="term">-c</span></dt><dd><p>complain about illegal characters instead of just ignoring
+    them</p></dd><dt><span class="term">-b</span></dt><dd><p>print each word before doing it</p></dd><dt><span class="term">-a</span></dt><dd><p>print each word after doing it</p></dd><dt><span class="term">-l</span></dt><dd><p>print each letter just before doing it</p></dd><dt><span class="term">-m</span></dt><dd><p>print morse dots and dashes as they sound
+    (this printing-intensive option slows the wpm down!)</p></dd><dt><span class="term">-t</span></dt><dd><p>Type along with the morse, but don't see what
+    you're typing (unless you make a mistake).
+    You are allowed to get ahead as much as you want.
+    If you get too far behind it will stop and resync with you.
+    You can force it to resync at the next word end by hitting
+    control-H.
+    Hit ESC to see how you are doing, control-D to end.
+    (The rightmost space in the printout marks where the average is.
+    Farther left spaces separate off blocks of letters that are
+    about twice as probable as the average to occur, three times, etc.)</p></dd><dt><span class="term">-T</span></dt><dd><p>Like -t but see your characters (after they are played).</p></dd><dt><span class="term">-s</span></dt><dd><p>Stop after each character and make sure you get it
+ right. (implies -t)</p></dd><dt><span class="term">-q</span></dt><dd><p>Quietly resyncs with your input (after you make a
+    mistake).</p></dd><dt><span class="term">-p NUM</span></dt><dd><p>Make you get it right NUM times, for penance. (implies -s).</p></dd><dt><span class="term">-E NUM</span></dt><dd><p>If your count of wrong answers minus right answers for a
+    given character exceeds this, the program will start prompting
+    you.  If above the maximum error prompt it will never
+    prompt (implies -t).</p></dd><dt><span class="term">-M NUM</span></dt><dd><p>If you get more than this number of characters behind, pause until you
+    do your next letter. 1 behind is normal, 0 behind means never pause.
+    This option mplies -t.</p></dd><dt><span class="term">-d</span></dt><dd><p>Dynamically speed up or slow down depending on how you are doing.
+    (if also-s, then -d <span class="emphasis"><em>only speeds up</em></span>!)</p></dd><dt><span class="term">-A</span></dt><dd><p>Add ISO 8859-1 (Latin-1) signs to test set.</p></dd><dt><span class="term">-B</span></dt><dd><p>Add uncommon punctuation to test set.</p></dd><dt><span class="term">-S</span></dt><dd><p>Add uncommon prosigns to test set.</p></dd><dt><span class="term">-X</span></dt><dd><p>Set error volume. Error volume 0 means use console
+    speaker.</p></dd><dt><span class="term">-x</span></dt><dd><p>Set frequency of error tone.</p></dd></dl></div><p>Here is the basic International Morse codest that the program
+will train you in:</p><pre class="screen">
+        A  .-          N  -.          1  .----       .  .-.-.-
+        B  -...        O  ---         2  ..---       ,  --..--
+        C  -.-.        P  .--.        3  ...--       ?  ..--..
+        D  -..         Q  --.-        4  ....-       (  -.--.
+        E  .           R  .-.         5  .....       -  -....-
+        F  ..-.        S  ...         6  -....
+        G  --.         T  -           7  --...
+        H  ....        U  ..-         8  ---..
+        I  ..          V  ...-        9  ----.
+        J  .---        W  .--         0  -----
+        K  -.-         X  -..-        /  -..-.
+        L  .-..        Y  -.--        +  .-.-.
+        M  --          Z  --..        =  -...-
+</pre><p>The following characters are included if one uses the -B option:</p><pre class="screen">
+        )  -.--.-      "  .-..-.      _  ..--.-
+        '  .----.      :  ---...      ;  -.-.-.
+        $  ...-..-     !  -.-.--      @  .--.-.
+</pre><p>The following procedural signals (prosigns) are also included if
+one uses -B:</p><pre class="screen">
+&lt;AR&gt;    "+" over, end of message
+&lt;AS&gt;    "*" please stand by (&lt;AS&gt; 5  Wait 5 Minutes) (".-...")
+&lt;BT&gt;    "=" (double dash) pause, break for text
+CL          going off the air (clear)
+CQ          calling any station
+K           go, invite any station to transmit
+&lt;KN&gt;    "(" go only, invite a specific station to transmit
+R           all received OK
+&lt;SK&gt;    "%" end of contact (sent before call) ("...-.-", known also as &lt;VA&gt;)
+</pre><p>The following less-used prosigns are included if one
+uses the -S option:</p><pre class="screen">
+&lt;AA&gt;    "^" new line (".-.-", the same as :a, ae)
+&lt;BK&gt;    "#" invite receiving station to transmit ("-...-.-")
+&lt;KA&gt;    "&amp;" attention ("-.-.-")
+&lt;SN&gt;    "~" understood ("...-.")
+</pre><p>The following characters are included if one uses the -A option:</p><pre class="screen">
+        :a  .-.-   (also for ae, the same as &lt;AA&gt;)
+        `a  .--.-  (also oa, danish a with ring over it)
+        ch  ----   (bar-ch ?, bar-h ?, ISO 8859-1 code 199 and 231 ?)
+        -d  ..--.  (eth, overstrike d with -, ISO 8859-1 code 208 and 240)
+        `e  ..-..
+        ~n  --.--
+        :o  ---.   (also for oe)
+        :u  ..--   (also for ue)
+        ]p  .--..  (thorn, overstrike ] with p, ISO 8859-1 code 222 and 254)
+        paragraph  .-.-..  (ISO 8859-1 code 167 ?)
+</pre><p>For the raw beginner trying to learn morse code, we recommend
+the following sequence:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Start learning the alphabet:</p><pre class="programlisting">
+morse -r -s -T -d -w 5 -F 15 -p 5 -E -10
+</pre></li><li class="step"><p>Then drill drill drill:</p><pre class="programlisting">
+morse -r -s -T -d -w 5 -F 15 -p 5 -E 0
+</pre></li><li class="step"><p>Real-time drill, with hints if you really need it:</p><pre class="programlisting">
+morse -r -T -d -w 5 -F 15 -M 2 -E 4
+</pre></li><li class="step"><p>Simulated test:</p><pre class="programlisting">
+QSO | morse -e -T -d -w 5 -F 15
+</pre></li><li class="step"><p>The dreaded random-letter test:</p><pre class="programlisting">
+morse -r -T -d -w 5 -F 15
+</pre></li><li class="step"><p>Finally try for greater and greater speed:</p><pre class="programlisting">
+morse -r -T -d -w 13 -F 24
+</pre></li></ol></div></div><div class="refsect1"><a id="author"></a><h2>AUTHORS</h2><p>Joe Dellinger <code class="email">&lt;<a class="email" href="mailto:joe@montebello.soest.hawaii.edu">joe@montebello.soest.hawaii.edu</a>&gt;</code>.</p><p>Updated 2005 by Eric S. Raymond <code class="email">&lt;<a class="email" href="mailto:esr@thyrsus.com">esr@thyrsus.com</a>&gt;</code>.</p><p>Updated 2010 by Thomas Horsten <code class="email">&lt;<a class="email" href="mailto:thomas@horsten.com">thomas@horsten.com</a>&gt;</code>.</p><p>Other contributions by Jacek M. Holeczek and Marc Unangst.</p></div></div></body></html>

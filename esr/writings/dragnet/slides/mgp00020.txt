@@ -1,0 +1,9 @@
+
+
+Doc file viewers:
+
+ANTIWORD:
+http://www.winfield.nl
+
+WV:
+http://wvware.sourceforge.net

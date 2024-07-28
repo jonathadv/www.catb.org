@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Trove Design Document: Introduction</TITLE>
+<LINK HREF="trove-design-2.html" REL=next>
+
+<LINK HREF="trove-design.html#toc1" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="trove-design-2.html">Next</A>
+Previous
+<A HREF="trove-design.html#toc1">Contents</A>
+<HR>
+<H2><A NAME="s1">1. Introduction</A></H2>
+
+<P>
+<P>
+<H2><A NAME="ss1.1">1.1 Why Trove?</A>
+</H2>
+
+<P>The `classical' model of Internet software archive (exemplified by 
+<A HREF="http://sunsite.unc.edu">Sunsite</A>, WWW frosting on an FTP
+cake) is no longer adequate to the increasing size and evolutionary
+speed of the open-source community.  It eats too much maintainer time;
+the classification/search mechanisms are woefully weak; and the
+package namespace has no collision detection.
+<P>One of us (Eric Raymond) had been Sunsite's principal maintainer
+for more than a year before Trove got started.  Eric wrote the 
+<A HREF="http://sunsite.unc.edu/search">keeper</A> tool, which does about
+as good a job as possible of automating away the scutwork under the
+present system.  It's not good enough.  The amount of maintainer time
+Sunsite requires is rising to the point where the archive is not
+sustainable. On present trends, Eric thinks Sunsite's system (or its
+maintainers) will collapse by the end of 1998.
+<P>Some prominent Python people (including Ken Manheimer, Andrew
+Kuchling, and Guido Van Rossum) had realized for a while they were
+facing similar problems in the future of the Python archive, and begun
+discussing a redesign they thought of as the `locator' project.
+<P>
+<P>The concept of the Trove project was originally floated by Eric
+Raymond in early April 1998.  Within a week, he was approached by
+Guido van Rossum about joining forces.  By the end of April, when the
+project and the Trove web pages were officially launched, principals
+included Ken Manheimer and Andrew Kuchling of the Python Software
+Activity. Ken Manheimer proposed the name `Trove'.  John Cowan
+provided valuable expertise in database design and IR pragmatics.
+<P>
+<P>
+<H2><A NAME="ss1.2">1.2 Terminology</A>
+</H2>
+
+<P>For purposes of this document, a <EM>resource</EM> is a file such as a
+source or binary archive, an RPM or Debian installable package, a
+documentat, etc.  A resource may have associated <EM>metadata</EM>
+(such as a description of the resource).
+<P>Related resources will be grouped into a <EM>package</EM>, which will
+have associated metadata of its own (including but not limited to
+author's name, the project home page location, etc.).
+<P>The metadata exists to provide a handle on packages and resources,
+making them discoverable through searching and browsing facilities.
+Resources may have associated metadata of their own
+<P>A <EM>search</EM> is any selection operation that returns a subset of
+the archive metadata.
+<P>A <EM>site ring</EM> is a collection of Trove sites that mirror each
+others' metadata (so that a search of any is effectively a search of all).
+<P>
+<HR>
+<A HREF="trove-design-2.html">Next</A>
+Previous
+<A HREF="trove-design.html#toc1">Contents</A>
+</BODY>
+</HTML>

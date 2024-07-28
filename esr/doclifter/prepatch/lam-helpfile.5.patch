@@ -1,0 +1,40 @@
+--- lam-helpfile.5-unpatched	2012-07-04 17:01:33.237530411 -0400
++++ lam-helpfile.5	2012-07-04 17:03:02.989528733 -0400
+@@ -128,25 +128,29 @@
+ -*-boot:open-hostfile-*-
+ %1 could not open the hostfile "%2" for the following reason:
+ 
+-	%perror
++        %perror
+ Things to check:
+ 
+-	- ensure that the file exists
+-	  try "ls -l %2"
+-	- ensure that you have read permissions on the file
+-	  try "cat %2"
++        - ensure that the file exists
++          try "ls -l %2"
++        - ensure that you have read permissions on the file
++          try "cat %2"
++.fi
+ 
+ You may not need to specify a host file at all; the system
+ administrators have defined the all of Beowulf cluster host names in
+ the LAM default host name list.  If you wish to use all of the Beowulf
+ nodes, simply execute:
+ 
+-	%1 -v
++.RS
++        %1 -v
++.RE
+ 
+ If you have any problems with LAM, please send mail to:
+ 
+-	lam-admin@your.domain.com
+-.fi
++.RS
++        lam-admin@your.domain.com
++.RE
+ .LP
+ .SH FILES
+ .TP 4

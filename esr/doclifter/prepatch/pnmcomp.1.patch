@@ -1,0 +1,20 @@
+--- pnmcomp.1-unpatched	2012-06-29 14:55:23.537750943 -0400
++++ pnmcomp.1	2012-06-29 14:56:03.057750204 -0400
+@@ -15,8 +15,6 @@
+ .RI [ pnm-input ]
+ .RI [ pnm-output ]
+ 
+-Minimum unique abbreviations are acceptable.
+-
+ .SH DESCRIPTION
+ .B pnmcomp
+ reads two images and produces a composite image with one of the images
+@@ -83,6 +81,8 @@
+ 
+ 
+ .SH OPTIONS
++Minimum unique abbreviations for options are acceptable.
++
+ .TP
+ .B -invert
+ This option inverts the sense of the values in the alpha mask, which 

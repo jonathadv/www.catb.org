@@ -1,0 +1,11 @@
+--- orca.1-unpatched	2014-06-02 16:57:21.342830002 -0400
++++ orca.1	2014-06-02 16:57:37.303199419 -0400
+@@ -329,6 +329,8 @@
+ mailing list
+ .UR http://mail.gnome.org/mailman/listinfo/orca-list
+ <http://mail.gnome.org/mailman/listinfo/orca-list>
++.UE
++.P
+ To post a message to all
+ .B orca
+ list, send a email to orca-list@gnome.org

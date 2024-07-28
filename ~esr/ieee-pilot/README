@@ -1,0 +1,48 @@
+This is the README file for the reference implementation of IEEE
+PILOT by Eric S. Raymond <esr@thyrsus.com>.
+
+The following sample PILOT programs are included:
+
+tutor.p		--- interactive tutorial on PILOT
+story.p		--- program to generate a silly story from user input
+tea.p		--- teaches the art of tea-brewing
+speaknum.p	--- translate numbers to English
+goldilocks.p	--- another silly-story program, more interactive
+
+It will be helpful to have handy a copy of the IEEE Standard for
+Programmed Inquiry, Learning, Or Teaching (PILOT).  This is IEEE Std
+1154-1991, ISBN 1-55937-151-X.  Be sure you also get the two loose
+pages of corrections.
+
+The distribution includes an interactive tutorial program written in
+PILOT that will help you learn PILOT.  It is tutor.p; to run it, make
+pilot and run `pilot tutor'.
+
+For help on porting this PILOT implementation to other environments, see
+"A Brief Tour of the PILOT Internals", included with this distribution.
+
+			AUTHOR'S DISCLAIMER
+
+Don't blame me for the language design; I think it's wretched, too,
+and I only did this implementation for the hack value.  Finally, a
+*real* language that's as perverse and limiting as INTERCAL...
+
+The project logo is an image of a small part from a Lionel train
+set, colloquially known as a 'cowcatcher' but formally a 'pilot'.
+
+No warranty express or implied, etc, etc.  It runs and compiles the
+conforming examples the IEEE 1154 working group sent me and the
+tutorial I wrote for it.  That's all.
+
+			TO DO
+
+I can't see anyone but the ex-perpetrator of C-INTERCAL being willing to
+spend good hacking time on this turkey.  Nevertheless, there's a TODO
+file for anyone afflicted with fits of temporary lunacy as
+severe as mine.  You might find an update from my WWW home page,
+http://www.catb.org/~esr.
+
+Have fun with this, or something...
+						ESR
+					from the console of `snark'
+					very early on a November morning...

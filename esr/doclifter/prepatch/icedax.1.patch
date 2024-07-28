@@ -1,0 +1,22 @@
+--- icedax.1-unpatched	2012-06-29 09:52:53.074090381 -0400
++++ icedax.1	2012-06-29 09:53:45.958089390 -0400
+@@ -824,8 +824,9 @@
+ The following list displays track number and track time for each entry.
+ The summary gives a line per track describing the type of the track.
+ .sp
+-.ce 1
++.RS
+ .B "track preemphasis copypermitted tracktype chans"
++.RE
+ .sp
+ The
+ .B track
+@@ -933,7 +934,7 @@
+ Audio files:
+ .sp
+ There are audio files containing samples with default extensions
+-.wav, .au, .aifc, .aiff, and .cdr according to the selected sound format.
++\&.wav, .au, .aifc, .aiff, and .cdr according to the selected sound format.
+ These files are not generated when option (-N) is given. Multiple files may
+ be written when the bulk copy option (-B) is used. Individual file names
+ can be given as arguments. If the number of file names given is sufficient

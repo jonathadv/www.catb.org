@@ -1,0 +1,11 @@
+--- ethtool.8-unpatched	2018-06-02 17:32:01.624114161 -0400
++++ ethtool.8	2018-06-02 17:32:01.224116878 -0400
+@@ -679,7 +679,7 @@
+ T}
+ .TE
+ .TP
+-.B sopass \*(MA\c
++.B sopass \*(MA
+ Sets the SecureOn\[tm] password.  The argument to this option must be 6
+ bytes in Ethernet MAC hex format (\*(MA).
+ .PP

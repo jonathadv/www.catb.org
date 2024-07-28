@@ -1,0 +1,66 @@
+<!-- received="Tue Oct 22 11:09:27 1996 EST" -->
+<!-- sent="Tue, 22 Oct 1996 09:54:51 -0500 (CDT)" -->
+<!-- name="Greg Roelofs" -->
+<!-- email="newt@pobox.com" -->
+<!-- subject="Re: current draft of POSIX 1003.2B file" -->
+<!-- id="199610221454.JAA29308@kimbark.uchicago.edu" -->
+<!-- inreplyto="current draft of POSIX 1003.2B file" -->
+<title>magic-numbers: Re: current draft of POSIX 1003.2B file</title>
+<h1>Re: current draft of POSIX 1003.2B file</h1>
+Greg Roelofs (<i>newt@pobox.com</i>)<br>
+<i>Tue, 22 Oct 1996 09:54:51 -0500 (CDT)</i>
+<p>
+<ul>
+<li> <b>Messages sorted by:</b> <a href="date.html#18">[ date ]</a><a href="index.html#18">[ thread ]</a><a href="subject.html#18">[ subject ]</a><a href="author.html#18">[ author ]</a>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0019.html">Christos Zoulas: "Re: Magic Numbers list charter posting"</a>
+<li> <b>Previous message:</b> <a href="0017.html">Daniel Quinlan: "current draft of POSIX 1003.2B file"</a>
+<li> <b>Maybe in reply to:</b> <a href="0017.html">Daniel Quinlan: "current draft of POSIX 1003.2B file"</a>
+<!-- nextthread="start" -->
+</ul>
+<!-- body="start" -->
+<i>&gt;I would like to collect any comments and relay them to the POSIX</i><br>
+<i>&gt;standards group.  Since we can't expect another revision of POSIX.2</i><br>
+<i>&gt;for a while, we should really push POSIX to get it right this time.</i><br>
+<p>
+My comments are pretty much restricted to the magic file, so this message<br>
+goes back out to both lists.  Aside from the older comments Dan collected<br>
+and posted yesterday, the only missing item I noticed was a comment on the<br>
+identification of "byte" with "signed character"; this seems counter-<br>
+intuitive to me (i.e., it should be unsigned).  Not a big deal, though.<br>
+<p>
+In terms of updating Dan's old comments, it might also be useful to offer<br>
+a shorthand version of the endian prefixes (they should probably be suffixes<br>
+now):<br>
+<p>
+	dS -&gt; dSb<br>
+	dL -&gt; dLb<br>
+	d4 -&gt; d4l<br>
+	etc.<br>
+<p>
+Also note the part about an optional integer to indicate the length of the<br>
+type; this renders Dan's old comment about non-portability at least partially<br>
+moot (although it will require retrofitting such support both to Darwin file<br>
+and to its magic data, and it would be *nice* if the older types could be<br>
+identified with a fixed size to avoid breaking portability with most older<br>
+implementations--that won't help Crays or Alphas, though).  The new POSIX<br>
+draft doesn't specify whether the integer suffix can be used with the other<br>
+suffixes (e.g., C, S, I, L are redundant, and note the possibilities/compli-<br>
+cations for dealing with wide characters; also, how does the integer value<br>
+affect the interpretation of the floating-point suffixes?).  That should be<br>
+clarified.  (Did it say anything about floating-point numbers being in IEEE<br>
+format?  I didn't notice.)<br>
+<p>
+That's all that came to mind offhand.  The endianness issue is the critical<br>
+one, of course.<br>
+<p>
+Greg<br>
+<!-- body="end" -->
+<p>
+<ul>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0019.html">Christos Zoulas: "Re: Magic Numbers list charter posting"</a>
+<li> <b>Previous message:</b> <a href="0017.html">Daniel Quinlan: "current draft of POSIX 1003.2B file"</a>
+<li> <b>Maybe in reply to:</b> <a href="0017.html">Daniel Quinlan: "current draft of POSIX 1003.2B file"</a>
+<!-- nextthread="start" -->
+</ul>

@@ -1,0 +1,11 @@
+--- rake2.1.1-unpatched	2016-03-06 07:04:30.272225191 -0500
++++ rake2.1.1	2016-03-06 07:04:56.640190982 -0500
+@@ -186,7 +186,7 @@
+ .It Ev HOMEDRIVE
+ .It Ev HOMEPATH
+ The standard directory containing system wide rake files on Win 32 systems.
+-
++.El
+ .Sh SEE ALSO
+ .Xr ruby 1
+ .Xr make 1

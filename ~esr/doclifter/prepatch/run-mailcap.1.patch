@@ -1,0 +1,19 @@
+--- run-mailcap.1-unpatched	2010-07-22 16:50:58.000000000 -0400
++++ run-mailcap.1	2010-07-22 16:51:33.000000000 -0400
+@@ -12,6 +12,7 @@
+ \-\-action=ACTION [\-\-option[=value]]
+ [MIME-TYPE:[ENCODING:]]FILE [...]
+ 
++.SH DESCRIPTION
+ The
+ .BR see ,
+ .BR edit ,
+@@ -20,8 +21,6 @@
+ .B print
+ versions are just aliases that default to the view, edit, compose, and
+ print actions (respectively).
+-
+-.SH DESCRIPTION
+ .PP
+ .B run-mailcap
+ (or any of its aliases) will use the given action to process each

@@ -1,0 +1,14 @@
+--- tc-mqprio.8-unpatched	2018-05-18 17:15:30.026540775 -0400
++++ tc-mqprio.8	2018-05-18 17:15:41.762461016 -0400
+@@ -4,9 +4,9 @@
+ .SH SYNOPSIS
+ .B tc qdisc ... dev
+ dev
+-.B  ( parent
++.B  { parent
+ classid
+-.B | root) [ handle
++.B | root } [ handle
+ major:
+ .B ] mqprio [ numtc
+ tcs

@@ -1,0 +1,10 @@
+Spurious leading . on comment.
+
+--- gacutil.1-unpatched	2010-07-24 21:16:48.000000000 -0400
++++ gacutil.1	2010-07-24 21:17:25.000000000 -0400
+@@ -1,4 +1,4 @@
+-..\" 
++.\" 
+ .\" gacutil manual page.
+ .\" (C) 2004 Novell, Inc.
+ .\" Author:

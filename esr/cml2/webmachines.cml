@@ -1,0 +1,1082 @@
+# Peter Kovacs at Webmachines writes:
+# 
+# Here at WebMachines we're making client software as well as network
+# services for Internet Appliances.  We've found that creating our own
+# distribution is the best way to go.  The problem was in configuring
+# all the disparate packages -- thats when I found CML2.
+# 
+# So basically we've got a collection of libraries and binaries like
+# busybox, tinylogin and so on.  I then created a bunch of makefiles which
+# include the config.out file and build and install various components
+# depending on the configuration.  So most of the rulesfiles involve
+# configuring specific packages such as busybox, glibc, X11, netkit and so
+# on.
+# 
+# Now, instead of cobbling together binaries and libraries from our linux
+# distribution on our workstation, we can compile and install everything
+# directly from source.  Let me tell you, its a wonderful feeling to type:
+# 
+#         make binary; make install; make burn;
+# 
+# and have a compact flash ready to go into your target device.
+#
+# (I have merged the four files Peter sent me into one, but this is otherwise
+# unchanged.   It's an instructive example of a medium-sized CML2 system.)
+
+symbols
+DEVELOPER               'Include developer utilities'
+DEVICENAME              'Device type (i.e. DT240, DT500, etc)'
+TARGETDIR               'Target installation directory'
+_BB_ADVANCED		'BusyBox advanced configuration'
+
+#
+# Kernel Configuration
+#
+KERNEL_PATCH_LPP	'Install the Linux Progress Patch (Boot-up screen)'
+
+#
+# BusyBox Configuration
+#
+BUSYBOX                 'Compile Busybox'
+BB_ADJTIMEX             'BusyBox adjtimex'
+BB_AR                   'BusyBox ar'
+BB_BASENAME             'BusyBox basename'
+BB_CAT                  'BusyBox cat'
+BB_CHMOD_CHOWN_CHGRP    'BusyBox chmod/chown/chgrp'
+BB_CHROOT               'BusyBox chroot'
+BB_CHVT                 'BusyBox chvt'
+BB_CLEAR                'BusyBox clear'
+BB_CMP                  'BusyBox cmp'
+BB_CP_MV                'BusyBox cp/mv'
+BB_CUT                  'BusyBox cut'
+BB_DATE                 'BusyBox date'
+BB_DC                   'BusyBox dc'
+BB_DD                   'BusyBox dd'
+BB_DEALLOCVT            'BusyBox deallocvt'
+BB_DF                   'BusyBox df'
+BB_DIRNAME              'BusyBox dirname'
+BB_DMESG                'BusyBox dmesg'
+BB_DOS2UNIX             'BusyBox dos2unix'
+BB_DPKG                 'BusyBox dpkg'
+BB_DPKG_DEB             'BusyBox dpkg-deb'
+BB_DUTMP                'BusyBox dutmp'
+BB_DU                   'BusyBox du'
+BB_DUMPKMAP             'BusyBox dumpkmap'
+BB_ECHO                 'BusyBox echo'
+BB_ENV                  'BusyBox env'
+BB_EXPR                 'BusyBox expr'
+BB_FBSET                'BusyBox fbset'
+BB_FDFLUSH              'BusyBox fdflush'
+BB_FIND                 'BusyBox find'
+BB_FREE                 'BusyBox free'
+BB_FREERAMDISK          'BusyBox freeramdisk'
+BB_FSCK_MINIX           'BusyBox fsck-minix'
+BB_GETOPT               'BusyBox getopt'
+BB_GREP                 'BusyBox grep'
+BB_GUNZIP               'BusyBox gunzip'
+BB_GZIP                 'BusyBox gzip'
+BB_HALT                 'BusyBox halt'
+BB_HEAD                 'BusyBox head'
+BB_HOSTID               'BusyBox hostid'
+BB_HOSTNAME             'BusyBox hostname'
+BB_ID                   'BusyBox id'
+BB_IFCONFIG             'BusyBox ifconfig'
+BB_INIT                 'BusyBox init'
+BB_INSMOD               'BusyBox insmod'
+BB_KILL                 'BusyBox kill'
+BB_KILLALL              'BusyBox killall'
+BB_KLOGD                'BusyBox klogd'
+BB_LENGTH               'BusyBox length'
+BB_LN                   'BusyBox ln'
+BB_LOADACM              'BusyBox loadacm'
+BB_LOADFONT             'BusyBox loadfont'
+BB_LOADKMAP             'BusyBox loadkmap'
+BB_LOGGER               'BusyBox logger'
+BB_LOGNAME              'BusyBox logname'
+BB_LS                   'BusyBox ls'
+BB_LSMOD                'BusyBox lsmod'
+BB_MAKEDEVS             'BusyBox makedevs'
+BB_MD5SUM               'BusyBox md5sum'
+BB_MKDIR                'BusyBox mkdir'
+BB_MKFIFO               'BusyBox mkfifo'
+BB_MKFS_MINIX           'BusyBox mkfs-minix'
+BB_MKNOD                'BusyBox mknod'
+BB_MKSWAP               'BusyBox mkswap'
+BB_MKTEMP               'BusyBox mktemp'
+BB_NC                   'BusyBox nc'
+BB_MORE                 'BusyBox more'
+BB_MOUNT                'BusyBox mount'
+BB_MT                   'BusyBox mt'
+BB_NSLOOKUP             'BusyBox nslookup'
+BB_PING                 'BusyBox ping'
+BB_PIVOT_ROOT           'BusyBox pivot root'
+BB_POWEROFF             'BusyBox poweroff'
+BB_PRINTF               'BusyBox printf'
+BB_PS                   'BusyBox ps'
+BB_PWD                  'BusyBox pwd'
+BB_RDATE                'BusyBox rdate'
+BB_READLINK             'BusyBox readlink'
+BB_REBOOT               'BusyBox reboot'
+BB_RENICE               'BusyBox renice'
+BB_RESET                'BusyBox reset'
+BB_RM                   'BusyBox rm'
+BB_RMDIR                'BusyBox rmdir'
+BB_RMMOD                'BusyBox rmmod'
+BB_ROUTE                'BusyBox route'
+BB_RPMUNPACK            'BusyBox rpmunpack'
+BB_SED                  'BusyBox sed'
+BB_SETKEYCODES          'BusyBox setkeycodes'
+BB_SH                   'BusyBox sh'
+BB_SLEEP                'BusyBox sleep'
+BB_SORT                 'BusyBox sort'
+BB_STTY                 'BusyBox stty'
+BB_SWAPONOFF            'BusyBox swaponoff'
+BB_SYNC                 'BusyBox sync'
+BB_SYSLOGD              'BusyBox syslogd'
+BB_TAIL                 'BusyBox tail'
+BB_TAR                  'BusyBox tar'
+BB_TEE                  'BusyBox tee'
+BB_TEST                 'BusyBox test'
+BB_TELNET               'BusyBox telnet'
+BB_TFTP                 'BusyBox tftp'
+BB_TOUCH                'BusyBox touch'
+BB_TR                   'BusyBox tr'
+BB_TRUE_FALSE           'BusyBox true/false'
+BB_TTY                  'BusyBox tty'
+BB_UUENCODE             'BusyBox uuencode'
+BB_UUDECODE             'BusyBox uudecode'
+BB_UMOUNT               'BusyBox umount'
+BB_UNIQ                 'BusyBox uniq'
+BB_UNAME                'BusyBox uname'
+BB_UPDATE               'BusyBox update'
+BB_UPTIME               'BusyBox uptime'
+BB_USLEEP               'BusyBox usleep'
+BB_VI                   'BusyBox vi'
+BB_WATCHDOG             'BusyBox watchdog'
+BB_WC                   'BusyBox wc'
+BB_WGET                 'BusyBox wget'
+BB_WHICH                'BusyBox which'
+BB_WHOAMI               'BusyBox whoami'
+BB_XARGS                'BusyBox xargs'
+BB_YES                  'BusyBox yes'
+#BB_FEATURE_USE_DEVPS_PATCH 'BusyBox use devps kernel patch'
+BB_FEATURE_NFSMOUNT     'BusyBox enable nfs mounting'
+BB_FEATURE_BUFFERS_GO_ON_STACK 'BusyBox buffers go on stack - eliminates malloc'
+BB_FEATURE_VERBOSE_USAGE 'BusyBox verbose usage'
+BB_FEATURE_USE_TERMIOS	'BusyBox use termios to manipulate the screen'
+BB_FEATURE_AUTOWIDTH	'BusyBox calculate terminal & column widths'
+BB_FEATURE_LS_USERNAME  'BusyBox show username/groupnames for ls'
+BB_FEATURE_LS_TIMESTAMPS 'BusyBox show file timestamps in ls'
+BB_FEATURE_LS_FILETYPES	'BusyBox enable ls -p and -F'
+BB_FEATURE_LS_SORTFILES	'BusyBox sort the file names'
+BB_FEATURE_LS_RECURSIVE	'BusyBox enable ls -R'
+BB_FEATURE_LS_FOLLOWLINKS 'BusyBox enable ls -L'
+BB_FEATURE_SIMPLE_PING	'BusyBox Change ping implementation -- simplified, featureless, but really small.'
+BB_FEATURE_USE_INITTAB	'BusyBox Make init use a simplified /etc/inittab file (recommended)'
+BB_FEATURE_LINUXRC	'BusyBox Enable init being called as /linuxrc'
+BB_FEATURE_INIT_COREDUMPS 'BusyBox Have init enable core dumping for child processes'
+BB_FEATURE_EXTRA_QUIET	'BusyBox Make sure nothing is printed to the console on boot'
+BB_FEATURE_REMOTE_LOG	'BusyBox enable syslogd -R remotehost'
+BB_FEATURE_IPC_SYSLOG	'BusyBox enable syslogd -C'
+BB_FEATURE_SIMPLE_TAIL	'BusyBox Simple tail implementation'
+BB_FEATURE_MOUNT_LOOP	'BusyBox Enable support for loop devices in mount'
+BB_FEATURE_MTAB_SUPPORT	'BusyBox Enable support for a real /etc/mtab file instead of /proc/mounts'
+BB_FEATURE_MOUNT_FORCE	'BusyBox Enable support forced filesystem unmounting'
+BB_FEATURE_RM_INTERACTIVE 'BusyBox use -i (interactive) flag for rm'
+BB_FEATURE_TAR_CREATE	'BusyBox Enable support for creation of tar files.'
+BB_FEATURE_TAR_EXCLUDE	'BusyBox Enable support for "--exclude" and "-X" for excluding files'
+BB_FEATURE_TAR_GZIP	'BusyBox Enable support for tar -z option (currently only works for inflating)'
+BB_FEATURE_SORT_REVERSE	'BusyBox Enable reverse sort'
+BB_FEATURE_COMMAND_EDITING 'BusyBox Enable command line editing in the shell.'
+BB_FEATURE_COMMAND_TAB_COMPLETION 'BusyBox Enable tab completion in the shell.'
+BB_FEATURE_COMMAND_USERNAME_COMPLETION 'BusyBox Attempts to match usernames in a ~-prefixed path'
+BB_FEATURE_SH_STANDALONE_SHELL 'BusyBox Allow the shell to invoke all the compiled in BusyBox applets as if they were shell builtins.'
+BB_FEATURE_SH_APPLETS_ALWAYS_WIN 'BusyBox When this is enabled, busybox shell applets can be called using full path names.'
+BB_FEATURE_SH_SIMPLE_PROMPT	'BusyBox Simple sh prompt'
+BB_FEATURE_FBSET_FANCY	'BusyBox Turn on extra fbset options'
+BB_FEATURE_FBSET_READMODE	'BusyBox Turn on fbset readmode support'
+BB_FEATURE_NEW_MODULE_INTERFACE	'BusyBox Support insmod/lsmod/rmmod for post 2.1 kernels'
+BB_FEATURE_OLD_MODULE_INTERFACE	'BusyBox Support insmod/lsmod/rmmod for pre 2.1 kernels'
+BB_FEATURE_INSMOD_VERSION_CHECKING 'BusyBox Support module version checking'
+BB_FEATURE_MINIX2	'BusyBox Support for Minix filesystem, version 2'
+BB_FEATURE_IFCONFIG_STATUS	'BusyBox Enable ifconfig status reporting output -- this feature adds 12k.'
+BB_FEATURE_IFCONFIG_SLIP	'BusyBox Enable ifconfig slip-specific options "keepalive" and "outfill"'
+BB_FEATURE_IFCONFIG_MEMSTART_IOADDR_IRQ	'BusyBox Enable ifconfig options "mem_start", "io_addr", and "irq".'
+BB_FEATURE_IFCONFIG_HW	'BusyBox Enable ifconfig option "hw".'
+BB_FEATURE_INSTALLER	'BusyBox Enable busybox --install [-s]'
+BB_FEATURE_WGET_STATUSBAR	'BusyBox Enable a nifty progress meter in wget (adds just under 2k)'
+BB_FEATURE_WGET_AUTHENTICATION	'BusyBox Enable HTTP authentication in wget'
+BB_FEATURE_HUMAN_READABLE	'BusyBox Support for human readable output by ls, du, etc.'
+BB_FEATURE_FIND_TYPE	'BusyBox Support for the find -type option.'
+BB_FEATURE_FIND_PERM	'BusyBox Support for the find -perm option.'
+BB_FEATURE_FIND_MTIME	'BusyBox Support for the find -mtime option.'
+BB_FEATURE_GREP_CONTEXT	'BusyBox Support for the -A -B and -C context flags in grep'
+BB_FEATURE_GREP_EGREP_ALIAS	'BusyBox Support for the EGREP applet'
+BB_FEATURE_TFTP_PUT	'BusyBox enable tftp put command'
+BB_FEATURE_TFTP_GET	'BusyBox enable tftp get command'
+BB_FEATURE_VI_COLON	'BusyBox VI ":" colon commands, no "ex" mode'
+BB_FEATURE_VI_YANKMARK	'BusyBox VI Yank/Put commands and Mark cmds'
+BB_FEATURE_VI_SEARCH	'BusyBox VI search and replace cmds'
+BB_FEATURE_VI_USE_SIGNALS	'BusyBox VI catch signals'
+BB_FEATURE_VI_DOT_CMD	'BusyBox VI remember previous cmd and "." cmd'
+BB_FEATURE_VI_READONLY	'BusyBox VI vi -R and "view" mode'
+BB_FEATURE_VI_SETOPTS	'BusyBox VI set-able options,  ai ic showmatch'
+BB_FEATURE_VI_SET	'BusyBox VI :set'
+BB_FEATURE_VI_WIN_RESIZE	'BusyBox handle window resize'
+BB_LOCALE_SUPPORT	'BusyBox Enable a if you system have setuped locale'
+
+#
+# GLIB C
+#
+LIB_C                   'Compile glibc 2.1.3'
+LIB_C_OMITFP            'Optimize without frame pointer (only in release)'
+LIB_C_LDD               'Install ldd'
+LIB_C_LD_SO             'Install ld-linux.so'
+LIB_C_BROKEN_LOCALE     'Install libBrokenLocale.so'
+LIB_C_CRYPT             'Install libcrypt.so'
+LIB_C_DL                'Install libdl.so'
+LIB_C_M                 'Install libm.so'
+LIB_C_NSL               'Install libnsl.so'
+LIB_C_NSS               'Install libnss libraries'
+LIB_C_PTHREAD           'Install libpthread.so'
+LIB_C_RESOLV            'Install libresolv.so'
+LIB_C_RT                'Install librt.so'
+LIB_C_UTIL              'Install libutil.so'
+LIB_C_I18N              'Install I18N data (7424KB)'
+LIB_C_LOCALE            'Install Locale data (1296KB)'
+LIB_C_ZONEINFO          'Install zoneinfo (5096KB)'
+
+#
+# X11
+#
+X11			'Build X11 distribution'
+X11_XFREE86		'Build the regular Xfree86 Server'
+X11_XFREE86_FBDEV	'Build the frame buffer driver'
+X11_XFREE86_GEODE	'Build the geode driver (does not work)'
+X11_XFREE86_VESA	'Build the vesa driver'
+X11_XFREE86_VGA		'Build the vga driver'
+X11_XFREE86_CYRIX	'Build the cyrix driver'
+X11_TINY		'Build TinyX'
+X11_TINY_XFBDEV		'Build TinyX frame buffer server'
+X11_TINY_VESA		'Build TinyX vesa server'
+X11_TINY_TS300		'Build TinyX T300 server'
+X11_TINY_IGS		'Build TinyX IGS server'
+X11_TINY_TRIDENT	'Build TinyX Trident server'
+X11_TINY_SAVAGE		'Build TinyX Savage server'
+X11_FONT_SERVER		'Build font server'
+X11_FONT_SPEEDO		'Enable support for Speedo fonts'
+X11_FONT_TYPE1		'Enable support for Type1 fonts'
+X11_FONT_CID		'Enable support for CID fonts'
+X11_FONT_TRUETYPE	'Enable support for TrueType fonts'
+X11_INST_75DPI		'Install 75dpi fonts'
+X11_INST_100DPI		'Install 100dpi fonts'
+X11_INST_SPEEDO		'Install Speedo fonts'
+X11_INST_TYPE1		'Install Type1 fonts'
+X11_INST_CID		'Install CID fonts'
+X11_INST_CYRILLIC	'Install Cyrillic fonts'
+X11_INST_LATIN2		'Install Latin2 fonts'
+
+#
+# Shell
+#
+SHELL_ASH               'Build the ash shell'
+SHELL_BASH              'Build the bash shell'
+
+#
+# Netkit CONFIGURATION
+#
+NETKIT                  'Build Netkit'
+NETKIT_BIFF             'Build biff+comsat'
+NETKIT_FINGER           'Build finger'
+NETKIT_FTPD             'Build ftpd'
+NETKIT_BASE             'Build inetd + ping'
+NETKIT_BOOTPARAMD       'Build bootparamd'
+NETKIT_FTP              'Build ftp'
+NETKIT_NTALK            'Build talk and talkd'
+NETKIT_ROUTED           'Build ripquery and routed'
+NETKIT_RPC              'Build rpcgen and rpcinfo'
+NETKIT_RSH              'Build rcp, rsh, rexec, and rlogin'
+NETKIT_RUSERS           'Build rup and rusers'
+NETKIT_RWALL            'Build rwalld and rwall'
+NETKIT_RWHO             'Build rwho and rwhod'
+NETKIT_TELNET           'Build telnet and telnetd'
+NETKIT_TFTP             'Build tftp and tftpd'
+NETKIT_TIMED            'Build timed'
+NETKIT_NETWRITE         'Build write and writed'
+
+#
+# Modutils
+#
+MODUTILS                'Build kernel module utilities'
+MODUTILS_INSMOD         'Build insmod - insert modules into the kernel'
+MODUTILS_RMMOD          'Build rmmod - remove modules from the kernel'
+MODUTILS_MODPROBE       'Build modprobe - load modules and dependencies'
+MODUTILS_LSMOD          'Build lsmod - list inserted modules'
+MODUTILS_DEPMOD         'Build depmod - enumerate module dependencies'
+MODUTILS_MODINFO        'Build modinfo - display module information'
+MODUTILS_KSYMS          'Build ksyms - display kernel symbols'
+
+#
+# PPP
+#
+PPP                     'Build PPPd'
+PPP_CHAT                'Build chat'
+PPP_PPPDUMP             'Build pppdump'
+PPP_PPPSTATS            'Build pppstats'
+
+#
+# Utilities
+#
+UTIL_LOGIN              'tinylogin: a login program'
+UTIL_PUMP               'pump: dhcp client daemon'
+UTIL_STRACE		'strace: trace system calls in programs'
+UTIL_TOP		'top: show system load'
+
+#
+# QT Configuration
+#
+QT			'Build QT 2.2.2e'
+QT_DEPTHS               'Support depths (comma seperated)'
+QT_NO_IMAGEIO_BMP	'Disable the Microsoft Bitmap image file format.'
+QT_NO_IMAGEIO_PPM	'Disable the Portable Pixmap image file format.'
+QT_NO_IMAGEIO_XBM	'Disable the X11 Bitmap image file format.'
+QT_NO_IMAGEIO_XPM	'Disable the X11 Pixmap image file format.'
+QT_NO_IMAGEIO_PNG	'Disable the Portable Network Graphics image file format.'
+
+QT_NO_ASYNC_IO		'Disable asynchronous I/O - QAsyncIO'
+QT_NO_ASYNC_IMAGE_IO	'Disable Asynchronous Image I/O and GIF image support - QImageDecoder, etc.'
+QT_NO_MOVIE		'Disable Animation support - QMovie'
+
+QT_NO_TRUETYPE		'Disable TrueType (TTF and TTC) font file format, only used by Qt/Embedded.'
+QT_NO_BDF		'Disable Bitmap Distribution Format (BDF) font file format, only used by Qt/Embedded.'
+QT_NO_FONTDATABASE	'Disable Font database.'
+
+QT_NO_I18N		'Disable Conversions between Unicode and 8-bit encodings.'
+QT_NO_UNICODETABLES	'Disable Large tables defining such things as upper and lowercase conversions for all Unicode characters.'
+
+QT_NO_MIME		'Disable Multipurpose Internet Mail Extensions, an internet standard for encoding and tagging typed data (eg. text, images, colors) - QMimeSource'
+QT_NO_RICHEDIT		'Disable HTML-like text - QStyleSheet, QLabel'
+QT_NO_DRAGANDDROP	'Disable Drag-and-drop data between applications - QDragObject'
+QT_NO_CLIPBOARD		'Disable Cut-and-paste data between applications - QClipboard'
+QT_NO_SOUND		'Disable Playing audio files - QSound'
+QT_NO_PROPERTIES	'Disable Scripting of Qt-based applications.'
+
+QT_NO_QWS_CURSOR	'Disable The cursor sprite on Qt/Embedded. Pen-operated devices would not normally need this feature.'
+QT_NO_QWS_DEPTH_8GRAYSCALE 'Disable 8-bit-per-pixel - 256 levels of gray. Incompatible with QWS_DEPTH_8'
+QT_NO_QWS_DEPTH_8	'Disable 8-bit-per-pixel - 216-color color-cube with 40 auxiliary colors. Incompatible with QWS_DEPTH_8GRAYSCALE.'
+QT_NO_QWS_DEPTH_15	'Disable 15-bit-per-pixel - 32 levels each of Red, Blue, and Green.'
+QT_NO_QWS_DEPTH_16	'Disable 16-bit-per-pixel - 32 levels each of Red and Blue, 64 of Green.'
+QT_NO_QWS_DEPTH_32	'Disable 32-bit-per-pixel - 256 levels for each of Red, Green, and Blue.'
+QT_NO_QWS_MACH64	'Disable Mach64 accelerated driver (demonstration only)'
+QT_NO_QWS_VFB		'Disable Virtual framebuffer running on X11 (see reference documentation).'
+
+QT_NO_NETWORKPROTOCOL	'Disable Abstract multi-protocol data retrieval, with local file retrieval included - QNetworkProtocol'
+QT_NO_NETWORKPROTOCOL_FTP	'Disable FTP-protocol data retrieval.'
+QT_NO_NETWORKPROTOCOL_HTTP	'Disable HTTP-protocol data retrieval.'
+
+QT_NO_COLORNAMES	'Disable Color names such as "red", used by some QColor constructors and by some HTML documents - QColor, QStyleSheet'
+QT_NO_TRANSFORMATIONS	'Disable rotation and scaling. Without it, only co-ordinate translation - QWMatrix'
+QT_NO_PSPRINTER		'Disable Postscript printer support.'
+QT_NO_PRINTER		'Disable Printer support - QPrinter'
+QT_NO_PICTURE		'Disable Save Qt drawing commands to a files - QPicture'
+
+QT_NO_WIDGETS		'Disabling this disables all widgets except QWidget.'
+QT_NO_TEXTVIEW		'Disable HTML document viewing - QTextView'
+QT_NO_TEXTBROWSER	'Disable HTML document browsing - QTextBrowser'
+QT_NO_ICONVIEW		'Disable Labelled icons - QIconView'
+QT_NO_LISTVIEW		'Disable Lists of information - QListView'
+QT_NO_CANVAS		'Disable Object canvas - QCanvas'
+QT_NO_DIAL		'Disable Value control - QDial'
+QT_NO_WORKSPACE		'Disable Multi-document interface - QWorkspace'
+QT_NO_LCDNUMBER		'Disable LCD-like number display - QLCDNumber'
+
+QT_NO_STYLE_WINDOWS	'Disable Microsoft Windows style - QWindowsStyle'
+QT_NO_STYLE_MOTIF	'Disable OSF Motif style - QMotifStyle'
+QT_NO_STYLE_CDE		'Disable Open Group CDE style - QCDEStyle' 
+QT_NO_STYLE_PLATINUM	'Disable MacOS X style - QPlatinumStyle'
+QT_NO_STYLE_SGI		'Disable SGI style - QSGIStyle'
+
+QT_NO_DIALOGS		'Disabling this disables all common dialogs QWidget.'
+QT_NO_FILEDIALOG	'Disable The file selection dialog - QFileDialog'
+QT_NO_FONTDIALOG	'Disable The font selection dialog - QFontDialog'
+QT_NO_COLORDIALOG	'Disable The color selection dialog - QColorDialog'
+QT_NO_PRINTDIALOG	'Disable The print selection dialog - QPrintDialog'
+QT_NO_INPUTDIALOG	'Disable Text input dialog - QInputDialog'
+QT_NO_MESSAGEBOX	'Disable Message/prompting dialog - QMessageBox'
+QT_NO_PROGRESSDIALOG	'Disable Long-computation progress dialog - QProgressDialog'
+QT_NO_TABDIALOG		'Disable Tabbed-pages dialog - QTabDialog'
+QT_NO_WIZARD		'Disable Multi-step dialog - QWizard'
+
+#
+# Libraries
+#
+LIB_NCURSES             'libncurses'
+LIB_READLINE            'libreadline'
+LIB_STDCPP              'libstdc++ 2.10.0'
+LIB_GTK                 'libgtk 1.2.10'
+LIB_TERMCAP             'libtermcap 2.0.8'
+LIB_OPERA		'Include embedded opera libraries (libopera)'
+
+#
+# Tiny Login
+#
+TINYLOGIN			'Build the TinyLogin package'
+TLG_ADDUSER			'Build adduser'
+TLG_DELUSER			'Build deluser'
+TLG_ADDGROUP			'Build addgroup'
+TLG_DELGROUP			'Build delgroup'
+TLG_LOGIN			'Build login'
+TLG_SU				'Build su'
+TLG_SULOGIN			'Build sulogin'
+TLG_PASSWD			'Build passwd'
+TLG_GETTY			'Build getty'
+TLG_VLOCK			'Build vlock'
+TLG_FEATURE_SHADOWPASSWDS	'Use shadow passwords'
+TLG_FEATURE_SECURETTY		'Enable checking of /etc/securetty by login'
+TLG_FEATURE_MD5_PASSWORDS	'Use md5 passwords'
+TLG_FEATURE_SHA1_PASSWORDS	'Use sha1 passwords'
+TLG_FEATURE_TRIVIAL_HELP	'Include only trivial help info'
+TLG_FEATURE_INSTALLER		'Enable --install flag which creates links'
+
+	devicecfg	'Device Configuration'
+	kernelcfg	'Linux Kernel Configuration'
+	bbconfig	'BusyBox Configuration'
+	x11cfg		'X11 Configuration'
+	shellcfg	'Shell Configuration'
+	utilcfg		'Utilities Configuration'
+	libcfg		'Libraries Configuration'
+	glibccfg    'GLibC Configuration'
+	netkitcfg	'NetKit Configuration'
+	modutilscfg	'Modutils Configuration'
+	pppcfg      'PPP Configuration'
+	qtcfg       'QT Configuration'
+	tinylogincfg	'TinyLogin Configuration'
+
+	main "IAClient Configuration System"
+
+start main
+
+menu main
+	devicecfg
+	kernelcfg
+	bbconfig
+	glibccfg
+	netkitcfg
+	x11cfg
+	shellcfg
+	utilcfg
+	tinylogincfg
+	pppcfg
+	modutilscfg
+	libcfg 
+	qtcfg
+
+menu devicecfg          # Device Configuration
+        DEVICENAME$
+        TARGETDIR$
+        DEVELOPER
+
+menu kernelcfg
+	KERNEL_PATCH_LPP
+
+
+default DEVICENAME from "DT240"
+#default TARGETDIR from "$(HOME)/wmi_linux.src/target"
+default TARGETDIR from ""
+
+menu bbconfig           # BusyBox Configuration
+        BUSYBOX {
+        BB_ADJTIMEX
+        BB_AR
+        BB_BASENAME
+        BB_CAT
+        BB_CHMOD_CHOWN_CHGRP
+        BB_CHROOT
+        BB_CHVT
+        BB_CLEAR
+        BB_CMP
+        BB_CP_MV
+        BB_CUT
+        BB_DATE
+        BB_DC
+        BB_DD
+        BB_DEALLOCVT
+        BB_DF
+        BB_DIRNAME
+        BB_DMESG
+        BB_DOS2UNIX
+        BB_DPKG
+        BB_DPKG_DEB
+        BB_DUTMP
+        BB_DU
+        BB_DUMPKMAP
+        BB_ECHO
+        BB_ENV
+        BB_EXPR
+        BB_FBSET { BB_FEATURE_FBSET_FANCY BB_FEATURE_FBSET_READMODE }
+        BB_FDFLUSH
+        BB_FIND { BB_FEATURE_FIND_TYPE BB_FEATURE_FIND_PERM BB_FEATURE_FIND_MTIME }
+        BB_FREE
+        BB_FREERAMDISK
+        BB_FSCK_MINIX
+        BB_GETOPT
+        BB_GREP { BB_FEATURE_GREP_CONTEXT BB_FEATURE_GREP_EGREP_ALIAS }
+        BB_GUNZIP
+        BB_GZIP
+        BB_HALT
+        BB_HEAD
+        BB_HOSTID
+        BB_HOSTNAME
+        BB_ID
+        BB_IFCONFIG { BB_FEATURE_IFCONFIG_STATUS BB_FEATURE_IFCONFIG_SLIP
+                      BB_FEATURE_IFCONFIG_MEMSTART_IOADDR_IRQ BB_FEATURE_IFCONFIG_HW }
+        BB_INIT { BB_FEATURE_USE_INITTAB BB_FEATURE_LINUXRC BB_FEATURE_INIT_COREDUMPS 
+                  BB_FEATURE_EXTRA_QUIET }      
+        BB_INSMOD { BB_FEATURE_INSMOD_VERSION_CHECKING BB_FEATURE_NEW_MODULE_INTERFACE
+                    BB_FEATURE_OLD_MODULE_INTERFACE }
+        BB_KILL
+        BB_KILLALL
+        BB_KLOGD
+        BB_LENGTH
+        BB_LN
+        BB_LOADACM
+        BB_LOADFONT
+        BB_LOADKMAP
+        BB_LOGGER
+        BB_LOGNAME
+        BB_LS { BB_FEATURE_LS_USERNAME BB_FEATURE_LS_TIMESTAMPS BB_FEATURE_LS_FILETYPES 
+                BB_FEATURE_LS_SORTFILES BB_FEATURE_LS_RECURSIVE BB_FEATURE_LS_FOLLOWLINKS }
+        BB_LSMOD
+        BB_MAKEDEVS
+        BB_MD5SUM
+        BB_MKDIR
+        BB_MKFIFO
+        BB_MKFS_MINIX
+        BB_MKNOD
+        BB_MKSWAP
+        BB_MKTEMP
+        BB_NC
+        BB_MORE
+        BB_MOUNT { BB_FEATURE_MTAB_SUPPORT BB_FEATURE_NFSMOUNT BB_FEATURE_MOUNT_LOOP 
+                   BB_FEATURE_MOUNT_FORCE }
+        BB_MT
+        BB_NSLOOKUP
+        BB_PING { BB_FEATURE_SIMPLE_PING }
+        BB_PIVOT_ROOT
+        BB_POWEROFF
+        BB_PRINTF
+        BB_PS
+        BB_PWD
+        BB_RDATE
+        BB_READLINK
+        BB_REBOOT
+        BB_RENICE
+        BB_RESET
+        BB_RM { BB_FEATURE_RM_INTERACTIVE }
+        BB_RMDIR
+        BB_RMMOD
+        BB_ROUTE
+        BB_RPMUNPACK
+        BB_SED
+        BB_SETKEYCODES
+        BB_SH { BB_FEATURE_COMMAND_EDITING BB_FEATURE_COMMAND_TAB_COMPLETION
+                BB_FEATURE_COMMAND_USERNAME_COMPLETION BB_FEATURE_SH_STANDALONE_SHELL 
+                BB_FEATURE_SH_APPLETS_ALWAYS_WIN BB_FEATURE_SH_SIMPLE_PROMPT }
+        BB_SLEEP
+        BB_SORT { BB_FEATURE_SORT_REVERSE }
+        BB_STTY
+        BB_SWAPONOFF
+        BB_SYNC
+        BB_SYSLOGD { BB_FEATURE_REMOTE_LOG BB_FEATURE_IPC_SYSLOG }
+        BB_TAIL { BB_FEATURE_SIMPLE_TAIL }
+        BB_TAR { BB_FEATURE_TAR_CREATE BB_FEATURE_TAR_EXCLUDE BB_FEATURE_TAR_GZIP }
+        BB_TEE
+        BB_TEST
+        BB_TELNET
+        BB_TFTP { BB_FEATURE_TFTP_PUT BB_FEATURE_TFTP_GET }
+        BB_TOUCH
+        BB_TR
+        BB_TRUE_FALSE
+        BB_TTY
+        BB_UUENCODE
+        BB_UUDECODE
+        BB_UMOUNT
+        BB_UNIQ
+        BB_UNAME
+        BB_UPDATE
+        BB_UPTIME
+        BB_USLEEP
+        BB_VI { BB_FEATURE_VI_COLON BB_FEATURE_VI_YANKMARK BB_FEATURE_VI_SEARCH 
+                BB_FEATURE_VI_USE_SIGNALS BB_FEATURE_VI_DOT_CMD BB_FEATURE_VI_READONLY
+                BB_FEATURE_VI_SETOPTS BB_FEATURE_VI_SET BB_FEATURE_VI_WIN_RESIZE }
+        BB_WATCHDOG
+        BB_WC
+        BB_WGET { BB_FEATURE_WGET_STATUSBAR BB_FEATURE_WGET_AUTHENTICATION }
+        BB_WHICH
+        BB_WHOAMI
+        BB_XARGS
+        BB_YES
+        _BB_ADVANCED { 
+#BB_FEATURE_USE_DEVPS_PATCH
+                      BB_FEATURE_BUFFERS_GO_ON_STACK
+                      BB_FEATURE_VERBOSE_USAGE
+                      BB_FEATURE_USE_TERMIOS
+                      BB_FEATURE_AUTOWIDTH
+                      BB_FEATURE_MINIX2 
+                      BB_FEATURE_INSTALLER 
+                      BB_FEATURE_HUMAN_READABLE 
+                      BB_LOCALE_SUPPORT }
+}
+
+default BUSYBOX from  y           
+
+default BB_FEATURE_IFCONFIG_STATUS from DEVELOPER==y and BB_IFCONFIG==y
+
+require BB_UMOUNT >= BB_MOUNT
+derive BB_CMDEDIT from ( BB_SH and BB_FEATURE_COMMAND_EDITING )
+default BB_FEATURE_SH_SIMPLE_PROMPT from ( BB_SH and BB_FEATURE_COMMAND_EDITING==n )
+require BB_FEATURE_COMMAND_TAB_COMPLETION implies BB_SH==y and BB_FEATURE_COMMAND_EDITING==y
+require BB_FEATURE_COMMAND_USERNAME_COMPLETION implies BB_SH==y and BB_FEATURE_COMMAND_EDITING==y
+require BB_FEATURE_SH_SIMPLE_PROMPT implies BB_SH and BB_FEATURE_COMMAND_EDITING==n and BB_FEATURE_COMMAND_TAB_COMPLETION==n and BB_FEATURE_COMMAND_USERNAME_COMPLETION==n
+
+require BB_KILLALL implies BB_KILL==y
+
+require BB_FEATURE_LINUXRC implies BB_INIT==y
+require ( BB_GZIP or ( BB_TAR and BB_FEATURE_TAR_GZIP ) ) implies BB_GUNZIP==y
+require BB_DPKG implies BB_DPKG_DEB==y
+require BB_DPKG_DEB implies BB_AR==y
+require BB_DPKG_DEB implies BB_TAR==y
+require BB_DPKG_DEB implies BB_FEATURE_TAR_GZIP==y
+derive BB_NFSMOUNT from BB_MOUNT and BB_FEATURE_NFSMOUNT
+derive BB_INTERFACE from BB_IFCONFIG and BB_FEATURE_IFCONFIG_STATUS
+require BB_FEATURE_AUTOWIDTH implies BB_FEATURE_USE_TERMIOS==y
+derive BB_UNIX2DOS from BB_DOS2UNIX
+derive BB_LOGREAD from ( BB_SYSLOGD and BB_FEATURE_IPC_SYSLOG )
+default BB_FEATURE_NEW_MODULE_INTERFACE from y
+#require ( ( BB_INSMOD==y or BB_LSMOD==y ) and ( BB_FEATURE_NEW_MODULE_INTERFACE==n and BB_FEATURE_OLD_MODULE_INTERFACE==n ) ) implies BB_FEATURE_NEW_MODULE_INTERFACE==y
+
+default BB_ADJTIMEX from n
+default BB_AR from n
+default BB_BASENAME from y
+default BB_CAT from y
+default BB_CHMOD_CHOWN_CHGRP from y
+default BB_CHROOT from n
+default BB_CHVT from n
+default BB_CLEAR from DEVELOPER
+default BB_CMP from n
+default BB_CP_MV from y
+default BB_CUT from y
+default BB_DATE from y
+default BB_DC from n
+default BB_DD from y
+default BB_DEALLOCVT from n
+default BB_DF from DEVELOPER
+default BB_DIRNAME from y
+default BB_DMESG from DEVELOPER
+default BB_DOS2UNIX from n
+default BB_DPKG from n
+default BB_DPKG_DEB from n
+default BB_DUTMP from n
+default BB_DU from DEVELOPER
+default BB_DUMPKMAP from n
+default BB_ECHO from y
+default BB_ENV from y
+default BB_EXPR from y
+default BB_FBSET from y
+default BB_FDFLUSH from n
+default BB_FIND from DEVELOPER
+default BB_FREE from DEVELOPER
+default BB_FREERAMDISK from n
+default BB_FSCK_MINIX from n
+default BB_GETOPT from n
+default BB_GREP from DEVELOPER
+default BB_GUNZIP from y
+default BB_GZIP from y
+default BB_HALT from y
+default BB_HEAD from DEVELOPER
+default BB_HOSTID from n
+default BB_HOSTNAME from y
+default BB_ID from n
+default BB_IFCONFIG from y
+default BB_INIT from y
+default BB_FEATURE_USE_INITTAB from y
+default BB_INSMOD from n
+default BB_KILL from y
+default BB_KILLALL from y
+default BB_KLOGD from n
+default BB_LENGTH from n
+default BB_LN from y
+default BB_LOADACM from n
+default BB_LOADFONT from n
+default BB_LOADKMAP from n
+default BB_LOGGER from n
+default BB_LOGNAME from n
+default BB_LS from DEVELOPER
+default BB_LSMOD from DEVELOPER and BB_INSMOD
+default BB_MAKEDEVS from DEVELOPER
+default BB_MD5SUM from DEVELOPER
+default BB_MKDIR from y
+default BB_MKFIFO from n
+default BB_MKFS_MINIX from n
+default BB_MKNOD from y
+default BB_MKSWAP from n
+default BB_MKTEMP from n
+default BB_NC from n
+default BB_MORE from DEVELOPER
+default BB_MOUNT from y
+default BB_MT from n
+default BB_NSLOOKUP from DEVELOPER
+default BB_PING from DEVELOPER
+default BB_PIVOT_ROOT from n
+default BB_POWEROFF from y
+default BB_PRINTF from n
+default BB_PS from DEVELOPER
+default BB_PWD from y
+default BB_RDATE from n
+default BB_READLINK from n
+default BB_REBOOT from y
+default BB_RENICE from y
+default BB_RESET from y
+default BB_RM from y
+default BB_RMDIR from y
+default BB_RMMOD from DEVELOPER and BB_INSMOD
+default BB_ROUTE from y
+default BB_RPMUNPACK from n
+default BB_SED from n
+default BB_SETKEYCODES from n
+default BB_SH from n
+default BB_SLEEP from y
+default BB_SORT from n
+default BB_STTY from n
+default BB_SWAPONOFF from n
+default BB_SYNC from y
+default BB_SYSLOGD from DEVELOPER
+default BB_FEATURE_REMOTE_LOG from DEVELOPER 
+default BB_FEATURE_IPC_SYSLOG from DEVELOPER
+default BB_TAIL from DEVELOPER
+default BB_TAR from y
+default BB_TEE from DEVELOPER
+default BB_TEST from y
+default BB_TELNET from DEVELOPER
+default BB_TFTP from n
+default BB_TOUCH from n
+default BB_TR from n
+default BB_TRUE_FALSE from n
+default BB_TTY from n
+default BB_UUENCODE from n
+default BB_UUDECODE from n
+default BB_UMOUNT from BB_MOUNT
+default BB_UNIQ from n
+default BB_UNAME from y
+default BB_UPDATE from y
+default BB_UPTIME from n
+default BB_USLEEP from n
+default BB_VI from y
+default BB_WATCHDOG from n
+default BB_WC from n
+default BB_WGET from DEVELOPER
+default BB_WHICH from DEVELOPER
+default BB_WHOAMI from n
+default BB_XARGS from DEVELOPER
+default BB_YES from n
+default BB_FEATURE_NFSMOUNT from DEVELOPER
+default _BB_ADVANCED from y
+default BB_FEATURE_VERBOSE_USAGE from DEVELOPER
+default BB_FEATURE_USE_TERMIOS from DEVELOPER
+default BB_FEATURE_AUTOWIDTH from DEVELOPER
+default BB_FEATURE_HUMAN_READABLE from DEVELOPER
+
+
+menu glibccfg                   # GLIBC configuration
+	LIB_C {
+	   LIB_C_OMITFP
+	   LIB_C_LDD
+	   LIB_C_LD_SO
+	   LIB_C_BROKEN_LOCALE
+	   LIB_C_CRYPT
+	   LIB_C_DL
+	   LIB_C_M
+	   LIB_C_NSL
+	   LIB_C_NSS
+	   LIB_C_PTHREAD
+	   LIB_C_RESOLV
+	   LIB_C_RT
+	   LIB_C_UTIL
+	   LIB_C_I18N
+	   LIB_C_LOCALE
+	   LIB_C_ZONEINFO
+	}
+
+default LIB_C from y
+default LIB_C_OMITFP from DEVELOPER==n
+default LIB_C_LDD from DEVELOPER
+default LIB_C_LD_SO from y
+default LIB_C_BROKEN_LOCALE from y
+default LIB_C_CRYPT from y
+default LIB_C_DL from y
+default LIB_C_M from y
+default LIB_C_NSL from n
+default LIB_C_NSS from y
+default LIB_C_PTHREAD from y
+default LIB_C_RESOLV from y
+default LIB_C_RT from n
+default LIB_C_UTIL from y
+default LIB_C_I18N from n
+default LIB_C_LOCALE from n
+default LIB_C_ZONEINFO from n
+
+menu x11cfg             # X11 Configuration
+	X11 {
+		X11_XFREE86 {
+			X11_XFREE86_FBDEV
+			X11_XFREE86_GEODE
+			X11_XFREE86_VESA
+			X11_XFREE86_VGA
+			X11_XFREE86_CYRIX
+		}
+		X11_TINY {
+			X11_TINY_XFBDEV
+			X11_TINY_VESA
+			X11_TINY_TS300
+			X11_TINY_IGS
+			X11_TINY_TRIDENT
+			X11_TINY_SAVAGE
+		}
+		X11_FONT_SERVER
+		X11_FONT_SPEEDO
+		X11_FONT_TYPE1
+		X11_FONT_CID
+		X11_FONT_TRUETYPE
+		X11_INST_75DPI
+		X11_INST_100DPI
+		X11_INST_SPEEDO
+		X11_INST_TYPE1
+		X11_INST_CID
+		X11_INST_CYRILLIC
+		X11_INST_LATIN2
+	}
+
+require X11_XFREE86 implies X11_TINY==n
+require X11_TINY implies X11_XFREE86==n
+
+menu shellcfg           # Shell configuration
+        SHELL_ASH
+        SHELL_BASH
+
+default SHELL_BASH from DEVELOPER
+default SHELL_ASH from y
+
+menu netkitcfg
+	NETKIT {
+	   NETKIT_BIFF
+	   NETKIT_FINGER
+	   NETKIT_FTPD
+	   NETKIT_BASE
+	   NETKIT_BOOTPARAMD
+	   NETKIT_FTP      
+	   NETKIT_NTALK   
+	   NETKIT_ROUTED 
+	   NETKIT_RPC          
+	   NETKIT_RSH         
+	   NETKIT_RUSERS     
+	   NETKIT_RWALL     
+	   NETKIT_RWHO     
+	   NETKIT_TELNET  
+	   NETKIT_TFTP       
+	   NETKIT_TIMED     
+	   NETKIT_NETWRITE 
+	}
+
+default NETKIT from DEVELOPER
+default NETKIT_FTPD from NETKIT
+default NETKIT_BASE from NETKIT
+default NETKIT_FTP from NETKIT
+default NETKIT_TELNET from NETKIT
+require NETKIT_TELNET implies LIB_C_UTIL==y
+
+menu modutilscfg
+       MODUTILS {
+	  MODUTILS_INSMOD
+	  MODUTILS_RMMOD
+	  MODUTILS_MODPROBE
+	  MODUTILS_LSMOD
+	  MODUTILS_DEPMOD
+	  MODUTILS_MODINFO
+	  MODUTILS_KSYMS
+       }
+
+default MODUTILS from y
+default MODUTILS_INSMOD from MODUTILS
+default MODUTILS_MODPROBE from MODUTILS
+default MODUTILS_DEPMOD from MODUTILS
+default MODUTILS_RMMOD from MODUTILS
+default MODUTILS_LSMOD from DEVELOPER
+default MODUTILS_KSYMS from DEVELOPER
+default MODUTILS_MODINFO from DEVELOPER
+
+menu pppcfg
+	PPP {
+	   PPP_CHAT
+	   PPP_PPPDUMP
+	   PPP_PPPSTATS
+	}
+
+default PPP from y
+default PPP_CHAT from y
+require PPP implies BB_IFCONFIG
+require PPP implies BB_KILLALL
+require PPP implies BB_ROUTE
+#require PPP imples PUMP
+
+menu utilcfg            # Utilities config
+        UTIL_LOGIN
+        UTIL_PUMP
+		  UTIL_STRACE
+		  UTIL_TOP
+
+default UTIL_LOGIN from y
+default UTIL_PUMP from y
+default UTIL_STRACE from DEVELOPER
+default UTIL_TOP from DEVELOPER
+
+menu qtcfg
+	QT {
+	   QT_DEPTHS$
+	   QT_NO_IMAGEIO_BMP
+	   QT_NO_IMAGEIO_PPM
+	   QT_NO_IMAGEIO_XBM
+	   QT_NO_IMAGEIO_XPM
+	   QT_NO_IMAGEIO_PNG
+	   QT_NO_ASYNC_IO
+	   QT_NO_ASYNC_IMAGE_IO
+	   QT_NO_MOVIE
+	   QT_NO_TRUETYPE
+	   QT_NO_BDF
+	   QT_NO_FONTDATABASE
+	   QT_NO_I18N
+	   QT_NO_UNICODETABLES
+	   QT_NO_MIME
+	   QT_NO_RICHEDIT
+	   QT_NO_DRAGANDDROP
+	   QT_NO_CLIPBOARD
+	   QT_NO_SOUND
+	   QT_NO_PROPERTIES
+	   QT_NO_QWS_CURSOR
+	   QT_NO_QWS_DEPTH_8GRAYSCALE
+	   QT_NO_QWS_DEPTH_8
+	   QT_NO_QWS_DEPTH_15
+	   QT_NO_QWS_DEPTH_16
+	   QT_NO_QWS_DEPTH_32
+	   QT_NO_QWS_MACH64
+	   QT_NO_QWS_VFB
+	   QT_NO_NETWORKPROTOCOL
+	   QT_NO_NETWORKPROTOCOL_FTP
+	   QT_NO_NETWORKPROTOCOL_HTTP
+	   QT_NO_COLORNAMES
+	   QT_NO_TRANSFORMATIONS
+	   QT_NO_PSPRINTER
+	   QT_NO_PRINTER
+	   QT_NO_PICTURE
+	   QT_NO_WIDGETS
+	   QT_NO_TEXTVIEW
+	   QT_NO_TEXTBROWSER
+	   QT_NO_ICONVIEW
+	   QT_NO_LISTVIEW
+	   QT_NO_CANVAS
+	   QT_NO_DIAL
+	   QT_NO_WORKSPACE
+	   QT_NO_LCDNUMBER
+	   QT_NO_STYLE_WINDOWS
+	   QT_NO_STYLE_MOTIF
+	   QT_NO_STYLE_CDE
+	   QT_NO_STYLE_PLATINUM
+	   QT_NO_STYLE_SGI
+	   QT_NO_DIALOGS
+	   QT_NO_FILEDIALOG
+	   QT_NO_FONTDIALOG
+	   QT_NO_COLORDIALOG
+	   QT_NO_PRINTDIALOG
+	   QT_NO_INPUTDIALOG
+	   QT_NO_MESSAGEBOX
+	   QT_NO_PROGRESSDIALOG
+	   QT_NO_TABDIALOG
+	   QT_NO_WIZARD
+	}
+
+#require QT_NO_QWS_DEPTH_8GRAYSCALE implies QT_NO_QWS_DEPTH_8==n
+#require QT_NO_QWS_DEPTH_8 implies QT_NO_QWS_DEPTH_8GRAYSCALE ==n
+
+default QT from y
+default QT_DEPTHS from "16"
+default QT_NO_IMAGEIO_XBM from QT
+default QT_NO_MOVIE from QT
+default QT_NO_TRUETYPE from QT
+default QT_NO_SOUND from QT
+default QT_NO_QWS_DEPTH_8GRAYSCALE from QT
+default QT_NO_NETWORKPROTOCOL from QT
+default QT_NO_NETWORKPROTOCOL_FTP from QT
+default QT_NO_NETWORKPROTOCOL_HTTP from QT
+default QT_NO_PICTURE from QT
+default QT_NO_ICONVIEW from QT
+default QT_NO_LISTVIEW from QT
+default QT_NO_DIAL from QT
+default QT_NO_WORKSPACE from QT
+default QT_NO_LCDNUMBER from QT
+default QT_NO_TEXTVIEW from QT
+default QT_NO_TEXTBROWSER from QT
+default QT_NO_STYLE_MOTIF from QT
+default QT_NO_STYLE_CDE from QT
+default QT_NO_STYLE_PLATINUM from QT
+default QT_NO_STYLE_SGI from QT
+default QT_NO_FONTDIALOG from QT
+default QT_NO_COLORDIALOG from QT
+default QT_NO_INPUTDIALOG from QT
+default QT_NO_WIZARD from QT
+
+menu libcfg             # libraries config
+        LIB_NCURSES
+        LIB_READLINE
+        LIB_STDCPP
+        LIB_GTK
+        LIB_TERMCAP
+		  LIB_OPERA
+
+default LIB_NCURSES from DEVELOPER
+default LIB_READLINE from DEVELOPER
+default LIB_STDCPP from y
+default LIB_GTK from n
+default LIB_TERMCAP from DEVELOPER
+default LIB_OPERA from y
+
+menu tinylogincfg 
+	TINYLOGIN {
+	   TLG_ADDUSER
+	   TLG_DELUSER
+	   TLG_ADDGROUP
+	   TLG_DELGROUP
+	   TLG_LOGIN
+	   TLG_SU
+	   TLG_SULOGIN
+	   TLG_PASSWD
+	   TLG_GETTY
+	   TLG_VLOCK
+	   TLG_FEATURE_SHADOWPASSWDS
+	   TLG_FEATURE_SECURETTY
+	   TLG_FEATURE_MD5_PASSWORDS
+	   TLG_FEATURE_SHA1_PASSWORDS
+	   TLG_FEATURE_TRIVIAL_HELP
+	   TLG_FEATURE_INSTALLER
+	}
+
+derive TLG_MD5 from TLG_FEATURE_MD5_PASSWORDS
+derive TLG_SHA1 from TLG_FEATURE_SHA1_PASSWORDS
+derive TLG_SHADOW from TLG_FEATURE_SHADOWPASSWDS
+default TINYLOGIN from y
+default TLG_LOGIN from y
+default TLG_GETTY from y
+default TLG_FEATURE_TRIVIAL_HELP from y
+require TLG_SU implies TLG_LOGIN
+
+# End
+
+

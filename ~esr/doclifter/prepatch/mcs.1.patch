@@ -1,0 +1,11 @@
+--- mcs.1-unpatched	2014-06-03 10:10:34.901478407 -0400
++++ mcs.1	2014-06-03 10:11:10.686296870 -0400
+@@ -322,7 +322,7 @@
+ Used to specify the version of Base Class Library assemblies used for
+ compilation. Following predefined values are valid: 2, 4 (default) as
+ well as any custom value. The predefined version number means which
+-.NET version should the produced assembly be compatible with. When
++\&.NET version should the produced assembly be compatible with. When
+ custom value is specified mcs will try to find Base Class Libraries
+ in the mono installed location PREFIX/lib/mono/<value>.
+ .TP

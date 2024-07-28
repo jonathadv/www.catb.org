@@ -1,0 +1,70 @@
+<!-- received="Sat Oct 19 16:11:31 1996 EST" -->
+<!-- sent="Sat, 19 Oct 1996 16:11:31 -0400 (EDT)" -->
+<!-- name="Daniel Quinlan" -->
+<!-- email="quinlan@proton.pathname.com" -->
+<!-- subject="Re: I found your name in Linux's /usr/lib/magic" -->
+<!-- id="m0vEjIc-000SouC@proton.pathname.com" -->
+<!-- inreplyto="m0vEh8I-000SouC@proton.pathname.com" -->
+<title>magic-numbers: Re: I found your name in Linux's /usr/lib/magic</title>
+<h1>Re: I found your name in Linux's /usr/lib/magic</h1>
+Daniel Quinlan (<i>quinlan@proton.pathname.com</i>)<br>
+<i>Sat, 19 Oct 1996 16:11:31 -0400 (EDT)</i>
+<p>
+<ul>
+<li> <b>Messages sorted by:</b> <a href="date.html#3">[ date ]</a><a href="index.html#3">[ thread ]</a><a href="subject.html#3">[ subject ]</a><a href="author.html#3">[ author ]</a>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0004.html">Daniel Quinlan: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<li> <b>Previous message:</b> <a href="0002.html">Daniel Quinlan: "Re: Netscape 4.0 press release at their server"</a>
+<!-- nextthread="start" -->
+</ul>
+<!-- body="start" -->
+Eric S Raymond &lt;esr@snark.thyrsus.com&gt; writes:<br>
+<i>&gt; I found your name in /usr/lib/magic.  It appears that at some point you</i><br>
+<i>&gt; were doing most of the mods on this file.  Is there a known maintainer</i><br>
+<i>&gt; for it, or for Linux file(1) (which I can't find a man page for)?</i><br>
+<p>
+Dan Quinlan replies: <br>
+<i>&gt; I still am doing work on it.  The maintainer is Christos Zoulas of tcsh</i><br>
+<i>&gt; fame &lt;christos@deshaw.com&gt;.  If you have a modification in one of the</i><br>
+<i>&gt; areas where I've worked (well, most of them), I'd appreciate seeing it</i><br>
+<i>&gt; too.</i><br>
+<p>
+The reason I'm asking is because somebody on the W3C HTML development list<br>
+suggested that it might be a good idea if there were a public Internet <br>
+registry of magic numbers, given as-official-as-it-get status by an RFC which<br>
+software developers could quote.<br>
+<p>
+This stimulated some thoughts in my head:<br>
+<p>
+(1) This sounds like a worthy service project.<br>
+<p>
+(2) I would be willing to do it.  After a couple years of maintaining <br>
+    terminfo/termcap, I'm pretty comfortable with both the technicalia <br>
+    and politics involved in efforts like this.<br>
+<p>
+(3) It might also be useful for there to be a File Extensions Registry,<br>
+    and for file(1) to start trying to deduce stuff from file extensions<br>
+    when the magic number deductions are ambiguous or nonexistent.<br>
+<p>
+(4) It would be an interesting design challenge to extend the magic-file<br>
+    language to declare hints or deductions from filename patterns.<br>
+<p>
+As an example of the kind of thing I mean, I can imagine a future version<br>
+of file(1) which, upon seeing a file named `foo.l' would declare it<br>
+a "Lisp source code file" if the initial segment of the file matched<br>
+the regexp [ \t\n]*;* or [ \t\n]*(, but a "Lex source file" if the initial<br>
+segment matched [ \t\n]*/\* or [ \t\n]*%%.<br>
+<p>
+Are these thoughts interesting to you two?<br>
+<pre>
+-- 
+	&lt;a href="<a href="http://www.ccil.org/~esr/home.html">http://www.ccil.org/~esr/home.html</a>"&gt;Eric S. Raymond&lt;/a&gt;
+</pre>
+<!-- body="end" -->
+<p>
+<ul>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0004.html">Daniel Quinlan: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<li> <b>Previous message:</b> <a href="0002.html">Daniel Quinlan: "Re: Netscape 4.0 press release at their server"</a>
+<!-- nextthread="start" -->
+</ul>

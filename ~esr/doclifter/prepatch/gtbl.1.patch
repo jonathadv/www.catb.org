@@ -1,0 +1,34 @@
+.EX/.EE around tables is unnecessary and confuses doclifter.
+
+--- gtbl.1-unpatched	2016-03-05 08:25:36.018977278 -0500
++++ gtbl.1	2016-03-05 08:26:12.986887432 -0500
+@@ -179,13 +179,11 @@
+ .P
+ The result is
+ .RS
+-.EX
+ .TS
+ c c c .
+ This	is	centered
+ Well,	this	also
+ .TE
+-.EE
+ .RE
+ .
+ .
+@@ -224,7 +222,6 @@
+ .
+ The result is
+ .RS
+-.EX
+ .TS
+ tab(@);
+ c s s
+@@ -233,7 +230,6 @@
+ left@centers@123
+ another@number@75
+ .TE
+-.EE
+ .RE
+ .
+ Here

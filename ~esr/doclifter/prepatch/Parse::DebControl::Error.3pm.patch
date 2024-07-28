@@ -1,0 +1,12 @@
+--- Parse::DebControl::Error.3pm-unpatched	2012-08-09 00:48:17.230612507 -0400
++++ Parse::DebControl::Error.3pm	2012-08-09 00:48:58.854611732 -0400
+@@ -129,7 +129,8 @@
+ .\" way too many mistakes in technical documents.
+ .if n .ad l
+ .nh
+-.SH "NAME Parse::DebControl::Error \- Exception classes for Parse::DebControl"
++.SH "NAME"
++Parse::DebControl::Error \- Exception classes for Parse::DebControl
+ .IX Header "NAME Parse::DebControl::Error - Exception classes for Parse::DebControl"
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"

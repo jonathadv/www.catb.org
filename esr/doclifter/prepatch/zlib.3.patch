@@ -1,0 +1,16 @@
+--- zlib.3-unpatched	2012-08-06 19:06:48.830094423 -0400
++++ zlib.3	2012-08-06 19:09:27.930091450 -0400
+@@ -2,9 +2,10 @@
+ .SH NAME
+ zlib \- compression/decompression library
+ .SH SYNOPSIS
+-[see
+-.I zlib.h
+-for full description]
++.nf
++#include <zlib.h>
++.fi
++Link with -lz.
+ .SH DESCRIPTION
+ The
+ .I zlib

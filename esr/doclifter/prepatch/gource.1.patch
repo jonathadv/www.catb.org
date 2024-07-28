@@ -1,0 +1,11 @@
+--- gource.1-unpatched	2018-04-17 20:21:33.418422451 -0400
++++ gource.1	2018-04-17 20:22:38.330294494 -0400
+@@ -3,7 +3,7 @@
+ Gource - a software version control visualization
+ .SH SYNOPSIS
+ \fIgource\fR
+-<options> <path>
++[options] path
+ .SH DESCRIPTION
+ \fIgource\fR is an OpenGL-based 3D visualisation tool for source control repositories.
+ 

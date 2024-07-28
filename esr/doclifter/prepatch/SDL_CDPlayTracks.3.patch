@@ -1,0 +1,11 @@
+--- SDL_CDPlayTracks.3-unpatched	2012-07-28 18:33:35.188842333 -0400
++++ SDL_CDPlayTracks.3	2012-07-28 18:34:49.196840947 -0400
+@@ -5,7 +5,7 @@
+ .PP
+ \fB#include "SDL\&.h"
+ .sp
+-\fBint \fBSDL_CDPlayTracks\fP\fR(\fBSDL_CD *cdrom, int start_track, int start_frame, int ntracks, int nframes)\fR);
++\fBint \fBSDL_CDPlayTracks\fP\fR(\fBSDL_CD *cdrom, int start_track, int start_frame, int ntracks, int nframes\fR);
+ .SH "DESCRIPTION"
+ .PP
+ \fBSDL_CDPlayTracks\fP plays the given CD starting at track \fBstart_track\fR, for \fBntracks\fR tracks\&. 

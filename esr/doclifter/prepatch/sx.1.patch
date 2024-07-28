@@ -1,0 +1,24 @@
+--- sx.1-unpatched	2012-06-29 15:40:05.081700795 -0400
++++ sx.1	2012-06-29 15:40:35.993700216 -0400
+@@ -70,8 +70,9 @@
+ Output from another program may be piped to
+ .B sz
+ for transmission by denoting standard input with "-":
+-.ce
++.RS
+ ls -l | sz -
++.RE
+ The program output is transmitted with the filename sPID.sz
+ where PID is the process ID of the
+ .B sz
+@@ -80,8 +81,9 @@
+ .B ONAME
+ is set, that is used instead.
+ In this case, the Unix command:
+-.ce
++.RS
+ ls -l | ONAME=con sz -ay -
++.RE
+ will send a "file" to the PC-DOS console display.
+ The
+ .B -y

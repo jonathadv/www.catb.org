@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>The Magic Cauldron: Use-Value Funding Models</TITLE>
+ <LINK HREF="magic-cauldron-8.html" REL=next>
+ <LINK HREF="magic-cauldron-6.html" REL=previous>
+ <LINK HREF="magic-cauldron.html#toc7" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="magic-cauldron-8.html">Next</A>
+<A HREF="magic-cauldron-6.html">Previous</A>
+<A HREF="magic-cauldron.html#toc7">Contents</A>
+<HR>
+<H2><A NAME="s7">7. Use-Value Funding Models</A></H2>
+
+<P>A key fact that the distinction between use and sale value allows us
+to notice is that only <EM>sale value</EM> is threatened by the shift
+from closed to open source; use value is not.
+<P>If use value rather than sale value is really the major driver of
+software development, and (as was argued in 
+<A HREF="magic-cauldron-16.html#[CatB]">[CatB]</A>
+)
+open-source development is really more effective and efficient than
+closed, then we should expect to find circumstances in which expected
+use value alone sustainably funds open-source development.
+<P>And in fact it is not difficult to identify at least two important
+models in which full-time developer salaries for open-source projects
+are funded strictly out of use value.  
+<P>
+<H2><A NAME="ss7.1">7.1 The Apache case: cost-sharing</A>
+</H2>
+
+<P>Let's say you work for a firm that has a business-critical requirement
+for a high-volume, high-reliability web server.  Maybe it's for
+electronic commerce, maybe you're a high-visibility media outlet
+selling advertising, maybe you're a portal site.  You need 24/7
+uptime, you need speed, and you need customizability.
+<P>How are you going to get these things?  There are three basic
+strategies you can pursue:
+<P><EM>Buy a proprietary webserver.</EM> In this case, you are
+betting that the vendor's agenda matches yours and that the vendor
+has the technical competence to implement properly.  Even assuming
+both these things to be true, the product is likely to come up short
+in customizability; you will only be able to modify it through the
+hooks the vendor has chosen to provide.  This proprietary-webserver
+path is not a popular one.
+<P><EM>Roll your own.</EM> Building your own webserver is not an
+option to dismiss instantly; webservers are not very complex,
+certainly less so than browsers, and a specialized one can be very
+lean and mean.  Going this path, you can get the exact features and
+customizability you want, though you'll pay for it in development
+time.  Your firm may also find it has a problem when you retire or
+leave.
+<P><EM>Join the Apache group.</EM> The Apache server was built by an
+Internet-connected group of webmasters who realized that it was
+smarter to pool their efforts into improving one code base than to run
+a large number of parallel development efforts.  By doing this they
+were able to capture both most of the advantages of roll-your-own and
+the powerful debugging effect of massively-parallel peer review.
+<P>The advantage of the Apache choice is very strong. Just how strong, we
+may judge from the monthly Netcraft survey, which has shown Apache
+steadily gaining market share against all proprietary webservers since
+its inception.  As of June 1999, Apache and its derivatives have
+<A HREF="http://www.netcraft.com/survey/">61% market share</A> --
+with no legal owner, no promotion, and no contracted service
+organization behind them at all.
+<P>The Apache story generalizes to a model in which software users find
+it to their advantage to fund open-source development because doing so
+gets them a better product than they could otherwise have, at lower cost.
+<P>
+<H2><A NAME="ss7.2">7.2 The Cisco case: risk-spreading</A>
+</H2>
+
+<P>Some years ago, two programmers at Cisco (the networking-equipment
+manufacturer) got assigned the job of writing a distributed
+print-spooling system for use on Cisco's corporate network.  This
+was quite a challenge.  Besides supporting the ability for arbitrary
+user A to print at arbitrary printer B (which might be in the next
+room or a thousand miles away), the system had to make sure that in
+the event of a paper-out or toner-low condition the job would get
+rerouted to an alternate printer near the target.  The system  also needed
+to be able to report such problems to a printer administrator.
+<P>The duo came up with a clever set of modifications to the standard
+Unix print-spooler software, plus some wrapper scripts, that did the
+job.  Then they realized that they, and Cisco, had a problem.
+<P>The problem was that neither of them was likely to be at Cisco
+forever.  Eventually, both programmers would be gone, and the software
+would be unmaintained and begin to rot (that is, to gradually fall out
+of sync with real-world conditions).  No developer likes to see this
+happen to his or her work, and the intrepid duo felt Cisco had paid
+for a solution under the not unreasonable expectation that it would
+outlast their own jobs there.
+<P>Accordingly, they went to their manager and urged him to authorize the
+release of the print spooler software as open source.  Their argument
+was that Cisco would have no sale value to lose, and much else to
+gain.  By encouraging the growth of a community of users and
+co-developers spread across many corporations, Cisco could effectively
+hedge against the loss of the software's original developers.
+<P>The Cisco story generalizes to a model in which open source functions
+not so much to lower costs as to spread risk.  All parties find that
+the openness of the source, and the presence of a collaborative
+community funded by multiple independent revenue streams, provides
+a fail-safe that is itself economically valuable -- sufficiently
+valuable to drive funding for it.
+<P>
+<HR>
+<A HREF="magic-cauldron-8.html">Next</A>
+<A HREF="magic-cauldron-6.html">Previous</A>
+<A HREF="magic-cauldron.html#toc7">Contents</A>
+</BODY>
+</HTML>

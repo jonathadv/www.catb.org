@@ -1,0 +1,33 @@
+--- dv2dt.1-unpatched	2012-07-02 15:10:45.456886322 -0400
++++ dv2dt.1	2012-07-02 15:12:59.308883818 -0400
+@@ -48,14 +48,11 @@
+ .\"======================================================================
+ .SH SYNOPSIS
+ .B dv2dt
++[
+ .I input-DVI-file
++] [
+ .I output-DTL-file
+-.PP
+-If the filenames are omitted, then
+-.I stdin
+-and
+-.I stdout
+-are assumed.
++]
+ .\"======================================================================
+ .SH DESCRIPTION
+ .B dv2dt
+@@ -66,6 +63,12 @@
+ .BR dt2dv (1)
+ utility can convert the DTL file back to a binary
+ DVI file.
++.PP
++If the filenames are omitted, then
++.I stdin
++and
++.I stdout
++are assumed.
+ .\"======================================================================
+ .SH "DVI COMMAND DESCRIPTION"
+ \*(Te\& DVI files contain a compact binary

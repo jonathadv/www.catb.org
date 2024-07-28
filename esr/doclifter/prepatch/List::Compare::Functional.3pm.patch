@@ -1,0 +1,13 @@
+--- List::Compare::Functional.3pm-unpatched	2018-06-05 18:31:30.862319888 -0400
++++ List::Compare::Functional.3pm	2018-06-05 18:34:05.941265964 -0400
+@@ -156,8 +156,8 @@
+ follow the documentation below.  If, however, you used List::Compare::Functional
+ prior to that version, see the discussion of interface changes farther
+ below: April 2004 Change of Interface.
+-.SH "SYNOPSIS"
+-.IX Header "SYNOPSIS"
++.SH "DESCRIPTION"
++.IX Header "DESCRIPTION"
+ .SS "Getting Started"
+ .IX Subsection "Getting Started"
+ List::Compare::Functional exports no subroutines by default.

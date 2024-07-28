@@ -1,0 +1,25 @@
+--- gftodvi.1-unpatched	2018-05-19 06:02:46.133676845 -0400
++++ gftodvi.1	2018-05-19 06:02:45.961678014 -0400
+@@ -67,20 +67,17 @@
+ .I gf_file_name
+ with a `/'. For example,
+ .br
+-.ti +2
++.RS
+ gftodvi cmr10.300gf/
+ .br
+-.ti +2
+ Special font substitution: grayfont black
+ .br
+-.ti +2
+ OK; any more? grayfontarea /home/art/don/
+ .br
+-.ti +2
+ OK; any more? slantfont /home/fonts/slantimagen6
+ .br
+-.ti +2
+ OK; any more? <RET>
++.RE
+ .br
+ will use
+ .I /home/art/don/black

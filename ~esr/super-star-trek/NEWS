@@ -1,0 +1,39 @@
+			SST2K project news.
+
+2.8: 2024-02-10:
+    Fix for enemy dispersion on torpedo hits.
+    Re-conform to the documentation by removing the .py estension from sst.
+    Fancy-mode coordinates can have the Y as a letter, e,g. "c4" = "3 - 4".
+    Wayback option: you can revert the game to the behavior of past years.
+
+2.7: 2021-09-20::
+    Ubuntu has abolished /usr/bin/python, change shebang to python3.
+
+2.6: 2021-04-16::
+    Fixed a longstanding bug in the chart display.
+    Minor port fixes for recent Python 23 versions.
+    Test suite is TAPified.
+
+2.5: 2019-04-24::
+    Now runs identically under Python 2 and Python 3.
+
+2.4: 2019-04-22::
+    Fixes for deathray, formatting, double-counting in score logic.
+
+2.3: 2018-08-12::
+    Crash bug fix when docking with no starbase in sector.
+
+2.2: 2017-03-01::
+    Added color. Added BSD Trek 'CAPTURE' and 'CLOAK' (from Tom Almy's
+    2013 changes).  Many bug fixes.
+
+2.1: 2012-02-16::
+    Packaging fixes, pychecker cleanup, cope with Freshmeat name changes.
+
+2.0: 2010-11-30::
+    Game code moved to Python. Many bug fixes.
+
+1.0: 2004-06-06::
+    Initial release.
+
+

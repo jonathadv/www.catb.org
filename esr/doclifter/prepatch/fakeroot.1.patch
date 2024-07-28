@@ -1,0 +1,10 @@
+--- fakeroot.1-unpatched	2016-02-27 07:34:38.296837798 -0500
++++ fakeroot.1	2016-02-27 07:34:37.972838798 -0500
+@@ -292,6 +292,7 @@
+ .RI < clint@debian.org >
+ .TP
+ Timo Savola
++< timo.savola@iki.fi >
+ .SH MANUAL PAGE
+ mostly by J.H.M. Dassen 
+ .RI <jdassen@debian.org>

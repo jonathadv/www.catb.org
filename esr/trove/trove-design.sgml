@@ -1,0 +1,1238 @@
+<!doctype linuxdoc system>
+
+<article>
+
+<title>Trove Design Document
+<author>by Eric S. Raymond
+<date>$Id: trove-design.m4,v 1.16 1998/06/25 15:49:23 esr Exp $
+
+<abstract>
+Trove is a next-generation Internet software archiving facility, intended
+to supplant the classical FTP-tree-with-decorations model.  This
+document describes the history, design, architecture, and user interface
+of Trove.  It is a work in progress, intended both to guide
+implementation and to document the project.
+</abstract>
+
+<toc>
+
+<sect>Introduction
+<p>
+
+<sect1>Why Trove?
+<p>
+The `classical' model of Internet software archive (exemplified by <url
+url="http://sunsite.unc.edu" name="Sunsite">, WWW frosting on an FTP
+cake) is no longer adequate to the increasing size and evolutionary
+speed of the open-source community.  It eats too much maintainer time;
+the classification/search mechanisms are woefully weak; and the
+package namespace has no collision detection.
+
+One of us (Eric Raymond) had been Sunsite's principal maintainer
+for more than a year before Trove got started.  Eric wrote the <url
+url="http://sunsite.unc.edu/search" name="keeper"> tool, which does about
+as good a job as possible of automating away the scutwork under the
+present system.  It's not good enough.  The amount of maintainer time
+Sunsite requires is rising to the point where the archive is not
+sustainable. On present trends, Eric thinks Sunsite's system (or its
+maintainers) will collapse by the end of 1998.
+
+Some prominent Python people (including Ken Manheimer, Andrew
+Kuchling, and Guido Van Rossum) had realized for a while they were
+facing similar problems in the future of the Python archive, and begun
+discussing a redesign they thought of as the `locator' project.<P>
+
+The concept of the Trove project was originally floated by Eric
+Raymond in early April 1998.  Within a week, he was approached by
+Guido van Rossum about joining forces.  By the end of April, when the
+project and the Trove web pages were officially launched, principals
+included Ken Manheimer and Andrew Kuchling of the Python Software
+Activity. Ken Manheimer proposed the name `Trove'.  John Cowan
+provided valuable expertise in database design and IR pragmatics.<P>
+
+<sect1>Terminology
+<p>
+For purposes of this document, a <em>resource</em> is a file such as a
+source or binary archive, an RPM or Debian installable package, a
+documentat, etc.  A resource may have associated <em>metadata</em>
+(such as a description of the resource).
+
+Related resources will be grouped into a <em>package</em>, which will
+have associated metadata of its own (including but not limited to
+author's name, the project home page location, etc.).
+
+The metadata exists to provide a handle on packages and resources,
+making them discoverable through searching and browsing facilities.
+Resources may have associated metadata of their own
+
+A <em>search</em> is any selection operation that returns a subset of
+the archive metadata.
+
+A <em>site ring</em> is a collection of Trove sites that mirror each
+others' metadata (so that a search of any is effectively a search of all).
+
+<sect>Objectives and Architecture
+<p>
+<sect1>Objectives
+<p>
+<sect2>Primary Objectives
+<p>
+<itemize>
+<item>
+CONTRIBUTOR-DRIVEN: Minimize the need for intervention by archive
+maintainers, so the system scales up to the capacity of the
+automation, rather than the availability of maintainer.</item>
+
+<item>
+SEARCHABLE: Support access to packages through a rich,
+user-friendly keyword and text-search-based interface, rather than
+topic directories.</item>
+
+<item>
+NON-RESTRICTIVE: the design should be enabling rather than restrictive -- it
+should not force use of a single interface or server that might become
+a performance or (more importantly) a conceptual bottleneck.</item>
+
+<item>
+LOCATION-INDEPENDENCE: the metadata representation and Trove tools
+should be indifferent to where resources are actually stored.</item>
+
+<item>
+RICH METADATA: Per-package metadata should have at least the
+descriptive power of the best-of-breed installable package format, which
+means RPM.</item>
+
+<item>
+NOTIFICATION: Anyone should be able to sign up to be notified when a
+package's resources or its metadata are updated.</item>
+
+<item>
+MIRRORABILITY: It must be possible for an entire Trove site (resources
+and metadata both) to be mirrored for load-sharing purposes.</item>
+
+<item>
+DISTRIBUTOR-FRIENDLINESS: One of the deliverables should be a tool or
+access mode that collects copies of all resources and metadata turned
+up by a given search, so that CD-ROM distributors can make
+distributable snapshots of the archive or subsets of it.</item>
+
+<item>
+CONFIGURABILITY: Full configurability of things like keyword categories, so the
+software can be used for multiple archives with different
+policies (in particular, both son-of-Sunsite and the Python archive).</item>
+
+<item>
+SCALABILITY: Must scale well, up to Sunsite's level of traffic and beyond.
+Verifying this scalability before releasing will be important.</item>
+</itemize>
+
+<sect2>Secondary Objectives
+<p>
+<itemize> 
+<item>
+PERFORMANCE: It would be a good idea (for performance) if running CGIs
+was only required for searching and for modifying the database, and
+everything else was available as static HTML files.</item>
+
+<item>
+AUTHENTICATION: Strong authentication for packages and package
+updates, like what Debian does.</item>
+
+<item>
+META-ARCHIVE: Meta-archive functions -- queries to one Trove service
+may automatically also forwarded to other Trove services.<P>
+
+<item>
+EMAIL: Support metadata updates by email to a robot.</item>
+
+<item>
+CRAWLER:  Support an optional `trusted remote metadata' field in the
+metadata and write a crawler that polls these for metadata updates.</item>
+</itemize>
+
+<sect2>Blue Sky
+<p>
+<itemize>
+<item>
+DEPENDENCIES: Teach Trove to extract inter-resource dependencies by
+analyzing binaries. Long-term project! </item>
+</itemize>
+
+<sect1>Architectural Implications
+<p>
+To achieve the CONTRIBUTOR-DRIVEN objective, submissions and updates
+will normally be done through a Web form with upload capability.
+Maintaining metadata will be the responsibility of each package's
+authors and maintainers.
+
+The ENABLING objective implies that at least package resources (if not the
+metadata) should be directly accessible via FTP or the Web.
+
+The LOCATION-INDEPENDENCE objective implies that all resource pointers
+in metadata are actually URLs.
+
+The ENABLING and LOCATION-INDEPENDENCE objectives together require
+that the Trove data architecture must have a clean separation between
+two parts; the <em>catalog</em>, a database holding package metadata,
+and the <em>archive</em>, a local FTP/Web tree holding some (but necessarily
+all) of the resources pointed to by the catalog.
+
+The ENABLING and PERFORMANCE objectives further imply that as much
+as possible of the catalog view should be available through unmediated
+Web and FTP access into the archive.  This implies making HTML and
+plaintext versions of package metadata available in the archive,
+updated automatically when the master copy in the catalog database
+changes.
+
+To achieve RICH METADATA, we must roughly capture RPM's annotation
+semantics. See the appendix on <ref id="rpm-import" name="importing RPMs">.
+
+The NOTIFICATION implies that each package's metadata must include a
+mailing list, and that the interface must support subscription and
+unsubscription facilities.
+
+The SCALABILITY requirement implies using managing the metadata with
+a real database capable of handling high transaction volumes.
+
+For the ENABLING and EMAIL and CRAWLER objectives, we must define a
+plain-text tag format for rendering metadata.  We'll use this to (1)
+represent the metadata in FTP-accessible files in the archive, 
+(2) define the required format for email submissions, and
+(3) define the required format for trusted remote metadata.
+
+The plain-text tag format will come up again, so it needs a name:
+TRL, for Trove Request Language.
+
+<sect1>Architecture
+<p>
+The forgoing objectives make it pretty clear what the general
+architecture of the system.  A Trove site will consist of the
+following parts:
+
+<itemize>
+<item>
+The <bf>catalog</bf> -- a database of metadata records, including URIs
+pointing to resources.</item>
+
+<item>
+The <bf>archive</bf>, a local directory tree containing resources
+managed by the Trove software but independently FTP- and Web-accessible.
+(Some Trove sites may not have an archive, instead being purely
+registries of metadata and pointers.)</item>
+
+<item>
+The <bf>shovel</bf>, a serializing front end that translates TRL
+requests on its standard input into database actions.  The shovel is
+the only program that modifies the database directly.  It's the
+shovel's job to ensure transaction atomicity.</item>
+
+<item>
+The <bf>librarian</bf>, a collection of web pages and CGIs
+that mediates interactive access to the library (the catalog and
+archives together) through Web browsers.   The librarian manipulates
+the database by making TRL service requests through the shovel program.
+It may query the database directly.</item>
+
+<item>
+The <bf>crawler</bf>, a program that periodically attempts to
+update the library by polling maintainer sites specified in metadata.
+The crawler makes TRL service requests through the shovel program.
+(Some Trove sites may not have a crawler.)</item>
+
+<item>
+The <bf>mailbot</bf>, a program that accepts email updates in TRL
+format.  The mail robot makes service requests through the shovel
+program.</item>
+</itemize>
+
+The structure of TRL, with an example, is discussed <ref id="TRL"
+name="in the Appendix">.
+
+<sect2>Fundamental Types and Namespace Control
+<p>
+To reason about the design, we need to know what kinds of things
+will be in the Trove database and how they are named (e.g. what
+handles they can be retrieved by.  Some of this has been touched
+on in the section on terminology.
+
+There are three different kind of objects in the Trove universe.
+These are:
+
+<itemize>
+<item><em>Resource</em>
+A <em>resource</em> is `real' data, a source or binary archive or
+document of the kind a Trove archive is intended to serve.  In the
+Trove universe, a resource it represented by a <em>resource
+record</em> that must include a URL to where the resource actually
+lives and may include other metadata (such as a description).
+
+The name of a resource is the URL of the resource.  Accordingly, any given
+resource name always identifies exactly one resource.
+
+<item><em>Package</em>
+A <em>package</em> is a collection of resources tried together by a <em>package
+record</em>.  The associated resources may be the same program or
+document in several different forms (such as source archive, binary
+archive, installable package, etc.) or it may be a group of related
+resources such as the individual components of a multiple-program
+project.
+
+Besides resources names, package records contain other metadata
+intended to facilitate finding packages by topic or subject area,
+including both a text description and controlled-vocabulary keywords
+(discriminators).
+
+The name of a package is an arbitrary identifier chosen by the package 
+record creator (its initial owner) and changeable by the package record
+owner.
+
+A package may have any number of resources associated with it.  In general,
+any given resource will only belong to one package, but exceptions are
+harmless.
+
+<item><em>Person</em>
+A <em>person</em> record associates metadata
+with an RFC822 email name/address pair.  The metadata may include such
+things as a home-page location, a PGP public key (as an optimization,
+in order to make a public-key-server lookup on each submission
+unnecessary), etc.
+
+Person records exist so that Trove users can go from a package to its
+maintainers to their home pages and other projects.
+
+A person is named by the email address part of their name (which is unique).
+</itemize>
+
+All three kinds of resources are always explicitly created, modified,
+and deleted, with a notoification to interested parties on each action.
+
+The general policy on name validation is that references to
+unregistered people and packages are not.  Thus, maintainers of a
+package need not be in the Person table as long as they have
+syntactically valid email addresses; and package relations may refer
+to packages by name that are not registered in Trove.
+
+This implies that every creation of a Package or Person record needs
+a global check to mark references it suddenly fills, but that is an
+acceptable price for making the namespace open rather than closed.
+
+Issue: We know that package names will be unique per site.  Are they
+unique across all sites in the Trove ring? If not, how do we do
+synchronization when rings merge?  And how do crawlers know which
+package they are responsible for?
+
+<sect2>Catalog architecture
+<p>
+The catalog will be stored in a database.  The <url name="schema" 
+url="http://www.tuxedo.org/~esr/trove"> is available at the Trove
+website.
+
+<sect2>Archive architecture
+<p>
+To make the rest of this document concrete, we need to specify an
+organization for the archive part.  Here it is:
+
+Each project has a directory.  The name of the directory is the
+name of the project, <em>without</em> a version number (this is
+so project directories can contain multiple directories).  Observe
+the implication that project names must be unique per Trove site.
+
+Project directories may live directly under a per-site root, or (for
+performance) under superdirectories which express some kind of hash on
+the names.  It is important for bare-FTP accessibility that this hash
+be easy for human beings to calculate by inspection.  Example:
+terminfo's scheme of having each terminal type live in a
+superdirectory named after the first character of the terminal type
+name.  Whether such a scheme is used, an what it is, is per-site policy.
+
+Within each project's directory live all its associated local
+resources.  Other resources may live offsite (the catalog records
+don't care, they use URIs for everything).  The directory will also
+contain FTP and HTML versions of the package's metadata, as files
+named %%INDEX.TRL and index.html respectively.  The former name
+is chosen to sort as early as possible in an FTP directory listing
+without including Unix shell metacharacters; the latter, to be the
+page automatically displayed by a browser pointed at the directory.
+
+<sect2>Librarian architecture
+<p>
+The librarian will be a set of HTML pages and CGIs that mediate
+between users (including uploaders and maintainers) and the library.
+
+It will be necessary for the librarian to maintain state through
+multiple-form transactions.  For discussion of the librarian design,
+see the major section on <ref id="interface" name="user interface
+design"> below.
+
+<sect2>Mail-Robot and Crawler architecture
+<p>
+These will be programs that, essentially, translate metadata
+submissions in TRL into actions on the archive.  The only difference
+between them will be that the email robot waits for input fed to it
+though a mail alias, while the crawler looks for descriptions in
+remote locations specified by metadata URIs.
+
+In both cases, a parse error or package name collision or other
+exception will generate email to the submitting party and contact
+persons given in the both new and old metadata.
+
+<sect1>Architecture Open Issues
+<p>
+What do we use as the database back end?   Postgres95?
+SOLID? MySQL?  Something else?
+
+<sect>User Interface Design<label id="interface">
+<p>
+
+<sect1>User Roles
+<p>
+To understand the interface, it will be helpful to recognize that
+different kinds of people will be using the archive:
+
+<sect2>Users
+<p>
+Users (people looking for packages that match their requirements to
+download) are presented with a search/browse form on the Web.  The
+search/browse form allows them to enter search terms (discriminators).
+The keywords may be selected with buttons from a controlled vocabulary
+defined by site policy, or entered as `roll-your-owns' in a text
+field for free-text searching of package descriptions.
+
+Searches would yield all targets that are in the the intersection set of the
+controlled-keyword hits, intersected with all hits from a search for
+roll-your-own keywords in package text descriptions.  We'll give below
+a more detailed description of the handling of <ref id="keytrees"
+name="controlled-vocabulary keywords">.
+
+The result of a search/browse operation is a generated HTML
+<bf>catalog listing</bf>.  The body of a catalog listing
+consists of a series of one-line entries each beginning with a
+package-name hotlink and including a one-line package summary.  The
+catalog has section headers indicating which lines are
+controlled-keyword hits and which are free-text hits.
+
+Users looking at a catalog listing may either refine the search or
+look at individual entries that interest them (by chasing the
+package-name hotlinks).  An individual entry displays all package
+metadata contained in the Trove database, possibly including resource
+links to a local cache of package resource files.
+
+When an individual entry is selected, a user may take one of several
+actions:
+
+<itemize>
+<item>
+Chase a resource hotlink on the package metadata display (such as the
+package home page URL, or a mailto URL for the package contact
+person).</item>
+
+<item>
+Download package resources (e.g. by chasing FTP hotlinks on the
+package metadata display).</item>
+
+<item>
+Subscribe or unsubscribe to the package's notification list (that is,
+the list of people automatically notified by email whenever package
+metadata or resources are changed).  All unsubscription requests must
+be authenticated; this is to prevent bad guys from masquerading as
+good guys in order to suppress notifications.</item>
+
+<item>
+Attach a review annotation to the package. (This is a future feature
+and has not yet been designed into the database schema.)</item>
+</itemize>
+
+<sect2>Contributors
+<p>
+Contributors have three tasks: (1) creating and updating resources,
+(2) creating and updating package records, and (3) creating and updating 
+person records.  All three of these things are done in the same way;
+by submitting TRL requests to a Trove site.  
+
+A contributor can either mail a TRL request to a Trove mail robot, or
+use a TRL request to register a URL where update requests for a given
+package can be found.  Periodically a Trove crawler will go to the
+registered URL to pick up a new copy of the metadata.  The crawler
+keeps internal track of the last-upload time and will only actually
+copy the metadata if the file has since been altered.
+
+In either case, if the request is authenticated (PGP-signed) it will
+be executed immediately and a report emailed to the contributor.  If
+the request is not authenticated, it will be emailed back to the
+contributor's home address for confirmation; the confirmation message
+will include a request ticket.  Replying to the confirmation email will
+ship it back to Trove for execution of the request.
+
+TRL requests may also be generated by a browser session with Trove (in fact,
+this will be normal for initial package creation, and assist the contributor
+in aditing controlled-vocabulary fields like discriminators).  When the
+request is committed, a TRL copy will be made and emailed to the contributor.
+including a request ticket. 
+
+When a Trove server finally executes a request, it makes local
+copies of any attached and replica resources.  It then makes whatever
+modifications are permitted by the request's privilege level and the
+locked/unlocked state of the items the request wants to modify.
+Finally, an email report of all changes made (and any updates refused)
+is sent to everyone on the package notification list.
+
+<sect2>Administrators
+<p>
+Trove site administrators get email notification of all package creations
+(so they can watch for site-policy violations).
+
+Trove site administrators can use a web form to view a catalog of
+recently added entries, and delete or modify them if there appears to 
+be some problem.
+
+Administrators are also responsible for watching logs of roll-your-own
+keyword entries and noticing when keywords should be migrated into the
+core keyword set described in site policy.
+
+<sect2>Mirror Makers
+<p>
+Mirror makers include both CD-ROM distribution makers and people
+running load-sharing mirrors of a Trove site.  Both have the same
+requirement, which is to be able to snapshot the library to another
+medium.  The CD-ROM distributor's happens to be read-only, but he
+has every good reason to simply ship an instance of Trove as his
+organizer for the archive.
+
+<sect1>Searching and Browsing
+<p>
+<label id="keytrees">To flesh out the user interface, we also need to
+specify how users will find packages.  We have developed a unified
+searching/browsing model for the Trove project.  This model was
+motivated by a desire to structure the controlled-keyword set so the
+user doesn't have to see all of it while specifying a package (that
+is, some keywords become `visible' only after given other keywords
+have been chosen).
+
+<sect2>Discriminators, Packages, and Searches
+<p>
+The general model is that the set of controlled keywords is structured
+like the nodes of a tree (or more generally like a directed acyclic
+graph).  A keyword is selectable only when a predecessor node has been
+selected.  A <em>discriminator</em> is a rooted path in the tree
+(e.g. a sequence of keywords going from root to most specific).
+
+Each package has a list of discriminators associated with it. A
+package matches a given discriminator if the package has some
+discriminator of which the given discriminator is a prefix.  Thus,
+if a package has the discriminator /a/b/c/d, any of the given
+discriminators /a, /a/b, /a/b/c, or /a/b/c/d will match it.
+The discriminators a, b, c, d, or a/b, or c/d will also match it
+(but a/d would not).
+
+A <em>search</em> is a set of discriminators created by the user, plus
+uncontrolled keywords to match against package descroption fields.
+The result of the search is the intersection set of all packages that
+match every discriminator in the search, plus the set of all packages
+whose descriptions matched the uncontrolled keywords.
+
+<sect2>An Example
+<p>
+As an example for this model, consider a user wishing to explore what
+graphics viewers are available in a Trove catalog.  The user would
+like to be able to specify both (a) graphics formats of interest, and
+(b) a display toolkit (SVGA, Xlib, Motif, etc.).  Let us suppose that the
+user is looking for a Motif GIF viewer.
+
+The user's search might be performed by building the following pair of
+discriminators: <bf>/topic/graphics/viewers/gif</bf> and
+<bf>/interface/toolkit/motif</bf>.
+
+<sect2>Catalogs and Browsing
+<p>
+A search defines a <em>catalog</em>, a subset of the global catalog
+that is the entire set of metadata.  This model unifies searching and
+browsing; one browses the set of Trove packages by editing a
+collection of selections, and viewing the catalog resulting after each
+edit.
+
+<sect1>Sketch of Interface Design
+<p>
+(Note: this sketch deliberately avoids specifying a detailed UI.)
+
+The user is initially presented with a menu consisting of all keywords
+that appear in the leftmost slot of any spec. (This is a subset of the
+keytree nodes adjacent to root.)
+
+On choosing one of these, the user is presented with all keywords
+which appear in slot 2 of a spec containing the chosen keyword
+in slot 1.  This is browsing down the specs.  In addition, any
+<em>package</em> tagged by a spec consisting solely of the chosen
+keyword is also displayed.  There is also
+the further option <bf>Narrow Search</bf>.
+
+Further choices of keywords walk down the spec path, displaying any
+packages that have been tagged by the currently chosen spec, along
+with the keywords for the next level.  Eventually one reaches a level
+where there are only packages and no further keywords.
+
+Choosing ``Narrow Search'' returns one to the top level, but now only
+those keywords and packages that can be located in the catalog
+consisting of the result of the previous browsing operation are
+selectable.  Packages outside the catalog are ignored; excluded keywords
+are indicated in a non-selectable mode.
+
+The purpose of `graying out' keywords is to allow the user to see
+instantly that what is wanted is inconsistent with the currently
+narrowed search.  Narrowing can be iterated, or it can be backed out
+of (by throwing away rightmost segments of the current spec).  At all
+times the current narrowing list and the current spec are displayed,
+so that the user doesn't get lost.
+
+In this style, the user can hardly tell the difference between
+browsing and searching: ideally the delay is always the same,
+so one does not assemble a ``search string'' and then hit ``Search'';
+instead, one simply browses and, if the current catalog seems to be too
+large, narrows.  Depending on external considerations, a too-large
+catalog might elicit a warning such as ``There are 3500
+packages available.  You can |display| the full list or
+|narrow| your search.'' (where pipe bars bracket hotlinks).
+
+<sect2>Sample Session
+<p>
+Let's say the top-level screen provides keywords Topic,
+Interface, Audience, Status, etc.  (I will use This Style or THIS STYLE
+for keywords, and all-lower-case-nn.nn for packages.)
+  
+Choosing Topic, the user is presented with Compilers, Browsers,
+Graphics, etc. and Narrow Search (henceforth N.S.).
+
+Choosing Graphics, the user is presented with Painters, Drawers,
+Viewers, etc. and N.S.
+
+Choosing Viewers, the user is presented with GIF, JPEG, PNG, etc.
+the packages barfoo-2.2, zambaz-3.3 (these are packages that are
+not specialized as to format), and N.S.
+
+Choosing GIF, the user gets packages foobar-1.2, bazzam-3.4, etc., etc.,
+etc. and N.S.  There are too many to investigate in detail, so the user
+chooses N.S. and is returned to the top level.
+
+Choosing Interface, the user is presented with Dumb, Curses,
+Toolkit, etc.
+
+Choosing Toolkit, the user is presented with razbaz-9.99 (which
+uses a standardly available toolkit), Motif, KDE, etc.
+
+Choosing Motif, the user sees only foobar-1.2, the intersection
+of /Topic/Graphics/Viewers/GIF and /Interface/Toolkit/Motif.
+  
+And chooses it.
+
+All of this could be done HTML-style, or using one or more choice
+boxes, or in any number of other ways - this is an abstract UI.
+
+<sect>Security and Authentication
+<p>
+There are two levels of protection in the Trove design.  Which will
+operate depends on whether a contributor is authenticated or not.
+
+<sect1>Security through Visibility
+<p>
+The contributor who creates a package entry, and anyone who changes
+the package metadata or resources after the fact, will be put on the
+package's heads-up list.  Every time the package metadata is modified
+after that, the updating contributor will be added to the heads-up
+list, and everybody on the heads-up list will be notified.
+
+The intent of this feature (and the requirement that unsubscription
+requests be validated) is to make sure that all metadata & resource
+changes are visible to everybody with a stake in the package.  In
+particular, any modifications an unauthorized person succeeds in doing
+will be visible to the real package owners.
+
+<sect1>Security through Authentication
+<p>
+Either a resource or a package may be <em>locked</em>.  When an item
+(resource or package) is locked, any request to modify it must be
+authenticated as coming from a <em>maintainer</em> of the package.
+
+Here are the rules of maintainership: 
+
+1. The <em>owner</em> of an item is the person who can add and delete
+maintainers. 
+<itemize>
+<item>
+The owner of an item is automatically an maintainer of the item. </item>
+<item>
+The person who creates an item is its first owner.</item>
+<item>
+The owner may pass the owner role to another validated user.</item>
+</itemize>
+
+2. Any maintainer of an item (package or resource) can modify or delete the
+item.
+
+3. The maintainers of a package may delete associated resources.
+
+<sect1>How To Authenticate Requests
+<p>
+The Trove authentication system leverages the PGP-key infrastructure.
+To authenticate a TRL request, you must sign it with PGP.  The shovel
+program will check the signature.  If the key ID matches the TRL
+Contributor line, the request is considered authenticated.
+
+The big advantage of this system is that it leverages the public-key
+infrastructure.  This means that Trove won't need to keep any secrets
+of its own, and contributors don't need any secrets other than their
+existing PGP passphrases.
+
+<sect1>Package Authentication
+<p>
+To be specified.  Base on the
+<url url="http://java.sun.com/products/jdk/1.1/docs/guide/jar/manifest.html"
+name="JAR approach"> suggested by Jeremy Hylton?
+
+<sect>TRL Language Reference
+<p>
+<label id="TRL">
+TRL (Trove Request Language) is used for two central purposes in the Trove
+architecture.  First, it is the request language used to request updates
+to a Trove archive.  Second, it is the format in which FTP-browseable
+dumps of index data are emitted (and from which the index may be
+regenerated).
+
+<sect1>TRL Reference
+<p>
+Lexical analysis of TRL is simple (it's modeled on RFC822 message
+format). It consists of the required begin marker with version,
+followed by any number of tagged logical lines, followed by the
+required end marker, followed by an optional PGP signature.
+
+A tagged logical line consists of a tag, followed by a colon, followed
+by a line of text, optionally followed by continuation lines.  A tag 
+is any sequence of printable non-space, non-colon characters beginning
+with an alphabetic.  Continuation lines begin with whitespace or tab.
+Blank lines are ignored.  # and end-of-line delimit comments.
+
+Values in keyword fields (Locked, Action, Icon-Action,
+Resource-Action, Resource-Role) are case-insensitive.
+
+Semantically, a TRL request consists of a preamble followed by
+any number of person or package updates.
+
+The preamble consists a Contributor field followed by an optional
+Comment field.  The Contributor should be the name of the person
+submitting the TRL request; it must correspond to the PGP key if both
+are present.
+
+A person update may include Home-Page, Authorization-Mode, and
+Authorization-Secret fields directly corresponding to the schema.
+A Rename-To field is also supported.
+
+A package update contains a package section followed by any number of
+resource sections.  Order of lines within sections is not significant.
+
+The END-TRL field may be followed by MIME-multipart attachments 
+corresponding to `attached' resources in the TRL header.
+
+An optional cryptosignature following attached resources may be used
+to authenticate the request.
+
+Here's a motivating example of a package update.
+
+<tscreen><verb>
+BEGIN-TRL 0.6
+Contributor: "Eric S. Raymond" <esr@thyrsus.com>
+Comment: This is a sample
+# Replace package metadata
+# Note: if this TRL were a dump rather than an action request, it
+# would include Created and Last-Modified date fields and an
+# Update-Count integer.
+Package: fetchmail
+Summary: A full-featured POP/IMAP mail retrieval daemon.
+Description: fetchmail is a free, full-featured, robust, and
+    well-documented remote mail retrieval and forwarding utility
+    intended to be used over on-demand TCP/IP links (such as SLIP or
+    PPP connections).  It retrieves mail from remote POP and IMAP 
+    servers and forwards it to your local (client) machine's delivery
+    system, so it can then be be read by normal mail user agents such
+    as mutt, elm, pine, or mailx.  Comes with an interactive GUI
+    configurator suitable for end-users.
+Update-Notes: Anybody running a version older than 4.3.0 should
+    definitely upgrade.
+Latest-Version: 4.5.0
+Last-Stable-Version: 4.5.0 
+Icon: http://www.tuxedo.org/~esr/fetchmail/fetchmail.gif
+Icon-Location: replica
+Home-Page: http://www.tuxedo.org/~esr/fetchmail
+Crawl-To: http://www.tuxedo.org/~esr/fetchmail/TROVE-METADATA
+Owner: "Eric S. Raymond" <esr@thyrsus.com>
+#
+# The following are list fields which update package-to-person relations
+#
+Authors: "Eric S. Raymond" <esr@thyrsus.com>
+Contacts: "Eric S. Raymond" <esr@thyrsus.com>
+Maintainers: "Eric S. Raymond" <esr@thyrsus.com>, "Rob Funk" <funk+@osu.edu>,
+              "Dave Bodenstab" <imdave@mcs.net>,
+              "Al Youngwerth" <alberty@apexxtech.com> 
+# This adds a person to the package notification list.
+# The entire list could have been set with a `Notify' header, 
+# or individual unsubscriptions done with an `Unsubscribe' header.
+Subscribe: "Catherine Olanich Raymond" <cor@ccil.org>
+#
+# The following are list fields which update package-to-package
+# relations.  The two other relations are Extends and See-Also.
+#
+Supersedes: popclient
+Requires: smtpdaemon
+#
+Discriminators: system/mail/{pop, imap}, 
+              audience/{end-users, sysadmins},
+              status/production,
+              embedding/application,
+              interaction/utility,
+              license/GPL,
+              platforms/{Linux, BSD}, 
+
+Locked: TRUE
+Action: replace
+
+# Delete old source tarball
+Resource: http://www.tuxedo.org/~esr/fetchmail/fetchmail-4.4.8.tar.gz
+Action: delete
+
+# Create new source tarball.
+# Note: if this TRL were a dump rather than an action request, it
+# would include Created and Last-Modified date fields and an
+# Update-Count integer. 
+Resource: http://www.tuxedo.org/~esr/fetchmail/fetchmail-4.4.9.tar.gz
+Resource-Role: source
+Resource-Location: replica
+Version: 4.4.9
+MIME-Type: application/data
+Description: Gzipped source tarball of fetchmail sources
+Locked: TRUE
+Action: replace
+
+# Change version field of existing metadata for FAQ
+Resource: http://www.tuxedo.org/~esr/fetchmail/fetchmail-FAQ.html
+Resource-Role: documentation
+Version: 4.4.9
+Action: merge
+END-TRL
+</verb></tscreen>
+
+
+
+
+<sect2>Person fields
+<p>
+All Person update requests must be authenticated.
+
+<itemize>
+<item><em>Person</em>: RFC822 name/address pair of the person this record
+is about.  This field will be used as the key when attempting to fetch a
+PGP public key to verify requests.
+<item><em>Home-Page</em>: WWW home page of the person.
+<item><em>Rename-To</em>: (Updates only)  Specifies an RFC822
+name/address pair to replace the Person address with (replacement will be
+performed throughout the database).
+</itemize>
+
+This is a test load for the Person record parsing.  It would have the
+effect of replacing all metadata references to "Eric S. Raymond" with
+"Thaddeus Q. Foonly".
+
+Normally such an update would be used to change a contributor's 
+primary email address, the spelling of his/her name, or his/her
+home page.
+
+<tscreen><verb>
+BEGIN-TRL 0.6
+Contributor: "Eric S. Raymond" <esr@thyrsus.com>
+Person: "Eric S. Raymond" <esr@thyrsus.com>
+Home-Page: http://www.tuxedo.org/~esr
+Rename-To: Thaddeus Q. Foonly <foon@random.org>
+END-TRL
+</verb></tscreen>
+
+
+<sect2>Package fields
+<p>
+<itemize>
+<item><em>Action</em>: (Updates only) Must be one of `merge', `replace', 
+	or `delete'; `merge' is the default.  The `delete' action
+	requests deletion of the package record.  The `merge' action requests
+	that only nonempty fields in the package update should be merged into
+	the existing record.  The `replace' action specifies that the data in
+	the update should entirely replace the existing record. (It is an
+	error to specify any field besides the name in a delete request.)
+<item><em>Authors</em>: A list of RFC822 name/address pairs, the people 
+	considered authors of the package.
+<item><em>Contacts</em>:  A list of RFC822 name/address pair, the people
+	considered public contact people for the package.
+<item><em>Crawl-To</em>: A URL where the Trove crawler can find updated
+	metadata for this package.
+<item><em>Created</em>: (Dumps only) Date of first creation of this record.
+<item><em>Conflicts-With</em>: Asserts that this package cannot be 
+	concurrently installed with the listed package.
+<item><em>Description</em>: Description of this package.
+<item><em>Discriminators</em>: A comma-separated list of discriminators
+	of discriminator wildcards (alternation is supported annd implies
+	a list of all discriminators matching the expression.
+	All discriminators are considered rooted (leading slash is implicit).
+<item><em>Extends</em>: A comma-separated list of package names (not
+	necessarily Trove-registered packages).  This field declares that
+	the current package is an extension of the listed package.
+<item><em>Fixes-For</em>: Asserts that this package contains fixes for
+	the listed packages.
+<item><em>Home-Page</em>: WWW home page of the package.
+<item><em>Icon</em>: URL of a PNG, JPEG, or GIF to use as a package icon.
+<item><em>Icon-Location</em>: (Updates only) Must be one of `replica', 
+	`original', or `attached'. These specify whether a local copy of
+	the icon should be made.  If the value is `original', no copy will
+	be made.  If the value is `replica', the resource will be copied
+	from the specified URL.  If the value is `attached', the TRL parser
+	will expect to find a matching MIME-multipart attachment in the
+	update message.  
+<item><em>Last-Modified</em>: (Dumps only) Date this record was last
+	modified.
+<item><em>Last-Stable-Version</em>: Name of the version considered by
+	the maintainer to be the last production version.
+<item><em>Latest-Version</em>: Name of the version considered by
+	the maintainer to be the leading version.
+<item><em>Locked</em>: Must be `true' or `false',  If `true', this 
+	package record may only be modified by an authenticated request from
+	a maintainer, author, or Trove archivist.
+<item><em>Maintainers</em>: List of RFC822 name/address pairs of persons
+	allowed	to modify this record (even if it is locked).
+<item><em>Notify</em>: (Updates only) Sets the package notification list,
+	those who will be emailed whenever the metadata changes.  Compare
+	<em>Subscribe</em> and <em>Unsubscribe</em>, which modify this list.
+<item><em>Owner</em>: RFC822 name/address pair of the package owner (the
+	person privileged to modify the maintainers/authors/contacts lists).
+<item><em>Package</em>: Name of the package.
+<item><em>Requires</em>: A comma-separated list of package names (not
+	necessarily Trove-registered packages).  This field declares that
+	the current package requires the listed package in order to work.
+<item><em>Rename-To</em>: (Updates only) Specifies a new name for the
+	package (replacement will be performed throughout the database).
+<item><em>See-Also</em>: A comma-separated list of package names (not
+	necessarily Trove-registered packages).  This field declares that
+	all listed packages are somehow related to the current package.
+<item><em>Subscribe</em>: (Updates only) Comma-separated list of RFC822
+	name/address pairs to be added to the notification list.  Compare
+	<em>Notify</em>, which sets (overwrites) the entire list.
+<item><em>Summary</em>: One-line summary of the package description.
+<item><em>Supersedes</em>: A comma-separated list of package names (not
+	necessarily Trove-registered packages).  This field declares that
+	the current package supersedes the listed package.
+<item><em>Unsubscribe</em>:  (Updates only) Comma-separated list of RFC822
+	name/address pairs to be removed from the notification list. Compare
+	<em>Notify</em>, which sets (overwrites) the entire list.
+<item><em>Update-Count</em>: (Dumps only) Count of times this package 
+	record has been updated.
+<item><em>Update-Notes</em>: Packager's notes on deprecated versions, 
+	upgrade urgency etc, separated from Description so free-text 
+	searches will ignore it.
+<item><em>Via</em>: (Dumps only) Name of the program through which the
+	last update was submitted.
+</itemize>
+
+<sect2>Resource fields
+<p>
+<itemize>
+<item><em>Action</em>: (Updates only) Must be one of `merge', `replace', 
+	or `delete'; `merge' is the default.  The `delete' action
+	requests deletion of the resource record.  The `merge' action requests
+	that only nonempty fields in the resource update should be merged into
+	the existing record.  The `replace' action specifies that the data in
+	the update should entirely replace the existing record.  (It is an
+	error to specify any field besides the name in a delete request.)
+<item><em>Authors</em>: A list of RFC822 name/address pairs, the people 
+	considered authors of the resource.  If this list is empty, the authors
+	list is inherited from the containing resource record.
+<item><em>Created</em>: (Dumps only) Date of first creation of this record.
+<item><em>Description</em>: Description of this resource.
+<item><em>Last-Modified</em>: (Dumps only) Date this record was last
+	modified.
+<item><em>Locked</em>: Must be `true' or `false',  If `true', this 
+	resource record may only be modified by an authenticated request from
+	a maintainer, author, or Trove archivist.
+<item><em>MIME-Type</em>: The MIME type of the resource file.
+<item><em>Maintainers</em>: List of RFC822 name/address pairs of persons
+	allowed	to modify this resource.  If this list is empty, the authors
+	list is inherited from the containing resource record.
+<item><em>Notify</em>: (Updates only) Sets the resource notification list,
+	those who will be emailed whenever the metadata changes.
+<item><em>Owner</em>: RFC822 name/address pair of the resource owner (the
+	person privileged to modify the maintainers/authors lists).
+<item><em>Resource</em>: Name of the resource.  Can be either an URL
+	(if the Resource-Location field is `original' or `replica') or a
+	bare filename (if the Resource-Location field is `attached').
+<item><em>Resource-Location</em>:  (Updates only) Must be one of `replica',
+	`original', or `attached'. These specify whether a local copy of
+	the icon should be made.  If the value is `original', no copy will
+	be made.  If the value is `replica', the resource will be copied
+	from the specified URL.  If the value is `attached', the TRL parser
+	will expect to find a matching MIME-multipart attachment in the
+	update message.  
+<item><em>Resource-Role</em>: Specifies a role for the resource; see
+	below.
+<item><em>Update-Count</em>: (Dumps only) Count of times this resource 
+	record has been updated.
+<item><em>Update-Notes</em>: Packager's notes on deprecated versions, 
+	upgrade urgency etc, separated from Description so free-text 
+	searches will ignore it.
+<item><em>Version</em>:
+</itemize>
+
+<sect2>Resource roles
+<p>
+<itemize>
+<item><em>source</em>: This resource is a source archive of some part
+	of the package.
+<item><em>binary</em>: This resource is an executable binary, or archive
+	of executable binaries, generated from the package source.
+<item><em>installable</em>: This resource is an installable package
+	(such as an RPM) generated from the package sources.
+<item><em>documentation</em>: This resource is documentation
+	for the package.
+<item><em>data</em>: This resource is data of some sort associated
+	with the package.
+<item><em>other</em>: None of the above.
+</itemize>
+
+<sect1>TRL Future Directions
+<p>
+Define and implement an XML presentation of TRL semantically
+equivalent to this one (at present, mature XML tools to support this
+are lacking).
+
+Dates should accepted in <url
+url="http://www.ft.uni-erlangen.de/~mskuhn/iso-time.html"
+name="ISO-8601">.  This is the format to use with the XML syntax.
+
+<sect>Data Formats
+<p>
+<sect1>Text Field Rules
+<p>
+Description fields are interpreted according to the following rules:
+
+Text is plain text.  Paragraphs are separated by one or more blank
+lines.  No HTML tags are recognized; &gt;, &amp; and &lt; mean
+themselves.  Normal paragraphs are word-filled.  Indented text is
+treated as-is and converted to &lt;PRE&gt;...&lt;/PRE&gt; in HMTL
+(tabs should be expanded to spaces here).  A single word between
+*asterisks* means &lt;b&gt;bf&lt;/b&gt; and a single word in
+_underscores_ means &lt;i&gt;italics&lt;/i&gt; (even in indented
+text).  Any text that looks sufficiently like a URL
+(e.g. http://www.python.org) is turned into a hyperlink with an
+&lt;A...&gt;...&lt;/A&gt; tag pair (even in indented text).
+
+<sect1>Mappings between Trove and RPM metadata
+<P>
+<label id="rpm-import">It would be highly desirable to be able to
+automatically import Red Hat RPMs and SRPMs into the Trove scheme.  To
+this end, we compare them here.
+
+Here are the currently defined RPM metadata tags:
+
+<itemize>
+<item><bf>Name</bf> -- the package name</item>
+<item><bf>Version</bf> -- the package version</item>
+<item><bf>Release</bf> -- the RPM release number</item>
+<item><bf>Copyright</bf> -- the license type of the software</item>
+<item><bf>Group</bf> -- topic category of the application</item>
+<item><bf>Source</bf> -- URL pointing to home archive of the sources</item>
+<item><bf>URL</bf> -- URL pointing to documentation</item>
+<item><bf>Release</bf> -- the RPM release number</item>
+<item><bf>Distribution</bf> -- the distribution this package belongs to</item>
+<item><bf>Vendor</bf> -- the organization distributing the software</item>
+<item><bf>Packager</bf> -- contact email of package maker</item>
+<item><bf>Summary</bf> -- one-line summary description</item>
+<item><bf>Description</bf> -- multiline description of package.</item>
+<item><bf>Icon</bf> -- GIF or XPM icon for package.</item>
+</itemize>
+
+Going through the Trove schema package fields in order, we see that we
+can copy the Name, Summary, Description, and Icon fields directly.
+RPM's URL field is equivalent to our Home-Page field.  
+
+We don't need RPMs to fill in the Crawl-To, Remote-Date, or Refresh-Date
+fields, as those are strictly for the crawler's use.
+
+In the package access record, the Created, Update-Count, Modified,
+and Locked fields could be created at RPM translation time.  The
+Contributor field could be copied from the RPM Packager field.
+
+Now, proceeding to the relations.  Assuming we had some systematic
+mapping of Group discriminators to Trove discriminators, we could
+derive exactly one topic discriminator.  We could derive `required-by'
+relations from the Required header.  We could derive the license-type
+controlled keywords from the Copyright header.  No way to extract
+`supercedes', `extends', or `see-also'.
+
+The real problems are with the package-to-person relations.  RPM has
+no discriminators for contact people, authors, or maintainers.  Metadada
+maintainership privileges would default to the contributor, but in the case
+of RPMs created by (say) Red Hat for distribution this is unlikely to
+be useful.
+
+The picture is a little brighter with respect to automatically
+declaring resources.  We could declare the RPM itself a resource with
+a version number composed from the Version and Release fields.  The
+Contributor field could set the maintainer.
+
+Conclusion: RPM metadata is not really adequate for generating Trove
+records from.  The major problems are (a) it doesn't supply enough
+keyword/discriminator info, and (b) there is no way to derive a
+reliable maintainer or author list from it.
+
+<sect1>Mappings between Debian and RPM metadata
+<P>
+<label id="debian-import">It would be desirable to be able to
+automatically import Debian .deb packages into the Trove scheme.  To
+this end, we compare them here.
+
+Here are the Debian metadata tags defined in the
+<url name="Debian Packaging Manual"
+url="http://fatman.mathematik.tu-muenchen.de/~schwarz/debian-doc/manuals/packaging-manual/">:
+
+<itemize>
+<item><bf>Package</bf> -- the package name</item>
+<item><bf>Version</bf> -- the package version</item>
+<item><bf>Architecture</bf> -- architecture the package is for</item>
+<item><bf>Maintainer</bf> -- contact email of package maker</item>
+<item><bf>Source</bf> -- name of corresponding source package</item>
+<item><bf>Depends</bf> -- declares an absolute dependency</item>
+<item><bf>Recommends</bf> -- declares a strong but not absolute dependency</item>
+<item><bf>Suggests</bf> -- recommends other packages to install</item>
+<item><bf>Pre-Depends</bf> -- declares an installation dependency</item>
+<item><bf>Conflicts</bf> -- says what this cannot coexist with</item>
+<item><bf>Replaces</bf> -- declares that this replaces given packages</item>
+<item><bf>Provides</bf> -- declares `virtual' packages for dependency purposes</item>
+<item><bf>Description</bf> -- multiline description of package.</item>
+<item><bf>Essential</bf> -- declares that a package cannot be removed (only replaced).</item>
+<item><bf>Priority</bf> -- how essential the package is.</item>
+<item><bf>Section</bf> -- application area of the package</item>
+<item><bf>Installed-Size</bf> -- installed size of the package</item>
+<item><bf>Standards-Version</bf> -- applicable version of Debian packaging standards</item>
+<item><bf>Distribution</bf> -- the distribution this package belongs to</item>
+<item><bf>Urgency</bf> -- how important it is to get current</item>
+<item><bf>Date</bf> -- last-modified-date of metadata</item>
+<item><bf>Format</bf> -- format level for changes file</item>
+<item><bf>Changes</bf> -- human-readable changelog data</item>
+<item><bf>Size</bf> -- size of binary package</item>
+<item><bf>MD5sum</bf> -- MD5 checksum of the package</item>
+</itemize>
+
+(A few listed fields which are not package metadata have been omitted.  Note
+that the Maintainer field is the <em>.deb</em> maintainer, analogous
+to the RPM Packager field, not the person responsible for the software.)
+
+We can copy the Package, Version, and Description fields directly.
+Our Requires field might be derivable from Debian's Depends.  It has
+been noted that we might be able to derive Crawl-To, Latest-Version,
+and Last-Stable Version by looking at the Debian FTP site.  Otherwise
+there is little overlap -- not nearly enough to make using Debian
+metadata reasonable.
+
+<sect1>Comparison with Dublin Core metadata
+<p>
+The <url url="http://purl.oclc.org/metadata/dublin_core" name="Dublin
+Core">) is a set of 15 metadata items that are meant to be fully
+general across all kinds of intellectual-property resources.  Here
+is a summary of the Dublin Core fields:
+
+<itemize>
+<item><bf>Title:</bf> -- the name of the resource</item>
+<item><bf>Creator:</bf> -- the person who created the intellectual content of
+		the resource</item>
+<item><bf>Subject:</bf> -- structured keywords</item>
+<item><bf>Description:</bf> -- free text</item>
+<item><bf>Publisher:</bf> -- the entity responsible for making the resource
+		available</item>
+<item><bf>Contributor:</bf> -- secondary provider of content</item>
+<item><bf>Date:</bf> -- creation or first-ability date of the resource</item>
+<item><bf>Type:</bf> -- category of work (home page, novel, poem, working
+		paper)</item>
+<item><bf>Format:</bf> -- data format, intended to identify what is required
+		to present or use the resource</item>
+<item><bf>Identifier:</bf> -- URL, URN, ISBN, or other unique identifier
+		within category</item>
+<item><bf>Source:</bf> -- information about a base resource from which
+		this one is derived.</item>
+<item><bf>Language</bf> -- language of the intellectual content of the
+		resource</item>
+<item><bf>Relation</bf> -- relates this reasource to another, via
+		assertion such as IsVersionOf(), IsBasedOn(), IsPartOf(),
+		etc.</item>
+<item><bf>Coverage:</bf> -- spatial or temporal characteristics of the
+		intellectual content of the resource.</item>
+<item><bf>Rights:</bf> -- pointer to license and rights information.</item>
+</itemize>
+
+We are certainly not going to be able to use the Dublin Core as a
+complete set of descriptors.  But there are some things we could do to
+be name-compatible where we're semantically compatible, and avoid name
+clashes where we cannot be semantically compatible.
+
+<tscreen><verb>
+Simple renamings:
+	Author -> Creator
+	Maintainer -> Contributor
+	Contributor -> Publisher	
+	Discriminators -> Subject
+
+Fieldnames to avoid in our metadata:
+	Title      (hard experience that people don't interpret this well)
+	Date       (because of creation vs. last-modified ambiguity)
+	Type       (incompatible vocabulary with Dublin Core's)
+	Format     (incompatible vocabulary with Dublin Core's)
+	Identifier (there isn't any natural scheme)
+	Source     (doesn't specify mode of derivation well enough)
+	Language   (doc-language vs. implementation-language ambiguity)
+	Relation   (incompatible vocabulary with Dublin Core's)
+	Coverage   (just irrelevant)
+</verb></tscreen>
+
+Finally, we could set a bit that if we end up disambiguating package names
+with a site prefix or other uniquifying prefix (rather than resolving
+collisions), the "true name" could be designated the Identifier.
+
+No decision has been made on this yet.
+
+<sect>Recent Changes
+<p>
+Version 1.2: Minor changes to TRL suggested by M. A. Lemburg.
+Relation fields added to TRL example; corresponds to version 1.12 of
+the schema.  New section on translation from RPMs.
+
+Version 1.3: Separate resource-action fields from resource fields.
+Dump Refresh-Date, life is much simpler without it.  Introduce concept
+of preamble.  This example corresponds to version 1.13 of the schema
+and the initial version of the TRL parser.
+
+Versions 1.4, 1.5, 1.7: minor editorial changes.
+
+Version 1.7: Action-field renames as suggested by John Cowan.  Added
+		Resource-Role field.
+
+Version 1.8: Added Subscribe and Unsubscribe fields.
+
+Version 1.9: TML renamed to TRL to avoid collision with `HTML'
+
+Version 1.10: Submitter field changed to Contributor.
+
+Version 1.11: Document the new `attached' adjective.
+
+Version 1.12: SGML markup fixes.
+
+Version 1.13: Added Person record parsing.  Added Rename-To fields.
+
+Version 1.14: Support notification lists in base classes.  Added a
+		complete TRL reference.
+
+Version 1.15: Added comparisons with Debian fields and with Dublin Core 
+		metadata.  Added sections on basic types and contributor
+		workflow.  Removed sticky bit, added Fixes-For and
+		Conflicts-With relations and Update-Notes field.
+
+Version 1.16: Minor markup fixes.
+</article>

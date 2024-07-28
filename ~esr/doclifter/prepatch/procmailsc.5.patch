@@ -1,0 +1,53 @@
+--- procmailsc.5-unpatched	2012-08-10 09:33:35.284407283 -0400
++++ procmailsc.5	2012-08-10 09:33:50.296406954 -0400
+@@ -5,36 +5,6 @@
+ ..
+ .Id $Id: procmailsc.man,v 1.15 2001/08/04 06:08:22 guenther Exp $
+ .TH PROCMAILSC 5 \*(Dt BuGless
+-.rn SH Sh
+-.de SH
+-.br
+-.ne 11
+-.Sh "\\$1"
+-..
+-.rn SS Ss
+-.de SS
+-.br
+-.ne 10
+-.Ss "\\$1"
+-..
+-.rn TP Tp
+-.de TP
+-.br
+-.ne 9
+-.Tp \\$1
+-..
+-.rn RS Rs
+-.de RS
+-.na
+-.nf
+-.Rs
+-..
+-.rn RE Re
+-.de RE
+-.Re
+-.fi
+-.ad
+-..
+ .de Sx
+ .PP
+ .ne \\$1
+@@ -316,13 +286,3 @@
+ <guenther@sendmail.com>
+ .RE
+ .\".if n .pl -(\n(.tu-1i)
+-.rm SH
+-.rn Sh SH
+-.rm SS
+-.rn Ss SS
+-.rm TP
+-.rn Tp TP
+-.rm RS
+-.rn Rs RS
+-.rm RE
+-.rn Re RE

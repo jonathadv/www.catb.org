@@ -1,0 +1,10 @@
+--- SDL_Init.3-unpatched	2012-06-28 19:12:12.416792571 -0400
++++ SDL_Init.3	2012-06-28 19:13:07.152791547 -0400
+@@ -32,6 +32,7 @@
+ Prevents SDL from catching fatal signals\&.
+ .TP 20
+ \fBSDL_INIT_EVENTTHREAD\fP
++Initializes the SDL I/O event thread.
+ .SH "RETURN VALUE"
+ .PP
+ Returns \fB-1\fR on an error or \fB0\fR on success\&.

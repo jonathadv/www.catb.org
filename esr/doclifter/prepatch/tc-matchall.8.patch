@@ -1,0 +1,10 @@
+--- tc-matchall.8-unpatched	2018-05-18 17:11:00.552372135 -0400
++++ tc-matchall.8	2018-05-18 17:11:09.624310482 -0400
+@@ -81,7 +81,5 @@
+      action sample rate 100 group 12
+ .EE
+ .RE
+-
+-.EE
+ .SH SEE ALSO
+ .BR tc (8),

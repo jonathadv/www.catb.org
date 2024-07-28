@@ -1,0 +1,173 @@
+--- tidy.1-unpatched	2018-06-12 14:01:17.654251504 -0400
++++ tidy.1	2018-06-12 14:03:36.901305174 -0400
+@@ -287,8 +287,6 @@
+ .sp 1
+ If the encoding for the output is different from \fIascii\fR, one of the \fIutf*\fR encodings, or \fIraw\fR, then the declaration is always added as required by the XML standard.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIchar-encoding\fR, \fIoutput-encoding\fR
+ .TP
+ \fBadd-xml-space\fR
+@@ -665,8 +663,6 @@
+ .sp 1
+ If set to \fIyes\fR the attributes of the inner \fI<div>\fR are discarded with the exception of \fIclass\fR and \fIstyle\fR.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIclean\fR, \fImerge-spans\fR
+ .TP
+ \fBmerge-emphasis\fR
+@@ -697,8 +693,6 @@
+ .sp 1
+ The algorithm is identical to the one used by \fImerge-divs\fR.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIclean\fR, \fImerge-divs\fR
+ .TP
+ \fBncr\fR
+@@ -727,8 +721,6 @@
+ .sp 1
+ This option is ignored in XML mode.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fInew-empty-tags\fR, \fInew-inline-tags\fR, \fInew-pre-tags\fR
+ .TP
+ \fBnew-empty-tags\fR
+@@ -747,8 +739,6 @@
+ .sp 1
+ This option is ignored in XML mode.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fInew-blocklevel-tags\fR, \fInew-inline-tags\fR, \fInew-pre-tags\fR
+ .TP
+ \fBnew-inline-tags\fR
+@@ -765,8 +755,6 @@
+ .sp 1
+ This option is ignored in XML mode.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fInew-blocklevel-tags\fR, \fInew-empty-tags\fR, \fInew-pre-tags\fR
+ .TP
+ \fBnew-pre-tags\fR
+@@ -785,8 +773,6 @@
+ .sp 1
+ This option is ignored in XML mode.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fInew-blocklevel-tags\fR, \fInew-empty-tags\fR, \fInew-inline-tags\fR
+ .TP
+ \fBnumeric-entities\fR
+@@ -803,8 +789,6 @@
+ .sp 1
+ Entities that can be represented in the output encoding are translated correspondingly.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIdoctype\fR, \fIpreserve-entities\fR
+ .TP
+ \fBomit-optional-tags\fR
+@@ -913,8 +897,6 @@
+ 
+ This option specifies if Tidy should keep the first or last attribute, if an attribute is repeated, e.g. has two \fIalign\fR attributes.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIjoin-classes\fR, \fIjoin-styles\fR
+ .TP
+ \fBreplace-color\fR
+@@ -1093,8 +1075,6 @@
+ .sp 1
+ Use the option \fIindent-spaces\fR to control the number of spaces or tabs output per level of indent, and \fIindent-with-tabs\fR to specify whether spaces or tabs are used.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIindent-spaces\fR
+ .TP
+ \fBindent-attributes\fR
+@@ -1119,8 +1099,6 @@
+ .sp 1
+ Note that the default value for this option is dependent upon the value of \fIindent-with-tabs\fR (see also).
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIindent\fR
+ .TP
+ \fBindent-with-tabs\fR
+@@ -1241,8 +1219,6 @@
+ .sp 1
+ To force Tidy to preserve the original, literal values of all attributes, and ensure that whitespace characters within attribute values are passed through unchanged, set \fIliteral-attributes\fR to \fIyes\fR.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIwrap-script-literals\fR, \fIliteral-attributes\fR
+ .TP
+ \fBwrap-jste\fR
+@@ -1277,8 +1253,6 @@
+ .sp 1
+ Tidy wraps long script string literals by inserting a backslash character before the line break.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIwrap-attributes\fR
+ .TP
+ \fBwrap-sections\fR
+@@ -1308,8 +1282,6 @@
+ .sp 1
+ If set to \fIyes\fR when using \fIclean\fR, \fI&emdash;\fR, \fI&rdquo;\fR, and other named character entities are downgraded to their closest ASCII equivalents.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIclean\fR
+ .TP
+ \fBchar-encoding\fR
+@@ -1336,8 +1308,6 @@
+ .sp 1
+ For unsupported encodings, use an external utility to convert to and from UTF-8.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIinput-encoding\fR, \fIoutput-encoding\fR
+ .TP
+ \fBinput-encoding\fR
+@@ -1350,8 +1320,6 @@
+ 
+ This option specifies the character encoding Tidy uses for the input. See \fIchar-encoding\fR for more info.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIchar-encoding\fR
+ .TP
+ \fBlanguage\fR
+@@ -1404,8 +1372,6 @@
+ .sp 1
+ See \fIchar-encoding\fR for more information
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIchar-encoding\fR
+ .SS Miscellaneous options:
+   
+@@ -1423,8 +1389,6 @@
+ 
+ This option specifies the error file Tidy uses for errors and warnings. Normally errors and warnings are output to \fIstderr\fR.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIoutput-file\fR
+ .TP
+ \fBforce-output\fR
+@@ -1483,8 +1447,6 @@
+ 
+ This option specifies the output file Tidy uses for markup. Normally markup is written to \fIstdout\fR.
+ 
+-
+-.rj 1
+ \fBSee also\fR: \fIerror-file\fR
+ .TP
+ \fBquiet\fR

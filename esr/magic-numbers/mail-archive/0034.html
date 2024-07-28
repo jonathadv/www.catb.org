@@ -1,0 +1,168 @@
+<!-- received="Fri Nov  1 09:44:54 1996 EST" -->
+<!-- sent="Thu, 31 Oct 96 23:54 PST" -->
+<!-- name="Daniel Quinlan" -->
+<!-- email="quinlan@proton.pathname.com" -->
+<!-- subject="Re: RFC first cut -- springboard for discussion" -->
+<!-- id="m0vJERD-000SmGC@proton.pathname.com" -->
+<!-- inreplyto="199610240602.CAA06322@snark.thyrsus.com" -->
+<title>magic-numbers: Re: RFC first cut -- springboard for discussion</title>
+<h1>Re: RFC first cut -- springboard for discussion</h1>
+Daniel Quinlan (<i>quinlan@proton.pathname.com</i>)<br>
+<i>Thu, 31 Oct 96 23:54 PST</i>
+<p>
+<ul>
+<li> <b>Messages sorted by:</b> <a href="date.html#34">[ date ]</a><a href="index.html#34">[ thread ]</a><a href="subject.html#34">[ subject ]</a><a href="author.html#34">[ author ]</a>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0035.html">Greg Roelofs: "Re: RFC first cut -- springboard for discussion"</a>
+<li> <b>Previous message:</b> <a href="0033.html">James Troup: "Re: file types"</a>
+<!-- nextthread="start" -->
+</ul>
+<!-- body="start" -->
+General comments.<br>
+<p>
+<i>&gt; HOW TO PICK MAGIC NUMBERS</i><br>
+<i>&gt;</i><br>
+<i>&gt; GLOSSARY</i><br>
+<i>&gt;</i><br>
+<i>&gt; Primary magic:</i><br>
+<i>&gt;</i><br>
+<i>&gt;   Magic numbers used to identify the type of data stream or file. Any given</i><br>
+<i>&gt;   file has only one primary magic block.</i><br>
+<p>
+Possibly superfluous clarification: some files, such as archives, may<br>
+be composed of multiple files, each containing a primary magic block,<br>
+but the archive itself still only has one primary magic -- the rest is<br>
+data in the file.<br>
+<p>
+<i>&gt; Secondary magic</i><br>
+<i>&gt;</i><br>
+<i>&gt;   Magic numbers used to identify characteristics of the data stream</i><br>
+<i>&gt;   of file such as version, sub-type, etc.  A file may have more than</i><br>
+<i>&gt;   one secondary magic block.</i><br>
+<p>
+And secondary magic can be composed of multiple levels of tests.<br>
+<p>
+<i>&gt; REQUIREMENTS</i><br>
+<p>
+<i>&gt; The first and third are required for compatibility with both</i><br>
+<i>&gt; traditional and POSIX versions of file(1).  To be eligible for</i><br>
+<i>&gt; inclusion in the Registry, a new file format MUST have these properties:</i><br>
+<p>
+<i>&gt; 1. The primary and all secondary magic blocks must be located at predictable</i><br>
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>
+<i>&gt;    constant offsets from the beginning of the data stream.  (The purpose of</i><br>
+<i>&gt;    this requirement is to permit tests for magic to be expressed in the </i><br>
+<i>&gt;    simple, rapidly-interpretable notation of file(1)).</i><br>
+<p>
+Define predictable.  Predictable means "at a fixed offset" from the<br>
+beginning of the file.  The secondary magic may be ignored or utilized<br>
+depending on the results of a higher-level magic entry.<br>
+<p>
+We might distinguish between secondary magic and other information<br>
+about the file's characteristics.  Sure, stuff can be all over, but it<br>
+can't be "secondary magic" if we can't find it easily.<br>
+<p>
+<i>&gt; 2. The primary and all secondary magic blocks must be located within</i><br>
+<i>&gt;    512 bytes of the beginning of the file or stream.  (The purpose</i><br>
+<i>&gt;    of this requirement is to limit the amount of data which</i><br>
+<i>&gt;    MAGIC-compliant programs must read to determine a file's type.)</i><br>
+<p>
+No, only make the primary magic satisfy this requirement.  We might go<br>
+for 1k too.  1k is not a big deal.<br>
+<p>
+Here are the only active magic entries that are appear above offset 50<br>
+or so.<br>
+<p>
+216   lelong  0421                              Linux/i386 core file<br>
+257   string  ustar\0                           POSIX tar archive<br>
+257   string  ustar\040\040\0                   GNU tar archive<br>
+596   string  \130\337\377\377                  Ultrix core file<br>
+1080  leshort 0xEF53			        Linux/i386 ext2 filesystem<br>
+2048  string  PCD_IPI                           Kodak Photo CD image pack file<br>
+2080  string  Microsoft\ Word\ 6.0\ Document    %s<br>
+2080  string  Microsoft\ Excel\ 5.0\ Worksheet  %s<br>
+4086  string  SWAP-SPACE                        Linux/i386 swap file<br>
+<p>
+On this basis, I'm tempted to require &lt;4k, but recommend &lt;512 bytes.<br>
+*Nothing* is past 4k.<br>
+<p>
+<i>&gt; 1. Both primary and secondary magic blocks should be limited to 8 bytes each.</i><br>
+<p>
+Limited?  Why?  More than 8 is fine.  It's less than 4 that is a problem!<br>
+<p>
+<i>&gt; 2. Primary magic blocks should not contain NULs.</i><br>
+<p>
+Hmm... on second thought, it's really more complicated than that.  NUL<br>
+bytes are okay, as evidenced by the POSIX tar archive.  We know it<br>
+isn't plain text that way.<br>
+<p>
+We should say something more general "should not contain repeated<br>
+characters, especially in sequence".<br>
+<p>
+<i>&gt; 3. Magic should be not composed solely of characters in ASCII, ISO Latin-1,</i><br>
+<i>&gt;    or other standard character sets unless the file type is a text format</i><br>
+<i>&gt;    with characters limited to that set.</i><br>
+<i>&gt;</i><br>
+<i>&gt; 4. For binary files, magic should be a random mix of text and non-text</i><br>
+<i>&gt;    characters, preferably including characters in each of these ranges:</i><br>
+<i>&gt;    ASCII, Latin-1 extensions to ASCII, and everything else.</i><br>
+<i>&gt;</i><br>
+<i>&gt; 5. The primary magic should be constant for a particular application or data</i><br>
+<i>&gt;    type.  Only secondary magic should change depending on the version of</i><br>
+<i>&gt;    an application or data type.</i><br>
+<p>
+Right on the money!<br>
+<p>
+<i>&gt; (2) Contact</i><br>
+<i>&gt;</i><br>
+<i>&gt;     A Web page or email contact for the person(s) responsible for the</i><br>
+<i>&gt; format.</i><br>
+<p>
+Contacting responsible parties is an interesting problem.  Who can be<br>
+responsible?<br>
+<p>
+1. Single Person (John Christy for Magick Image File Format)<br>
+2. Committee or group (PNG authors or GNU developers)<br>
+3. Company or Organization (Sun Microsystems)<br>
+<p>
+We should to consider each case, but without using a three-way case<br>
+statement (since there may be others).<br>
+<p>
+Contact information:<br>
+  Name of Responsible Party<br>
+  Email address(es) of Responsible Party<br>
+  URL of Responsible Party (optional)<br>
+  Postal address of Responsible Party (optional)<br>
+<p>
+Some contacts may be blank. <br>
+<p>
+<i>&gt; (3) Status</i><br>
+<i>&gt;</i><br>
+<i>&gt;     One of: Experimental, Production, or Obsolete.</i><br>
+<p>
+One of: Experimental, Maintained, Unmaintained, Obsolete, Unknown.<br>
+<p>
+<i>&gt; (4) Code</i><br>
+<i>&gt;</i><br>
+<i>&gt;     A code of at most 8 ASCII characters intended for use as a type</i><br>
+<i>&gt; representation icon in text-only navigation tools.</i><br>
+<p>
+Mention Braille.<br>
+<p>
+That's all for now.<br>
+<p>
+Dan<br>
+<p>
+<pre>
+-- 
+Daniel Quinlan                  <a href="http://www.pathname.com/~quinlan">http://www.pathname.com/~quinlan</a>
+quinlan@pathname.com            quinlan@transmeta.com (at work)
+</pre>
+<!-- body="end" -->
+<p>
+<ul>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0035.html">Greg Roelofs: "Re: RFC first cut -- springboard for discussion"</a>
+<li> <b>Previous message:</b> <a href="0033.html">James Troup: "Re: file types"</a>
+<!-- nextthread="start" -->
+</ul>

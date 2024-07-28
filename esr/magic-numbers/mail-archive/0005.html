@@ -1,0 +1,90 @@
+<!-- received="Sat Oct 19 18:12:23 1996 EST" -->
+<!-- sent="Sat, 19 Oct 1996 18:12:23 -0400 (EDT)" -->
+<!-- name="Daniel Quinlan" -->
+<!-- email="quinlan@proton.pathname.com" -->
+<!-- subject="Re: I found your name in Linux's /usr/lib/magic" -->
+<!-- id="m0vEjIc-000SouC@proton.pathname.com" -->
+<!-- inreplyto="m0vEjIc-000SouC@proton.pathname.com" -->
+<title>magic-numbers: Re: I found your name in Linux's /usr/lib/magic</title>
+<h1>Re: I found your name in Linux's /usr/lib/magic</h1>
+Daniel Quinlan (<i>quinlan@proton.pathname.com</i>)<br>
+<i>Sat, 19 Oct 1996 18:12:23 -0400 (EDT)</i>
+<p>
+<ul>
+<li> <b>Messages sorted by:</b> <a href="date.html#5">[ date ]</a><a href="index.html#5">[ thread ]</a><a href="subject.html#5">[ subject ]</a><a href="author.html#5">[ author ]</a>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0006.html">Christos Zoulas: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<li> <b>Previous message:</b> <a href="0004.html">Daniel Quinlan: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<li> <b>In reply to:</b> <a href="0005.html">Daniel Quinlan: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<!-- nextthread="start" -->
+</ul>
+<!-- body="start" -->
+<i>&gt; Christos, I assume you want to help.  Right?  You're the one with the</i><br>
+<i>&gt; real experience with file(1).</i><br>
+<i>&gt; </i><br>
+<i>&gt; We might also want to bring in Greg Roelofs &lt;newt@uchicago.edu&gt;.  He</i><br>
+<i>&gt; designed the magic for PNG and might have a few good ideas.</i><br>
+<p>
+I'll set up a mailing list including you, Christos, Greg, and me and<br>
+issue a charter posting.<br>
+<p>
+FYI, here's what I've roughed up as an intro to the draft.<br>
+<p>
+============================================================================<br>
+Cross-platform file export through means like public FTP directories has long<br>
+been an important mechanism of Internet information sharing.  More recently,<br>
+the growth of the Internet has been driven by technologies such as the <br>
+World Wide Web, which give it (among other things) the aspect of a single<br>
+huge distributed file store.<br>
+<p>
+In such an environment, it is very desirable that files should<br>
+generally present themselves as self-describing objects from which a<br>
+navigation tool can readily deduce both their uses and at least some<br>
+of the semantics of their contents. An effective set of such<br>
+conventions can enable tools such as Web browsers to inform users<br>
+according to such deductions, and to dispatch to appropriate<br>
+sub-interpreters and user agents on the file object's semantic type.<br>
+<p>
+The Internet's major operating systems have traditionally shared two<br>
+means of ad-hoc semantic typing for files.  The better known is the<br>
+quasi-systematic use of file name "extensions" to carry semantic<br>
+information (most Internet habitues, for example would feel<br>
+justifiably surprised if a file with extension ".gif" were not to<br>
+contain picture data in the well-known Graphic Interchange Format).<br>
+Standardization of such file name extensions would be a desirable goal,<br>
+but very complex and beyond the scope of this RFC.<br>
+<p>
+The other, prevalent especially under Unix, is the quasi-systematic<br>
+use of "magic numbers" in binary-format files.  Many Unix binary <br>
+formats have an initial segment of fixed pattern intended to uniquely<br>
+identify the file type for the purposes of loaders, linkers, graphics<br>
+viewers, and other tools.<br>
+<p>
+The purpose of this RFC is threefold:<br>
+<p>
+(1) To enunciate guidelines and design principles appropriate when choosing <br>
+    magic numbers for a new file type.<br>
+ <br>
+(2) To advertise a central Internet registry of "magic numbers", with<br>
+    procedures for checking candidate segment patterns against the registry<br>
+    and for claiming new patterns.<br>
+<p>
+(3) To define a new standards-compliance category of MAGIC programs (MAGIC =<br>
+    "Magic Awareness 'Gainst Internet Complexity") which are required to <br>
+    be aware, in certain well-defined ways, of registered magic numbers.<br>
+============================================================================<br>
+<p>
+Yes, I know the acronym is weak.  Suggestions for improvement welcomed.<br>
+<pre>
+-- 
+	&lt;a href="<a href="http://www.ccil.org/~esr/home.html">http://www.ccil.org/~esr/home.html</a>"&gt;Eric S. Raymond&lt;/a&gt;
+</pre>
+<!-- body="end" -->
+<p>
+<ul>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0006.html">Christos Zoulas: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<li> <b>Previous message:</b> <a href="0004.html">Daniel Quinlan: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<li> <b>In reply to:</b> <a href="0005.html">Daniel Quinlan: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<!-- nextthread="start" -->
+</ul>

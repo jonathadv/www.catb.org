@@ -1,0 +1,11 @@
+--- XML::LibXML::Pattern.3pm-unpatched	2018-06-03 06:16:55.324218038 -0400
++++ XML::LibXML::Pattern.3pm	2018-06-03 06:16:55.156219179 -0400
+@@ -73,7 +73,7 @@
+ .if n .ad l
+ .nh
+ .SH "NAME"
+-XML::LibXML::Pattern \- XML::LibXML::Pattern \- interface to libxml2 XPath patterns
++XML::LibXML::Pattern \- interface to libxml2 XPath patterns
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ .Vb 3

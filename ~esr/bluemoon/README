@@ -1,0 +1,19 @@
+				Blue Moon
+			by Tim Lister and Eric S. Raymond
+
+This simple game includes complete instructions on the game screen.  It needs
+to be linked with an SVr4-compatible curses.  For best results, use the
+ncurses library distributed with Linux.
+
+README		-- this file
+Makefile	-- how to build it
+bluemoon.c	-- the code
+bluemoon.xml	-- DocBook RefEntry source of the manual page
+bluemoon.6	-- man page derived from XML.
+
+Changes since the initial release have been in the packaging.  Please don't
+hack bluemoon.6, enhance the XML masters instead.
+
+					Eric S. Raymond
+					esr@thyrsus.com
+				(WWW: http://www.catb.org/~esr/)

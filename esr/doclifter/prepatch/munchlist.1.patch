@@ -1,0 +1,23 @@
+--- munchlist.1-unpatched	2016-02-19 07:35:55.529972294 -0500
++++ munchlist.1	2016-02-19 07:35:55.089973692 -0500
+@@ -172,7 +172,10 @@
+ .br
+ .B ispell
+ .BR \-v [ v ]
+-.IP \fIcommon-flags\fP:
++
++\fIcommon-flags\fP:
++
++.B ispell
+ .RB [ \-t ]
+ .RB [ \-n ]
+ .RB [ \-H ]
+@@ -198,6 +201,8 @@
+ .IR list ]
+ .RB [ \-F
+ .IR program ]
++
++Helper programs:
+ .PP
+ Helper programs:
+ .PP

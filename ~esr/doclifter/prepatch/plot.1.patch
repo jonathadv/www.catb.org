@@ -1,0 +1,25 @@
+--- plot.1-unpatched	2012-07-06 13:21:02.614546256 -0400
++++ plot.1	2012-07-06 13:21:51.350545344 -0400
+@@ -1,12 +1,6 @@
+ .TH PLOT 1 "Jun 2000" "FSF" "GNU Plotting Utilities"
+ .SH NAME
+ plot \- translate GNU metafiles to other graphics formats
+-.ig
+-Not all man macros define SB (and not all whatis parsers stop on .\")
+-..
+-.de SB
+-\&\fB\s-1\&\\$1 \\$2\s0\fR
+-..
+ .SH SYNOPSIS
+ .B plot 
+ [ 
+@@ -15,6 +9,9 @@
+ .I files 
+ ]
+ .SH DESCRIPTION
++.de SB
++\&\fB\s-1\&\\$1 \\$2\s0\fR
++..
+ .LP
+ .B plot
+ translates files in GNU metafile format to other graphics formats, or

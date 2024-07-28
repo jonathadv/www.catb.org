@@ -1,0 +1,11 @@
+--- groff_tmac.5-unpatched	2016-03-05 07:51:28.195728719 -0500
++++ groff_tmac.5	2016-03-05 07:51:37.183709371 -0500
+@@ -35,7 +35,7 @@
+ .
+ .de au
+ This file was written by
+-.ME groff-bernd.warken-72@web.de
++.MT groff-bernd.warken-72@web.de
+ Bernd Warken
+ .ME
+ and

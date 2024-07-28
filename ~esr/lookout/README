@@ -1,0 +1,11 @@
+			lookout
+
+This little Python script converts Outlook 97 addressbook export files 
+to the either the KAB format used by KDE addressbooks or the GnomeCard
+format used by the GNOME contact manager.  See the manual page for details.
+See the file COPYING for license terms.
+
+					Eric S. Raymond
+					Rob Landley
+					September 2001
+

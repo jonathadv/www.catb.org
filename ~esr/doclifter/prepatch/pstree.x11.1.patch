@@ -1,0 +1,45 @@
+--- pstree.x11.1-unpatched	2018-05-16 22:39:22.452835286 -0400
++++ pstree.x11.1	2018-05-16 22:39:50.612643910 -0400
+@@ -12,25 +12,25 @@
+ .SH SYNOPSIS
+ .ad l
+ .B pstree
+-.RB [ \-a  , \ \-\-arguments ]
+-.RB [ \-c  , \ \-\-compact ]
+-.RB [ \-h  , \ \-\-highlight\-all  , \ \-H \fIpid\fB  , \ \-\-highlight\-pid\ \fIpid\fB ]
+-.RB [ \-g  ] \ \-\-show\-pgids ]
+-.RB [ \-l  , \ \-\-long ]
+-.RB [ \-n  , \ \-\-numeric\-sort ]
+-.RB [ \-N  , \ \-\-ns\-sort \fIns\fB
+-.RB [ \-p  , \ \-\-show\-pids ]
+-.RB [ \-s  , \ \-\-show\-parents ]
+-.RB [ \-S  , \ \-\-ns-changes ]
+-.RB [ \-t  , \ \-\-thread-names ]
+-.RB [ \-T  , \ \-\-hide-threads ]
+-.RB [ \-u  , \ \-\-uid\-changes ]
+-.RB [ \-Z  , \ \-\-security\-context ]
+-.RB [ \-A  , \ \-\-ascii  , \ \-G  , \ \-\-vt100  , \ \-U  , \ \-\-unicode ]
+-.RB [ \fIpid\fB  , \ \fIuser\fB]
++.RB [ \-a  | \ \-\-arguments ]
++.RB [ \-c  | \ \-\-compact ]
++.RB [ \-h  | \ \-\-highlight\-all  | \ \-H \fIpid\fB  | \ \-\-highlight\-pid\ \fIpid\fB ]
++.RB [ \-g  | \ \-\-show\-pgids ]
++.RB [ \-l  | \ \-\-long ]
++.RB [ \-n  | \ \-\-numeric\-sort ]
++.RB [ \-N  | \ \-\-ns\-sort \fIns\fB ]
++.RB [ \-p  | \ \-\-show\-pids ]
++.RB [ \-s  | \ \-\-show\-parents ]
++.RB [ \-S  | \ \-\-ns-changes ]
++.RB [ \-t  | \ \-\-thread-names ]
++.RB [ \-T  | \ \-\-hide-threads ]
++.RB [ \-u  | \ \-\-uid\-changes ]
++.RB [ \-Z  | \ \-\-security\-context ]
++.RB [ \-A  | \ \-\-ascii  | \ \-G  | \ \-\-vt100  | \ \-U  | \ \-\-unicode ]
++.RB [ \fIpid\fB  | \ \fIuser\fB ]
+ .br
+ .B pstree
+-.RB \-V  , \ \-\-version
++.RB \-V  | \ \-\-version
+ .ad b
+ .SH DESCRIPTION
+ .B pstree

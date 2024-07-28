@@ -1,0 +1,10 @@
+= README for shipper =
+
+shipper automates the tedious process of shipping a software release
+to several standard places, including your own hosted website.
+
+Requires Python 3 and ssh.  Wants gitlab-igor, irker, lftp, and the Twthon library.
+
+You can run a regression test on this software with 'make check'.
+
+Known bugs and to-do items are in TODO.

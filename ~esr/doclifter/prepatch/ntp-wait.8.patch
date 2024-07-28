@@ -1,0 +1,20 @@
+--- ntp-wait.8-unpatched	2018-05-21 14:39:14.284721303 -0400
++++ ntp-wait.8	2018-05-21 14:40:32.196191811 -0400
+@@ -16,8 +16,6 @@
+ .Op Fl flag Op Ar value
+ .Op Fl \-option\-name Ns Oo Oo Ns "=| " Oc Ns Ar value Oc
+ .Pp
+-All arguments must be options.
+-.Pp
+ .Sh DESCRIPTION
+ .Nm
+ will send at most
+@@ -38,6 +36,8 @@
+ .Ar ntpd \-g 
+ has set the time.
+ .Sh "OPTIONS"
++All arguments must be options.
++.Pp
+ .Bl -tag
+ .It  Fl n Ar number , Fl \-tries Ns = Ns Ar number 
+ Number of times to check ntpd.

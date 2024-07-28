@@ -1,0 +1,23 @@
+--- sudoers.5-unpatched	2018-05-31 10:37:54.803332884 -0400
++++ sudoers.5	2018-05-31 10:39:57.906496267 -0400
+@@ -1472,9 +1472,7 @@
+ .Ql ]\& .
+ .El
+ .Pp
+-.Bf -symbolic
+ Note that these are not regular expressions.
+-.Ef
+ Unlike a regular expression there is no way to match one or more
+ characters within a range.
+ .Pp
+@@ -1517,10 +1515,7 @@
+ get matched by wildcards since command line arguments may contain
+ arbitrary strings and not just path names.
+ .Pp
+-.Bf -symbolic
+ Wildcards in command line arguments should be used with care.
+-.Ef
+-.br
+ Command line arguments are matched as a single, concatenated string.
+ This mean a wildcard character such as
+ .Ql \&?

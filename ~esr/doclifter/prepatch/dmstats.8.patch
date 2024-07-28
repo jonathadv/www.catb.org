@@ -1,0 +1,11 @@
+--- dmstats.8-unpatched	2018-06-02 12:07:04.244619429 -0400
++++ dmstats.8	2018-06-02 12:07:28.596453933 -0400
+@@ -85,7 +85,7 @@
+ .de CMD_CREATE
+ .  ad l
+ .  BR create
+-.  IR device_name... | file_path... | \fB\-\-alldevices
++.  RI { device_name | file_path | \fB\-\-alldevices }...
+ .  RB [ \-\-areas
+ .  IR nr_areas | \fB\-\-areasize
+ .  IR area_size ]

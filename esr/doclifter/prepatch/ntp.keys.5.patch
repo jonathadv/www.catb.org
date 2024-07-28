@@ -1,0 +1,20 @@
+--- ntp.keys.5-unpatched	2018-06-06 20:29:38.590972115 -0400
++++ ntp.keys.5	2018-06-06 20:29:57.738841985 -0400
+@@ -18,8 +18,6 @@
+ .Op Fl \-option\-name
+ .Op Fl \-option\-name Ar value
+ .Pp
+-All arguments must be options.
+-.Pp
+ .Sh DESCRIPTION
+ This document describes the format of an NTP symmetric key file.
+ For a description of the use of this type of file, see the
+@@ -28,6 +26,8 @@
+ .Xr ntp.conf 5
+ page.
+ .Pp
++All arguments must be options.
++.Pp
+ .Xr ntpd 8
+ reads its keys from a file specified using the
+ .Fl k

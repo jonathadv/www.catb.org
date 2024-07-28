@@ -1,0 +1,15 @@
+				xmlif
+
+xmlif is a tool that interprets certain processing instructions in XML
+documents to support conditional emission of specified sections of the
+document.  It is intended to be used as a stage in an XML toolchain.
+
+Note: if you have Tim Waugh's xmlto(1) installed, you already have an
+older version of xmlif that is, sadly, incompatiblw wuth this one. It
+used "xmlif" rather than "maybe" to introduce conditionals, which turns
+out to be forbidden by XML standards language.
+
+Run "make check" to test xmlif.
+
+
+

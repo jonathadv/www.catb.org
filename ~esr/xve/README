@@ -1,0 +1,27 @@
+			X VIDEO EXPLORER
+
+This project is obsolete.  All modern monitors autoconfigure modes via EDID.
+
+Automate calculations for generating XFree86 video modelines.  This program
+is meant for the rare cases where you don't already have a functioning
+modeline that can be tweaked with xvidtune(1) or kvideogen(1) or the like;
+it should get you to where you can use those tools.
+
+README		--- this file
+Makefile	--- a makefile, what else?
+xve.c		--- source for the X Video Explorer
+
+The X Video Explorer tries to help you configure timings for your monitor,
+using the methods described in the timing guide.  You will probably have to
+do some hand-tuning of the results, but xve will should least direct you
+in the right general region of the parameter space (and it automates away
+a lot of grubby calculations).
+
+To use xve you will also need the "XFree86 Video Timings HOWTO".  You
+should be able to get this via the following URL:
+
+	http://en.tldp.org/HOWTO/XFree86-Video-Timings-HOWTO/
+
+If you don't find it there, search for it by title.
+
+For updates and related resources, see <http://www.catb.org/~esr/xve>.

@@ -1,0 +1,20 @@
+--- hfsutils.1-unpatched	2013-05-24 16:34:05.193861968 -0400
++++ hfsutils.1	2013-05-24 16:36:31.625859229 -0400
+@@ -1,7 +1,7 @@
+ .TH HFSUTILS 1 08-Nov-1997 HFSUTILS
+ .SH NAME
+ hfsutils \- tools for reading and writing Macintosh HFS volumes
+-.SH SYNOPSIS
++.SH COMMANDS
+ .nf
+ \fBhattrib\fR \- change HFS file or directory attributes
+ \fBhcd\fR \- change working HFS directory
+@@ -83,7 +83,7 @@
+ .BR { ... , ... }
+ expands into the Cartesian product of each specified substring.
+ .TP
+-.B \\\\
++.B \e\e
+ causes the following character to be matched literally.
+ .PP
+ Note that since globbing is performed by each HFS command rather than by the

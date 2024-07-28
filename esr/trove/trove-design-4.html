@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Trove Design Document: Security and Authentication</TITLE>
+<LINK HREF="trove-design-5.html" REL=next>
+<LINK HREF="trove-design-3.html" REL=previous>
+<LINK HREF="trove-design.html#toc4" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="trove-design-5.html">Next</A>
+<A HREF="trove-design-3.html">Previous</A>
+<A HREF="trove-design.html#toc4">Contents</A>
+<HR>
+<H2><A NAME="s4">4. Security and Authentication</A></H2>
+
+<P>There are two levels of protection in the Trove design.  Which will
+operate depends on whether a contributor is authenticated or not.
+<P>
+<H2><A NAME="ss4.1">4.1 Security through Visibility</A>
+</H2>
+
+<P>The contributor who creates a package entry, and anyone who changes
+the package metadata or resources after the fact, will be put on the
+package's heads-up list.  Every time the package metadata is modified
+after that, the updating contributor will be added to the heads-up
+list, and everybody on the heads-up list will be notified.
+<P>The intent of this feature (and the requirement that unsubscription
+requests be validated) is to make sure that all metadata &amp; resource
+changes are visible to everybody with a stake in the package.  In
+particular, any modifications an unauthorized person succeeds in doing
+will be visible to the real package owners.
+<P>
+<H2><A NAME="ss4.2">4.2 Security through Authentication</A>
+</H2>
+
+<P>Either a resource or a package may be <EM>locked</EM>.  When an item
+(resource or package) is locked, any request to modify it must be
+authenticated as coming from a <EM>maintainer</EM> of the package.
+<P>Here are the rules of maintainership: 
+<P>1. The <EM>owner</EM> of an item is the person who can add and delete
+maintainers. 
+<UL>
+<LI>The owner of an item is automatically an maintainer of the item. </LI>
+<LI>The person who creates an item is its first owner.</LI>
+<LI>The owner may pass the owner role to another validated user.</LI>
+</UL>
+<P>2. Any maintainer of an item (package or resource) can modify or delete the
+item.
+<P>3. The maintainers of a package may delete associated resources.
+<P>
+<H2><A NAME="ss4.3">4.3 How To Authenticate Requests</A>
+</H2>
+
+<P>The Trove authentication system leverages the PGP-key infrastructure.
+To authenticate a TRL request, you must sign it with PGP.  The shovel
+program will check the signature.  If the key ID matches the TRL
+Contributor line, the request is considered authenticated.
+<P>The big advantage of this system is that it leverages the public-key
+infrastructure.  This means that Trove won't need to keep any secrets
+of its own, and contributors don't need any secrets other than their
+existing PGP passphrases.
+<P>
+<H2><A NAME="ss4.4">4.4 Package Authentication</A>
+</H2>
+
+<P>To be specified.  Base on the
+<A HREF="http://java.sun.com/products/jdk/1.1/docs/guide/jar/manifest.html">JAR approach</A> suggested by Jeremy Hylton?
+<P>
+<HR>
+<A HREF="trove-design-5.html">Next</A>
+<A HREF="trove-design-3.html">Previous</A>
+<A HREF="trove-design.html#toc4">Contents</A>
+</BODY>
+</HTML>

@@ -1,0 +1,42 @@
+= hexd =
+
+Yes, it's yet another hex dumper.  This one produces a nice CP/M-like
+format by default and can do EBCDIC.  It's internationalized, too.
+Has many useful formatting functions.
+
+The output format is similar to what "od -A x -t x1z -v" would
+generate, but with a gutter between bytes 8 and 9 and without the
+delimiting >< around the ASCII display.
+
+Several release of this traveled under the name "hexdump". I changed
+the name to avoid confusion with BSD hexdump, which I somehow only
+became aware of sometime after the year 2000.  I'd retire this code
+entirely, except that BSD hexdump doesn't do EBCDIC and its -s option
+is not quite as flexible.
+
+This hex dumper was born because
+
+	a) od octal format is appallingly ugly
+	b) od -x ain't much better
+	c) I needed to dump EBCDIC files from SNA sessions
+	d) I needed to dump single blocks of data offset into the file.
+
+If any of these describes your universe, you'll like it too. The format
+resembles a CP/M or MS/DOS DEBUG dump screen. There is nothing UNIX-specific
+in the source, it should work OK under any C with a stdio.h library. And,
+in fact, I'm told it has been used under Windows NT.
+
+To test the program, "make check".  This checks to make sure dumping of
+the PNG logo included with the distribution is stable.
+
+I wrote the original of this in 1983.  I'm not certain, but I think it
+may have been my very first C program, and I believe it was the first
+code I wrote under Unix (4.1BSD on a Vax).  It's certainly the oldest
+piece of C code I wrote that I still have source for.  It has held
+up remarkably well.  For many years it was just `hex'.
+
+You can find updates and other resources at:
+
+	 http://www.catb.org/~esr
+
+Send comments and bug reports to: Eric S. Raymond <esr@thyrsus.com>

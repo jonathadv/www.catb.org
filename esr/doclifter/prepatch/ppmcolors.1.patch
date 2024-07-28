@@ -1,0 +1,25 @@
+--- ppmcolors.1-unpatched	2012-06-29 16:22:11.581653546 -0400
++++ ppmcolors.1	2012-06-29 16:22:21.725653356 -0400
+@@ -7,11 +7,6 @@
+ .B ppmcolors
+ .RB [ -maxval=\fImaxval ]
+ 
+-All options can be abbreviated to their shortest unique prefix.  You
+-may use two hyphens instead of one to designate an option.  You may
+-use either white space or an equals sign between an option name and its
+-value.
+-
+ .SH DESCRIPTION
+ .B ppmcolors
+ generates a PPM color map containing all the colors representable with
+@@ -46,6 +41,10 @@
+ performs a similar function for PGM images.
+ 
+ .SH OPTIONS
++All options can be abbreviated to their shortest unique prefix.  You
++may use two hyphens instead of one to designate an option.  You may
++use either white space or an equals sign between an option name and its
++value.
+ .TP
+ .B -maxval=\fImaxval
+ This is the maxval of the generated color map.  Default is 5.

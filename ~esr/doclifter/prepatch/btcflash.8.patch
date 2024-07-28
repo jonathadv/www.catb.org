@@ -1,0 +1,11 @@
+--- btcflash.8-unpatched	2012-07-02 03:46:00.197654669 -0400
++++ btcflash.8	2012-07-02 03:46:22.141654258 -0400
+@@ -14,7 +14,7 @@
+ they have not been tested. USE AT YOUR OWN RISK!
+ 
+ Firmware files may be obtained by running BTC's Windows flash utility, then
+-searching in the WINDOWS\TEMP or WINNT\TEMP directory for a *.HEX file. It will
++searching in the WINDOWS\\TEMP or WINNT\\TEMP directory for a *.HEX file. It will
+ probably be in a subdirectory named PAC*.tmp.DIR, and the HEX file will be named
+ Vnnnn.HEX, where nnnn is the firmware version number. You'll also find
+ IDEFLASH.EXE or BTCFLASH.EXE in the same directory.

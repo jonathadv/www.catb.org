@@ -1,0 +1,11 @@
+--- unrar.1-unpatched	2014-06-02 09:34:55.853395082 -0400
++++ unrar.1	2014-06-02 09:35:56.318806500 -0400
+@@ -3,7 +3,7 @@
+ unrar \- extract files from rar archives
+ .SH SYNOPSIS
+ .B unrar
+-.I "<command> [-<switch 1> -<switch N>] archive [files...] [path\...]"
++.I "command [switch...] archive [files...] [path...]"
+ .SH "DESCRIPTION"
+ This manual page documents briefly the
+ .BR unrar

@@ -1,0 +1,7 @@
+Figure out how to change Emacs's mini-icon.
+
+Report bug: In abbrowser, pulling up details on a business and home
+address in succession results in *both* addresses being displayed in the
+edit pane's address summary.  That is, the summary field is appended to, not
+cleared and replaced.
+

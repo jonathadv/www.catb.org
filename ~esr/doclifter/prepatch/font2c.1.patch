@@ -1,0 +1,13 @@
+--- font2c.1-unpatched	2013-05-25 10:38:25.732645250 -0400
++++ font2c.1	2013-05-25 10:38:25.476645255 -0400
+@@ -8,8 +8,9 @@
+ .BR gs (1)
+ with the following options:
+ 
+-.ce
++.RS
+ .B -q -dNODISPLAY -dWRITESYSTEMDICT
++.RE
+ 
+ followed by the arguments from the command line.
+ This will write out a PostScript Type 0 or Type 1 font as C code

@@ -1,0 +1,32 @@
+--- ispell-wrapper.1-unpatched	2018-05-16 19:16:56.247381570 -0400
++++ ispell-wrapper.1	2018-05-16 19:16:56.051382902 -0400
+@@ -140,11 +140,6 @@
+ .IX Header "SYNOPSIS"
+ .Vb 1
+ \& ispell\-wrapper [\-\-emacs=name] [\-\-language=regexp] [\-\-dry\-run] [ispell options] file
+-\&
+-\&   Options (all long only options):
+-\&    \-\-emacs=name           Set the language to use by emacs dict name
+-\&    \-\-language=regexp      Set the language to use by name
+-\&    \-\-dry\-run              Only show what would have done
+ .Ve
+ .SH "DESCRIPTION"
+ .IX Header "DESCRIPTION"
+@@ -186,6 +181,17 @@
+ characters are transformed into their \s-1ASCII\s0 equivalents.  German
+ ess-zet is equivalent to the character \*(L"s\*(R" and the ae ligature to the
+ character \*(L"e\*(R".
++.SH OPTIONS
++Options (all long only options):
++.TP
++\-\-emacs=name
++Set the language to use by emacs dict name
++.TP
++\-\-language=regexp
++Set the language to use by name
++.TP
++\-\-dry\-run
++Only show what would have done
+ .SH "EXAMPLE"
+ .IX Header "EXAMPLE"
+ Let us say that the following dictionaries are installed in the system

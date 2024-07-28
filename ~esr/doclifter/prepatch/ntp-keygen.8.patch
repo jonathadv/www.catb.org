@@ -1,0 +1,38 @@
+--- ntp-keygen.8-unpatched	2018-06-06 19:47:45.408051844 -0400
++++ ntp-keygen.8	2018-06-06 19:49:11.219468666 -0400
+@@ -16,8 +16,6 @@
+ .Op Fl flag Op Ar value
+ .Op Fl \-option\-name Ns Oo Oo Ns "=| " Oc Ns Ar value Oc
+ .Pp
+-All arguments must be options.
+-.Pp
+ .Sh DESCRIPTION
+ This program generates cryptographic data files used by the NTPv4
+ authentication and identification schemes.
+@@ -29,6 +27,8 @@
+ digital signature and challenge/response identification algorithms
+ compatible with the Internet standard security infrastructure.
+ .Pp
++All arguments must be options.
++.Pp
+ All files are in PEM\-encoded printable ASCII format,
+ so they can be embedded as MIME attachments in mail to other sites
+ and certificate authorities.
+@@ -443,7 +443,7 @@
+ Each cryptographic configuration involves selection of a signature scheme
+ and identification scheme, called a cryptotype,
+ as explained in the
+-.Sx Authentication Options
++Authentication Options
+ section of
+ .Xr ntp.conf 5 .
+ The default cryptotype uses RSA encryption, MD5 message digest
+@@ -459,7 +459,7 @@
+ a certificate trail ending at a trusted host.
+ The trail is defined by static configuration file entries
+ or dynamic means described on the
+-.Sx Automatic NTP Configuration Options
++Automatic NTP Configuration Options
+ section of
+ .Xr ntp.conf 5 .
+ .Pp

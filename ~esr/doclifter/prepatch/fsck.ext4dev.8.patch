@@ -1,0 +1,41 @@
+--- fsck.ext4dev.8-unpatched	2012-07-02 02:41:51.237726650 -0400
++++ fsck.ext4dev.8	2012-07-02 02:42:06.017726374 -0400
+@@ -315,25 +315,19 @@
+ The exit code returned by
+ .B e2fsck
+ is the sum of the following conditions:
+-.br
+-\	0\	\-\ No errors
+-.br
+-\	1\	\-\ File system errors corrected
+-.br
+-\	2\	\-\ File system errors corrected, system should
+-.br
+-\	\	\ \ be rebooted
+-.br
+-\	4\	\-\ File system errors left uncorrected
+-.br
+-\	8\	\-\ Operational error
+-.br
+-\	16\	\-\ Usage or syntax error
+-.br
+-\	32\	\-\ E2fsck canceled by user request
+-.br
+-\	128\	\-\ Shared library error
+-.br
++
++.TS
++l l.
++0	No errors
++1	Filesystem errors corrected
++2	System should be rebooted
++4	Filesystem errors left uncorrected
++8	Operational error
++16	Usage or syntax error
++32	Fsck canceled by user request
++128	Shared-library error
++.TE
++
+ .SH SIGNALS
+ The following signals have the following effect when sent to 
+ .BR e2fsck .

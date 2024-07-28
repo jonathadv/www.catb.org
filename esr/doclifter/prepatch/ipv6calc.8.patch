@@ -1,0 +1,197 @@
+--- ipv6calc.8-unpatched	2018-05-19 07:21:48.429447941 -0400
++++ ipv6calc.8	2018-05-19 07:31:03.101678358 -0400
+@@ -1,111 +1,132 @@
+ .TH "ipv6calc" "8" "0.99.0" "Peter Bieringer <pb@bieringer.de>" "system administration"
+ .SH "NAME"
+-ipv6calc
++ipv6calc \- format and calculate IPv6/IPv4/MAC
+ .SH "SYNOPSIS"
+ ipv6calc [\fIOPTIONS\fP] \fB<input data>\fR
+-
+-or in pipe mode
+-
+-echo \fB<input data>\fR | ipv6calc [\fIOPTIONS\fP]
+ .SH "DESCRIPTION"
+-.LP 
+-This program formats and calculates IPv6/IPv4/MAC addresses and can do many more tricky things, e.g. includes a pipe filter capability.
++.PP 
++This program formats and calculates IPv6/IPv4/MAC addresses and can do
++many more tricky things, e.g. includes a pipe filter capability.
++.PP
++If no data is presented aas a command-line arguments, it is read from
++standard inout.
+ .SH "OPTIONS"
+ .LP 
+ General options:
+ .TP 
+-\fB[\-d|\-\-debug \fIDEBUGVALUE\fR\fB]\fR : debug value (bitwise like) can also be set by IPV6CALC_DEBUG environment value
++\fB[\-d|\-\-debug \fIDEBUGVALUE\fR\fB]\fR
++debug value (bitwise like) can also be set by IPV6CALC_DEBUG environment value
+ .TP 
+-\fB[\-v|\-\-version [\-v [\-v]]]\fR   : version information (2 optional detail levels)
++\fB[\-v|\-\-version [\-v [\-v]]]\fR
++version information (2 optional detail levels)
+ .TP 
+-\fB[\-v|\-\-version \-h]\fR          : explanation of feature tokens
+-<TP
+-\fB[\-V|\-\-verbose]\fR             : be more verbose
++\fB[\-v|\-\-version \-h]\fR
++explanation of feature tokens
++.TP
++\fB[\-V|\-\-verbose]\fR
++be more verbose
+ .TP 
+-\fB[\-h|\-\-help|\-?]\fR             : this online help
++\fB[\-h|\-\-help|\-?]\fR
++this online help
+ .LP 
+ External database options (depending on compiled\-in suppport):
+ .TP 
+-\fB[\-\-db\-ip2location\-disable      ]\fR : IP2Location support disabled
++\fB[\-\-db\-ip2location\-disable      ]\fR
++IP2Location support disabled
+ .TP 
+-\fB[\-\-db\-ip2location\-dir\fR \fIDIRECTORY\fR\fB]\fR : IP2Location database directory (default: /usr/share/IP2Location)
++\fB[\-\-db\-ip2location\-dir\fR \fIDIRECTORY\fR\fB]\fR
++IP2Location database directory (default: /usr/share/IP2Location)
+ .TP 
+-\fB[\-\-db\-geoip\-disable            ]\fR : GeoIP support disabled
++\fB[\-\-db\-geoip\-disable            ]\fR
++GeoIP support disabled
+ .TP 
+-\fB[\-\-db\-geoip\-dir\fR       \fIDIRECTORY\fR\fB]\fR : GeoIP database directory (default: /usr/share/GeoIP)
++\fB[\-\-db\-geoip\-dir\fR       \fIDIRECTORY\fR\fB]\fR
++GeoIP database directory (default: /usr/share/GeoIP)
+ .LP 
+ Special options:
+ .TP 
+-\fB[\-q|\-\-quiet]\fR               : be more quiet (auto\-enabled in pipe mode)
++\fB[\-q|\-\-quiet]\fR
++be more quiet (auto\-enabled in pipe mode)
+ .TP 
+-\fB[\-f|\-\-flush]\fR               : flush each line in pipe mode
++\fB[\-f|\-\-flush]\fR
++flush each line in pipe mode
+ .LP 
+ Usage with new style options:
+ .TP 
+-\fB[\-\-in|\-I\fR \fIINPUT\-TYPE\fR\fB]\fR   : specify input  type (default: autodetect)
+-.TP 
+-\fB[\-\-out|\-O\fR \fIOUTPUT\-TYPE\fR\fB]\fR : specify output type (sometimes: autodetect)
+-.TP 
+-\fB[\-\-action|\-A\fR \fIACTION\fR\fB]\fR   : specify action (default: format conversion, sometimes: autodetect)
++\fB[\-\-in|\-I\fR \fIINPUT\-TYPE\fR\fB]\fR
++specify input  type (default: autodetect)
+ .TP 
+-\fB[<format option> ...]\fR : specify format options
++\fB[\-\-out|\-O\fR \fIOUTPUT\-TYPE\fR\fB]\fR
++specify output type (sometimes: autodetect)
+ .TP 
+-\fB<input data> [...]\fR    : input data
++\fB[\-\-action|\-A\fR \fIACTION\fR\fB]\fR
++specify action (default: format conversion, sometimes: autodetect)
+ .TP 
++\fB[<format option> ...]\fR
++specify format options
++.TP 
++\fB<input data> [...]\fR
++input data
++.RS
++.IP 
+   Available input  types:  \fB[\-m] \-I|\-\-in     \-?|\-h|\-\-help\fR
+-.TP 
++.IP 
+   Available output types:  \fB[\-m] \-O|\-\-out    \-?|\-h|\-\-help\fR
+-.TP 
++.IP 
+   Available action types:  \fB[\-m] \-A|\-\-action \-?|\-h|\-\-help\fR
++.RE
+ .LP 
+  Other usage:
+ .TP 
+-\fB\-\-showinfo|\-i [\-\-machine_readable|\-m]\fR : show information about input data
++\fB\-\-showinfo|\-i [\-\-machine_readable|\-m]\fR
++show information about input data
+ .TP 
+-\fB\-\-showinfo|\-i \-\-show_types\fR            : show available types on '\-m'
++\fB\-\-showinfo|\-i \-\-show_types\fR
++show available types on '\-m'
+ .LP 
+ Usage with shortcut options: <shortcut option> [<format option> ...] <input data>
+ .br 
+-for more information and available format options use: <shortcut option> \-?|\-h|\-\-help
+-.TP 
++for more information and available format options use:
++<shortcut option> \-?|\-h|\-\-help
++.IP 
+ \fB\-r|\-\-addr2ip6_int\fR (\-O revnibbles.int)
+-.TP 
++.IP 
+ \fB\-r|\-\-addr_to_ip6int\fR (\-O revnibbles.int)
+-.TP 
++.IP 
+ \fB\-a|\-\-addr2ip6_arpa\fR (\-O revnibbles.arpa)
+-.TP 
++.IP 
+ \fB\-a|\-\-addr_to_ip6arpa\fR (\-O revnibbles.arpa)
+-.TP 
++.IP 
+ \fB\-b|\-\-addr_to_bitstring\fR (\-O bitstring)
+-.TP 
++.IP 
+ \fB   \-\-addr2compaddr\fR (\-\-printcompressed)
+-.TP 
++.IP 
+ \fB   \-\-addr_to_compressed\fR (\-\-printcompressed)
+-.TP 
++.IP 
+ \fB   \-\-addr2uncompaddr\fR (\-\-printuncompressed)
+-.TP 
++.IP 
+ \fB   \-\-addr_to_uncompressed\fR (\-\-printuncompressed)
+-.TP 
++.IP 
+ \fB   \-\-addr_to_base85\fR (\-I ipv6addr \-O base85)
+-.TP 
++.IP 
+ \fB   \-\-base85_to_addr\fR (\-I base85 \-O ipv6addr)
+-.TP 
++.IP 
+ \fB   \-\-mac_to_eui64\fR (\-I mac \-O eui64)
+-.TP 
++.IP 
+ \fB   \-\-addr2fulluncompaddr\fR (\-\-printfulluncompressed)
+-.TP 
++.IP 
+ \fB   \-\-addr_to_fulluncompressed\fR (\-\-printfulluncompressed)
+-.TP 
++.IP 
+ \fB   \-\-addr2if_inet6\fR (\-I ipv6addr \-O ifinet6)
+-.TP 
++.IP 
+ \fB   \-\-addr_to_ifinet6\fR (\-I ipv6addr \-O ifinet6)
+-.TP 
++.IP 
+ \fB   \-\-if_inet62addr\fR (\-I ifinet6 \-O ipv6addr \-\-printcompressed)
+-.TP 
++.IP 
+ \fB   \-\-ifinet6_to_compressed\fR (\-I ifinet6 \-O ipv6addr \-\-printcompressed)
+-.TP 
++.IP 
+ \fB   \-\-eui64_to_privacy\fR (\-I iid_token \-O iid_token \-A genprivacyiid)
+-.TP 
++.IP 
+ \fB   \-\-ipv4_to_6to4addr\fR (\-I ipv4 \-O ipv6addr \-A conv6to4)
+ .LP 
+ See inline help or documentation for more.
+@@ -127,8 +148,9 @@
+ ipv6calc \-\-addr_to_uncompressed ::1
+ .LP 
+ Usage of filters in pipe mode:
+-.TP 
++.EX 
+ cat <Apache\-Logfile> | ipv6calc \-E ipv6.db.cc=US,iid\-random
++.EE
+ .SH "COPYRIGHT"
+ GPLv2
+ .SH "AUTHORS"

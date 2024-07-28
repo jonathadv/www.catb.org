@@ -1,0 +1,24 @@
+Running text cannot occur in Synopsis sections; this make lifting to XML 
+impossible.  This page was rather ill-formed, I have re-sectioned it.
+
+--- pytest.1-unpatched	2010-07-23 03:28:44.000000000 -0400
++++ pytest.1	2010-07-23 03:30:00.000000000 -0400
+@@ -5,8 +5,7 @@
+ 
+ .SH SYNOPSIS
+ usage: pytest [OPTIONS] [testfile [testpattern]]
+-.PP
+-examples:
++.SH EXAMPLES
+ .PP
+ pytest path/to/mytests.py
+ pytest path/to/mytests.py TheseTests
+@@ -18,7 +17,7 @@
+ pytest \fB\-\-coverage\fR test_foo.py
+ .IP
+ (only if logilab.devtools is available)
+-.SS "options:"
++.SH OPTIONS
+ .TP
+ \fB\-h\fR, \fB\-\-help\fR
+ show this help message and exit

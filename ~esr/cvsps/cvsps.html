@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>cvsps</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /></head><body><div xml:lang="en" class="refentry" lang="en"><a id="idp49185184"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>cvsps — fast export the contents of a CVS repository (DEPRECATED)</p></div><div class="refsynopsisdiv"><a id="_synopsis"></a><h2>Synopsis</h2><p><span class="strong"><strong>cvsps</strong></span>
+    [-h] [-z <span class="emphasis"><em>fuzz</em></span>] [-s <span class="emphasis"><em>patchset</em></span>] [-a <span class="emphasis"><em>author</em></span>]
+    [-f <span class="emphasis"><em>file</em></span>] [-d <span class="emphasis"><em>date1</em></span> [-d <span class="emphasis"><em>date2</em></span>]] [-l <span class="emphasis"><em>text</em></span>] [-b <span class="emphasis"><em>branch</em></span>] [-n]
+    [-r <span class="emphasis"><em>tag</em></span> [-r <span class="emphasis"><em>tag</em></span>]] [-p <span class="emphasis"><em>directory</em></span>] [-A <span class="emphasis"><em>authormap</em></span>] [-R <span class="emphasis"><em>revmap</em></span>]
+    [-v] [-t] [--debuglvl <span class="emphasis"><em>bitmask</em></span>] [-Z <span class="emphasis"><em>compression</em></span>] [--root <span class="emphasis"><em>cvsroot</em></span>]
+    [--fast-export] [--convert-ignores] [--reposurgeon]
+    [-i] [-k] [-T] [-V] [<span class="emphasis"><em>module-path</em></span>]</p></div><div class="refsect1"><a id="_warning"></a><h2>WARNING</h2><p>This program has been declared end-of-life by its maintainer. Do not
+use it unless you have no alternative, and consider its results highly
+suspect on any CVS repository with branches - that is, anything other
+than a straight linear succession of commits.  For a better
+alternative, see cvs-fast-export(1).</p></div><div class="refsect1"><a id="_description"></a><h2>DESCRIPTION</h2><p>cvsps tries to group the per-file commits and tags in a CVS project
+repository into per-project changeset commits with common metadata, in
+the style of Subversion and later version-control systems.</p><p>The older, default reporting mode is designed for humans to look at
+and only includes commit metadata, not file contents.  The newer
+--fast-export mode emits a git-style fast-import stream which can be
+consumed by the importers for git and other version-control systems.</p><p>There are several different ways to invoke cvsps:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+From the top level of a CVS checkout directory, in which case no
+options or arguments are required.  (This case runs if
+there is a CVS/Root beneath the current working directory.)
+</li><li class="listitem">
+From a module subdirectory within a CVS repository, in which case no
+options or arguments are required.  (This case runs if there is a
+CVSROOT directory in the parent of the current working directory.)
+</li><li class="listitem">
+From the top level of a CVS repository directory, in which case a
+module-path argument is required. (This case runs if the program sees
+a CVSROOT directory in the current working directory.)
+</li><li class="listitem">
+With a CVS URL of the form cvs://&lt;hostname&gt;/&lt;path&gt;#&lt;module&gt; as a
+module-path argument. This can be used to export the contents of a
+remote CVS repository.
+</li><li class="listitem">
+With a root module specified via either the --root option or the
+CVSROOT environment variable, in which case a module-path argument
+is required. (This form is deprecated).
+</li></ul></div><p>In fast-export mode:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+Each patchset becomes a commit.
+</li><li class="listitem">
+CVS tags become git lightweight tags.
+</li><li class="listitem">
+The HEAD branch is renamed to <span class="emphasis"><em>master</em></span>.
+</li><li class="listitem">
+Other tag and branch names are sanitized to be legal for git;
+  the characters ~^\*? are removed.
+</li><li class="listitem">
+Since .cvsignore files have a syntax upward-compatible with that
+  of .gitignore files, they may be renamed (if --convert-ignores is on).
+</li></ul></div><p>cvsps does not parse the $HOME/.cvsrc file.  If you have a
+$HOME/.cvspass file (such as is normally created by cvs login) it will
+be searched for a password.</p></div><div class="refsect1"><a id="_options"></a><h2>OPTIONS</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+-h
+</span></dt><dd>
+display usage summary.
+</dd><dt><span class="term">
+-z <span class="emphasis"><em>fuzz</em></span>
+</span></dt><dd>
+set the timestamp fuzz factor for identifying patch sets.
+</dd><dt><span class="term">
+-g
+</span></dt><dd>
+generate diffs of the selected patch sets.
+</dd><dt><span class="term">
+-s <span class="emphasis"><em>patchset</em></span>[-[<span class="emphasis"><em>patchset</em></span>]][,<span class="emphasis"><em>patchset</em></span>…]
+</span></dt><dd>
+generate a diff for a given patchsets and patchset ranges.
+</dd><dt><span class="term">
+-a <span class="emphasis"><em>author</em></span>
+</span></dt><dd>
+restrict output to patchsets created by author.
+</dd><dt><span class="term">
+-f <span class="emphasis"><em>regexp</em></span>
+</span></dt><dd>
+restrict output to patchsets with filenames matching the specified regexp.
+</dd><dt><span class="term">
+-d <span class="emphasis"><em>date1</em></span> -d <span class="emphasis"><em>date2</em></span>
+</span></dt><dd>
+if just one date specified, show revisions newer than date1.  If two
+dates specified, show revisions between two dates.
+</dd><dt><span class="term">
+-l <span class="emphasis"><em>regex</em></span>
+</span></dt><dd>
+restrict output to patchsets matching regex in log message. The
+regular expressions use POSIX syntax.
+</dd><dt><span class="term">
+-b <span class="emphasis"><em>branch</em></span>
+</span></dt><dd>
+restrict output to patchsets affecting history of branch.
+If you want to restrict to the main branch, use a branch of <span class="emphasis"><em>HEAD</em></span>.
+</dd><dt><span class="term">
+-n
+</span></dt><dd>
+negate filter sense, print all patchsets <span class="strong"><strong>not</strong></span> matching restrictions.
+</dd><dt><span class="term">
+-r <span class="emphasis"><em>tag1</em></span> -r <span class="emphasis"><em>tag2</em></span>
+</span></dt><dd>
+if just one tag specified, show revisions since tag1. If two tags
+specified, show revisions between the two tags.
+</dd><dt><span class="term">
+-p <span class="emphasis"><em>dir</em></span>
+</span></dt><dd>
+output individual patchsets as files in <span class="emphasis"><em>dir</em></span> as <span class="emphasis"><em>dir</em></span>/<span class="emphasis"><em>patchset</em></span>.patch.
+</dd><dt><span class="term">
+-A <span class="emphasis"><em>authormap</em></span>
+</span></dt><dd><p class="simpara">
+Apply an author-map file to the attribution lines. Each line must be
+of the form
+</p><pre class="screen">ferd = Ferd J. Foonly &lt;foonly@foo.com&gt; America/Chicago</pre><p class="simpara">and will be applied to map the Unix username <span class="emphasis"><em>ferd</em></span> to the DVCS-style
+user identity specified after the equals sign.  The timezone field
+(after &gt; and whitespace) is optional and (if present) is used to set
+the timezone offset to be attached to the date; acceptable formats for
+the timezone field are anything that can be in the TZ environment
+variable, including a [+-]hhmm offset. Whitespace around the equals
+sign is stripped.  Lines beginning with a # or not containing an
+equals sign are silently ignored.</p></dd><dt><span class="term">
+-R <span class="emphasis"><em>revmap</em></span>
+</span></dt><dd>
+Write a revision map to the specified argument filename.  Each line of
+the revision map consists of three whitespace-separated fields: a
+filename, an RCS revision number, and the mark of the commit to which
+that filename-revision pair was assigned.
+</dd><dt><span class="term">
+-v
+</span></dt><dd>
+show very verbose parsing messages.
+</dd><dt><span class="term">
+-t
+</span></dt><dd>
+show some brief memory usage statistics.
+</dd><dt><span class="term">
+--summary-first
+</span></dt><dd>
+when multiple patchset diffs are being generated, put the patchset
+summary for all patchsets at the beginning of the output.
+</dd><dt><span class="term">
+--diffs-opts <span class="emphasis"><em>option string</em></span>
+</span></dt><dd>
+send a custom set of options to diff, for example to increase
+the number of context lines, or change the diff format.
+</dd><dt><span class="term">
+--debuglvl <span class="emphasis"><em>bitmask</em></span>
+</span></dt><dd>
+enable various debug output channels.
+</dd><dt><span class="term">
+-Z <span class="emphasis"><em>compression</em></span>
+</span></dt><dd>
+A value 1-9 which specifies amount of compression.  A value of 0
+disables compression.
+</dd><dt><span class="term">
+--root <span class="emphasis"><em>cvsroot</em></span>
+</span></dt><dd>
+Override the setting of CVSROOT (overrides working directory and
+environment).
+</dd><dt><span class="term">
+-i
+</span></dt><dd>
+Incremental export.  Each commit with no ancestor gets a from pointer
+name.  When importing to an existing repository, this will attach each
+such commit as a child of the last commit on $BRANCH in the existing
+repository.
+</dd><dt><span class="term">
+-k
+</span></dt><dd>
+Kill keywords: will extract files with <span class="emphasis"><em>-kk</em></span> from the CVS archive
+to avoid noisy changesets.
+</dd><dt><span class="term">
+-T
+</span></dt><dd>
+Force deterministic dates for regression testing. Each patchset will
+have a monotonic-increasing attributed date computed from its patchset ID.
+</dd><dt><span class="term">
+--fast-export
+</span></dt><dd>
+Emit the report as a git import stream.
+</dd><dt><span class="term">
+--convert-ignores
+</span></dt><dd>
+Convert ..cvsignore files to .gitignore files.
+</dd><dt><span class="term">
+--reposurgeon
+</span></dt><dd>
+Emit for each commit a list of the CVS file:revision pairs composing it as a
+bzr-style commit property named "cvs-revisions".  From version 2.12
+onward, reposurgeon can interpret these and use them as hints for
+reference-lifting.
+</dd><dt><span class="term">
+-V
+</span></dt><dd>
+Emit the program version and exit.
+</dd><dt><span class="term">
+<span class="emphasis"><em>module-path</em></span>
+</span></dt><dd>
+Operate on the specified module.  If this option is not given, either
+the CVSROOT environment variable must be set to point directly at the
+module or cvsps must be run in a checkout directory or repository
+module subdirectory.
+</dd></dl></div></div><div class="refsect1"><a id="_compatibility"></a><h2>COMPATIBILITY</h2><p>The old --cvs-direct option, and the -u and -x options having to do
+with local caching are gone; cvsps now always runs in direct mode and
+without caching.  However, the -u command-line switch has been left in
+place and tied to an informative termination message so that users of
+older versions of calling scripts (such as git-cvsimport) will get
+an error message rather than silent misbehavior.</p><p>The ancestor-branch tracking enabled by the -A option in some previous
+versions of cvsps never worked properly and has been removed.  The new
+-A option does author-name mapping, following the normal convention
+for CVS and SVN translation tools.</p><p>The -g and --summary-first options of older versions have also been
+removed.  The following options are deprecated and may be removed in a
+future release: -s, -a, -f, -l, -n, -p, --root, --diff-opts, and -t.
+It is possible that the non-fast-export reporting mode will be
+removed, but if so the --fast-export option will be retained as a
+no-op.</p></div><div class="refsect1"><a id="_usage_examples"></a><h2>USAGE EXAMPLES</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+cvsps
+</span></dt><dd>
+      Run within a checkout directory or a module subdirectory within
+      a repository, dumps the history of its module in its repository
+      in the old format.
+</dd><dt><span class="term">
+cvsps --root :local:$PWD/foo --fast-export bar
+</span></dt><dd>
+      Dump the history of module bar from a local repository directory foo in
+      fast-export format.
+</dd><dt><span class="term">
+cvsps cvs://esr@rfk.cvs.sourceforge.net/cvsroot/rfk#robotfindskitten
+</span></dt><dd>
+      Dump the CVS history of the robotfindskitten project on
+      Sourceforge using esr’s login credentials.
+</dd><dt><span class="term">
+cvsps --root <a class="ulink" href="mailto:esr@rfk.cvs.sourceforge.net" target="_top">esr@rfk.cvs.sourceforge.net</a>:/cvsroot/rfk robotfindskitten
+</span></dt><dd>
+      Same request using separate --root and module.
+</dd><dt><span class="term">
+cvsps --root :pserver:esr@rfk.cvs.sourceforge.net/cvsroot/rfk robotfindskitten
+</span></dt><dd>
+      Same request, (redundantly) specifying the pserver method.
+</dd></dl></div></div><div class="refsect1"><a id="_note_on_tag_handling"></a><h2>NOTE ON TAG HANDLING</h2><p>Tags are fundamentally <span class="emphasis"><em>file at a time</em></span> in CVS, but like everything else,
+it would be nice to imagine that they are <span class="emphasis"><em>repository at a time.</em></span>  The
+approach cvsps takes is that a tag is assigned to a patchset.  The meaning
+of this is that after this patchset, every revision of every file is after
+the tag (and conversely, before this patchset, at least one file is still
+before the tag).</p><p>However, there are two kinds of inconsistent (or <span class="emphasis"><em>funky</em></span>) tags that
+can be created with older versions of CVS, even when following best
+practices for CVS.  Newer versions do an up-to-dateness check that
+prevents these.</p><p>The first is what is called a <span class="strong"><strong>funky</strong></span> tag.  A funky tag is one where
+there are patchsets which are chronologically (and thus by patchset
+id) earlier than the tag, but are tagwise after.  These tags will be
+marked as <span class="emphasis"><em><span class="strong"><strong>FUNKY</strong></span></em></span> in the Tag: section of the cvsps output.  When a
+funky tag is specified as one of the <span class="emphasis"><em>-r</em></span> arguments, there are some
+number of patchsets which need to be considered out of sequence.  In
+this case, the patchsets themselves will be labeled FUNKY and will be
+processed correctly.</p><p>The second is called an <span class="strong"><strong>invalid</strong></span> tag.  An invalid tag is a tag where
+there are patchsets which are chronologically (and thus by patchset
+id) earlier than the tag, but which have members which are tagwise
+both before, and after the tag, in the same patchset.  If an INVALID
+tag is specified as one of the <span class="emphasis"><em>-r</em></span> arguments, cvsps will flag each
+member of the affected patchsets as before or after the tag and the
+patchset summary will indicate which members are which, and diffs will
+be generated accordingly.</p><p>These may be better explained by examples.  The easiest test case for
+this is two developers, starting in a consistent state.
+(a)::
+developer 1 changes file A(sub1) to A(sub2) and commits, creating
+patchset P(sub1) chronologically earlier, thus with a lower patchset id.
+(b)::
+developer 2 changes file B(sub1) to B(sub2) and commits, creating
+patchset P(sub2) chronologically later, thus higher patchset id.
+(c)::
+developer 2 B does fInotfR do "cvs update", so does not get A(sub2) in
+working directory and creates a "tag" T(sub1)</p><p>A checkout of T(sub1) should have A(sub1) and B(sub2) and there is no
+"patchset" that represents this. In other words, if we label patchset
+P(sub2) with the tag there are earlier patchsets which need to be
+disregarded.</p><p>An "invalid" tag can be generated with a similar testcase, except:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+In step (a) developer 1 also changes file C(sub1) to C(sub2)
+</li><li class="listitem">
+developer 2 does a "selective" cvs update of only file C(sub2)
+</li><li class="listitem">
+developer 1 does another change from C(sub2) to C(sub3), creating
+a new patchset in between the previous P(sub1) and P(sub2)
+"P(sub1(sub2))??"
+</li><li class="listitem">
+Then we have step (b) and step (c).  After this, a checkout of T(sub1)
+should have A(sub1), B(sub2) and C(sub2).
+</li></ul></div><p>In other words, if we label patchset P(sub2) with the tag there are
+earlier patchsets which need to be <span class="strong"><strong>partially</strong></span> disregarded.</p></div><div class="refsect1"><a id="_note_on_date_formats"></a><h2>NOTE ON DATE FORMATS</h2><p>Dates are reported in localtime, except that fast-export mode reports
+UTC.  Three formats are accepted for the -d option:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+RFC3339: yyyy-mm-ddThh:mm:ss.
+</li><li class="listitem">
+A Unix-style timestamp (seconds since UTC epoch).
+</li><li class="listitem">
+For backward compatibility with older versions, <span class="emphasis"><em>yyyy/mm/dd hh:mm:ss</em></span>.
+</li></ul></div><p>As a contrived example:</p><pre class="literallayout">$ cvsps -d '2004-05-01T00:00:00' -d '2004/07/07 12:00:00'</pre></div><div class="refsect1"><a id="_see_also"></a><h2>SEE ALSO</h2><p>cvs(1)</p></div><div class="refsect1"><a id="_cvs_limitations"></a><h2>CVS LIMITATIONS</h2><p>Translating CVS repositories to the generic DVCS model expressed by
+import streams is not merely difficult and messy, there are weird
+CVS cases that cannot be correctly translated at all.  cvsps will try to
+warn you about these cases rather than silently producing broken or
+incomplete translations.</p><p>CVS tags are per-file, not per revision. If developers are not careful
+in their use of tagging, it can be impossible to associate a tag with
+any of the changesets that cvsps resolves.</p><p>CVS-NT and versions of GNU CVS after 1.12 (2004) added a changeset
+commit-id to file metadata. Older sections of CVS history without
+these are vulnerable to various problems caused by clock skew between
+clients; this used to be relatively common for multiple reasons,
+including less pervasive use of NTP clock synchronization. cvsps will
+warn you when it sees such a section in your history. When it does,
+these caveats apply:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+If timestamps of commits in the CVS repository were not stable
+enough to be used for ordering commits, changes may be reported in the
+wrong order.
+</li><li class="listitem">
+If the timestamp order of different files crosses the revision order
+within the commit-matching time window, the order of commits reported
+may be wrong.
+</li></ul></div><p>These problems cannot be fixed in cvsps; they are inherent to CVS.</p></div><div class="refsect1"><a id="_cvsps_limitations"></a><h2>CVSPS LIMITATIONS</h2><p>This program has been declared end-of-life by its maintainer because
+it does a poor job of branch analysis and tag assignment on non-linear
+repositories.  You should almost certainly be using cvs-fast-export(1)
+instead.</p><p>File execute bits are not correctly retrieved and passed through in
+--fast-export mode - all fileops will have 100664 permissions.</p><p>cvsps may be unable to communicate with some extremely ancient CVS
+server versions (this was a sacrifice for much faster performance).
+It is unlikely any of these are still in service; if you trip over
+one, mirror the repository locally with rsync or cvssuck and proceed.</p><p>CVS branches that were created but never got any file commits will
+not be reported in the translated import stream.</p><p>If any files were ever imported more than once (e.g., import of
+more than one vendor release), the head revision might contain
+incorrect content.  cvsps issues a warning when this might occur.</p><p>If a CVS branch symbol could not be resolved to a translated
+commit, cvsps will issue a warning to that effect.</p></div><div class="refsect1"><a id="_reporting_bugs"></a><h2>REPORTING BUGS</h2><p>Report bugs to Eric S. Raymond &lt;<a class="ulink" href="mailto:esr@thyrsus.com" target="_top">esr@thyrsus.com</a>&gt;.  The project page
+is at <a class="ulink" href="http://catb.org/~esr/cvsps" target="_top">http://catb.org/~esr/cvsps</a></p></div></div></body></html>

@@ -1,0 +1,291 @@
+--- slapd.conf.5-unpatched	2018-05-19 07:17:35.211168827 -0400
++++ slapd.conf.5	2018-05-19 07:17:34.923170784 -0400
+@@ -3,6 +3,16 @@
+ .\" Copyright 1998-2017 The OpenLDAP Foundation All Rights Reserved.
+ .\" Copying restrictions apply.  See COPYRIGHT/LICENSE.
+ .\" $OpenLDAP$
++.de EX
++.RS
++.nf
++.ft CW
++..
++.de EE
++.ft
++.fi
++.RE
++..
+ .SH NAME
+ slapd.conf \- configuration file for slapd, the stand-alone LDAP daemon
+ .SH SYNOPSIS
+@@ -36,7 +46,7 @@
+ .B slapd.conf
+ is as follows:
+ .LP
+-.nf
++.EX
+     # comment - these options apply to every database
+     <global configuration options>
+     # first database definition & configuration options
+@@ -44,7 +54,7 @@
+     <configuration options specific to backend 1>
+     # subsequent database definitions & configuration options
+     ...
+-.fi
++.EE
+ .LP
+ As many backend-specific sections as desired may be included.  Global
+ options can be overridden in a backend (for options that appear more
+@@ -233,27 +243,31 @@
+ describes an 
+ .B identity 
+ or a set of identities; it can take five forms:
+-.RS
+-.TP
++
++.EX
+ .B ldap:///<base>??[<scope>]?<filter>
+-.RE
+-.RS
++.EE
++
++.EX
+ .B dn[.<dnstyle>]:<pattern>
+-.RE
+-.RS
++.EE
++
++.EX
+ .B u[.<mech>[/<realm>]]:<pattern>
+-.RE
+-.RS
++.EE
++
++.EX
+ .B group[/objectClass[/attributeType]]:<pattern>
+-.RE
+-.RS
++.EE
++
++.EX
+ .B <pattern>
+-.RE
+-.RS
++.EE
+ 
++.EX
+ .B <dnstyle>:={exact|onelevel|children|subtree|regex}
++.EE
+ 
+-.RE
+ The first form is a valid LDAP
+ .B URI
+ where the 
+@@ -350,11 +364,11 @@
+ .B MECHANISM
+ are taken, when available, and combined into a name of the form
+ .RS
+-.RS
+-.TP
++
++.EX
+ .B UID=<username>[[,CN=<realm>],CN=<mechanism>],CN=auth
++.EE
+ 
+-.RE
+ This name is then compared against the
+ .B match
+ POSIX (''extended'') regular expression, and if the match is successful,
+@@ -363,22 +377,22 @@
+ string.  If there are wildcard strings in the 
+ .B match
+ regular expression that are enclosed in parenthesis, e.g. 
+-.RS
+-.TP
++
++.EX
+ .B UID=([^,]*),CN=.*
++.EE
+ 
+-.RE
+ then the portion of the name that matched the wildcard will be stored
+ in the numbered placeholder variable $1. If there are other wildcard strings
+ in parenthesis, the matching strings will be in $2, $3, etc. up to $9. The 
+ placeholders can then be used in the 
+ .B replace
+ string, e.g. 
+-.RS
+-.TP
++
++.EX
+ .B UID=$1,OU=Accounts,DC=example,DC=com 
++.EE
+ 
+-.RE
+ The replaced name can be either a DN, i.e. a string prefixed by "dn:",
+ or an LDAP URI.
+ If the latter, the server will use the URI to search its own database(s)
+@@ -386,11 +400,11 @@
+ replaced by the DN of that entry.   The LDAP URI must have no
+ hostport, attrs, or extensions components, but the filter is mandatory,
+ e.g.
+-.RS
+-.TP
++
++.EX
+ .B ldap:///OU=Accounts,DC=example,DC=com??one?(UID=$1)
++.EE
+ 
+-.RE
+ The protocol portion of the URI must be strictly
+ .BR ldap .
+ Note that this search is subject to access controls.  Specifically,
+@@ -668,13 +682,13 @@
+ as a list of integers (that are ORed internally),
+ or as a list of the names that are shown between parentheses, such that
+ .LP
+-.nf
++.EX
+     loglevel 129
+     loglevel 0x81
+     loglevel 128 1
+     loglevel 0x80 0x1
+     loglevel acl trace
+-.fi
++.EE
+ .LP
+ are equivalent.
+ The keyword 
+@@ -834,9 +848,11 @@
+ The root DSE is an entry with information about the server and its
+ capabilities, in operational attributes.
+ It has the empty DN, and can be read with e.g.:
+-.ti +4
++
++.EX
+ ldapsearch \-x \-b "" \-s base "+"
+-.br
++.EE
++
+ See RFC 4512 section 5.1 for details.
+ .TP
+ .B sasl\-auxprops <plugin> [...]
+@@ -950,9 +966,9 @@
+ is only valid for single master replication.
+ Example:
+ .LP
+-.nf
++.EX
+ 	serverID 1
+-.fi
++.EE
+ .TP
+ .B sizelimit {<integer>|unlimited}
+ .TP
+@@ -1051,9 +1067,9 @@
+ 
+ To check what ciphers a given spec selects in OpenSSL, use:
+ 
+-.nf
++.EX
+ 	openssl ciphers \-v <cipher-suite-spec>
+-.fi
++.EE
+ 
+ With GnuTLS the available specs can be found in the manual page of 
+ .BR gnutls\-cli (1)
+@@ -1064,17 +1080,19 @@
+ In older versions of GnuTLS, where gnutls\-cli does not support the option
+ \-\-priority, you can obtain the \(em more limited \(em list of ciphers by calling:
+ 
+-.nf
++.EX
+ 	gnutls\-cli \-l
+-.fi
++.EE
+ 
+ When using Mozilla NSS, the OpenSSL cipher suite specifications are used and
+ translated into the format used internally by Mozilla NSS.  There isn't an easy
+ way to list the cipher suites from the command line.  The authoritative list
+ is in the source code for Mozilla NSS in the file sslinfo.c in the structure
+-.nf
++
++.EX
+         static const SSLCipherSuiteInfo suiteInfo[]
+-.fi
++.EE
++
+ .RE
+ .TP
+ .B TLSCACertificateFile <filename>
+@@ -1342,22 +1360,20 @@
+ The argument
+ .B <selector>
+ can be any of
+-.RS
+-.RS
+-.TP
++
++.EX
+ anonymous | users | [<dnspec>=]<pattern> | group[/oc[/at]]=<pattern>
++.EE
+ 
+-.RE
+ with
+-.RS
+-.TP
++
++.EX
+ <dnspec> ::= dn[.<type>][.<style>]
+-.TP
+ <type>  ::= self | this
+-.TP
++
+ <style> ::= exact | base | onelevel | subtree | children | regex | anonymous
++.EE
+ 
+-.RE
+ DN type
+ .B self
+ is the default and means the bound user, while
+@@ -1712,15 +1728,15 @@
+ at the desired position. This explicit configuration is necessary e.g.
+ when using the \fIsyncprov\fP overlay, which needs to follow \fIglue\fP
+ in order to work over all of the glued databases. E.g.
+-.RS
+-.nf
++
++.EX
+ 	database bdb
+ 	suffix dc=example,dc=com
+ 	...
+ 	overlay glue
+ 	overlay syncprov
+-.fi
+-.RE
++.EE
++
+ .TP
+ .B sync_use_subentry 
+ Store the syncrepl contextCSN in a subentry instead of the context entry
+@@ -2009,8 +2025,8 @@
+ .LP
+ Here is a short example of a configuration file:
+ .LP
+-.RS
+-.nf
++
++.EX
+ include   /etc/ldap/schema/core.schema
+ pidfile   /var/run/slapd.pid
+ 
+@@ -2041,8 +2057,8 @@
+ suffix    ""
+ uri       ldap://ldap.some\-server.com/
+ lastmod   off
+-.fi
+-.RE
++.EE
++
+ .LP
+ "OpenLDAP Administrator's Guide" contains a longer annotated
+ example of a configuration file.

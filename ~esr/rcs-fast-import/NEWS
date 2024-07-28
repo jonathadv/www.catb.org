@@ -1,0 +1,27 @@
+= rcs-fast-export news =
+
+1.4: 2024-02-11::
+    Issue warning on ancient RCS version.
+
+1.3: 2023-09-30::
+    Bug fix for Git branch handling.
+
+1.2: 2023-02-17::
+    Cleanup for current Python.
+
+1.1: 2020-03-07::
+    Ported to Python 3
+    Rehosted at GitLab.
+
+1.0: 2014-11-08::
+    There is a regression test: run "make check".
+    Files imported can be restricted with command-line arguments.
+
+0.3: 2014-06-05::
+    Documentation polishing and stricter code validation with new pylint. 
+
+0.2: 2013-09-03::
+    Small fixes by Mike Fleetwood <mike.fleetwood@googlemail.com>
+
+0.1: 2010-11-24::
+    Initial release.

@@ -1,0 +1,11 @@
+--- tifficc.1-unpatched	2012-06-27 22:48:58.018165141 -0400
++++ tifficc.1	2012-06-27 22:49:28.266164582 -0400
+@@ -63,7 +63,7 @@
+ .TP
+ .B \-w
+ Wide output (generates 16 bps tiff).
+-.TP
++.sp
+ You can also use '*Lab' and '*XYZ' as predefined, built-in profiles for CIE L*a*b* and XYZ color spaces.
+ .SH EXAMPLES
+ .nf

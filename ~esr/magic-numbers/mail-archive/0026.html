@@ -1,0 +1,95 @@
+<!-- received="Sat Oct 26 13:20:12 1996 EST" -->
+<!-- sent="Sat, 26 Oct 1996 13:20:12 -0400 (EDT)" -->
+<!-- name="James Aylett" -->
+<!-- email="sja20@hermes.cam.ac.uk" -->
+<!-- subject="Magic Number Registry Design" -->
+<!-- id="Pine.LNX.3.93.961026113416.17763A-100000@crystal.clare.cam.ac.uk" -->
+<!-- inreplyto="" -->
+<title>magic-numbers: Magic Number Registry Design</title>
+<h1>Magic Number Registry Design</h1>
+James Aylett (<i>sja20@hermes.cam.ac.uk</i>)<br>
+<i>Sat, 26 Oct 1996 13:20:12 -0400 (EDT)</i>
+<p>
+<ul>
+<li> <b>Messages sorted by:</b> <a href="date.html#26">[ date ]</a><a href="index.html#26">[ thread ]</a><a href="subject.html#26">[ subject ]</a><a href="author.html#26">[ author ]</a>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0027.html">Greg Roelofs: "Re: Please welcome new members"</a>
+<li> <b>Previous message:</b> <a href="0025.html">James Aylett: "Please welcome new members"</a>
+<!-- nextthread="start" -->
+</ul>
+<!-- body="start" -->
+As a first step towards our goals, I intend to put together a custom database<br>
+format for the Registry, and a pair of Perl scripts that can massage it into<br>
+an HTML page or a magic-number file.<br>
+<p>
+Here, to recap, is my preliminary design for the Registry fields.  <br>
+<p>
+(1) Recipe<br>
+<p>
+    This is a pattern, expressed in a recipe notation compatible with<br>
+that of Unix file(1), describing the primary and/or secondary magic<br>
+numbers and their offsets.<br>
+<p>
+(2) Contact<br>
+<p>
+    A Web page or email contact for the person(s) responsible for the<br>
+format.<br>
+<p>
+(3) Status<br>
+<p>
+    One of: Experimental, Production, or Obsolete.<br>
+<p>
+(4) Code<br>
+<p>
+    A code of at most 8 ASCII characters intended for use as a type<br>
+representation icon in text-only navigation tools.<br>
+<p>
+(5) Icons<br>
+<p>
+    One or more 32x32 PNG icons intended for use as a type representation<br>
+icon in graphic navigation tools.<br>
+<p>
+(5) Class<br>
+<p>
+    One of a set of semantic-class codes described below.<br>
+<p>
+(6) Description<br>
+<p>
+    Text description of the format (in the style of Unix file(1)).<br>
+<p>
+(7) Resources<br>
+<p>
+    Zero or more quadruples consisting of<br>
+       (a) A name<br>
+       (b) A resource type<br>
+             Resource types may include Documentation, Viewer, Library, <br>
+             Browser, Toolkit, Editor.<br>
+       (c) An URL<br>
+       (d) Comments<br>
+<p>
+(8) Timestamp<br>
+<p>
+    Date of last update.<br>
+<p>
+(9) Entered By<br>
+<p>
+    Email address of person responsible for entry.<br>
+<p>
+(10) Comments<br>
+<p>
+    Registry maintainer's comments.<br>
+<p>
+What else do we need?  I'm looking for discussion, criticism, and design<br>
+suggestions.<br>
+<pre>
+-- 
+	&lt;a href="<a href="http://www.ccil.org/~esr/home.html">http://www.ccil.org/~esr/home.html</a>"&gt;Eric S. Raymond&lt;/a&gt;
+</pre>
+<!-- body="end" -->
+<p>
+<ul>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0027.html">Greg Roelofs: "Re: Please welcome new members"</a>
+<li> <b>Previous message:</b> <a href="0025.html">James Aylett: "Please welcome new members"</a>
+<!-- nextthread="start" -->
+</ul>

@@ -1,0 +1,18 @@
+--- ubuntu-advantage.1-unpatched	2018-05-17 12:46:33.691383378 -0400
++++ ubuntu-advantage.1	2018-05-17 12:47:20.239067038 -0400
+@@ -5,7 +5,7 @@
+ .SH SYNOPSIS
+ .B ubuntu-advantage
+ <command> [parameters]
+-.TP
++.PP
+ .B ua
+ <command> [parameters]
+ 
+@@ -125,5 +125,5 @@
+ .B
+ 8
+ The requested service is already disabled
+-.TP
++.PP
+ If apt commands run by the tool fail, the exit status from apt is returned.

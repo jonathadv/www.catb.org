@@ -1,0 +1,17 @@
+			README for MAD
+
+This program is a work of reconstructive archeology, a compiler for
+the Michigan Algorithmic Decoder (MAD) language from 1959-1962.  It
+first translates MAD code into C, then uses the local C compiler to
+make an executable binary.  It includes both a complete transcription of
+the original MAD manual and 100dpi scans of the original.
+
+Added many enhancements and CTSS support.
+
+You will need David Beazley's PLY code to handle parsing.
+
+Don't try running this on a 32-bit machine, the generated C code
+assumes longs have 64 bits.
+
+This implementation is part of the Retrocomputing Museum.  For related 
+resources, see <http://www.catb.org/~esr/retro/>.

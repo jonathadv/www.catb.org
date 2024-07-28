@@ -1,0 +1,81 @@
+--- hosts_access.5-unpatched	2012-07-20 16:43:58.318303953 -0400
++++ hosts_access.5	2012-07-20 16:44:07.702304121 -0400
+@@ -294,9 +294,12 @@
+ file:
+ .PP
+ .ne 2
++.nf
++.ft CW
+ /etc/hosts.deny: 
+-.in +3
+-ALL: ALL
++    ALL: ALL
++.ft
++.fi
+ .PP
+ This denies all service to all hosts, unless they are permitted access
+ by entries in the allow file.
+@@ -304,12 +307,14 @@
+ The explicitly authorized hosts are listed in the allow file.
+ For example:
+ .PP
+-.ne 2
++.ne 3
++.nf
++.ft CW
+ /etc/hosts.allow: 
+-.in +3
+-ALL: LOCAL @some_netgroup
+-.br
+-ALL: .foobar.edu EXCEPT terminalserver.foobar.edu
++    ALL: LOCAL @some_netgroup
++    ALL: .foobar.edu EXCEPT terminalserver.foobar.edu
++.ft 
++.fi
+ .PP
+ The first rule permits access from hosts in the local domain (no `.\'
+ in the host name) and from members of the \fIsome_netgroup\fP
+@@ -324,11 +329,13 @@
+ that it can be omitted.  The explicitly non-authorized hosts are listed
+ in the deny file. For example:
+ .PP
++.nf
++.ft CW
+ /etc/hosts.deny:
+-.in +3
+-ALL: some.host.name, .some.domain
+-.br
+-ALL EXCEPT in.fingerd: other.host.name, .other.domain
++    ALL: some.host.name, .some.domain
++    ALL EXCEPT in.fingerd: other.host.name, .other.domain
++.ft
++.fi
+ .PP
+ The first rule denies some hosts and domains all services; the second
+ rule still permits finger requests from other hosts and domains.
+@@ -338,18 +345,15 @@
+ Instead of the requested file, a finger probe is sent to the offending
+ host. The result is mailed to the superuser.
+ .PP
+-.ne 2
+-/etc/hosts.allow:
+-.in +3
+ .nf
+-in.tftpd: LOCAL, .my.domain
+-.PP
+-.ne 2
++.ft CW
++/etc/hosts.allow:
++    in.tftpd: LOCAL, .my.domain
++
+ /etc/hosts.deny:
+-.in +3
+-.nf
+-in.tftpd: ALL: (/usr/sbin/safe_finger -l @%h | \\
+-	/usr/bin/mail -s %d-%h root) &
++    in.tftpd: ALL: (/usr/sbin/safe_finger -l @%h | \\
++            /usr/bin/mail -s %d-%h root) &
++.ft
+ .fi
+ .PP
+ The safe_finger command comes with the tcpd wrapper and should be

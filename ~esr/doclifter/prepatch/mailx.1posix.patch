@@ -1,0 +1,11 @@
+--- mailx.1posix-unpatched	2018-06-11 23:01:09.957290800 -0400
++++ mailx.1posix	2018-06-11 23:01:20.981215880 -0400
+@@ -58,7 +58,7 @@
+ .P
+ Send Mode can be used by applications or users to send messages from
+ the text in standard input.
+-.SS "\*!Receive Mode"
++.SS "Receive Mode"
+ .P
+ Receive Mode is more oriented towards interactive users. Mail can be read
+ and sent in this interactive mode.

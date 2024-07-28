@@ -1,0 +1,12 @@
+--- editres.1-unpatched	2014-03-20 11:30:15.000000000 -0400
++++ editres.1	2014-03-20 11:30:14.000000000 -0400
+@@ -326,8 +326,7 @@
+ is given first, followed by the widget instance name.
+ .sp
+ .nf
+-.TA .5i 1.0i 1.5i 2.0i
+-.ta .5i 1.0i 1.5i 2.0i
++.\" the dafault tab stops T 0.8i will work here
+ Editres  editres
+ 	Paned  paned
+ 		Box  box

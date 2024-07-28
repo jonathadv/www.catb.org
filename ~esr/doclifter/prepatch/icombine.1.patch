@@ -1,0 +1,23 @@
+--- icombine.1-unpatched	2016-02-19 07:22:52.136491107 -0500
++++ icombine.1	2016-02-19 07:22:51.704492513 -0500
+@@ -172,7 +172,10 @@
+ .br
+ .B ispell
+ .BR \-v [ v ]
+-.IP \fIcommon-flags\fP:
++
++\fIcommon-flags\fP:
++
++.B ispell
+ .RB [ \-t ]
+ .RB [ \-n ]
+ .RB [ \-H ]
+@@ -198,6 +201,8 @@
+ .IR list ]
+ .RB [ \-F
+ .IR program ]
++
++Helper programs:
+ .PP
+ Helper programs:
+ .PP

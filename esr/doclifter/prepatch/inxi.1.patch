@@ -1,0 +1,24 @@
+--- inxi.1-unpatched	2018-05-21 11:19:04.942337457 -0400
++++ inxi.1	2018-05-21 11:20:26.933780239 -0400
+@@ -7,8 +7,8 @@
+ \fBinxi \fR[\fB\-AbBCdDfFGhHiIlmMnNopPrRsSuw\fR]  \fR[\fB\-c  
+ NUMBER\fR] \fR[\fB\-v  NUMBER\fR]
+ 
+-\fBinxi \fR[\fB\-t \fR(\fBc\fR or\fB m\fR or\fB cm\fR or\fB mc 
+-NUMBER\fR)] \fR[\fB\-x \-OPTION\fR(\fBs\fR)] \fR[\fB\-xx 
++\fBinxi \fR[\fB\-t \fR{\fBc\fR | \fBm\fR or\fB cm\fR  | \fBmc 
++NUMBER\fR}] \fR[\fB\-x \-OPTION\fR{\fBs\fR}] \fR[\fB\-xx 
+ \-OPTION\fR(\fBs\fR)] \fR[\fB\-xxx \-OPTION\fR(\fBs\fR)]
+ 
+ \fBinxi \fR[\fB\-\-help\fR] \fR[\fB\-\-recommends\fR] 
+@@ -109,8 +109,8 @@
+ .TP
+ .B \-C  
+ Show full CPU output, including per CPU clockspeed and CPU max speed (if available). 
+-If max speed data present, shows \fB(max)\fR in short output formats (\fB\inxi\fR, 
+-\fB\inxi \-b\fR) if CPU actual speed matches CPU max speed. If CPU max speed does 
++If max speed data present, shows \fB(max)\fR in short output formats (\fBinxi\fR, 
++\fBinxi \-b\fR) if CPU actual speed matches CPU max speed. If CPU max speed does 
+ not match CPU actual speed, shows both actual and max speed information. 
+ See \fB\-x\fR and \fB\-xx\fR for more options. 
+ 

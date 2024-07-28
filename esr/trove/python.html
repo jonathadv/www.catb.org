@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator"
+content="HTML Tidy for Linux/x86 (vers 1st February 2002), see www.w3.org" />
+<link rev="made" href="mailto:esr@snark.thyrsus.com" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title>Python and Trove</title>
+<style type="text/css">
+/*<![CDATA[*/
+ h1.c1 {text-align: center}
+/*]]>*/
+</style>
+</head>
+<body>
+<table width="100%" cellpadding="0" summary="Canned page header">
+<tr>
+<td width="30%">Back to <a href="/~esr">Eric's Home Page</a></td>
+<td width="30%" align="center">Up to <a
+href="/~esr/sitemap.html">Site Map</a></td>
+<td width="30%" align="right">$Date: 2002/08/02 02:34:00 $</td>
+</tr>
+</table>
+
+<hr />
+<h1 class="c1">Python and Trove</h1>
+
+<p>The Trove project has a policy of trying to write as much of its
+code as possible in the form of well-documented enhancements to the
+Python standard environment. Here are the things the Trove project
+has fed back to Guido Van Rossum so far:</p>
+
+<ul>
+<li>New features, and documentation patches, for the
+<strong>standard rfc822.py module</strong> which support more
+general processing of header spans consisting of defined sets of
+legal headers (this is used in the TRL parser).</li>
+
+<li>New features and complete documentation for the
+<strong>standard multifile.py module</strong>. The new features
+make it more flexible and extensible. (It's used by the TRL
+parser.)</li>
+
+<li>New features and complete documentation for the
+<strong>standard cmd.py module</strong>. The new features make it
+more flexible and extensible. (They're used, among other places, in
+the test harness for Trove's <strong>archive.py</strong>
+module.)</li>
+
+<li>New features, a test harness, and complete documentation for
+the <strong>standard smtplib.py module</strong>. The new features
+include support for ESMTP and issuing SMTP VRFY commands. The
+trovesend tool requires smtplib, though it doesn't require the new
+features; I put them in while grokking the existing code.</li>
+</ul>
+
+<p>I will probably produce a documented semaphores- and
+shared-memory module before I'm done, in order to synchronize
+instances of the shovel. This module may incorporate Vladimir
+Marangozov's well-designed but undocumented <a
+href="http://sirac.inrialpes.fr/~marangoz/python/shm/">semaphore
+module</a>, depending on how license negotiations go with
+INRIA.</p>
+
+<hr />
+<table width="100%" cellpadding="0" summary="Canned page footer">
+<tr>
+<td width="30%">Back to <a href="/~esr">Eric's Home Page</a></td>
+<td width="30%" align="center">Up to <a
+href="/~esr/sitemap.html">Site Map</a></td>
+<td width="30%" align="right">$Date: 2002/08/02 02:34:00 $</td>
+</tr>
+</table>
+
+<br clear="left" />
+<address>Eric S. Raymond <a
+href="mailto:esr@thyrsus.com">&lt;esr@snark.thyrsus.com&gt;</a></address>
+</body>
+</html>
+

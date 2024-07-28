@@ -1,0 +1,15 @@
+--- zipcloak.1-unpatched	2012-07-06 11:19:43.378682385 -0400
++++ zipcloak.1	2012-07-06 11:20:02.766682022 -0400
+@@ -12,9 +12,9 @@
+ zipfile
+ 
+ .SH ARGUMENTS
+-.in +13
+-.ti -13
+-zipfile  Zipfile to encrypt entries in
++.TP
++zipfile
++Zipfile to encrypt entries in
+ 
+ .SH OPTIONS
+ .TP

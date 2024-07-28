@@ -1,0 +1,34 @@
+--- orbd.1-unpatched	2013-05-24 04:20:13.334685422 -0400
++++ orbd.1	2013-05-24 04:20:37.514684969 -0400
+@@ -24,17 +24,6 @@
+ .LP
+ .SH "Name"
+ orbd \- The Object Request Broker Daemon
+-.LP
+-.LP
+-\f3orbd\fP is used to enable clients to transparently locate and invoke persistent objects on servers in the CORBA environment.
+-.LP
+-.LP
+-\f3See also:\fP 
+-.na
+-\f2Naming Service\fP @
+-.fi
+-http://docs.oracle.com/javase/7/docs/technotes/guides/idl/jidlNaming.html
+-.LP
+ .SH "SYNOPSIS"
+ .LP
+ .nf
+@@ -48,6 +37,13 @@
+ .LP
+ .SH "DESCRIPTION"
+ .LP
++\f3orbd\fP is used to enable clients to transparently locate and invoke persistent objects on servers in the CORBA environment.
++.LP
++\f3See also:\fP 
++.na
++\f2Naming Service\fP @
++.fi
++http://docs.oracle.com/javase/7/docs/technotes/guides/idl/jidlNaming.html
+ .LP
+ The Server Manager included with the \f3orbd\fP tool is used to enable clients to transparently locate and invoke persistent objects on servers in the CORBA environment. The persistent servers, while publishing the persistent object references in the Naming Service, include the port number of the ORBD in the object reference instead of the port number of the Server. The inclusion of an ORBD port number in the object reference for persistent object references has the following advantages:
+ .LP

@@ -1,0 +1,18 @@
+--- ode.1-unpatched	2012-07-02 12:38:51.157056771 -0400
++++ ode.1	2012-07-02 12:41:46.497053492 -0400
+@@ -1,12 +1,10 @@
+ .TH ODE 1 "Dec 1998" "FSF" "GNU Plotting Utilities"
+-.SH NAME
+-ode \- numerical solution of ordinary differential equations
+-.ig
+-Not all man macros define SB (and not all whatis parsers stop on .\")
+-..
+ .de SB
+ \&\fB\s-1\&\\$1 \\$2\s0\fR
+ ..
++
++.SH NAME
++ode \- numerical solution of ordinary differential equations
+ .SH SYNOPSIS
+ .B ode
+ [

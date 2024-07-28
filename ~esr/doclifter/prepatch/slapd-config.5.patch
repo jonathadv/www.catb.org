@@ -1,0 +1,104 @@
+--- slapd-config.5-unpatched	2018-06-03 05:44:31.409428989 -0400
++++ slapd-config.5	2018-06-03 05:44:31.097431111 -0400
+@@ -45,7 +45,6 @@
+ global settings for slapd. Multiple child entries underneath the
+ root entry are used to carry various other settings:
+ .RS
+-.TP
+ .B cn=Module
+ dynamically loaded modules
+ .TP
+@@ -245,7 +244,6 @@
+ .B identity 
+ or a set of identities; it can take five forms:
+ .RS
+-.TP
+ .B ldap:///<base>??[<scope>]?<filter>
+ .RE
+ .RS
+@@ -358,10 +356,7 @@
+ .B MECHANISM
+ are taken, when available, and combined into a name of the form
+ .RS
+-.RS
+-.TP
+ .B UID=<username>[[,CN=<realm>],CN=<mechanism>],CN=auth
+-
+ .RE
+ This name is then compared against the
+ .B match
+@@ -372,9 +367,7 @@
+ .B match
+ regular expression that are enclosed in parenthesis, e.g. 
+ .RS
+-.TP
+ .B UID=([^,]*),CN=.*
+-
+ .RE
+ then the portion of the name that matched the wildcard will be stored
+ in the numbered placeholder variable $1. If there are other wildcard strings
+@@ -383,9 +376,7 @@
+ .B replace
+ string, e.g. 
+ .RS
+-.TP
+ .B UID=$1,OU=Accounts,DC=example,DC=com 
+-
+ .RE
+ The replaced name can be either a DN, i.e. a string prefixed by "dn:",
+ or an LDAP URI.
+@@ -395,9 +386,7 @@
+ hostport, attrs, or extensions components, but the filter is mandatory,
+ e.g.
+ .RS
+-.TP
+ .B ldap:///OU=Accounts,DC=example,DC=com??one?(UID=$1)
+-
+ .RE
+ The protocol portion of the URI must be strictly
+ .BR ldap .
+@@ -543,7 +532,6 @@
+ of the configured loglevel as soon as any logging is configured.
+ Log levels are additive, and available levels are:
+ .RS
+-.RS
+ .PD 0
+ .TP
+ .B 1
+@@ -688,9 +676,9 @@
+ The root DSE is an entry with information about the server and its
+ capabilities, in operational attributes.
+ It has the empty DN, and can be read with e.g.:
+-.ti +4
++.RS
+ ldapsearch \-x \-b "" \-s base "+"
+-.br
++.RE
+ See RFC 4512 section 5.1 for details.
+ .TP
+ .B olcSaslAuxprops: <plugin> [...]
+@@ -1410,20 +1398,17 @@
+ .B <selector>
+ can be any of
+ .RS
+-.RS
+-.TP
+ anonymous | users | [<dnspec>=]<pattern> | group[/oc[/at]]=<pattern>
+-
+ .RE
+ with
+ .RS
+-.TP
++.nf
++.ft CW
+ <dnspec> ::= dn[.<type>][.<style>]
+-.TP
+ <type>  ::= self | this
+-.TP
+ <style> ::= exact | base | onelevel | subtree | children | regex | anonymous
+-
++.ft
++.fi
+ .RE
+ DN type
+ .B self

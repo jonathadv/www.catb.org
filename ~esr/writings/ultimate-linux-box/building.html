@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Building the Machine</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="HOME"
+TITLE="The Ultimate Linux Box 2001: How to Design Your Dream Machine"
+HREF="ulb2001.html"><LINK
+REL="PREVIOUS"
+TITLE=" The Recipe File"
+HREF="recipe.html"><LINK
+REL="NEXT"
+TITLE="The Inevitable Horror Story"
+HREF="horror_story.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>The Ultimate Linux Box 2001: How to Design Your Dream Machine: (Bigger, Longer, and Uncut)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="recipe.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="horror_story.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="BUILDING">Building the Machine</H1
+><P
+>Dreaming about hot hardware is fun, but it's just mental masturbation
+unless you actually build and test the design in the real world.
+Fortunately I was able to do this.  Gary Sandine and John Pearson, the
+principals at <A
+HREF="http://www.laclinux.com/"
+TARGET="_top"
+>Los Alamos
+Computers</A
+>, undertook to assemble my Ultimate Linux Box -- in fact,
+they volunteered to build two, one for me and one for Linus Torvalds.  They
+solicited the vendors on our list for donations of parts, and their courage
+was rewarded when IBM generously volunteered $15,000 for the project
+budget.</P
+><P
+>I flew out to LAC's headquarters in early August.  Gary and John had
+managed to pull together almost all the parts on amazingly short notice;
+the only things missing from the prototype were the Silverado cooler and
+the Diamond Pro monitor -- the former is in low-volume production and
+wasn't to be available for another week, and the latter is being shipped
+direct to my house to mimize the risk of transit damage.  For the machine's
+acceptance tests we temporarily substituted another monitor with
+2048x1536 capability, and two generic PC coolers.  The tummy.com folks
+overnighted us CD-ROMs for the August KRUD distribution, then just
+three days old.</P
+><P
+>Plugging the wires together presented no great challenge.  Remember
+to plug the digital cable from the DVD-ROM into the CD port on the
+SB Live! card.  The disk activity pins on the motherboard fire on either
+IDE or SCSI activity, so do wire them to your front-panel light.</P
+><P
+>Installing the Silverados is a bit of a challenge if you're
+inexperienced, however.  The installation directions aren't bad, but they
+don't emphasis the first step enough; you need to slip the short end of the
+spring bracket around the lug on one side of the processor far enough that
+it catches firmly underneath before you try pressing down the other, long
+end of the spring bracket.  Also note that you will need to run the
+Silverados at 8 volts rather than the minimum 6, as otherwise the heat
+shutoff in the 760 chipset won't believe they are spinning fast enough and
+will shut the machine down.</P
+><P
+>Actually, the Silverados turn out to be enough of a pain that we're 
+probably going to have to fall back to a PC cooler that is less vulnerable
+to shipping damage and can be preinstalled.</P
+><P
+>Our first serious systems-integration problem was with the graphics
+card -- the ATI Radeon support in XFree86 4.0.1, it turns out, doesn't play
+nice with the S2462 chipset.  If you enable the Radeon's acceleration, it
+will throw complete garbage on an X display.  Then, when you return to text
+mode by killing the X server, you get a black screen of death. Turning off
+the Radeon's acceleration works around the problem but loses you much of
+the benefit of this expensive card.</P
+><P
+>It developed that there's a known timing problem in the Radeon driver,
+which the extreme speed of the Athlons exacerbates; Darryl found us a
+one-line patch, which worked (it's supplied later in this article).
+XFree86 4.2 should have issued, with this patch included long before this
+article reaches print (the fix is already in the XFree86 CVS; I sent it to
+Red Hat and it has been accepted for their 7.2 release).</P
+><P
+>Installation of KRUD went smoothly -- and very quickly, just 18
+minutes for an `everything' install (that 40x read speed on the DVD-ROM
+came in handy, though the media were almost uncomfortably warm afterwards).</P
+><P
+>Then we tested audio.  The SB Live! seemed to work with the stock
+emu10k1.o sound module in Red Hat 7.1, but as it turns out it can't run the
+earphone out jack on the LiveDrive.  Under the emu10k1 driver we were able
+to successfully burn a CD while listening to another one (the Jimi Hendrix
+<I
+CLASS="CITETITLE"
+>Kiss the Sky</I
+> compilation, as it happens).  The card
+can also run with the ALSA drivers, but they can't run the earphone jack
+either.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="recipe.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ulb2001.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="horror_story.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The Recipe File</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The Inevitable Horror Story</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

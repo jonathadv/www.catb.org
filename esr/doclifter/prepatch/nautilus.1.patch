@@ -1,0 +1,11 @@
+--- nautilus.1-unpatched	2018-05-16 20:42:05.248660514 -0400
++++ nautilus.1	2018-05-16 20:42:14.924594757 -0400
+@@ -67,7 +67,7 @@
+ .BR \-h ", " \-\-help
+ Show a summary of options.
+ 
+-.TP
++.PP
+ Other standard GNOME options not listed here are also supported.
+ 
+ .SH SEE ALSO

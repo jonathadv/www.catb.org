@@ -1,0 +1,12 @@
+= KNOWN BUGS =
+// SPDX-FileCopyrightText: (C) Eric S. Raymond <esr@thyrsus.com>
+// SPDX-License-Identifier: CC-BY-4.0
+
+* In stringmethods.py, line.strip().upper() should fully resolve but doesn't -
+  repeated transforms are not working quite as they should.
+
+* Lambdas could be translated.  The problem is telling where they end; 
+  the usual comma ambiguity is a problem here.
+
+* The if "string" in object: translator does not handle literal lists, tuples,
+  or dictionaries.

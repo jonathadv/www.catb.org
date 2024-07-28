@@ -1,0 +1,57 @@
+--- tnameserv.1-unpatched	2013-05-25 03:19:09.509138146 -0400
++++ tnameserv.1	2013-05-25 03:20:41.657136423 -0400
+@@ -1,30 +1,31 @@
+-." Copyright (c) 1999, 2011, Oracle and/or its affiliates. All rights reserved.
+-." DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+-."
+-." This code is free software; you can redistribute it and/or modify it
+-." under the terms of the GNU General Public License version 2 only, as
+-." published by the Free Software Foundation.
+-."
+-." This code is distributed in the hope that it will be useful, but WITHOUT
+-." ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+-." FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+-." version 2 for more details (a copy is included in the LICENSE file that
+-." accompanied this code).
+-."
+-." You should have received a copy of the GNU General Public License version
+-." 2 along with this work; if not, write to the Free Software Foundation,
+-." Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+-."
+-." Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+-." or visit www.oracle.com if you need additional information or have any
+-." questions.
+-."
++.\" Copyright (c) 1999, 2011, Oracle and/or its affiliates. All rights reserved.
++.\" DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
++.\"
++.\" This code is free software; you can redistribute it and/or modify it
++.\" under the terms of the GNU General Public License version 2 only, as
++.\" published by the Free Software Foundation.
++.\"
++.\" This code is distributed in the hope that it will be useful, but WITHOUT
++.\" ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++.\" FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
++.\" version 2 for more details (a copy is included in the LICENSE file that
++.\" accompanied this code).
++.\"
++.\" You should have received a copy of the GNU General Public License version
++.\" 2 along with this work; if not, write to the Free Software Foundation,
++.\" Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
++.\"
++.\" Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
++.\" or visit www.oracle.com if you need additional information or have any
++.\" questions.
++.\"
+ .TH tnameserv 1 "16 Mar 2012"
+ 
+ .LP
+-.SH "Name"
+-Java IDL: Transient Naming Service \- \f2tnameserv\fP
++.SH "NAME"
++tnameserv \- Java IDL Transient Naming Service
+ .LP
++.SH DESCRIPTION
+ .LP
+ This document discusses using the Java IDL Transient Naming Service, \f2tnameserv\fP. Java IDL also includes the Object Request Broker Daemon (ORBD). ORBD is a daemon process containing a Bootstrap Service, a Transient Naming Service, a \f3Persistent\fP Naming Service, and a Server Manager. The Java IDL tutorials all use ORBD, however, you can substitute \f2tnameserv\fP for \f2orbd\fP in any of the examples that use a Transient Naming Service. For documentation on the \f2orbd\fP tool, link to its orbd(1) or the 
+ .na

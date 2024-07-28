@@ -1,0 +1,135 @@
+#
+# Proposed database schema for Trove source archives, in Postgres95 format. 
+# Written by Eric S. Raymond <esr@thyrsus.com> for the Trove project.
+#
+# $Id: schema,v 1.26 1998/07/01 18:44:19 esr Exp $
+#
+# This schema is in first normal form.  It uses object references
+# but these could be trivially eliminated by inlining the `access' record.
+#
+
+# Name, description, ownership and update tracking for all objects.
+#
+CREATE TABLE item (
+	name		text not null primary key,	# Item name
+	summary		text,		# One-line description
+	description	text,		# Fuller description
+	created		date,		# Date first uploaded
+	updatecount	int,		# Count of updates
+	modified	date,		# Date last modified
+	owner		text,		# Who is privileged to lock/unlock it
+	contributor	text,		# Who entered it
+	via		text,		# How it got here
+
+	# If true, only privileged people may modify the parent record
+	locked		bool;
+);
+
+# An author or maintainer.
+#
+# Note: the `name' field of the item block is the user's email address.
+# In the item block, the `owner' and `locked' fields are not used (the
+# owner of a person record is the person, and all person records are
+# considered locked).  The other fields are used for update tracking
+# as usual.
+#
+# The `auth' fields may be used in the future to support authentication
+# modes other than PGP using the public-key-server infrastructure (which
+# is the  default, assumed if `auth-mode' is empty).
+#
+CREATE TABLE person (
+	item		item,		# Basic info
+	homepage	text,		# Home site
+	auth_mode	text,		# Authentication mode
+	auth_secret	text,		# Authentication secret.
+);
+
+# A file or resource.  
+# 
+# Each resource is an association of a URL with a package.
+# A package key has to be part of the record so the filename 
+# field won't be constrained to be unique.
+#
+# Note: The `name' of a resource is either (a) the URL to fetch it from,
+# or (b) the basename of a file carried locally.
+#
+# Default MIME type is normally deduced from filename extension.
+#
+CREATE TABLE resource (
+	item		item;		# Basic info for this resource
+	filename	text;		# Local file name (if a copy)
+	package		text not null,	# Owning package
+	version		text,		# Version stamp
+	role		text,		# Resource role
+	mimetype	text,		# MIME type
+);
+
+# A package.
+#
+CREATE TABLE package (
+	item		item;		# Basic info for this resource
+	icon		text,		# 64x64 GIF/PNG/JPEG
+	homepage	text,		# home site of package
+	latest		text,		# latest version
+	stable		text,		# last stable version
+
+	# These fields are for use by the retrieval crawler
+	crawlto		text,		# URL to trusted remote metadata
+	remotedate	date,		# Last-modified date of remote metadata
+);
+
+# A keyword association
+#
+# A `discriminator' textually has the form /a/b/c/d/.../z
+# where a...z are controlled-vocabulary keywords, and each slash-separated
+# pair is related parent-to-child in the vocabulary tree.
+#
+CREATE TABLE keyword-relation (
+	package		text not null,	# Package name
+	discriminator	text not null,	# Rooted path in keyword tree
+);
+
+# Note: The relations below are separate to avoid possible namespace collisions
+# between people IDs, package IDs, and resource IDs.
+
+# A relationship between packages
+#	"supercedes"/"superceded by"
+#	"extends"/"has extension"
+#	"requires"/"required by"
+#	"see also"
+#
+CREATE TABLE relation (
+	subject		text,	# Package primary key
+	object		text,	# Package primary key
+	verb		text;
+);
+
+# A relationship between a person and a package.
+#	"is subscribed to the notification list of"
+#	"is a contact person for"
+#	"is an author of"
+#	"is a maintainer of"
+# The `author' and `maintainer' relations are separate in order to support
+# searches by author name even when an author is no longer a current
+# maintainer.
+#
+CREATE TABLE package-relation (
+	person		text,		# Person URN
+	resource	text,		# Package id
+	verb		text,
+);
+
+# Analogous relationship between person and resource
+#	"is a contact person for"
+#	"is an author of"
+#	"is a maintainer of"
+# The `author' and `maintainer' relations are separate in order to support
+# searches by author name even when an author is no longer a current
+# maintainer.
+#
+CREATE TABLE resource-relation (
+	person		text,		# Person URN
+	resource	text,		# Resource id
+	verb		text;
+);
+

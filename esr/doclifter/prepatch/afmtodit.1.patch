@@ -1,0 +1,11 @@
+--- afmtodit.1-unpatched	2016-02-19 06:55:36.565695067 -0500
++++ afmtodit.1	2016-02-19 06:55:52.437647964 -0500
+@@ -239,7 +239,7 @@
+ rather than the default
+ .BR DESC .
+ .
+-If not found in the current directory, the \[oq]devps\[qc]
++If not found in the current directory, the \[oq]devps\[cq]
+ subdirectory of the default font directory is searched (this is true
+ for both the default device description file and a file given with
+ option

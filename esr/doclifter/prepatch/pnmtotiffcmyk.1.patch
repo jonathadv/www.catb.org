@@ -1,0 +1,10 @@
+--- pnmtotiffcmyk.1-unpatched	2012-07-27 16:04:38.754625248 -0400
++++ pnmtotiffcmyk.1	2012-07-27 16:05:04.882624772 -0400
+@@ -8,6 +8,7 @@
+ .RB [\| Compargs \|][\| Tiffargs \|][\| Convargs \|][ 
+ .IR pnmfile 
+ .RB \|]
++.SH OPTION GROUPS
+ .IP Compargs:
+ .RB [\| \-none \||\| \-packbits \||\| \-lzw
+ .RB [\| \-predictor

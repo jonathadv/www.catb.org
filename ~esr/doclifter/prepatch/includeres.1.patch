@@ -1,0 +1,13 @@
+--- includeres.1-unpatched	2012-06-27 22:50:39.086163251 -0400
++++ includeres.1	2012-06-27 22:50:53.030162991 -0400
+@@ -16,8 +16,9 @@
+ and with an appropriate extension.
+ The pipeline
+ .sp
+-.ce
++.RS
+ extractres file.ps | includeres >out.ps
++.RE
+ .sp
+ will move all resources appearing in a document to the document prologue,
+ removing redundant copies. The output file can then be put through page

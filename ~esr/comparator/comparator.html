@@ -1,0 +1,161 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>comparator</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry"><a name="comparator.1"></a><div class="titlepage"></div><div class="refnamediv"><a name="name"></a><h2>Name</h2><p>comparator, filterator &#8212; fast location of common code in large source trees</p></div><div class="refsynopsisdiv"><a name="synopsis"></a><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">comparator</code>  [-c] [-C] [-d <em class="replaceable"><code>dir</code></em>] [-h] [-m <em class="replaceable"><code>minsize</code></em>] [-n] [-N <em class="replaceable"><code>normalization-spec</code></em>] [-o <em class="replaceable"><code>file</code></em>] [-s <em class="replaceable"><code>shredsize</code></em>] [-v] [-w] [-x]  source-tree-path... <br><br><code class="command">filterator</code>  [-d <em class="replaceable"><code>dir</code></em>] [-m <em class="replaceable"><code>minsize</code></em>]<br><br><code class="command">comparator.py</code> </p></div></div><div class="refsect1"><a name="description"></a><h2>DESCRIPTION</h2><p><span class="application">comparator</span> is a program for quickly
+finding common sections in two or more source-code trees.  It's named
+after a now-obsolete astronomical instrument called a blink comparator
+that was used to find moving objects in starfield photos.  These
+reports tend to be noisy; <span class="application">filterator</span> is a
+postprocessor for <span class="application">comparator</span> reports that
+can apply significance
+filtering. <span class="application">comparator.py</span> is a Python module
+for interpreting <span class="application">comparator</span> reports;
+<span class="application">filterator</span> uses it.</p><div class="refsect2"><a name="idm51"></a><h3>How comparator works</h3><p><span class="application">comparator</span> works by first chopping
+the specified trees into overlapping shreds (by default 3 lines long)
+and computing a hash of each shred.  The resulting list of
+shreds is examined and all unique hashes are thrown out.  Then
+<span class="application">comparator</span> generates a report listing all
+cliques of lines with duplicate hashes, with overlapping ranges
+merged. The output format can (not by coincidence) be stepped through
+with the next-error function of Emacs.</p><p>A consequence of the method is that
+<span class="application">comparator</span> will find common code segments
+wherever they are.  It is insensitive to rearrangements of the source
+trees.  With appropriate options, code can be normalized at input to
+ignore differences in whitespace and (in C code) brace placement.  An
+option to strip comments also exists.</p><p>The program is capable of generating a hash list for a source
+code tree which can be used in place of the tree itself.  Thus, it is
+possible to do comparisons with source trees without having access to
+the actual source code, providing someone who has access is willing to
+ship you a hash list.  These hash lists are called &#8216;SCF
+files&#8217; and made with the extension <code class="filename">.scf</code>;
+the name stands for Source Comparison Format.</p><p>In its normal mode of operation,
+<span class="application">comparator</span> expects two or more command-line
+arguments which are the root directories of the source-code trees to
+be compared, and generates a report to standard output.  Progress
+messages are emitted to standard error.  Some arguments may be the
+names of SCF files.</p><p>When given a single path argument which is a tree, the program
+generates an SCF hash list to standard output.</p><p>When the <code class="option">-c</code> option is specified, the program
+generates a SCF file from each tree specified on the command
+line.  The name of the resulting file is the argument name with
+<code class="filename">.scf</code> appended.</p><p>The <code class="option">-o</code> option directs output to a specified file. This
+may be used with <code class="option">-c</code> to override the normal
+<code class="filename">.scf</code> convention, or simply as an alternative
+to output redirection when generating a final report.  One advantage
+of <code class="option">-o</code> is that the program won't create the output
+file until it is ready to write; thus, unlike shell redirects, it
+won't leave an empty file lying aeound if it aborts early.</p><p>The <code class="option">-d</code> option changes current directory to the
+specified tree before walking down each argument path to generate
+hashes.  This will be useful if you want to generate a report for
+trees in a directory other than your current, but want the filenames
+in the report to be relative.</p><p>The <code class="option">-s</code> option changes the shred size. Smaller
+shred sizes are more sensitive to small code duplications, but produce
+correspondingly noisier output.  Larger ones will suppress both noise
+and small similarities.</p><p>The <code class="option">-m</code> option sets the minimum-sized span
+of lines that will be output.  By default this is zero; setting it
+to a value higher than the shred size will eliminate a lot of junk
+from the report.  These are two separate parameters because shred size
+controls how likely common segments are to not get recognized because
+of unshared things near them, while minimum span size defines the
+smallest features we want to see in the output report.</p><p>Normally, <span class="application">comparator</span> performs 
+significance filtering before emitting a span into the common-segment
+report. The <code class="option">-n</code> suppresses this, emitting all common
+spans. See the discussion of significance filtering below.</p><p>The option <code class="option">-v</code> enables progress and timing
+messages to standard error.</p><p>The <code class="option">-x</code> enables some debugging output.  It
+is for developers; if you need to understand it, read the code.</p><p><span class="application">comparator</span> uses a grotty heuristic
+for figuring out which files in a tree are eligible to be compared.
+Files with <code class="filename">.c</code> and <code class="filename">.h</code>
+extensions are always eligible. Files with <code class="filename">.o</code> or
+<code class="filename">~</code> extensions are always ignored.  CVS, RCS,
+SCCS, and .svn directories are ignored.  Other files are checked to see if the
+percentage of printable characters near the front of the file is above
+90%.</p></div><div class="refsect2"><a name="idm90"></a><h3>Normalization specifications</h3><p>The <code class="option">-N</code> option passes in its argument as a
+normalization specification.  A normalization specification consists
+of a comma-separated list of tokens.  The first token names a
+normalizer, e.g., a set of rules for transforming code into a
+canonical form.  Subsequent tokens (if present) are options to the
+normalizer.</p><div class="refsect3"><a name="idm94"></a><h4>The line-oriented normalizer</h4><p>The default normalizer is named by the leading token 
+<code class="option">line-oriented</code>.  It has the following options:</p><p>The <code class="option">remove-whitespace</code> causes all whitespace in the file
+(including blank lines) to be ignored for comparison purposes (line
+numbers in the output report will nevertheless be correct).</p><p>The <code class="option">remove-braces</code> option strips { and }
+characters.  This is recommended for comparing C code; it prevents the
+comparison from being fooled by differences in indent style.</p><p>The <code class="option">remove-comments</code> option removes comments in
+C files, All // comments are removed, but only "winged" /* comments
+with the start and end of comment on the same line are ignored; also,
+block /* comments are retained, but the beginning /* and ending */ are
+ignored, In other files, all # comments are removed.</p></div></div><div class="refsect2"><a name="idm104"></a><h3>Significance filtering</h3><p>Normally, <span class="application">comparator</span> tries to
+throw out common segments that are just noise.  A segment is
+considered noise if one of the following conditions holds:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Its file has a .c or .h extension, and the segment
+consists entirely of whitespace, punctuation, C keywords, C include
+lines, and other things that are not C identifiers, function names, or
+user-defined macros.</p></li><li class="listitem"><p>The file has a .sh extension or a #! first line 
+directing shell interpretation, and the segment consists entirely 
+of shell keywords and punctuation.</p></li></ol></div><p>Significance filtering can be disabled with the
+<code class="option">-n</code> option.</p></div><div class="refsect2"><a name="idm115"></a><h3>filterator</h3><p><span class="application">filterator</span> is a postprocessor for the
+SCF-B output of <span class="application">comparator</span> that produces an
+actual code listing.</p><p>The <code class="option">-d</code> acts as it does for
+<span class="application">comparator</span>.</p><p>The <code class="option">-m</code> option sets the minimum size of overlap
+to be reported. Setting this to a slightly larger number than the
+<span class="application">comparator</span> shred size is a useful way to
+filter out spurious matches; thus, while
+<span class="application">comparator</span> defaults to a shred size of 3,
+<span class="application">filterator</span> defaults to a minimum size of
+5.</p><p>The -f option takes a Python regexp as argument and throws out
+all cliques for which no associated filename matches the regexp.  This
+might be useful if you want to see a common-segment report only for
+files with a particular extension such as .h or .S.</p><p>The -F option takes an argument which is a file containing
+a list of filenames.  Any clique that does not contain one of these
+filenames is discarded.</p><p>The -n option suppresses code listing, so that an SCF-B output
+is produced instead.  You can use this to filter common-segment
+reports with -m, -f, and -F options of the tool and then hand-filter
+them for junk before generating a listing.</p><p>Each <span class="application">filterator</span> line beginning with %
+is the filename from which the following common span of lines is displayed 
+<span class="application">filterator</span> displays each span of lines,
+unnormalized, from the first file in the clique of matches that it can
+find and open.</p><p>Occasionally the <span class="application">filterator</span> output
+looks as through the code has failed to properly merge two or more
+overlapping line ranges, When this happens, the ranges have different
+match sets; they may overlap in one tree, but not in others.  A clue
+to this is the number of matches reported for each range.</p></div><div class="refsect2"><a name="idm136"></a><h3>comparator.py</h3><p><span class="application">comparator.py</span> is a Python module that
+parses and interprets the format emitted by
+<span class="application">comparator</span>.  It can be used to write report
+generators.  The <span class="application">filterator</span> program is an
+example; it is a trivial wrapper around
+<span class="application">comparator.py</span>.</p></div></div><div class="refsect1"><a name="author"></a><h2>AUTHOR</h2><p>Eric S. Raymond
+<code class="email">&lt;<a class="email" href="mailto:esr@snark.thyrsus.com">esr@snark.thyrsus.com</a>&gt;</code>.  Ronald Rivest suggested the
+custom RXOR hash function used in versions 2.0 and up.  See ESR's home page
+at <a class="ulink" href="http://www.catb.org/~esr/" target="_top">http://www.catb.org/~esr/</a> for
+updates and other resources.</p></div><div class="refsect1"><a name="bugs"></a><h2>LIMITATIONS</h2><p><span class="application">comparator</span> does not attempt to do
+semantic analysis and catch relatively trivial changes like renaming
+of variables, etc.  This is because
+<span class="application">comparator</span> is designed not as a tool to
+detect plagiarism of ideas (the subject of patent law), but as a tool
+to detect copying of the expression of ideas (the subject of copyright
+law). Normalizing the code in excessively clever ways would trespass
+into the territory of ideas and tend to produce false positives.</p><p>The heuristic for eligible files can be fooled, though this
+is unlikely.</p><p>The use of hashes means there is a very small probability of
+false-positive matches between shreds; to be precise, with the default
+RXOR hash you can expect the first false positive after accumulating
+6,074,000,999 shreds.  For even very large forests, such as
+collections of Linux and Unix source trees running into the tens of
+millions of lines, you are very unlikely to ever see this.  There is
+no possibility of false negatives.</p><p>The design of this program accepts some size limits to get high
+performance in the typical case.  The RXOR hash function's performance
+will degrade, possibly leading to false positives, on shreds of 512
+or more characters.  Also, comparison will handle a maximum of 65536
+lines per file (you will be warned if if this limit is exceeded).  A
+full integer line-number range would increase working-set size by
+33%.</p><p>You will get spurious results if you mix
+<code class="filename">.scf</code> files with different hash methods, shred
+sizes or normalizations, or with settings for these that conflict with
+the command-line options you have in effect for shredding source-code
+trees.  The program does some sanity checking but will not prevent you
+from shooting yourself in the foot.</p><p>The implementation is O(<span class="emphasis"><em>n</em></span> log
+<span class="emphasis"><em>n</em></span>) in the size of the code trees and
+O(<span class="emphasis"><em>n</em></span><sup>2</sup>) in the number of
+common segments.  The code for finding duplicate hashes uses a
+brute-force approach that relies on being able to allocate core for
+the entire hash list generated during processing.  The results are
+almost ridiculously fast on machines with enough core (the author has
+observed speeds of up to two million lines of code compared per minute
+on a 1.8GHz Intel box), but machines with small memories will thrash
+their guts out as the VM subsystem tries to cope.</p><p>Comparing a directory to itself will show no similarities.  This
+is because the algorithm ignores matching shreds from within a
+single directory, and it only knows which directory a shred came from
+by relative pathname.</p></div></div></body></html>

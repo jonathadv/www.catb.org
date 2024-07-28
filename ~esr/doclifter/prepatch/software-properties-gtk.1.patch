@@ -1,0 +1,11 @@
+--- software-properties-gtk.1-unpatched	2010-07-24 23:32:20.000000000 -0400
++++ software-properties-gtk.1	2010-07-24 23:32:52.000000000 -0400
+@@ -1,7 +1,6 @@
+ .TH SOFTWARE\-PROPERTIES\-GTK 1 "Mar 2010" "Software Sources List editor"
+ .SH NAME
+-software\-properties\-gtk
+-\- Software Sources List editor
++software-properties-gtk - Software Sources List editor
+ .SH SYNOPSIS
+ software\-properties\-gtk [options] 
+ .SH DESCRIPTION

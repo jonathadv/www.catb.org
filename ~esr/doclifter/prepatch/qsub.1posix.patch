@@ -1,0 +1,19 @@
+--- qsub.1posix-unpatched	2018-06-04 06:37:03.740826394 -0400
++++ qsub.1posix	2018-06-04 06:37:31.412638334 -0400
+@@ -103,7 +103,7 @@
+ utility.
+ .br
+ .sp
+-.ce 1
++.RS
+ \fBTable 4-19: Environment Variable Values (Utilities)\fR
+ .TS
+ center box tab(!);
+@@ -121,6 +121,7 @@
+ PBS_O_TZ!TZ
+ PBS_O_WORKDIR!\fRCurrent working directory\fP
+ .TE
++.RE
+ .TP 10
+ .BR Note:
+ The server that initiates execution of the batch job will add other

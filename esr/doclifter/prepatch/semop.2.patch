@@ -1,0 +1,12 @@
+--- semop.2-unpatched	2018-05-18 08:26:51.078104502 -0400
++++ semop.2	2018-05-18 08:27:15.185940664 -0400
+@@ -64,8 +64,8 @@
+ unsigned short  semzcnt;  /* # waiting for zero */
+ unsigned short  semncnt;  /* # waiting for increase */
+ pid_t           sempid;   /* PID of process that last
+-.in
+ .EE
++.in
+ .PP
+ .BR semop ()
+ performs operations on selected semaphores in the set indicated by

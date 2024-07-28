@@ -1,0 +1,13 @@
+--- mawk.1-unpatched	2012-06-29 00:55:40.666693169 -0400
++++ mawk.1	2012-06-29 00:56:11.438692595 -0400
+@@ -231,8 +231,9 @@
+ .PP
+ String constants are enclosed in double quotes.
+ .sp
+-.ce
++.RS
+ "This is a string with a newline at the end.\en"
++.RE
+ .sp
+ Strings can be continued across a line by escaping (\e) the newline.
+ The following escape sequences are recognized.

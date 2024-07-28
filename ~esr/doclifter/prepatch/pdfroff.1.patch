@@ -1,0 +1,20 @@
+--- pdfroff.1-unpatched	2016-02-28 18:54:52.506018728 -0500
++++ pdfroff.1	2016-02-28 18:55:23.809925096 -0500
+@@ -618,7 +618,7 @@
+ searches the process
+ .BR PATH ,
+ looking for any of the preferred programs, \[oq]gawk\[cq],
+-\[oq]mawk\[cq], \[oq]nawk\[cq], and \[ok]awk\[cq], in this order; if
++\[oq]mawk\[cq], \[oq]nawk\[cq], and \[oq]awk\[cq], in this order; if
+ none of these are found,
+ .B pdfroff
+ issues a warning message, and continue processing;
+@@ -778,7 +778,7 @@
+ An intermediate
+ .I PostScript
+ file,
+-in which \*[lq]Table of Contents\*[rq] entries are collected,
++in which \[lq]Table of Contents\[rq] entries are collected,
+ to facilitate relocation before the body text,
+ on ultimate output to the
+ .I GhostScript

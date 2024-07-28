@@ -1,0 +1,14 @@
+--- tc-prio.8-unpatched	2018-05-18 17:17:17.793808383 -0400
++++ tc-prio.8	2018-05-18 17:17:30.785720088 -0400
+@@ -4,9 +4,9 @@
+ .SH SYNOPSIS
+ .B tc qdisc ... dev
+ dev
+-.B  ( parent
++.B  { parent
+ classid
+-.B | root) [ handle
++.B | root } [ handle
+ major:
+ .B ] prio [ bands
+ bands

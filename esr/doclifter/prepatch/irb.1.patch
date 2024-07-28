@@ -1,0 +1,18 @@
+--- irb.1-unpatched	2018-05-18 01:27:29.553103617 -0400
++++ irb.1	2018-05-18 01:29:39.360221441 -0400
+@@ -118,7 +118,6 @@
+ .Sh ENVIRONMENT
+ .Bl -tag -compact
+ .It Ev IRBRC
+-.Pp
+ .El
+ .Pp
+ Also
+@@ -160,7 +159,6 @@
+ Security vulnerabilities should be reported via an email to
+ .Mt security@ruby-lang.org .
+ Reported problems will be published after being fixed.
+-.Pp
+ .It
+ Other bugs and feature requests can be reported via the
+ Ruby Issue Tracking System

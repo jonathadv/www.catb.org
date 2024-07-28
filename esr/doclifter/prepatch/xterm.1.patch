@@ -1,0 +1,43 @@
+--- xterm.1-unpatched	2018-05-18 16:08:09.334001544 -0400
++++ xterm.1	2018-05-18 16:10:36.353002395 -0400
+@@ -5921,17 +5921,19 @@
+ Clear the Tektronix window.
+ .TP
+ .B RESET\fP (resource \fBtekreset\fP)
++Reset the Tektronix window.
+ .TP
+ .B COPY\fP (resource \fBtekcopy\fP)
++Copy the Tektronix window.
+ .RE
+ .PP
+ Windows:
+ .RS
+-.TP
++.IP
+ .B Show VT Window\fP (resource \fBvtshow\fP)
+-.TP
++.IP
+ .B Switch to VT Mode\fP (resource \fBvtmode\fP)
+-.TP
++.IP
+ .B Hide Tek Window\fP (resource \fBtekhide\fP)
+ .RE
+ .
+@@ -6869,13 +6871,13 @@
+ by echoing a control sequence computed from the event's line number
+ in the screen relative to the current line:
+ .sp
+-.in +8
++.RS
+ ESC ^P
+-.in -8
++.RE
+ or
+-.in +8
++.RS
+ ESC ^N
+-.in -8
++.RE
+ .sp
+ according to whether the event is before, or after the current line,
+ respectively.

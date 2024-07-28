@@ -1,0 +1,11 @@
+--- AnyEvent::FAQ.3pm-unpatched	2018-05-29 00:40:21.293353675 -0400
++++ AnyEvent::FAQ.3pm	2018-05-29 00:40:21.125354816 -0400
+@@ -74,7 +74,7 @@
+ .nh
+ .SH "NAME"
+ AnyEvent::FAQ \- frequently asked questions
+-.PP
++.SH "FAQs"
+ The newest version of this document can be found at
+ <http://pod.tst.eu/http://cvs.schmorp.de/AnyEvent/lib/AnyEvent/FAQ.pod>.
+ .SS "My program exits before doing anything, what's going on?"

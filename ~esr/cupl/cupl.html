@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.16">
+<title>cupl(1)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;-webkit-tap-highlight-color:transparent}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="manpage">
+<div id="header">
+<h1>cupl(1) Manual Page</h1>
+<h2 id="_name">NAME</h2>
+<div class="sectionbody">
+<p>cupl - interpreter for the CORC and CUPL languages</p>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>cupl</strong> [-f fieldwidth] [-v debuglevel] [-w linewidth]</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">OPTIONS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The -w options sets the line width (default 80).</p>
+</div>
+<div class="paragraph">
+<p>The -f option sets the field width (default 20).</p>
+</div>
+<div class="paragraph">
+<p>The -v option enables debugging output.  At level 1, the parse tree is
+prettyprinted.  At level 2, definition/reference counts for each
+variable and label are printed after each run.  At level 3, an
+execution trace is displayed as the parse tree is printed.  At level
+4, each token intern and cons-cell allocation during parsing is also
+dumped. A suffix of y enables parser debugging messages.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>CUPL was an early (1966) teaching language implemented as a
+batch compiler on the IBM/360 at Cornell University.  It was descended
+from an earlier (1962) experimental language called CORC (CORnell
+Compiler), which was in turn derived loosely from Algol-58.
+Statements made without qualification about CUPL below also apply to
+CORC.</p>
+</div>
+<div class="paragraph">
+<p>CUPL is documented in "CUPL: The Cornell University Programming
+Language", by R.J. Walker, a manual first printed in November 1966.
+This implementation is based on the July 1967 second printing.</p>
+</div>
+<div class="paragraph">
+<p>CORC is documented in "An Instruction Manual For CORC", by
+R.W. Conway, W.L. Maxwell, R.J. Walker.  This implementation tracks
+the 2nd edition of September 1963.</p>
+</div>
+<div class="paragraph">
+<p>The purpose of this implementation is to preserve a CUPL/CORC
+implementation for the edification of historians and students of
+programming-language design.  CUPL and CORC were representative of a
+significant class of teaching languages in its period, and study of
+their design casts a clear light on the preoccupations of their
+time.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction_to_the_languages">Introduction to the Languages</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The source distribution includes, in the file 'cupl.doc', a
+transcription of all the relevant parts of the CUPL manual (the bulk
+of the text is a general tutorial on scientific programming).  Another
+file, 'corc.doc', similarly excerpts the CORC manual.</p>
+</div>
+<div class="paragraph">
+<p>CUPL has only one scalar type, a long floating-point real
+corresponding to C double (round-off rules coerce scalars to integer
+in contexts like subscripting).  It supports vector and matrix
+aggregates, and has operations specialized for linear-algebra
+calculations.  There is no function abstraction and all variables are
+global; program chunking is achieved through BLOCK or BEGIN blocks
+which resemble parameterless subroutines.</p>
+</div>
+<div class="paragraph">
+<p>CUPL rather resembles early BASICs, minus BASIC&#8217;s string
+facility.  It is oriented towards scientific calculation and linear
+algebra, and would be nearly impossible (or, at any rate, extremely
+painful) to use for anything else.</p>
+</div>
+<div class="paragraph">
+<p>The programming-support features of CUPL and CORC resembled those of the
+better-known WATFOR and WATFIV compilers, incorporating elaborate
+error-correction and trace output features using a runtime monitor.</p>
+</div>
+<div class="paragraph">
+<p>The only incompatibility between the CUPL and CORC languages
+documented was the interpretation of GO TO &lt;label&gt; when &lt;label&gt; is
+associated with a block.  In CUPL, this is a go to beginning of block;
+in CORC, it&#8217;s go to end of block (which in CUPL is GO TO &lt;block&gt; END.
+The interpreter switches on CORC interpretation whenever it detects a
+CORC-specific word (such as NOTE) during lexing.</p>
+</div>
+<div class="paragraph">
+<p>The CORC statement TITLE and the triple iteration construct have no
+counterparts in CUPL.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cupl">CUPL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We reproduce here a nearly exact transcription of Appendix A of the
+Walker manual, "CUPL: The Cornell University Programming Language".</p>
+</div>
+<div class="paragraph">
+<p>Tags of the form [See m-n: &#8230;&#8203;] not part of the original
+document; they are references (by section-page number in the original
+manual) to notes which follow the appendix transcription.  These notes
+are also excerpts from the manual.</p>
+</div>
+<div class="paragraph">
+<p>There is one correction in the text.  The original manual listed both LN
+and LOG as built-in functions and wrote "LOG(a)" is "natural log of a".  We
+believe this is incorrect; we have changed the "LOG(a)" in the original to
+LN(a) and inserted a new "LOG(a)" entry.  This implementation&#8217;s LOG function
+is, accordingly, log_10() and not log_e().</p>
+</div>
+<div class="paragraph">
+<p>There are a few typographical changes to fit it into the ASCII
+character set.  The differences:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>^[-+]nnn is used to render exponent superscripts.</p>
+</li>
+<li>
+<p>subscripts are simply appended to their metavariables.</p>
+</li>
+<li>
+<p>"x" between digits is used to render the multiplication sign.</p>
+</li>
+<li>
+<p>lines of dashes below headings indicate underscores.</p>
+</li>
+<li>
+<p>page breaks in the original are represented by form feeds here.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Otherwise, the appendix A transcription is exact, even down to
+hyphen breaks and spacing.  ^L represents a page break. In the
+following notes, hyphen breaks and exact spacing are not preserved,
+but the original text is, with the following additional typographical
+changes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>|a| is used to render the absolute-value operation.</p>
+</li>
+<li>
+<p>&#8656; and &lt; are used to render non-ASCII symbols.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the original, a couple of instances of |x * 10<strong>n| and |y * 10</strong>n|
+were actually set as |10^nx| and |10^ny|, where ^n represents a
+superscript.  This is excessively hard to read in ASCII.</p>
+</div>
+<div class="paragraph">
+<p>The combination of Appendix A and the notes includes essentially all the
+manual&#8217;s documentation of the CUPL language itself.  We have not transcribed
+appendix D, "Error Considerations and Actions", nor appendix B, "Functions",
+because the former depends on the parsing machinery of the original compiler
+and the latter documents range restrictions and precision constraints for the
+special functions (which are not duplicated in our implementation).</p>
+</div>
+<div class="paragraph">
+<p>The following .cupl files, included with this distribution, are also
+transcribed from the manual.  We include every non-pathological program
+example.  The following list maps programs to original page numbers:</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>cubic.cupl		-- 7-7  (boxed)
+fancyquad.cupl		-- 2-8  (coding form example)
+poly11.cupl		-- 7-9  (boxed)
+power.cupl		-- 3-4  (exercise 5b)
+prime.cupl		-- 12-5 (boxed)
+quadratic.cupl		-- 2-2  (boxed)
+random.cupl		-- 10-2 (boxed)
+rise.cupl		-- 3-15 (exercise 7)
+simplequad.cupl		-- 2-1  (boxed)
+squares.cupl		-- 5-7  (output example)
+sum.cupl		-- 3-4  (exercise 5a)
+---</p>
+</div>
+<div class="paragraph">
+<p>We have supplied leading comments for most of these; they are
+otherwise unaltered.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>                          Appendix A
+
+                        Summary of CUPL
+
+
+ELEMENTS OF THE LANGUAGE
+
+     Characters
+     ----------
+          Letters: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+          Digits:  0 1 2 3 4 5 6 7 8 9
+          Special Characters:  + - * / ( ) . , ' =
+
+     Numbers
+     -------
+          Normal decimal usage:  e.g. 3, 1.725, -.06 .
+          "Scientific" notation:  -1.2E-3  for -1.2 x 10^3 .
+          Truncated to 9 significant figures by the system.
+          Range:  Absolute values from 10^-78 to 10^76, and 0 .
+
+     Variables and Labels
+     --------------------
+          a.  Consist of 1 to 8 letters or digits, beginning with
+              a letter; no blanks or special characters.
+
+          b.  Must not be one of the following "reserved words":
+
+                 ABS        DOT     IF    OR        THEN
+                 ALL        ELSE    INV   PERFORM   TIMES
+                 ALLOCATE   END     LE    POSMAX    TO
+                 AND        EXP     LET   POSMIN    TRC
+                 ATAN       FLOOR   LN    RAND      TRN
+                 BLOCK      FOR     LOG   READ      WATCH
+                 BY         GE      LT    SGM       WHILE
+                 COMMENT    GO      MAX   SIN       WRITE
+                 COS        GT      MIN   SQRT
+                 DET        IDN     NE    STOP
+
+          c.  Must be unique--same name cannot be used for both a
+              label and a variable.
+
+          d.  Variables have automatic initial value of zero.
+
+          e.  Variables can be scalar, vector, or matrix.  [See 8-3 and 9-8]
+
+                If A   is a matrix variable:
+
+                   A        refers to the entire matrix.
+                   A(I,J)   refers to the element at the
+                              intersection of the ith row
+                              and the jth column
+                   A(*,J)   refers to the jth column [see 9-2]
+                   A(I,*)   refers to the ith row    [see 9-2]
+^L
+                          A-2
+
+                If V is a vector variable:
+
+                   V refers to the entire vector
+                   V(I) refers to the ith component.
+
+              [See 11-3 for subscript round-off rules]
+
+          f.  A vector is a 1-column matrix
+
+          g. IDN is the identity matrix of any appropriate size.
+
+     Arithmetic Operators
+     --------------------
+          a.  +, -, /, * for multiplication, ** for exponentiation
+
+          b.  Normal precedence:  **, * and /, + and -
+                                  Parentheses from inner to outer.
+                                  Sequence of + and - from left to
+                                  right.
+
+          c. Types of operand:    +, -, /, *, ** for scalars
+                                  +, -, *, and numerator of / for
+                                     vectors and matrices.
+
+     Spacing
+     -------
+          No spaces, or splitting at end of line, in any number,
+          variable, label, reserved word, or **.  Spaes allowable
+          anywhere else.
+
+     Functions
+     ---------
+          Form                Action              Type of Argument
+          ----                ------              ----------------
+          ABS(a)        absolute value of a      any expression
+          ATAN(a)       arctangent of a, in      numerical valued
+                          radians                  expression
+          COS(a)        cosine of a, a in        numerical valued
+                          radians                  expression
+          EXP(e)        e raised to a power      numerical valued
+                                                   expression
+          FLOOR(a)      greatest integer not     numerical valued
+                          exceeding a              expression
+          LN(a)         natural log of a         numerical valued
+                                                   expression
+          LOG(a)        log to base 10 of a      numerical valued
+                                                   expression
+          SQRT(a)       positive square root     numerical valued
+                          of a                     expression
+          SIN(a)        sine of a, a in          numerical valued
+                          radians                  expression
+          MAX(a,b,...)  maximum value of all     any expressions
+                          elements of all
+                          arguments
+^L
+                               A-3
+
+          MIN(a,b,...)  minimum value of all     any expressions
+                          elements of all
+                          arguments
+          RAND(a)       next pseudo-random       any expression
+                          number, or array
+                          of numbers, in a
+                          sequence in which
+                          a was the last
+          DET(a)        determinant of a         square array valued
+                                                   expression
+          DOT(a,b)      dot product of a         vector-valued expres-
+                             and b                 sions of equal
+                                                   dimensions
+          INV(a)        inverse of a             square array valued
+                                                   expression
+          POSMAX(a)     row position of maxi-    array valued expression
+                          mum element of a
+          POSMIN(a)     row position of mini-    array valued expression
+                          mum element of a
+          SGM(a)        sigma of a (sum of       array valued expression
+                          all elements)
+          TRC(a)        trace of a (sum of       array valued expression
+                          elements on prin-
+                          cipal diagonal)
+          TRN(a)        transpose of a           array valued expression
+
+     Relations
+     ---------
+          Symbol   With scalar expressions   With array expressions
+          ------   -----------------------   ----------------------
+            =      equals                    all corresponding ele-
+                                               ments equal
+            NE     not equal to              at least one pair of
+                                               corr. ele. not equal
+            LE     less than or equal to     all corr. ele. less than
+                                               or equal
+            GE     greater than or equal     all corr. ele. greater
+                     to                        than or equal
+            LT     less than                 all corr. ele. less than
+                                               or equal; at least one
+                                               less than
+            GT     greater than              all corr. ele. greater
+                                               than or equal; at least
+                                               one greater than
+
+     [See 11-4 for round-off rules applying to relations]
+
+STATEMENTS
+
+     The following symbols are used in the statement descriptions:
+
+          v1, v2, ...            variables (scalar, vector, or
+                                 matrix except as noted)
+^L
+                               A-4
+
+          r1, r2, ...            relations
+
+          slabel1, slabel2, ...  statement labels
+
+          blabel1, blabel2, ...  block labels
+
+          e1, e2, ...            arithmetic expressions (a meaningful
+                                 and conformable combination of
+                                 numbers, variables, functions, and
+                                 arithmetic operators)
+
+Statements should begin in column 10 of the programming form.  If
+continued onto more than one line, the second and aubsequent lines
+should begin in column 15.  Columns 73 to 80 must not be used.
+
+Any statement may be given a label--beginning in column 1 of the
+form.
+
+     Assignment Statement
+     --------------------
+          LET v1 = e1
+
+     Sequence Control Statements
+     ---------------------------
+          GO TO slabel1
+
+          GO TO blabel1        Used only inside block 'blabel';
+                               causes skip to end of block.
+
+          IF e1 r1 e2 THEN s1 ELSE s2    where s1 and s2 are any type
+                                         of statement except IF or
+                                         PERFORM.
+
+                      Either the THEN phrase or the ELSE phrase may
+                      be omitted, but one or both must be given.
+
+               Compound conditions may be used:
+
+                      IF e1 r1 e2 AND e3 r2 e4 AND ... THEN s1 ELSE s2
+
+                      IF e1 r1 e2 OR e3 r2 e4 OR ... THEN s1 ELSE s2
+
+               but AND and OR phrases may not be mixed in the same
+               statement.                 ---
+
+          STOP
+
+     Iteration Control Statements
+     ----------------------------
+          A 'block' consists of a sequence of statements preceded by
+
+              blabel1 BLOCK   and followed by   blabel1 END
+^L
+                          A-5
+
+     A block may be located anywhere in the program; it is executed
+         only by a PERFORM statement calling it by name.  Blocks
+         may be nested but not overlapped.  A block may contain
+         any kind of statent, including PERFORM, except for a
+         PERFORM referring to the block itself.
+
+     PERFORM blabel1
+
+     PERFORM blabel1 e1 TIMES    where e1 has integer value.
+
+     PERFORM blabel1 WHILE e1 r1 e2
+
+         Compound conditions may be used:
+
+              WHILE e1 r1 e2 AND e3 r2 e4 AND ...
+
+              WHILE e1 r1 e2 OR e3 r2 e4 OR ...
+
+         but AND and OR phrases may not be mixed in the same
+         statement.
+
+     PERFORM blabel1 FOR v1 = e1, e2, ...
+
+                     FOR sv1 = e1 TO e2 BY e3    where sv1 is
+                                                  a scalar vari-
+                                                  able
+
+                          The order of the TO and BY phrases can
+                          be reversed; the BY phrase can be
+                          omitted if e3 = 1.   [See 8-3 for more]
+
+
+     Communication Statements
+     ------------------------
+          READ v1, v2, ...   [See 5-2 and 9-2 for description]
+
+          WRITE v1, v2, ... , 'title message', ... , /v3, /v4
+
+                    Three types of elements may appear in the list
+                    after WRITE:
+
+                       1.  Variable.  Prints:
+
+                              name of scalar and current value;
+
+                              name of vector and current values of
+                              components;
+
+                              name of each row vector of matrix and
+                              current value of components.
+
+                       2.  Variable preceded by a / . Current values
+                              only are printed.
+^L
+                               A-6
+
+                       3.  A message enclosed in single quotes.  The
+                              exact image will appear as a title on
+                              the output.  Any characters except the
+                              quote may be used in such a message.  A
+                              message cannot continue onto a second
+                              line on the programming form--a separate
+                              item in the same or another WRITE state-
+                              ment must be used.
+
+                       [See 5-3 and 8-10] for more formatting details]
+
+          [WRITE ALL  See 4-12 and 8-3 for a description]
+
+          COMMENT   A comment line can be inserted at any time by
+                    writing COMMENT in the label field (columns 1-7) of
+                    the programming form.  Such a line will appear in
+                    the program listing, but has no effect on execution.
+
+
+     Dimensioning of Vectors and Matrices
+     ------------------------------------
+          ALLOCATE mv1(e1, e2), vv2(e3), ...  where mv1  is a matrix
+                                   variable and vv2 is a vector
+                                   variable, and e1, e2 and e3 have
+                                   integer values.
+
+              When space is initially allocated to an array, the
+              values of all the elements are zero.  If space is
+              later changed by another allocation the values of
+              those elements common to the old and the new alloca-
+              tions are unchanged; the values of new elements are
+              zero.  [See also 9-1]
+
+     Tracing Changes in Value During Execution
+     -----------------------------------------
+
+          WATCH v1, v2, ...   where v1  and v2 are scalar variables.
+
+              This will cause the system to monitor the values of
+              each of the variables listed and print the new value
+              each time one of the listed variables is assigned a
+              value by a LET or READ statement.  This operation is
+              temporary and is automatically discontinued for a
+              particular variable after 10 such assignments.  [See 8-3]
+
+
+DATA
+
+     Data to be read by the execution of the READ statements is
+     provided on the same form, after the last statement of the
+     program.  The first data line is indicated by writing *DATA
+     in columns 1 to 5.  Data items may be entered on this line
+     beginning in column 7 and in columns 1 tto 72 of any following
+     lines
+
+^L
+                               A-7
+
+     Data items are separated by commas.  An item may be either a
+     number,  n1,  or an expression of the form  v1 = n1 .  The
+     latter form is for checking purposes--it must correspond to the
+     variable v1 in the associated READ statement.
+
+     Data items are read in sequence as the program is executed.
+     To an array with q elements appearing in a READ statement,
+     there must correspond q successive items in the data list.
+     If the array is a matrix, the items must be ordered by rows.
+
+---
+
+Other quotes:
+
+From 4-12:
+
+---
+     Another statement that can be used for checking purposes is
+
+           WRITE ALL
+
+This will cause the values of all of the variables in the program to be
+printed.  There is no WATCH ALL statement.
+---
+
+From 5-2:
+
+---
+     If READ v occurs in the program and the corresponding entry on the
+datalist is w=n, where w is not the same as v, an error message is given.
+The value n is assigned to v, no change is made in w, and the program
+continues.  Thus the inclusion of items of the type v=n in the data list
+provides checks against the accidental omission of data or inclusion of
+extra numbers.
+
+     If the total data list is too short, the machine will give an error
+message and will give the value 1 for each of the missing numbers.  If the
+list is too long the extra entries will be ignored but no error message will
+be given.
+---
+
+From 5-3:
+
+---
+     Numbers are given to 9 significant figures. A number n /= 0 in the range
+.0001 &lt;= |n| &lt; 100000 is printed in the usual decimal form, e.g. -327.512736,
+0.0243472150 .  Zero is printed simply as 0.  All other numbers appear in the
+form mEp with 1 &lt;= |m| &lt; 10, e.g. -2.31562007E+04, 5.00000000E-17 .
+
+     A line of output is divided into six "fields", each 20 characters long.
+Each variable name or value occupies one field.  The decimal point of a
+number always comes at the seventh position in a field.  Each WRITE statement
+starts a new line, but within a given WRITE statement fields are used
+consecutively, new lines being started as necessary.  The one exception occurs
+when the name of a variable would come at the end of a line and its value
+on the next line; in this case, the last field is left blank and the name
+starts the next line.
+
+     A field may be purposely skipped by simply omitting a variable name;
+for example,
+
+          WRITE ,A,,,/B
+
+will put A and its value in fields 2 and 3, and the value of B in 6,
+leaving fields 1, 4 and 5 vacant.  The statement
+
+          WRITE
+
+will cause a whole line to be skipped.
+---
+
+From 8-3:
+
+---
+     The only restrictions on the use of a subscripted variable are in
+
+          PERFORM k FOR v = ---
+
+and
+
+          WATCH v,...
+
+Here v must be a non-subscripted variable.  Also, WRITE ALL will print only
+the values of the non-subscripted variables.
+---
+
+From 8-10:
+
+---
+     1. A new line is started for each vector and each row of a matrix.
+
+     2. Te values of the elements of a vector or a row of a matrix are
+put successively in fields 2 through 6, repeating as necessary.
+
+     3. In field 1 of the first line used for a vector or for a row of
+a matrix is put the name of the vector or a symbol for the row of the matrix,
+unless these are suppressed by a slash before the array in the WRITE list.
+The slash does not change the spacing described in 2 above.
+
+     4. A variable, subscripted or not, appearing in the WRITE list immediately
+after an array, starts a new line.
+
+     There is one exception to these rules.  If M is a matrix with only one
+column, to save space it will be printed as if it were a vector, that is, in
+the form
+
+          M = m11      m21      m31     etc.
+---
+
+From 9-1:
+
+---
+Vectors as matrices
+-------------------
+     Consideration of relations involving matrices and vectors can be
+simplified by regarding a vector as a 1-column matrix.  This convention is
+adopted in CUPL, and so, for example
+
+          ALLOCATE X(7)
+
+and
+
+          ALLOCATE X(7, 1)
+
+have precisely the same meaning.  After either of these allocations the
+variables X(2) and X(2, 1) are meaningful and have the same value; X(M, N)
+is meaningful only if N has the value 1.
+---
+
+From 9-2:
+
+---
+     For any matrix M, N(*, J) denotes the 1-column matrix (a vector)
+which is the J-th column of M.  Similarly, M(I, *) denotes the 1-row matrix
+(not a vector) which is the I-th row of M.  If M is m x n, then M(*, J) and
+M(I, *) are m x 1 and 1 x m, and they can be used as matrices of these
+sizes in any statement except ALLOCATE.  For example:
+
+     READ M(*, 3)
+
+will read data into the third column of M, leaving the rest of M unchanged.
+---
+
+From 9-8:
+
+---
+     So much space is needed to compute INV(A) or DET(A) that the size of
+A is limited to 40x40 in these expressions.
+---
+
+From 11-3:
+
+---
+Automatic Integer Round-off
+---------------------------
+a. The value of a subscript is rounded to the nearest integer.
+
+b. If the round-off involves a change of greater than 10^-9 (approximately)
+   an error message is given.
+---
+
+From 11-4:
+
+---
+Automatic Relative Round-off for x r y
+--------------------------------------
+a. If both x and y are zero the condition is applied as it stands.
+
+b. If either x or y is not zero:
+
+   (i)   Both x and y are multiplied by 10**n, where n is chosen so that
+         the larger of |x * 10**n|, |y * 10**n| lies between .1 and 1.
+
+   (ii)  x * 10**n and y * 10**n are truncated to 14 decimal places
+
+   (iii) The specified condition is interpreted on the resulting numbers.
+---</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_corc">CORC</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We include here a transcription of appendix F of our reference
+document, "An Instruction Manual For CORC", R.W. Conway, W.L. Maxwell,
+R.J. Walker.</p>
+</div>
+<div class="paragraph">
+<p>There are a few typographical changes to fit it into the ASCII
+character set.  The differences:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>^[-+]nnn is used to render exponent superscripts.</p>
+</li>
+<li>
+<p>The square root radical sign surrounding b is rendered as b^-2</p>
+</li>
+<li>
+<p>|a| is used to render the absolute-value operation.</p>
+</li>
+<li>
+<p>"x" between digits is used to render the multiplication sign.</p>
+</li>
+<li>
+<p>lines of dashes below headings indicate underscores.</p>
+</li>
+<li>
+<p>page breaks in the original are represented by ^L here.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Error corrections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Under "Sequence Control Statements", the IF keyword in the three
+if-statement templates was erroneously typed as "If".</p>
+</li>
+<li>
+<p>Under "Iteration Control Statements", the first AND keyword in the
+compound-AND example was incorrectly lowercased.  In item 1 of the BEGIN
+explanation, the word "statement" was incorrectly uppercased.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Notes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tags [See *1], [See *2], etc, are not part of the original;
+they reference footnotes following the transcript.</p>
+</li>
+<li>
+<p>Tags such as [See 5-8] are not part of the original, they
+reference other quotes from the text given below by page number.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Otherwise, the appendix F transcription is exact, even down to
+hyphen breaks and spacing (allowing for the fact that the original
+typewriter spacing was somewhat irregular&#8230;&#8203;).</p>
+</div>
+<div class="paragraph">
+<p>The combination of Appendix F and the notes includes essentially all the
+manual&#8217;s documentation of the CORC language itself.  Most of the text is
+tutorials and exercises.</p>
+</div>
+<div class="paragraph">
+<p>This implementation preserves the CORC-62 distinction between
+LOG and LN, contrary to the transcript below which describes CORC-63
+(which identifies both with the natural-log function).  CORC-62 also
+lacked the INT function, allowed only non-compound logical expressions
+in REPEAT&#8230;&#8203;UNTIL, and allowed an alternate spelling "TIME" of
+"TIMES".</p>
+</div>
+<div class="paragraph">
+<p>The following .corc files, included with this distribution, are also
+transcribed from the manual.  We include every complete program
+example.  The following list maps programs to original page numbers:</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>simplecorc.corc        &#8201;&#8212;&#8201;4-6
+gasbill.corc           &#8201;&#8212;&#8201;4-9
+hearts.corc            &#8201;&#8212;&#8201;4-10
+sumsquares.corc		-- 5-4
+powercorc.corc		-- 5-6
+factorial.corc		-- 5-6
+quadcorc.corc		-- 5-9
+title.corc		-- 7-3	(note: this one uses continuations)
+---</p>
+</div>
+<div class="paragraph">
+<p>We have supplied leading comments and test data for these programs;
+they are otherwise unaltered.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>                                APPENDIX F
+                       Summary of the CORC Language
+
+     Acceptable Characters
+     ---------------------
+          Letters: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+          Digits:  0 1 2 3 4 5 6 7 8 9
+          Special Characters:  + - / ( ) * $ , . =
+
+
+     Numbers
+     -------
+          Normal decimal usage -- + sign may be omitted; decimal point
+                    may be omitted from an integer.
+          Only 11 significant figures will be considered (8 on Burroughs
+                    220)
+          Output: 8 significant figures.
+          Acceptable range: Absolute values from 10^-308 to 10^+308
+                    (10^-49 to 10^+50 on Burroughs 220), and 0.
+          Scientific notation: 1.2345 x 10^6 may be written 1.2345*10$(6).
+
+     Variables and Labels
+     --------------------
+          a. 1 to 8 letters or digits; no blanks or special characters.
+          b. First character must be a letter.
+          c. Must not be one of the following "reserved" words:
+
+                    ABS     DECREASE   GO         LET   NOTE      STOP
+                    AND     ELSE       GTR        LN    OR        THEN
+                    ATAN    END        IF         LOG   RAND      TIMES
+                    BEGIN   EQUAL      INC        LSS   READ      TITLE
+                    BY      EXP        INCREASE   MAX   REPEAT    TO
+                    COS     FOR        INT        MIN   SIN       UNTIL
+                    DEC     GEQ        LEQ        NEQ   SQRT      WRITE
+
+          d. Statement labels must be unique -- particular label appears only
+                    once in label field.
+                    Block label used for only one set of BEGIN-END statements.
+          e. Variables must be listed in Dictionary. If no initial value
+             is given zero is assumed.  [See *1]
+          f. One or two subscripts, enclosed in parentheses.  May be
+             any expression (including subscripted variables) whose
+             value at execution is a positive integer not greater than
+             the maximum declared for this variable in Dictionary. [See D-2]
+             In Dictionary and Input Data subscripts given as integers in
+                    subscript field; parentheses are not used.  [See *1]
+^L
+     Arithmetic Operators
+     --------------------
+          + Additions
+          - Subtraction
+          / Division
+          * Multiplication (must be expressed, no implicit multiplication)
+          $ Exponentiation; a^b written as a $(b)
+
+     Rules of Precedence
+     -------------------
+          a. Expressions in parentheses first, from inner to outer.
+          b. $ before *, /, + or -
+          c. * or / before + or -
+          d. Sequence of + and - from left to right
+
+     Functions
+     ---------
+          Argument any expression, a:
+                    ABS(a)   |a|
+                    EXP(a)       e^a
+                    SIN(a)   sin a, a in radians
+                    COS(a)   cos a, a in radians
+                    ATAN(a)  arctan a, a in radians
+                    INT(a)   [a], greatest integer less than or equal to a
+
+          Arguments two or more expressions, a, b,  ... f:
+                    MAX(a, b, ... , f) value equal to greatest of expressions
+                       listed
+                    MIN(a, b, ... , f) value equal to least of expressions
+                       listed
+          Argument  any positive expression, b:
+                    LN(b) or LOG(b) log b, natural logarithm of b
+                                       e
+          Argument any non-negative expression, b:
+                    SQRT(b)        + b^-2
+          Argument a variable, v:
+                    RAND(v) next in a sequence of pseudo-random numbers.
+                        See Chapter 7
+
+     Relations (used only in IF and REPEAT ... UNTIL statements)
+     ---------
+          EQL =              NEQ !=
+          LSS &lt;              LEQ &lt;=
+          GTR &gt;              GEQ &gt;=
+^L
+     Card Numbers
+     ------------
+          Strictly increasing sequence of 4 digit numbers, beginning
+               with 0010.
+          Initially right digit should be zero on all cards to leave
+               room for later additions.
+
+     Program Arrangement [See *1]
+     -------------------
+          Arrange and number programming forms in the following order:
+                    1. Preliminary Description
+                    2. Dictionary [See 2-10]
+                         List all variables to be used
+                         Specify initial values if not zero
+                         Specify maximum value for each subscript.
+                    3. Program Statements
+                         One statement per line; for continuation place
+                              C in column 21 of following line and begin
+                              in column 42.  Do not break in middle of
+                              variable, label, or number.
+                         THEN, ELSE, OR and AND phrases of IF statement
+                              on following lines, beginning in col 42,
+                              but C in col 21 not required.
+                    4. Input Data
+                         Variables, Subscripts and values of data to
+                              be called by READ statements in program.
+
+     CORC Statements
+     ---------------
+     The following symbols are used in the statement descriptions:
+
+          v, w, x   variables
+          r, s, t   relations
+          a, c      statement labels
+          b         block label
+          e, f, g, h, j, k    arithmetic expressions (any meaningful
+                                 combination of numbers, variables,
+                                 functions and arithmetic operators)
+
+     Computation Statements
+     ----------------------
+          LET v = e
+          INCREASE v BY e    or   INC v BY e
+          DECREASE v BY e    or   DEC v BY e
+^L
+     Sequence Control Statements
+     ---------------------------
+          GO TO a             Statement with label a to be executed next.
+          GO TO b             Used only inside block b; causes skip to
+                              END of block b.
+
+          IF e r f            Go to statement a if condition e r f is
+             THEN GO TO a     satisfied; otherwise go to statement c.
+             THEN GO TO c
+
+          IF e r f            Go to statement a if all of the conditions
+             AND g s h        listed are satisfied; otherwise go to
+             ...              statement c.
+             THEN GO TO a
+             THEN GO TO c
+
+          IF e r f            Go to statement a if all of the conditions
+             OR g s h         listed is satisfied; otherwise go to state-
+             ...              ment c.
+             THEN GO TO a          AND and OR phrases cannot be mixed in
+             THEN GO TO c          the same IF statement.
+
+          STOP                Last statement in execution of program; not
+                              necessarily written last on Program State-
+                              ment sheet.
+
+     Iteration Control Statements
+     ----------------------------
+          b BEGIN  Define limits of a block; b in label field, BEGIN-END.
+          b END    statement field.
+               1. Block may be entered (executed) only by REPEAT statement.
+               2. Block may be located anywhere in program.
+               3. Blocks may be nested, but not overlapped.
+               4. Block b may contain any type of CORC statement, in-
+                  cluding REPEAT, but not REPEAT b, ... , a REPEAT
+                  Statement referring to itself.
+          REPEAT b e TIMES     Value of e a non-negative integer.
+          REPEAT b UNTIL e r f Continue repetition of block b until
+                               condition e r f is satisfied.
+          REPEAT b UNTIL e r f AND g s h AND ... Continue repetition
+                               of block b until all conditions listed
+                               are satisfied.  (Not available on Burroughs
+                               220)
+          REPEAT b UNTIL e r f OR g s h OR ... Continue repetition of
+                               block b until any one of the conditions
+                               listed is satisfied.  (Not available on
+                               Burroughs 220)
+^L
+          REPEAT b FOR   v = e, f, g, ..., ..., (h, j, k), ... Repeat
+                               block b once for each expression on list,
+                               with value of expression assigned to
+                               variable v.  Three expressions on list
+                               enclosed in parentheses mean from h to k
+                               in steps of k. [See 5-8]
+
+     Communication Statements
+     ------------------------
+          READ v, w, x, ...    Read an Input Data card for each variable
+                               on list; variables on cards read must
+                               agree with variables on list.
+
+          WRITE v, w, x, ...   Print variable and current value, three
+                               to a line.  Each WRITE statement starts a
+                               new line.
+
+          TITLE message        Print "message" in computational results
+                               when this statement is encountered in
+                               execution of program.
+
+          NOTE message         "Message" will appear in copy of program
+                               only, not in execution.  Used for program
+                               notes only.
+
+---
+
+[*1] This implementation of CORC does not support or allow a
+Dictionary section.  Instead, variable initializations must be done via
+CUPL-style DATA and ALLOCATE statements.
+
+[*2] Ignore this section.  Program statements are free-format, with
+continuations not supported (though the example program
+test/title.corc shows the syntax, it will break cupl).  Data for read
+statements is accepted in CUPL format following the keyword *DATA.
+
+For completeness, however, the Dictionary feature is documented here.
+
+From 2-10:
+
+---
+Dictionary of Variables
+-----------------------
+     In addition to a set of statements CORC requires a pro-
+gram to contain another part known as the Dictionary.  The Diction-
+ary of a program is merely a list of all the variables used in
+the program. along with, if desired, the initial assigned values of
+the variables.  If no initial value is specified the computer
+assigns the initial value zero.
+---
+
+From 2-11:
+
+---
+     In the above example the Dictionary might look like this:
+
+     A     1
+     B    -1
+     C    -6
+     ROOT
+     X1
+     X2
+---
+
+The above example is the simplecorc.corc program.  The CORC
+Dictionary is equivalent to a CUPL DATA section, but also allowed the
+programmer to dimension array variables.  The example form on 2-12
+makes it clear that the Dictionary was distinguished from the program
+proper by being in a different lower range of card line
+numbers.
+
+From 5-8:
+
+---
+Three expressions on a list, enclosed in parentheses, are in-
+terpreted in the following way:
+     1. The first expression gives the initial value for the vari-
+        able.
+     2. The second expression gives the difference between con-
+        secutive values.
+     3. The third expression indicates where to stop -- the final
+        value for the variable is less than or equal to the value
+        of the third expression.
+
+[... examples omitted ...]
+
+    More than one such "triple" may be used on a list, and
+"triples" may be intermixed with separate expressions;
+---
+
+From 6-5:
+
+---
+   A particular variable either has no subscripts, one sub-
+script, or two subscripts and this use must be consistent through-
+out a program.  A variable cannot appear as X(I) in one statement
+and X(I, J) or just X in another statement of the same program.
+The nature of a variable (whether it is to be subscripted or not)
+must be indicated when the variable is listed in the CORC Diction-
+ary.  This is done by giving the maximum value of any subscripts
+that will be used in columns 21-25 of the Dictionary form.  If no
+subscripts will be used these columns will be left blank in the
+line for that variable.  If one subscript is to be used, the maxi-
+mum value that that subscript will take on anywhere in the pro-
+gram must be given in columns 21-23; columns 24-25 are left blank.
+(Note that this is the maximum value of the subscript, and not
+the maximum value of the variable.)  If two subscripts are to be
+used the maximum value of the first is given in columns 21-23
+and the maximum value of the second in columns 24-25.  For ex-
+ample, if the Dicitonary [sic] looks like the following:
+
+          SCALAR
+          VECTOR    45
+          MATRIX   100     2
+          ARRAY      3    32
+
+then SCALAR is a simple variable that will not have any sub-
+scripts anywhere in the program.  VECTOR will have one subscript
+everwhere it appears in the program [...] MATRIX [...] will
+appear each time with two subscripts [...] ARRAY will also
+always have two subscripts; [...]
+---
+
+From D-2:
+
+---
+Automatic Integer Round-off
+---------------------------
+a. The value of a subscript is rounded off to the nearest
+   integer.
+b. If the round-off involves a change of greater than
+   10^-9 (approximately;   the number is subject to some
+   variation) an error message is given.
+---
+
+From D-3:
+
+---
+Automatic Relative Round-off for x r y
+--------------------------------------
+a. If both x and y are zero the condition is applied as it stands.
+b. If either x or y is not zero:
+   (i) Both x and y are multiplied by MAX(|x|, |y|);
+   (ii) The results are rounded off to the nearest
+        integer if this involves a change of less
+        than 10^-9 (10^-7 for the Burroughs 220), but
+        not otherwise;
+   (iii) The specified condition is interpreted for
+        the resulting numbers.
+---</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_differences_from_the_original_cupl">Differences from the original CUPL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The most obvious differences are also the most trivial.  CUPL was
+first implemented on an IBM/360 Model 30; CORC on Burroughs 1604 and
+220 machines.  Both used a small capital-letters-only character set
+SIXBIT, and followed the archaic IBM practice of using a slashed-O for
+alphabetic O and plain 0 for zero.  Original CUPL/CORC listings thus
+look rather odd to the modern eye.</p>
+</div>
+<div class="paragraph">
+<p>The original CUPL was a batch system with a fixed-field card format;
+labels in columns 1-8, statements in 10-72, statement continuations
+beginning in column 15 (CORC&#8217;s format differed only in detail from
+this).  In CUPL, data for the program was supplied following a special
+*DATA label in the same deck as the program; CORC did not require this
+marker (it is not clear from the CORC documentation how end-of-program
+was recognized).</p>
+</div>
+<div class="paragraph">
+<p>On modern output devices, slashed-0 tends to be used, if at all,
+for zero.  We have not tried to preserve IBM&#8217;s reversal.  Nor have we
+tried to enforce the columnation requirements, and we don&#8217;t implement
+the continuation convention (new CUPL is free-format, with newlines
+ignored).  We do preserve much of the visual appearance of CUPL
+listings by insisting on all caps and tab-indenting statements.  We
+also preserve the *DATA mechanism for supplying
+initializations.</p>
+</div>
+<div class="paragraph">
+<p>More significant differences arise from differences between the word
+size and floating-point format in CUPL&#8217;s original host and those of
+typical modern C implementation.  The 360 had a 36-bit word; original
+CUPL scalars ranged from 1e76 to 1e-78 with nine decimal digits of
+precision.  As for CORC: the Burroughs 1604 was documented as having a
+much wider range, 1e308 to 1e-308 with 11 digits of precision; the
+Burroughs 220 supported 1e-49 to 1e50 with 8 digits of precision.</p>
+</div>
+<div class="paragraph">
+<p>Standard C floats are 32 bits and have roughly 1e+38 to 1e-38 range
+and 9 digits precision; doubles are 64 bits, with range roughly 1e308
+to 1e-304 and 19 digits of precision.  This implementation use doubles
+to emulate CUPL/CORC scalars.</p>
+</div>
+<div class="paragraph">
+<p>We know from the documentation that the original CUPL compiler ran
+in 64K of core.  The present implementation is easily twice that size.
+However, given the cycle speeds of the 1960s, it certainly runs a
+good deal faster that original CUPL, even with interpretation overhead.</p>
+</div>
+<div class="paragraph">
+<p>We don&#8217;t implement original CUPL&#8217;s error-correction facilities.
+Though clever, they would make the parser forbiddingly complex, and
+are anyway much less important in an interactive environment.</p>
+</div>
+<div class="paragraph">
+<p>There are many limits in original CUPL/CORC that we do not
+enforce.  There is no limit on the length of variable names short of
+the lexer&#8217;s very long token buffer length.  There is no hard limit on
+the number of statements in a program.  There is no hard limit on the
+size of arrays.</p>
+</div>
+<div class="paragraph">
+<p>While the format of number output does not exactly conform to
+the original CUPL/CORC rules, it is sufficiently ugly to please any
+but the pickiest.  We implement all of 5.2 except the fixing of the
+decimal point at position 7 in each field.  Instead we simply use
+printf(3)'s %f and %e at field-width precision.</p>
+</div>
+<div class="paragraph">
+<p>Also, by default, we wrap after three 20-char fields rather than 6, so
+as to fit on an 80-column line.  Command-line options to change the
+line and field widths are available.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_unix_implementation_notes">Unix Implementation Notes.</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The CUPL/CORC implementation is built around YACC and LEX.  The rest is
+ANSI C.</p>
+</div>
+<div class="paragraph">
+<p>The YACC grammar just builds a parse tree, which is passed to
+interpret() for interpretation.  This method requires that all
+programs are always small enough that the entire tree can be held
+in memory, but it has the advantage that front and back end are very
+well separated.</p>
+</div>
+<div class="paragraph">
+<p>One hack that greatly simplifies the grammar productions is that the
+lexer actually returns parse tree nodes, even for atoms like
+identifiers, strings, and numbers.  In fact, the lexical analyzer even
+does label and variable name resolution with the same simple piece of
+code; each IDENTIFIER token is looked up in the identifier list when
+it&#8217;s recognized, so the parse tree early becomes a DAG.  (The -v1
+option causes the compiler to dump its parse tree for inspection.)</p>
+</div>
+<div class="paragraph">
+<p>Most of the smarts are in interpret() and its sub-functions.  Because
+array variables can be re-allocated, the internals have to use a
+dynamic vector/array type with its own indexing machinery.  The code
+to manipulate this type lives in monitor.c.</p>
+</div>
+<div class="paragraph">
+<p>Note that much of this machinery is quite generic and could be re-used
+for other languages with little change.</p>
+</div>
+<div class="paragraph">
+<p>The implementation trades away some possible efficiencies for
+simplicity.  Most importantly, each value has an attached malloc
+object to hold its elements, even when there is only one such element
+(as for scalars) which could reasonably be represented by a static
+field.</p>
+</div>
+<div class="paragraph">
+<p>There are some comments in the code which discuss the possibility of
+a back end that would emit C.   This would be easy to do if there were
+any serious corpus of CUPL/CORC code demanding to be translated.  The
+compiler back end would emit code shaped like the parse tree, which
+would then link monitor.c as runtime support.</p>
+</div>
+<div class="paragraph">
+<p>The only nontrivial difference between CUPL and CORC is the
+interpretation of GO TO &lt;label&gt; when &lt;label&gt; is associated
+with a block.  In CUPL, this is a go to beginning of block; in CORC,
+it&#8217;s go to end of block (which in CUPL is GO TO &lt;block&gt; END.
+The interpreter sets a flag when it sees any of the appropriate
+CORC-specific keywords (NOTE, BEGIN, DEC, DECREASE, EQL, GEQ, GTR,
+INC, INCREASE, INT, LEQ, LSS, NEQ, REPEAT, TITLE, UNTIL, $) during
+lexing, and execute() modifies its behavior appropriately.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="author">AUTHOR</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eric S. Raymond &lt;<a href="mailto:esr@snark.thyrsus.com">esr@snark.thyrsus.com</a>&gt;.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-02-01 13:17:33 -0500
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+--- lamd.1-unpatched	2013-05-25 13:47:35.612432993 -0400
++++ lamd.1	2013-05-25 13:48:15.108432254 -0400
+@@ -73,11 +73,11 @@
+ "LAM/MPI ND User Guide / Introduction"
+ at
+ .I http://www.lam-mpi.org/mpi/tutorials/lam/
+-.TP
+-"MPI: It's Easy to Get Started"
+-.TP
++.IP *
++"MI: It's Easy to Get Started"
++.IP *
+ "MPI: Everyday Datatypes"
+-.TP
++.IP *
+ "MPI: Everyday Collective Communication"
+ .SS Guaranteed Envelope Resources
+ .HP

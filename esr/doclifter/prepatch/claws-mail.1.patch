@@ -1,0 +1,22 @@
+--- claws-mail.1-unpatched	2018-04-17 13:27:08.707436758 -0400
++++ claws-mail.1	2018-04-17 13:29:30.447157355 -0400
+@@ -242,15 +242,12 @@
+ $HOME/.claws\-mail/toolbar*.xml
+ User\-defined custom toolbars
+ .TP
+-.B "Windows only"
+-.LP
+-.TP
+ %TEMP%\\claws\-win32.log
+-Claws Mail output file when \-\-debug is enabled. If %TEMP% is not set it
+-defaults to windows directory (usually C:\\Windows) or C:\\ if windows
+-directory is not available.
++(Windows only) Claws Mail output file when \-\-debug is enabled. If
++%TEMP% is not set it defaults to windows directory (usually
++C:\\Windows) or C:\\ if windows directory is not available.
+ .TP
+-%APPDATA%\\Claws\-mail\\claws.log
++(Windows only) %APPDATA%\\Claws\-mail\\claws.log
+ Claws Mail log file
+ 
+ .SH "EXAMPLES"

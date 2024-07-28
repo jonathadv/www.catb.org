@@ -1,0 +1,40 @@
+--- f2py2.7.1-unpatched	2018-05-21 11:10:50.701696344 -0400
++++ f2py2.7.1	2018-05-21 11:10:57.089652930 -0400
+@@ -2,20 +2,14 @@
+ .SH NAME
+ f2py \- Fortran to Python interface generator
+ .SH SYNOPSIS
+-(1) To construct extension module sources:
+-
+ .B f2py
+-[<options>] <fortran files> [[[only:]||[skip:]] <fortran functions> ] [: <fortran files> ...]
+-
+-(2) To compile fortran files and build extension modules:
++[<options>] <fortran-files> [[[only:]||[skip:]] <fortran-functions> ] [: <fortran-files> ...]
+ 
+ .B f2py
+-\-c [<options>, <config_fc options>, <extra options>] <fortran files>
+-
+-(3) To generate signature files:
++\-c [<options>, <config_fc-options>, <extra-options>] <fortran files>
+ 
+ .B f2py
+-\-h <filename.pyf> ...< same options as in (1) >
++\-h <filename.pyf> ...
+ .SH DESCRIPTION
+ This program generates a Python C/API file (<modulename>module.c)
+ that contains wrappers for given Fortran or C functions so that they
+@@ -23,6 +17,13 @@
+ With the \-c option the corresponding
+ extension modules are built.
+ .SH OPTIONS
++Use the first form of the command to construct extension module sources:
++
++Use the second fo compile fortran files and build extension modules,
++
++Use the third form to generate signature files: It may take the same
++options as the first form.
++
+ .TP
+ .B \-h <filename>
+ Write signatures of the fortran routines to file <filename> and

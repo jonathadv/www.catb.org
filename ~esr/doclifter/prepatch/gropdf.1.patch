@@ -1,0 +1,11 @@
+--- gropdf.1-unpatched	2016-02-29 04:23:30.563698607 -0500
++++ gropdf.1	2016-02-29 04:23:48.999656326 -0500
+@@ -994,7 +994,7 @@
+ Foo-Bar-Bold.pfa is \[oq]XY-Foo-Bar-Bold\[cq] (the PS font name is
+ stored in the
+ .B internalname
+-field in the \[oq]FBB\[cq] file) and belongs to foundry \[oq]F\[]cq]
++field in the \[oq]FBB\[cq] file) and belongs to foundry \[oq]F\[cq]
+ thus the following line should be added to \[oq]download\[cq]:
+ .
+ .RS

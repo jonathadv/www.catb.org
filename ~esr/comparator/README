@@ -1,0 +1,28 @@
+= comparator -- code for finding common sections in source trees =
+
+comparator is a program for rapidly finding common segments in large
+source-code trees.  See the manual page for instructions.  It comes
+with a filtering postprecessor, filterator.
+
+Besides the production C code, the distribution also includes 
+working Python versions.  These were used to prototype the concept.
+
+Run "make" to build the software, "make check" to regression-test it.
+
+If you want to write a new normalizer, see linebyline.c for an example
+of how it's done.
+
+The document scf-standard.xml describes file interchange formata
+for programs that wish to interoperate with comparator.
+
+There are a few other programs that do similar things:
+
+srcdupchk - the shred algorithm in C++
+	http://www.randomhacks.net/stories/srcdupchk-release.html
+
+ctcompare - C Token Comparator
+	http://minnie.tuhs.org/Programs/Ctcompare/
+
+See the NEWS file for recent developments.
+
+

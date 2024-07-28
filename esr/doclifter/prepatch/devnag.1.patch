@@ -1,0 +1,11 @@
+--- devnag.1-unpatched	2012-07-06 10:48:31.946717382 -0400
++++ devnag.1	2012-07-06 10:49:24.874716396 -0400
+@@ -7,7 +7,7 @@
+ .PP
+ .B devnag
+ is a preprocessor that reads transliterated Devanagari input delimited by
+-\dn and converts it into a form with which TeX is familiar.
++\\dn and converts it into a form with which TeX is familiar.
+ .PP
+ The preprocessor
+ handles the details of character placement such as the alignment of

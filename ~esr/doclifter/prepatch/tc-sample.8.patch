@@ -1,0 +1,11 @@
+--- tc-sample.8-unpatched	2018-05-18 17:22:06.727844771 -0400
++++ tc-sample.8	2018-05-18 17:22:47.347568717 -0400
+@@ -116,8 +116,6 @@
+      action sample index 19
+ .EE
+ .RE
+-
+-.EE
+ .RE
+ .SH SEE ALSO
+ .BR tc (8),

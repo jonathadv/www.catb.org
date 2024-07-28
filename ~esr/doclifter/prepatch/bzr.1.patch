@@ -1,0 +1,181 @@
+--- bzr.1-unpatched	2018-05-21 11:13:38.236557767 -0400
++++ bzr.1	2018-05-21 11:13:37.884560159 -0400
+@@ -733,19 +733,19 @@
+   A common mistake is to forget to add a new file or directory before
+   running the commit command. The \-\-strict option checks for unknown
+   files and aborts the commit if any are found. More advanced pre\-commit
+-  checks can be implemented by defining hooks. See \\*(Aq\\*(Aqbzr help hooks\\*(Aq\\*(Aq
++  checks can be implemented by defining hooks. See \*(Aq\*(Aqbzr help hooks\*(Aq\*(Aq
+   for details.
+ 
+ Things to note:
+ 
+   If you accidentially commit the wrong changes or make a spelling
+   mistake in the commit message say, you can use the uncommit command
+-  to undo it. See \\*(Aq\\*(Aqbzr help uncommit\\*(Aq\\*(Aq for details.
++  to undo it. See \*(Aq\*(Aqbzr help uncommit\*(Aq\*(Aq for details.
+ 
+   Hooks can also be configured to run after a commit. This allows you
+   to trigger updates to external systems like bug trackers. The \-\-fixes
+   option can be used to record the association between a revision and
+-  one or more bugs. See \\*(Aq\\*(Aqbzr help bugs\\*(Aq\\*(Aq for details.
++  one or more bugs. See \*(Aq\*(Aqbzr help bugs\*(Aq\*(Aq for details.
+ 
+ .SS "bzr config [NAME]"
+ 
+@@ -1046,7 +1046,7 @@
+ 
+ Ignore specified files or patterns.
+ 
+-See \\*(Aq\\*(Aqbzr help patterns\\*(Aq\\*(Aq for details on the syntax of patterns.
++See \*(Aq\*(Aqbzr help patterns\*(Aq\*(Aq for details on the syntax of patterns.
+ 
+ If a .bzrignore file does not exist, the ignore command
+ will create one and add the specified files or patterns to the newly
+@@ -1422,8 +1422,8 @@
+ Output control:
+ 
+   The log format controls how information about each revision is
+-  displayed. The standard log formats are called \\*(Aq\\*(Aqlong\\*(Aq\\*(Aq, \\*(Aq\\*(Aqshort\\*(Aq\\*(Aq
+-  and \\*(Aq\\*(Aqline\\*(Aq\\*(Aq. The default is long. See \\*(Aq\\*(Aqbzr help log\-formats\\*(Aq\\*(Aq
++  displayed. The standard log formats are called \*(Aq\*(Aqlong\*(Aq\*(Aq, \*(Aq\*(Aqshort\*(Aq\*(Aq
++  and \*(Aq\*(Aqline\*(Aq\*(Aq. The default is long. See \*(Aq\*(Aqbzr help log\-formats\*(Aq\*(Aq
+   for more details on log formats.
+ 
+   The following options can be used to control what information is
+@@ -1440,7 +1440,7 @@
+   just the top level (mainline).
+ 
+   Status summaries are shown using status flags like A, M, etc. To see
+-  the changes explained using words like \\*(Aq\\*(Aqadded\\*(Aq\\*(Aq and \\*(Aq\\*(Aqmodified\\*(Aq\\*(Aq
++  the changes explained using words like \*(Aq\*(Aqadded\*(Aq\*(Aq and \*(Aq\*(Aqmodified\*(Aq\*(Aq
+   instead, use the \-vv option.
+ 
+ Ordering control:
+@@ -1460,7 +1460,7 @@
+     \-r..Y    display up to and including revision Y
+     \-rX..Y   display from X to Y inclusive
+ 
+-  See \\*(Aq\\*(Aqbzr help revisionspec\\*(Aq\\*(Aq for details on how to specify X and Y.
++  See \*(Aq\*(Aqbzr help revisionspec\*(Aq\*(Aq for details on how to specify X and Y.
+   Some common examples are given below:
+ 
+     \-r\-1                show just the tip
+@@ -1496,14 +1496,14 @@
+ 
+   In this case:
+ 
+-  * \\*(Aq\\*(Aqbzr log guide.txt\\*(Aq\\*(Aq will log the file added in revision 1
++  * \*(Aq\*(Aqbzr log guide.txt\*(Aq\*(Aq will log the file added in revision 1
+ 
+-  * \\*(Aq\\*(Aqbzr log tutorial.txt\\*(Aq\\*(Aq will log the new file added in revision 3
++  * \*(Aq\*(Aqbzr log tutorial.txt\*(Aq\*(Aq will log the new file added in revision 3
+ 
+-  * \\*(Aq\\*(Aqbzr log \-r2 \-p tutorial.txt\\*(Aq\\*(Aq will show the changes made to
++  * \*(Aq\*(Aqbzr log \-r2 \-p tutorial.txt\*(Aq\*(Aq will show the changes made to
+     the original file in revision 2.
+ 
+-  * \\*(Aq\\*(Aqbzr log \-r2 \-p guide.txt\\*(Aq\\*(Aq will display an error message as there
++  * \*(Aq\*(Aqbzr log \-r2 \-p guide.txt\*(Aq\*(Aq will display an error message as there
+     was no file called guide.txt in revision 2.
+ 
+   Renames are always followed by log. By design, there is no need to
+@@ -1526,21 +1526,21 @@
+   Guide <http://doc.bazaar.canonical.com/plugins/en/> and
+   <http://wiki.bazaar.canonical.com/IDEIntegration>.  
+ 
+-  You may find it useful to add the aliases below to \\*(Aq\\*(Aqbazaar.conf\\*(Aq\\*(Aq:
++  You may find it useful to add the aliases below to \*(Aq\*(Aqbazaar.conf\*(Aq\*(Aq:
+ 
+     [ALIASES]
+     tip = log \-r\-1
+     top = log \-l10 \-\-line
+     show = log \-v \-p
+ 
+-  \\*(Aq\\*(Aqbzr tip\\*(Aq\\*(Aq will then show the latest revision while \\*(Aq\\*(Aqbzr top\\*(Aq\\*(Aq
++  \*(Aq\*(Aqbzr tip\*(Aq\*(Aq will then show the latest revision while \*(Aq\*(Aqbzr top\*(Aq\*(Aq
+   will show the last 10 mainline revisions. To see the details of a
+-  particular revision X,  \\*(Aq\\*(Aqbzr show \-rX\\*(Aq\\*(Aq.
++  particular revision X,  \*(Aq\*(Aqbzr show \-rX\*(Aq\*(Aq.
+ 
+   If you are interested in looking deeper into a particular merge X,
+-  use \\*(Aq\\*(Aqbzr log \-n0 \-rX\\*(Aq\\*(Aq.
++  use \*(Aq\*(Aqbzr log \-n0 \-rX\*(Aq\*(Aq.
+ 
+-  \\*(Aq\\*(Aqbzr log \-v\\*(Aq\\*(Aq on a branch with lots of history is currently
++  \*(Aq\*(Aqbzr log \-v\*(Aq\*(Aq on a branch with lots of history is currently
+   very slow. A fix for this issue is currently under development.
+   With or without that fix, it is recommended that a revision range
+   be given when using the \-v option.
+@@ -2413,8 +2413,8 @@
+ not yet committed. These revisions will be included as additional parents
+ of the next commit.  Normally, using revert clears that list as well as
+ reverting the files.  If any files are specified, revert leaves the list
+-of uncommitted merges alone and reverts only the files.  Use \\*(Aq\\*(Aqbzr revert.\\*(Aq\\*(Aq in the tree root to revert all files but keep the recorded merges,
+-and \\*(Aq\\*(Aqbzr revert \-\-forget\-merges\\*(Aq\\*(Aq to clear the pending merge list without
++of uncommitted merges alone and reverts only the files.  Use \*(Aq\*(Aqbzr revert.\*(Aq\*(Aq in the tree root to revert all files but keep the recorded merges,
++and \*(Aq\*(Aqbzr revert \-\-forget\-merges\*(Aq\*(Aq to clear the pending merge list without
+ reverting any files.
+ 
+ Using "bzr revert \-\-forget\-merges", it is possible to apply all of the
+@@ -2500,7 +2500,7 @@
+   directly from the merge directive, without retrieving data from a
+   branch.
+ 
+-\\*(Aqbzr send\\*(Aq creates a compact data set that, when applied using bzr
++\*(Aqbzr send\*(Aq creates a compact data set that, when applied using bzr
+ merge, has the same effect as merging from the source branch.  
+ 
+ By default the merge directive is self\-contained and can be applied to any
+@@ -2559,8 +2559,8 @@
+ bzr pull by specifying a file containing a merge directive as the location.
+ 
+ bzr send makes extensive use of public locations to map local locations into
+-URLs that can be used by other people.  See \\*(Aqbzr help configuration\\*(Aq to
+-set them, and use \\*(Aqbzr info\\*(Aq to display them.
++URLs that can be used by other people.  See \*(Aqbzr help configuration\*(Aq to
++set them, and use \*(Aqbzr info\*(Aq to display them.
+ 
+ .SS "bzr serve"
+ 
+@@ -2569,7 +2569,7 @@
+                               server.  Supplying \-\-allow\-writes
+                               enables write access to the contents of
+                               the served directory and below.  Note
+-                              that \\*(Aq\\*(Aqbzr serve\\*(Aq\\*(Aq does not perform
++                              that \*(Aq\*(Aqbzr serve\*(Aq\*(Aq does not perform
+                               authentication, so unless some form of
+                               external authentication is arranged
+                               supplying this option leads to global
+@@ -2837,12 +2837,12 @@
+ It is an error to give a tag name that already exists unless you pass
+ \-\-force, in which case the tag is moved to point to the new revision.
+ 
+-To rename a tag (change the name but keep it on the same revsion), run \\*(Aq\\*(Aqbzr
+-tag new\-name \-r tag:old\-name\\*(Aq\\*(Aq and then \\*(Aq\\*(Aqbzr tag \-\-delete oldname\\*(Aq\\*(Aq.
++To rename a tag (change the name but keep it on the same revsion), run \*(Aq\*(Aqbzr
++tag new\-name \-r tag:old\-name\*(Aq\*(Aq and then \*(Aq\*(Aqbzr tag \-\-delete oldname\*(Aq\*(Aq.
+ 
+ If no tag name is specified it will be determined through the 
+ \*(Aqautomatic_tag_name\*(Aq hook. This can e.g. be used to automatically tag
+-upstream releases by reading configure.ac. See \\*(Aq\\*(Aqbzr help hooks\\*(Aq\\*(Aq for
++upstream releases by reading configure.ac. See \*(Aq\*(Aqbzr help hooks\*(Aq\*(Aq for
+ details.
+ 
+ .SS "bzr tags"
+@@ -3151,7 +3151,7 @@
+ and switch between them.
+ 
+ To disable the current view without deleting it, you can switch to
+-the pseudo view called \\*(Aq\\*(Aqoff\\*(Aq\\*(Aq. This can be useful when you need
++the pseudo view called \*(Aq\*(Aqoff\*(Aq\*(Aq. This can be useful when you need
+ to see the whole tree for an operation or two (e.g. merge) but
+ want to switch back to your view after that.
+ 
+@@ -3305,5 +3305,4 @@
+ .br
+ log10 = log \-\-short \-r \-10..\-1
+ .SH "SEE ALSO"
+-.UR http://bazaar.canonical.com/
+-.BR http://bazaar.canonical.com/
++http://bazaar.canonical.com/

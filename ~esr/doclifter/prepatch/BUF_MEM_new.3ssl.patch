@@ -1,0 +1,11 @@
+--- BUF_MEM_new.3ssl-unpatched	2018-05-28 06:03:08.836909956 -0400
++++ BUF_MEM_new.3ssl	2018-05-28 06:03:14.936868500 -0400
+@@ -138,8 +138,6 @@
+ BUF_MEM_new, BUF_MEM_new_ex, BUF_MEM_free, BUF_MEM_grow,
+ BUF_MEM_grow_clean, BUF_reverse
+ \&\- simple character array structure
+-.PP
+-standard C library equivalents
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ .Vb 1

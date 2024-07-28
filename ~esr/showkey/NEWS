@@ -1,0 +1,34 @@
+= showkey project news =
+
+1.9: 2024-02-11::
+    Exit immediately on interrupt, rather than on next unput.
+
+1.8: 2017-01-27::
+    Address Ubuntu bug #1006676m giving workaround on the man page.
+
+1.7: 2015-04-05::
+    Adninistrivial release; update metadata for hosting on thyrsus.com
+
+1.6: 2012-03-03::
+    Packaging update for new version of shipper. No more RPM spec.
+    Minor fix to ALT-key display.
+
+1.5: 2003-10-21::
+    Feature added: now displays control-key formulas as well as ASCII memonics.
+    Documentation has been significantly upgraded.
+
+1.4: 2003-12-29::
+    RPMs can now be built by non-root user.
+
+1.3: 2002-08-27::
+    Change the implementation to use termios(3) for better portability.
+    Only reference portable signals.
+
+1.2: 2002-08-01::
+    Cleanup and RPM packaging.
+
+1.1: 1996-10-21::
+    Fix for little-endian machines.
+
+1.0: 1988-11-01::
+    Initial release.

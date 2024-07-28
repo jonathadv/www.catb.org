@@ -1,0 +1,24 @@
+--- ps2epsi.1-unpatched	2013-05-25 14:05:07.268413325 -0400
++++ ps2epsi.1	2013-05-25 14:05:06.984413331 -0400
+@@ -2,9 +2,9 @@
+ .SH NAME
+ ps2epsi \- generate conforming Encapsulated PostScript
+ .SH SYNOPSIS
+-\fBps2epsi\fR \fIinfile.ps\fR [ \fIoutfile.epsi\fR ] \fB(Unix)\fR
++\fBps2epsi\fR \fIinfile.ps\fR [ \fIoutfile.epsi\fR ]
+ .br
+-\fBps2epsi\fR \fIinfile.ps\fR [ \fIoutfile.epi\fR ] \fB(DOS)\fR
++\fBps2epsi\fR \fIinfile.ps\fR [ \fIoutfile.epi\fR ]
+ .SH DESCRIPTION
+ \fBps2epsi\fR uses \fBgs\fR(1) to process a \fBPostScript\fR(tm) file and
+ generate as output a new file which conforms to Adobe's \fBEncapsulated
+@@ -16,6 +16,9 @@
+ PostScript.  The displayed quality is often not very good (e.g., low
+ resolution, no colours), but the final printed version uses the real
+ PostScript, and thus has the normal PostScript quality.
++.PP
++Under Unix, the normal file extensio of EPSI files is .epsi; 
++under DOS it is .eps.
+ .SH USAGE
+ On Unix systems invoke \fBps2epsi\fR like this:
+ .PP

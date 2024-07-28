@@ -1,0 +1,136 @@
+This patch hacks Emacs 20's browse-url.el to add and document BROWSER support.
+See the BROWSER page at http://www.tuxedo.org/~esr/BROWSER/ for discussion.
+
+--- browse-url.el	2001/01/24 12:24:40	1.1
++++ browse-url.el	2001/01/24 17:25:43
+@@ -46,6 +46,19 @@
+ ;; browse-url-mmm        MMM         ?
+ ;; browse-url-generic    arbitrary
+ 
++;; The user may set an explicit handler association list of URL-matching
++;; regexps that dispatches to browser functions.  If the environment
++;; of Emacs includes a BROWSER variable, and the user has not set an
++;; explicit list of URL handlers, the value of BROWSER is interpreted
++;; a colon-separated series of browser command parts.  These should be
++;; tried in order until one succeeds.  Each command part may
++;; optionally contain the string "%s"; if it does, the URL to be
++;; viewed is substituted there.  If a command part does not contain
++;; %s, the browser will be launched as if the URL had been supplied as
++;; its first argument.  If the user has neither set an explicit handler
++;; list nor supplied BROWSER, Emacs falls back to a default browser
++;; function (which the user may also configure).
++
+ ;; [A version of the Netscape browser is now free software
+ ;; <URL:http://www.mozilla.org/>, albeit not GPLed, so it is
+ ;; reasonable to have that as the default.]
+@@ -613,6 +626,53 @@
+       (browse-url-of-buffer))))
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
++;; Interpretation of the BROWSER variable.
++;; See http://www.tuxedo.org/~esr/BROWSER/ for discussion.
++
++(defun browse-url-parse-colon-path (value)
++  "Explode a colon-separated search path into a list of parts."
++  (and value
++       (let (prefix part-list (start 0) colon)
++	 (setq value (concat value ":"))
++         (while (setq colon (string-match ":" value start))
++           (setq part-list
++                 (nconc part-list
++                        (list (if (= start colon)
++                                   nil
++                                  (substring value start colon)))))
++           (setq start (+ colon 1)))
++         part-list)))
++
++(defun browse-url-default-from-environment ()
++  "Initialize browsers to be tried from the environment variable BROWSER.
++The value of BROWSER may consist of a colon-separated series of
++browser command parts.  These should be tried in order until one succeeds.
++Each command part may optionally contain the string \"%s\"; if it does, the
++URL to be viewed is substituted there.  If a command part does not
++contain %s, the browser will be launched as if the  URL had been 
++supplied as its first argument."
++  (mapcar
++   (lambda (part)
++     (cons "."
++	   ;; First, look for the names of browsers we know about.
++	   (cond ((string= part "netscape")  'browse-url-netscape)
++		 ((string= part "mosaic")  'browse-url-mosaic)
++		 ((string= part "grail")  'browse-url-grail)
++		 ((string= part "iximosaic")  'browse-url-iximosaic)
++		 ((string= part "w3")  'browse-url-w3)
++		 ((string= part "lynx")  'browse-url-lynx-emacs)
++		 ((string= part "mmm")  'browse-url-mmm)
++		 ;; Not one we know about?  OK, construct a lambda to call it.
++		 (t
++		  (let ((command
++			 (cond ((string-match "%s" part) part)
++			       (t (concat part " %s")))))
++		    `(lambda (url &optional new-window)
++		      (start-process-shell-command 
++		       url nil (format ,command url))))))))
++   (browse-url-parse-colon-path (getenv "BROWSER"))))
++
++;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;; Browser-independent commands
+ 
+ ;; A generic command to call the current browse-url-browser-function
+@@ -623,19 +683,43 @@
+ Prompts for a URL, defaulting to the URL at or before point.  Variable
+ `browse-url-browser-function' says which browser to use."
+   (interactive (browse-url-interactive-arg "URL: "))
+-  (if (functionp browse-url-browser-function)
+-      (apply browse-url-browser-function url args)
+-    ;; The `function' can be an alist; look down it for first match
+-    ;; and apply the function (which might be a lambda).
+-    (catch 'done
+-      (mapcar
+-       (lambda (bf)
+-	 (when (string-match (car bf) url)
+-	   (apply (cdr bf) url args)
+-	   (throw 'done t)))
+-       browse-url-browser-function)
+-      (error "No browser in browse-url-browser-function matching URL %s"
+-	     url))))
++  ;; Weirdness here comes from trying to be backward compatible.  The
++  ;; old behavior was to use `browse-url-browser-function' if it's a
++  ;; function, otherwise interpret it as a handler list.  New
++  ;; behavior: if `browse-url-browser-function' is an explicit handler
++  ;; list, use it.  Otherwise check to see if we can generate a handler
++  ;; list by parsing the BROWSER environment variable; if so, use that.
++  ;; Finally, if we neither have an explicit handler list nor can get one
++  ;; from BROWSER, just execute `browse-url-browser-function'.
++  (let ((handler-list
++	(cond ((and 
++		browse-url-browser-function 
++		(not (functionp browse-url-browser-function)))
++	       browse-url-browser-function)
++	      ((getenv "BROWSER")
++	       (browse-url-default-from-environment))
++	      (t
++	       nil))))
++    (if (not handler-list)
++	(apply browse-url-browser-function url args)
++      ;; The `function' can be an alist; look down it for first match
++      ;; and apply the function (which might be a lambda).  If the 
++      ;; function throws an error, we take this as a signal that the attempt
++      ;; to launch the browser failed and continue down the list.  Thus
++      ;; multiple handlers can match the same URL regexp; the first one
++      ;; to successfully launch terminates the search.
++      (catch 'done
++	(mapcar
++	 (lambda (bf)
++	   (when (string-match (car bf) url)
++	     (condition-case nil
++		 (progn
++		   (apply (cdr bf) url args)
++		   (throw 'done t))
++		 (error nil))))
++	 handler-list)
++	(error "No browser in browse-url-browser-function matching URL %s"
++	       url)))))
+ 
+ ;;;###autoload
+ (defun browse-url-at-point ()

@@ -1,0 +1,9 @@
+--- bzr.bzr.1-unpatched	2018-05-21 11:14:29.812207257 -0400
++++ bzr.bzr.1	2018-05-21 11:15:48.307673796 -0400
+@@ -3306,4 +3306,5 @@
+ log10 = log \-\-short \-r \-10..\-1
+ .SH "SEE ALSO"
+ .UR http://bazaar.canonical.com/
+-.BR http://bazaar.canonical.com/
++http://bazaar.canonical.com/
++.UE

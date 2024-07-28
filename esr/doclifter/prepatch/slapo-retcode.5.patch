@@ -1,0 +1,11 @@
+--- slapo-retcode.5-unpatched	2018-06-05 09:23:49.909644739 -0400
++++ slapo-retcode.5	2018-06-05 09:24:10.789502840 -0400
+@@ -59,7 +59,7 @@
+ .hy 0
+ .B retcode\-item <RDN> <errCode> [op=<oplist>] [text=<message>]
+ .B [ref=<referral>] [sleeptime=<sec>] [matched=<DN>]
+-.B [unsolicited=<OID>[:<data>]] [flags=[\{pre|post\}\-]disconnect[,...]]
++.B [unsolicited=<OID>[:<data>]] [flags=[{pre|post}\-]disconnect[,...]]
+ .RS
+ A dynamically generated entry, located below \fBretcode\-parent\fP.
+ The \fBerrCode\fP is the number of the response code;

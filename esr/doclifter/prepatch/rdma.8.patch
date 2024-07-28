@@ -1,0 +1,26 @@
+--- rdma.8-unpatched	2018-05-29 07:55:46.791803343 -0400
++++ rdma.8	2018-05-29 07:57:40.111033220 -0400
+@@ -7,22 +7,10 @@
+ .in +8
+ .ti -8
+ .B rdma
+-.RI "[ " OPTIONS " ] " OBJECT " { " COMMAND " | "
++.RI "[ " OPTIONS " ] {" dev "|" link "} { " COMMAND " | "
+ .BR help " }"
+ .sp
+ 
+-.ti -8
+-.IR OBJECT " := { "
+-.BR dev " | " link " }"
+-.sp
+-
+-.ti -8
+-.IR OPTIONS " := { "
+-\fB\-V\fR[\fIersion\fR] |
+-\fB\-d\fR[\fIetails\fR] }
+-\fB\-j\fR[\fIson\fR] }
+-\fB\-p\fR[\fIretty\fR] }
+-
+ .SH OPTIONS
+ 
+ .TP

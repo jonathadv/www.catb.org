@@ -1,0 +1,10 @@
+--- pbmclean.1-unpatched	2012-06-29 12:46:24.881895666 -0400
++++ pbmclean.1	2012-06-29 12:47:31.593894418 -0400
+@@ -9,6 +9,7 @@
+ .RB [ -black | -white ]
+ .RI [ pbmfile ]
+ 
++.SH USAGE NOTES
+ You can use the minimum unique abbreviation of the options.  You can use
+ two hyphens instead of one.  You can separate an option name from its value
+ with white space instead of an equals sign.

@@ -1,0 +1,11 @@
+--- seccomp.2-unpatched	2018-05-19 00:39:41.021419139 -0400
++++ seccomp.2	2018-05-19 00:43:11.771986868 -0400
+@@ -841,8 +841,6 @@
+ that the application might need to perform.
+ Such bugs may not easily be discovered when testing the seccomp
+ filters if the bugs occur in rarely used application code paths.
+-.RS 3
+-.\"
+ .SS Seccomp-specific BPF details
+ Note the following BPF details specific to seccomp filters:
+ .IP * 3

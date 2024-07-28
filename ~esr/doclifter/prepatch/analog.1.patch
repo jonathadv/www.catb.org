@@ -1,0 +1,137 @@
+--- analog.1-unpatched	2012-07-01 19:29:43.122211540 -0400
++++ analog.1	2012-07-01 19:29:52.646211363 -0400
+@@ -11,71 +11,78 @@
+ \fBanalog \-\-help
+ .br
+ analog\fP
+-[(\fB\-\fP|\fB+\fP)\fB1\fP]
+-[(\fB\-\fP|\fB+\fP)\fB4\fP]
+-[(\fB\-\fP|\fB+\fP)\fB5\fP]
+-[(\fB\-\fP|\fB+\fP)\fB6\fP]
+-[(\fB\-\fP|\fB+\fP)\fB7\fP]
+-[(\fB\-\fP|\fB+\fP)\fBA\fP] [(\fB\-\fP|\fB+\fP)\fBa\fP]
+-[\fB\-B\fP|\fB+B\fP[\fIoptions\fP]]
+-[\fB\-b\fP|\fB+b\fP[\fIoptions\fP]]
+-[(\fB\-\fP|\fB+\fP)\fBC\fP'\fIconfiguration-line\fP'] 
+-[\fB\-c\fP|\fB+c\fP[\fIoptions\fP]]
+-[(\fB\-\fP|\fB+\fP)\fBD\fP]
+-[(\fB\-\fP|\fB+\fP)\fBd\fP]
+-[\fB\-E\fP|\fB+E\fP[\fIoptions\fP]]
+-[\fB\-F\fP|\fB+F\fP\fIdate\fP]
+-[\fB\-f\fP|\fB+f\fP[\fIoptions\fP]]
++[-\fB1\fP]
++[-\fB4\fP]
++[-\fB5\fP]
++[-\fB6\fP]
++[-\fB7\fP]
++[-\fBA\fP] [-\fBa\fP]
++[\fB\-B\fP[\fIoptions\fP]]
++[\fB\-b\fP[\fIoptions\fP]]
++[-\fBC\fP'\fIconfiguration-line\fP'] 
++[\fB\-c\fP[\fIoptions\fP]]
++[-\fBD\fP]
++[-\fBd\fP]
++[\fB\-E\fP[\fIoptions\fP]]
++[\fB\-F\fP\fIdate\fP]
++[\fB\-f\fP[\fIoptions\fP]]
+ [\fB\-G\fP]
+ [\fB+g\fP\fIfilename\fP]
+-[(\fB\-\fP|\fB+\fP)\fBH\fP]
+-[(\fB\-\fP|\fB+\fP)\fBh\fP]
+-[\fB\-I\fP|\fB+I\fP[\fIoptions\fP]]
+-[\fB\-i\fP|\fB+i\fP[\fIoptions\fP]]
+-[\fB\-J\fP|\fB+J\fP[\fIoptions\fP]]
+-[\fB\-j\fP|\fB+j\fP[\fIoptions\fP]]
+-[\fB\-K\fP|\fB+K\fP[\fIoptions\fP]]
+-[\fB\-k\fP|\fB+k\fP[\fIoptions\fP]]
+-[\fB\-L\fP|\fB+L\fP[\fIoptions\fP]]
+-[\fB\-l\fP|\fB+l\fP[\fIoptions\fP]]
+-[\fB\-M\fP|\fB+M\fP[\fIoptions\fP]]
+-[(\fB\-\fP|\fB+\fP)\fBm\fP]
+-[\fB\-N\fP|\fB+N\fP[\fIoptions\fP]]
+-[\fB\-n\fP|\fB+n\fP[\fIoptions\fP]]
++[-\fBH\fP]
++[-\fBh\fP]
++[\fB\-I\fP[\fIoptions\fP]]
++[\fB\-i\fP[\fIoptions\fP]]
++[\fB\-J\fP[\fIoptions\fP]]
++[\fB\-j\fP[\fIoptions\fP]]
++[\fB\-K\fP[\fIoptions\fP]]
++[\fB\-k\fP[\fIoptions\fP]]
++[\fB\-L\fP[\fIoptions\fP]]
++[\fB\-l\fP[\fIoptions\fP]]
++[\fB\-M\fP[\fIoptions\fP]]
++[-\fBm\fP]
++[\fB\-N\fP[\fIoptions\fP]]
++[\fB\-n\fP[\fIoptions\fP]]
+ [\fB+O\fP\fIoutput-file\fP]
+-[\fB\-o\fP|\fB+o\fP[\fIoptions\fP]]
+-[(\fB\-\fP|\fB+\fP)\fBP\fP]
+-[\fB\-p\fP|\fB+p\fP[\fIoptions\fP]]
+-[(\fB\-\fP|\fB+\fP)\fBQ\fP]
+-[\fB\-q\fP|\fB+q\fP[[\fB\-\fP|\fB+\fP]\fItypes\fP]]
+-[\fB\-R\fP|\fB+R\fP[\fIoptions\fP]]
+-[\fB\-r\fP|\fB+r\fP[\fIoptions\fP]]
+-[\fB\-S\fP|\fB+S\fP[\fIoptions\fP]]
+-[(\fB\-\fP|\fB+\fP)\fBS\fP]
+-[\fB\-T\fP|\fB+T\fP\fIdate\fP]
+-[\fB\-t\fP|\fB+t\fP[\fIoptions\fP]]
+-[(\fB\-\fP|\fB+\fP)\fBU\fP\fIcache\fP]
+-[\fB\-u\fP|\fB+u\fP[\fIoptions\fP]]
+-[\fB\-V\fP|\fB+V\fP[[\fB\-\fP|\fB+\fP]\fItypes\fP]]
+-[\fB\-v\fP|\fB+v\fP[\fIoptions\fP]]
+-[(\fB\-\fP|\fB+\fP)\fBW\fP]
+-[(\fB\-\fP|\fB+\fP)\fBw\fP]
+-[(\fB\-\fP|\fB+\fP)\fBX\fP]
+-[(\fB\-\fP|\fB+\fP)\fBx\fP]
+-[\fB\-Y\fP|\fB+Y\fP[\fIoptions\fP]]
+-[\fB\-y\fP|\fB+y\fP[\fIoptions\fP]]
+-[\fB\-Z\fP|\fB+Z\fP[\fIoptions\fP]]
+-[(\fB\-\fP|\fB+\fP)\fBz\fP]
++[\fB\-o\fP[\fIoptions\fP]]
++[-\fBP\fP]
++[\fB\-p\fP[\fIoptions\fP]]
++[-\fBQ\fP]
++[\fB\-q\fP[[\fB\-\fP|\fB+\fP]\fItypes\fP]]
++[\fB\-R\fP[\fIoptions\fP]]
++[\fB\-r\fP[\fIoptions\fP]]
++[\fB\-S\fP[\fIoptions\fP]]
++[-\fBS\fP]
++[\fB\-T\fP\fIdate\fP]
++[\fB\-t\fP[\fIoptions\fP]]
++[-\fBU\fP\fIcache\fP]
++[\fB\-u\fP[\fIoptions\fP]]
++[\fB\-V\fP[[\fB\-\fP|\fB+\fP]\fItypes\fP]]
++[\fB\-v\fP[\fIoptions\fP]]
++[-\fBW\fP]
++[-\fBw\fP]
++[-\fBX\fP]
++[-\fBx\fP]
++[\fB\-Y\fP[\fIoptions\fP]]
++[\fB\-y\fP[\fIoptions\fP]]
++[\fB\-Z\fP[\fIoptions\fP]]
++[-\fBz\fP]
+ [\fB\-\-settings\fP]
+ [\fIlogfile\fP...]
+-.TP
+-but normally just
+-.TP
+-.B analog\fP [\fB-G\fP] [\fB+g\fP\fIfilename\fP]
+ .SH DESCRIPTION
+ \fBAnalog\fP is a program for analyzing log files, and is designed to be fast 
+ and to produce attractive statistics.
+ 
++The normal invocation is just:
++
++.RS
++.B analog\fP [\fB-G\fP] [\fB+g\fP\fIfilename\fP]
++.RE
++
++Most of the switch options in the synopsis above have two forms; the one shown
++is with with "-" for turning off a feature, and another with "+" for
++turning the feature on.  Both versions are described in the OPTIONS
++section a bit further on.
++
+ The usual (and easier) way of configuring \fBanalog\fP is through a
+ configuration file, not command line options.
+ For more information about writing a configuration file or about the command

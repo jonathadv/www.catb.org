@@ -1,0 +1,147 @@
+--- nvidia-smi.1-unpatched	2012-07-27 16:00:11.234630225 -0400
++++ nvidia-smi.1	2012-07-27 16:00:19.158630153 -0400
+@@ -5,7 +5,7 @@
+ .SH "SYNOPSIS"
+ .PP
+ nvidia-smi [OPTION1 [ARG1]] [OPTION2 [ARG2]] ...
+-.TP 25
++.SH OPTION OVERVIEW
+ .B "    -h,  --help"
+ Print usage information and exit
+ .PP
+@@ -140,74 +140,95 @@
+ 
+ .PP
+ .SH "OPTIONS" 
+-.SS
+-GENERAL OPTIONS
+-.SS "\-h, \-\-help"
++.SS "GENERAL OPTIONS"
++.TP
++\-h, \-\-help
+ Print usage information and exit.
+-.SS
+-SUMMARY OPTIONS
+-.SS "\-L, \-\-list\-gpus"
++.SS "SUMMARY OPTIONS"
++.TP 
++\-L, \-\-list\-gpus
+ List each of the NVIDIA GPUs in the system, along with their serial numbers or UUIDs. Tesla and Quadro GPUs from the Fermi and Kepler family report serial numbers, which match the ids physically printed on each board. GT200 Tesla products only support UUIDs, which are also unique but do not correspond to any identifier on the board. All other products report N/A.
+-.SS
+-QUERY OPTIONS
+-.SS "\-q, \-\-query"
++.SS QUERY OPTIONS
++.TP
++\-q, \-\-query
+ Display GPU or Unit info. Displayed info includes all data listed in the (\fIGPU ATTRIBUTES\fR) or (\fIUNIT ATTRIBUTES\fR) sections of this document. Some devices and/or environments don\(aqt support all possible information. Any unsupported data is indicated by a "N/A" in the output. By default information for all available GPUs or Units is displayed. Use the \fB\-i\fR option to restrict the output to a single GPU or Unit.
+-.SS
++.PP
+ [plus optional]
+-.SS "\-u, \-\-unit"
++.PP
++.TP 
++\-u, \-\-unit
+ Display Unit data instead of GPU data. Unit data is only available for NVIDIA S\-class Tesla enclosures. 
+-.SS "\-i, \-\-id=ID"
++.TP
++\-i, \-\-id=ID
+ Display data for a single specified GPU or Unit. The specified id may be the GPU/Unit\(aqs 0\-based index in the natural enumeration returned by the driver, the GPU\(aqs board serial number, the GPU\(aqs UUID, or the GPU\(aqs PCI bus ID (as domain:bus:device.function in hex). It is recommended that users desiring consistency use either UUID or PCI bus ID, since device enumeration ordering is not guaranteed to be consistent between reboots and board serial number might be shared between multiple GPUs on the same board.
+-.SS "\-f FILE, \-\-filename=FILE"
++.TP 
++\-f FILE, \-\-filename=FILE
+ Redirect query output to the specified file in place of the default stdout. The specified file will be overwritten.
+-.SS "\-x, \-\-xml\-format"
++.TP
++\-x, \-\-xml\-format
+ Produce XML output in place of the default human\-readable format. Both GPU and Unit query outputs conform to corresponding DTDs.
+ These are available via the \fB\-\-dtd\fR flag.
+-.SS "\-\-dtd"
++.TP
++\-\-dtd
+ Use with \fB\-x\fR. Embed the DTD in the XML output.
+-.SS "\-d, \-\-display"
++.TP
++\-d, \-\-display
+ Display only selected information: MEMORY, UTILIZATION, ECC, TEMPERATURE, POWER, CLOCK, COMPUTE, PIDS, PERFORMANCE. Flags can be combined with comma e.g. "MEMORY,ECC". Doesn\(aqt work with -u/--unit or -x/--xml-format flags.
+-.SS "\-l SEC, \-\-loop=SEC"
++.TP
++\-l SEC, \-\-loop=SEC
+ Continuously report query data at the specified interval, rather than the default of just once. The application will sleep in\-between queries. Note that on Linux ECC error or XID error events will print out during the sleep period if the \fI-x\fR flag was not specified. Pressing Ctrl+C at any time will abort the loop, which will otherwise run indefinitely. If no argument is specified for the \fB\-l\fR form a default interval of 5 seconds is used.
+-.SS
+-QUERY OPTIONS
+-.SS
++
++.SS QUERY OPTIONS
+ [any one of]
+-.SS "\-pm, \-\-persistence\-mode=MODE"
++.TP
++\-pm, \-\-persistence\-mode=MODE
+ Set the persistence mode for the target GPUs. See the (\fIGPU ATTRIBUTES\fR) section for a description of persistence mode. Requires root. Will impact all GPUs unless a single GPU is specified using the \fI\-i\fR argument. The effect of this operation is immediate. However, it does not persist across reboots. After each reboot persistence mode will default to "Disabled".
+ Available on Linux only.
+-.SS "\-e, \-\-ecc\-config=CONFIG"
++.TP
++\-e, \-\-ecc\-config=CONFIG
+ Set the ECC mode for the target GPUs. See the (\fIGPU ATTRIBUTES\fR) section for a description of ECC mode. Requires root. Will impact all GPUs unless a single GPU is specified using the \fI\-i\fR argument. This setting takes effect after the next reboot and is persistent.
+-.SS "\-p, \-\-reset\-ecc\-errors=TYPE"
++.TP
++\-p, \-\-reset\-ecc\-errors=TYPE
+ Reset the ECC error counters for the target GPUs. See the (\fIGPU ATTRIBUTES\fR) section for a description of ECC error counter types. Available arguments are 0|VOLATILE or 1|AGGREGATE. Requires root. Will impact all GPUs unless a single GPU is specified using the \fI\-i\fR argument. The effect of this operation is immediate.
+-.SS "\-c, \-\-compute\-mode=MODE"
++.TP
++\-c, \-\-compute\-mode=MODE
+ Set the compute mode for the target GPUs. See the (\fIGPU ATTRIBUTES\fR) section for a description of compute mode. Requires root. Will impact all GPUs unless a single GPU is specified using the \fI\-i\fR argument. The effect of this operation is immediate. However, it does not persist across reboots. After each reboot compute mode will reset to "DEFAULT".
+-.SS "\-dm, \-\-driver\-model"
+-.SS "\-fdm, \-\-force\-driver\-model"
++.TP
++\-dm, \-\-driver\-model, \-fdm, \-\-force\-driver\-model
+ Enable or disable TCC driver model. For Windows only. Requires administrator privileges. \fI\-dm\fR will fail if a display is attached, but \fI\-fdm\fR will force the driver model to change. Will impact all GPUs unless a single GPU is specified using the \fI\-i\fR argument. A reboot is required for the change to take place. See \fBDriver Model\fR for more information on Windows driver models.
+-.SS "\-r, \-\-gpu\-reset"
++.TP
++\-r, \-\-gpu\-reset
+ Resets GPU state by performing a secondary bus reset. Can be used to clear double bit ECC errors or recover hung GPU. Requires -i switch to target specific device. Requires root. There can\(aqt be any applications using this particular device (e.g. CUDA application, graphics application like X server, monitoring application like other instance of nvidia-smi). There also can\(aqt be any compute applications running on any other GPU in the system. Only on supported devices from Fermi and Kepler family running on Linux.
+-.SS
++.PP
+ [plus optional]
+-.SS "\-i, \-\-id=ID"
++.PP
++.TP
++\-i, \-\-id=ID
+ Modify a single specified GPU. The specified id may be the GPU/Unit\(aqs 0\-based index in the natural enumeration returned by the driver, the GPU\(aqs board serial number, the GPU\(aqs UUID, or the GPU\(aqs PCI bus ID (as domain:bus:device.function in hex). It is recommended that users desiring consistency use either UUID or PCI bus ID, since device enumeration ordering is not guaranteed to be consistent between reboots and board serial number might be shared between multiple GPUs on the same board.
+-.SS
+-UNIT MODIFICATION OPTIONS
+-.SS "\-t, \-\-toggle\-led=STATE"
++.PP
++.SS UNIT MODIFICATION OPTIONS
++.TP
++\-t, \-\-toggle\-led=STATE
+ Set the LED indicator state on the front and back of the unit to the specified color. See the (\fIUNIT ATTRIBUTES\fR) section for a description of the LED states. Allowed colors are 0|GREEN and 1|AMBER. Requires root.
+-.SS
++.PP
+ [plus optional]
+-.SS "\-i, \-\-id=ID"
++.PP
++.TP
++\-i, \-\-id=ID
+ Modify a single specified Unit. The specified id is the Unit\(aqs 0-based index in the natural enumeration returned by the driver.
+-.SS
+-SHOW DTD OPTIONS
+-.SS "\-\-dtd"
++.PP
++.SS SHOW DTD OPTIONS
++.TP
++\-\-dtd
+ Display Device or Unit DTD.
+-.SS
++.PP
+ [plus optional]
+-.SS "\-f FILE, \-\-filename=FILE"
++.PP
++.TP
++\-f FILE, \-\-filename=FILE
+ Redirect query output to the specified file in place of the default stdout. The specified file will be overwritten.
+-.SS "\-u, \-\-unit"
++.TP
++\-u, \-\-unit
+ Display Unit DTD instead of device DTD.
+ .PP
+ .SH "GPU ATTRIBUTES"

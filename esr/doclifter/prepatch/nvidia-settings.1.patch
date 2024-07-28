@@ -1,0 +1,73 @@
+--- nvidia-settings.1-unpatched	2012-07-27 15:44:36.930647733 -0400
++++ nvidia-settings.1	2012-07-27 15:44:58.562647424 -0400
+@@ -10,6 +10,17 @@
+ .SH NAME
+ nvidia\-settings \- configure the NVIDIA graphics driver
+ .SH SYNOPSIS
++Options:
++.br
++.B nvidia\-settings
++.BI "[-vh] [\-\-config=" configfile "] [\-c " ctrl-display "]"
++.br
++.I "         \fB[\-\-verbose=\fP{\fIerrors \fP|\fI warnings \fP|\fI all\fP}\fB]"
++.br
++.I "         \fB[\-\-describe=\fP{\fIall \fP|\fI list \fP|\fI attribute_name\fP}\fB]"
++.PP
++Invocation modes:
++.br
+ .BI "nvidia\-settings [" "options" "]"
+ .br
+ .BI "nvidia\-settings [" "options" "] \-\-no\-config"
+@@ -20,17 +31,11 @@
+ .br
+ .BI "nvidia\-settings [" "options" "] \-\-glxinfo"
+ .PP
+-Options:
+-.BI "[-vh] [\-\-config=" configfile "] [\-c " ctrl-display "]"
+-.br
+-.I "         \fB[\-\-verbose=\fP{\fIerrors \fP|\fI warnings \fP|\fI all\fP}\fB]"
+-.br
+-.I "         \fB[\-\-describe=\fP{\fIall \fP|\fI list \fP|\fI attribute_name\fP}\fB]"
+-.PP
+ .I attr
+ has the form:
+-.ti +5
++.RS
+ .IB DISPLAY / attribute_name [ display_devices ]
++.RE
+ .SH DESCRIPTION
+ The
+ .B nvidia\-settings
+@@ -277,8 +282,9 @@
+ .B nvidia\-settings
+ once and have generated a configuration file, you can then run:
+ .sp
+-.ti +5
++.RS
+ nvidia\-settings \-\-load\-config\-only
++.RE
+ .sp
+ at any time in the future to upload these settings to the X server again.
+ For example, you might place the above command in your
+@@ -545,8 +551,9 @@
+ man pages, or refer to your system documentation on remote X applications and security.
+ You might also Google for terms such as "remote X security" or "remote X Windows", and see documents such as the Remote X Apps mini-HOWTO:
+ .sp
+-.ti +5
++.RS
+ .URL http://www.tldp.org/HOWTO/Remote-X-Apps.html
++.RE
+ .sp
+ Please also note that the remote X server to be controlled must be using the NVIDIA X driver.
+ .SS 7. Licensing
+@@ -555,8 +562,9 @@
+ is released as GPL.
+ The most recent official version of the source code is available here:
+ .sp
+-.ti +5
++.RS
+ .URL ftp://download.nvidia.com/XFree86/nvidia-settings/
++.RE
+ .sp
+ Note that
+ .B nvidia\-settings

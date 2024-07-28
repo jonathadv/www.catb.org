@@ -1,0 +1,13 @@
+--- mpirun.1-unpatched	2013-05-25 19:19:27.096060622 -0400
++++ mpirun.1	2013-05-25 19:20:06.020059894 -0400
+@@ -399,8 +399,9 @@
+ it is usually waiting for "worker" processes to return results.
+ Hence, it is probably desirable to run one "worker" process on all
+ available CPUs, and run one extra process that will be the "manager":
+-.TP 4
++.RS
+ mpirun c0 C manager-worker-program
++.RE
+ .SS Application Schema or Executable Program?
+ To distinguish the two different forms,
+ .I mpirun

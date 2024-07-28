@@ -1,0 +1,150 @@
+--- nmcli.1-unpatched	2016-03-02 01:49:37.245643661 -0500
++++ nmcli.1	2016-03-02 01:49:47.477617367 -0500
+@@ -26,40 +26,29 @@
+ .SH NAME
+ nmcli \- command\(hyline tool for controlling NetworkManager
+ .SH SYNOPSIS
+-.ad l
+ .B nmcli
+-.RI " [ " OPTIONS " ] " OBJECT " { " COMMAND " | "
+-.BR help " } "
+-.sp
+-
+-.IR OBJECT " := { "
+-.BR general " | " networking " | " radio " | " connection " | " device " | " agent
+-.RI " }"
+-.sp
+-
+-.IR OPTIONS " := { "
+-.br
+-\fB\-t\fR[\fIerse\fR]
+-.br
+-\fB\-p\fR[\fIretty\fR]
+-.br
+-\fB\-m\fR[\fImode\fR] tabular | multiline
+-.br
+-\fB\-f\fR[\fIields\fR] <field1,field2,...> | all | common
+-.br
+-\fB\-e\fR[\fIscape\fR] yes | no
+-.br
+-\fB\-n\fR[\fIocheck\fR]
+ .br
+-\fB\-a\fR[\fIsk\fR]
++[
++\fB\-terse\fR |
++\fB\-pretty\fR |
++\fB\-mmode\fR { tabular | multiline } |
++.br
++\fB\-fields\fR { <field1,field2,...> | all | common } |
++\fB\-escape\fR { yes | no } |
++.br
++\fB\-nocheck\fR |
++\fB\-ask\fR |
++\fB\-wait\fR <seconds> |
++\fB\-version\fR |
++\fB\-help\fR
++]
+ .br
+-\fB\-w\fR[\fIait\fR] <seconds>
+-.br
+-\fB\-v\fR[\fIersion\fR]
+-.br
+-\fB\-h\fR[\fIelp\fR]
++{
++.BR general " | " networking " | " radio " | " connection " | " device " | " agent
++}
+ .br
+-.RI "}"
++.RI "{ " COMMAND " | "
++.BR help " } "
+ 
+ .SH DESCRIPTION
+ .B nmcli
+@@ -153,7 +142,7 @@
+ Use this object to show NetworkManager status and permissions. You can also get
+ and change system hostname, as well as NetworkManager logging level and domains.
+ .TP
+-.SS \fICOMMAND\fP := { status | hostname | permissions | logging }
++.B \fICOMMAND\fP := { status | hostname | permissions | logging }
+ .sp
+ .RS
+ .TP
+@@ -194,7 +183,7 @@
+ networking. Disabling networking removes the configuration from all devices and
+ changes them to the 'unmanaged' state.
+ .TP
+-.SS \fICOMMAND\fP := { [ on | off | connectivity ] }
++.B \fICOMMAND\fP := { [ on | off | connectivity ] }
+ .sp
+ .RS
+ .TP
+@@ -232,7 +221,7 @@
+ Use this object to show radio switches status, or enable and disable
+ the switches.
+ .TP
+-.SS \fICOMMAND\fP := { all | wifi | wwan | wimax }
++.B \fICOMMAND\fP := { all | wifi | wwan | wimax }
+ .sp
+ .RS
+ .TP
+@@ -278,7 +267,7 @@
+ connected to the DHCP-enabled network the user would run "nmcli con up default"
+ , and when connected to the static network the user would run "nmcli con up testing".
+ .TP
+-.SS \fICOMMAND\fP := { show | up | down | add | edit | modify | delete | reload | load }
++.B \fICOMMAND\fP := { show | up | down | add | edit | modify | delete | reload | load }
+ .sp
+ .RS
+ .TP
+@@ -330,8 +319,7 @@
+ .RE
+ .TP
+ .B up [ id | uuid | path ] <ID> [ifname <ifname>] [ap <BSSID>] [nsp <name>] [passwd <file with passwords>]
+-.RE
+-.RS
++.TP
+ .B up ifname <ifname> [ap <BSSID>] [nsp <name>] [passwd <file with passwords>]
+ .RS
+ .br
+@@ -627,8 +615,7 @@
+ .RE
+ .TP
+ .B edit [id | uuid | path ] <ID>  - edit an existing connection
+-.RE
+-.RS
++.TP
+ .B edit [type <new connection type>] [con-name <new connection name>]  - add a new connection
+ .RS
+ Edit an existing connection or add a new one, using an interactive editor.
+@@ -649,12 +636,12 @@
+ \(en type of the new connection; valid types are the same as for \fIconnection add\fP command
+ .IP \fIcon-name\fP 13
+ \(en name for the new connection. It can be changed later in the editor.
+-.RE
+ .RS
+ .sp
+ See also \fInm-settings\fP(5) for all NetworkManager settings and property names, and their
+ descriptions; and \fInmcli-examples\fP(5) for sample editor sessions.
+ .RE
++.RE
+ .TP
+ .B modify [--temporary] [ id | uuid | path ] <ID> [+|-]<setting>.<property> <value>
+ .B [+|-]<setting>.<property> <value> ...
+@@ -711,7 +698,7 @@
+ .B device - show and manage network interfaces
+ .br
+ .TP
+-.SS \fICOMMAND\fP := { status | show | connect | disconnect | delete | wifi | wimax }
++.B \fICOMMAND\fP := { status | show | connect | disconnect | delete | wifi | wimax }
+ .sp
+ .RS
+ .TP
+@@ -804,7 +791,7 @@
+ .B agent \- run nmcli as a NetworkManager secret agent, or polkit agent
+ .br
+ .TP
+-.SS \fICOMMAND\fP := { secret | polkit  | all }
++.B \fICOMMAND\fP := { secret | polkit  | all }
+ .sp
+ .RS
+ .TP

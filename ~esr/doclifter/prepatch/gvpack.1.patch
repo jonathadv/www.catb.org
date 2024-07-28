@@ -1,0 +1,14 @@
+The true syntax of the array option cannot be expressed in the XML submarkup
+for command option syntax.
+
+--- gvpack.1-unpatched	2014-06-02 11:55:59.837532832 -0400
++++ gvpack.1	2014-06-02 12:16:33.186050732 -0400
+@@ -10,7 +10,7 @@
+ .BI \-m margin
+ ]
+ [
+-.B \-array\fI[_flags][n]\fP
++.B \-array\fIopts\fP
+ ]
+ [
+ .BI \-o outfile

@@ -1,0 +1,12 @@
+--- openssl-c_rehash.1ssl-unpatched	2018-05-16 22:23:27.459325474 -0400
++++ openssl-c_rehash.1ssl	2018-05-16 22:23:42.859220816 -0400
+@@ -135,8 +135,7 @@
+ .if n .ad l
+ .nh
+ .SH "NAME"
+-openssl\-c_rehash, openssl\-rehash,
+-c_rehash, rehash \- Create symbolic links to files named by the hash values
++openssl\-c_rehash, openssl\-rehash, c_rehash, rehash \- Create symbolic links to files named by the hash values
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ \&\fBopenssl\fR

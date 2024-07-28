@@ -1,0 +1,11 @@
+--- sh.distrib.1-unpatched	2018-05-31 06:14:28.666752262 -0400
++++ sh.distrib.1	2018-05-31 06:14:28.378754219 -0400
+@@ -1825,7 +1825,7 @@
+ .Ic shift
+ will issue an error message, and exit with return status 2.
+ .It test Ar expression
+-.It \&[ Ar expression Cm ]
++.It \&[ Ar expression \&]
+ The
+ .Ic test
+ utility evaluates the expression and, if it evaluates

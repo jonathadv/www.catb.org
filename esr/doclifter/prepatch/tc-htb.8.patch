@@ -1,0 +1,14 @@
+--- tc-htb.8-unpatched	2018-05-18 17:05:31.142610823 -0400
++++ tc-htb.8	2018-05-18 17:05:42.262535252 -0400
+@@ -4,9 +4,9 @@
+ .SH SYNOPSIS
+ .B tc qdisc ... dev
+ dev
+-.B  ( parent
++.B  { parent
+ classid
+-.B | root) [ handle
++.B | root } [ handle
+ major:
+ .B ] htb [ default
+ minor-id

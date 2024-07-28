@@ -1,0 +1,251 @@
+--- mmcli.8-unpatched	2016-02-19 07:18:27.741356143 -0500
++++ mmcli.8	2016-02-19 07:18:27.429357168 -0500
+@@ -116,7 +116,7 @@
+ in use, like \fIBearer\fR. For example:
+ 
+ .RS 7
+-/org/freedesktop/ModemManager1/\fIBearer\fR/4
++ /org/freedesktop/ModemManager1/\fIBearer\fR/4
+ .RE
+ 
+ .TP
+@@ -140,12 +140,14 @@
+ combination of the modes actually supported by the modem. In the
+ perfect case, the following are possible:
+ 
+-.Bd -literal -compact
++.RS
++.nf
+   \fB'2G'\fR  - 2G technologies, e.g. EDGE, CDMA1x
+   \fB'3G'\fR  - 3G technologies, e.g. HSPA, EV-DO
+   \fB'4G'\fR  - 4G technologies, e.g. LTE
+   \fB'ANY'\fR - for all supported modes.
+-.Ed
++.fi
++.RE
+ .TP
+ .B \-w, \-\-monitor\-state
+ Monitor the state of a given modem.
+@@ -556,36 +558,45 @@
+ 
+ You'll need first to know which the proper path/index is for the SIM in your
+ modem:
+-.Bd -literal -compact
++.RS
++.nf
+     $ mmcli -m 0 | grep SIM
+     SIM | path: '/org/freedesktop/ModemManager1/SIM/0'
+-.Ed
++.fi
++.RE
+ 
+ And after that, you can just use the SIM index:
+-.Bd -literal -compact
++.RS
++.nf
+     $ mmcli -i 0 --pin=1234
+     successfully sent PIN code to the SIM
+-.Ed
++.fi
++.RE
+ 
+ .SS Simple connect and disconnect
+ 
+ You can launch the simple connection process like:
+-.Bd -literal -compact
++.RS
++.nf
+     $ mmcli -m 0 --simple-connect="pin=1234,apn=internet"
+     successfully connected the modem
+-.Ed
++.fi
++.RE
+ 
+ Then, you can disconnect it like:
+-.Bd -literal -compact
++.RS
++.nf
+     $ mmcli -m 0 --simple-disconnect
+     successfully disconnected all bearers in the modem
+-.Ed
++.fi
++.RE
+ 
+ .SS 3GPP network scan
+ 
+ Scanning for 3GPP networks may really take a long time, so a specific timeout
+ must be given:
+-.Bd -literal -compact
++.RS
++.nf
+     $ mmcli -m 0 --3gpp-scan --timeout=300
+ 
+     Found 4 networks:
+@@ -593,13 +604,15 @@
+     21407 - Movistar (umts, current)
+     21401 - vodafone ES (umts, forbidden)
+     21403 - Orange (umts, forbidden)
+-.Ed
++.fi
++.RE
+ 
+ .SS Creating a new SMS message & storing it
+ 
+ Using the “sm” (SIM), you can do this using:
+ 
+-.Bd -literal -compact
++.RS
++.nf
+     $ mmcli -m 0 --messaging-create-sms="text='Hello world',number='+1234567890'"
+     Successfully created new SMS:
+         /org/freedesktop/ModemManager1/SMS/21 (unknown)
+@@ -627,14 +640,16 @@
+       ----------------------------
+       Messaging | supported storages: 'sm, me'
+                 |    default storage: 'me'
+-.Ed
++.fi
++.RE
+ 
+ .SS Sending SMS messages from files
+ 
+ As you can see below, the important part is the
+ \fB\-\-messaging\-create\-sms\-with\-data\fR and the \fBPATH\fR provided.
+ 
+-.Bd -literal -compact
++.RS
++.nf
+     $ sudo mmcli -m 0 \\
+            --messaging-create-sms="number='+1234567890'" \\
+            --messaging-create-sms-with-data=/path/to/your/file
+@@ -643,7 +658,8 @@
+ 
+     $ sudo mmcli -s 22 --send
+     successfully sent the SMS
+-.Ed
++.fi
++.RE
+ 
+ .SS Listing SMS messages
+ 
+@@ -651,13 +667,15 @@
+ recover the sent file with another \fBmmcli\fR command in their
+ ModemManager setup:
+ 
+-.Bd -literal -compact
++.RS
++.nf
+     $> sudo mmcli -m 0 --messaging-list-sms
+     Found 1 SMS messages:
+         /org/freedesktop/ModemManager1/SMS/0 (received)
+ 
+     $> sudo mmcli -s 0 --create-file-with-data=/path/to/the/output/file
+-.Ed
++.fi
++.RE
+ 
+ .SS GPS location status
+ 
+@@ -666,20 +684,23 @@
+ if you have more than one modem, just use --list-modems to check the
+ proper modem index:
+ 
+-.Bd -literal -compact
++.RS
++.nf
+     $ mmcli -m 0 --location-status
+     /org/freedesktop/ModemManager1/Modem/0
+       ----------------------------
+       Location | capabilities: '3gpp-lac-ci, gps-raw, gps-nmea'
+                |      enabled: 'none'
+                |      signals: 'no'
+-.Ed
++.fi
++.RE
+ 
+ The output says that the modem supports 3GPP Location area code/Cell
+ ID, GPS raw and GPS-NMEA location sources. None is enabled yet, as we
+ didn’t enable the modem, which we can do issuing:
+ 
+-.Bd -literal -compact
++.RS
++.nf
+     $ sudo mmcli -m 0 --enable
+     successfully enabled the modem
+ 
+@@ -689,29 +710,34 @@
+       Location | capabilities: '3gpp-lac-ci, gps-raw, gps-nmea'
+                |      enabled: '3gpp-lac-ci'
+                |      signals: 'no'
+-.Ed
++.fi
++.RE
+ 
+ .SS GPS location technology enabling
+ 
+ We can enable the RAW and NMEA GPS location sources using:
+ 
+-.Bd -literal -compact
++.RS
++.nf
+     $ sudo mmcli -m 0 \\
+                  --location-enable-gps-raw \\
+                  --location-enable-gps-nmea
+     successfully setup location gathering
+-.Ed
++.fi
++.RE
+ 
+ If we do check again the status, we’ll see the GPS-specific locations are enabled:
+ 
+-.Bd -literal -compact
++.RS
++.nf
+     $ mmcli -m 0 --location-status
+     /org/freedesktop/ModemManager1/Modem/0
+       ----------------------------
+       Location | capabilities: '3gpp-lac-ci, gps-raw, gps-nmea'
+                |      enabled: '3gpp-lac-ci, gps-raw, gps-nmea'
+                |      signals: 'no'
+-.Ed
++.fi
++.RE
+ 
+ .SS GPS location retrieval
+ 
+@@ -719,7 +745,8 @@
+ \fB\-\-location\-get\-3gpp\fR, \fB\-\-location\-get\-gps\-nmea\fR and
+ \fB\-\-location\-get\-gps\-raw\fR; but also for all at the same time:
+ 
+-.Bd -literal -compact
++.RS
++.nf
+     $ sudo mmcli -m 0 --location-get
+     /org/freedesktop/ModemManager1/Modem/0
+       -------------------------
+@@ -740,11 +767,13 @@
+       Raw GPS         | Not available
+       -------------------------
+       CDMA BS         | Not available
+-.Ed
++.fi
++.RE
+ 
+ An example of RAW GPS location information:
+ 
+-.Bd -literal -compact
++.RS
++.nf
+     $ sudo mmcli -m 0 --location-get-gps-raw
+     /org/freedesktop/ModemManager1/Modem/0
+       -------------------------
+@@ -752,7 +781,8 @@
+                       | Longitude: '-3.513941'
+                       |  Latitude: '40.502603'
+                       |  Altitude: '18.000000'
+-.Ed
++.fi
++.RE
+ 
+ .SH AUTHOR
+ Martyn Russell <martyn@lanedo.com>

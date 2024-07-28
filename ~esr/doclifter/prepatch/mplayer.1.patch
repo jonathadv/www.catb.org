@@ -1,0 +1,50 @@
+--- mplayer.1-unpatched	2018-05-29 05:26:45.848566488 -0400
++++ mplayer.1	2018-05-29 05:29:40.187381672 -0400
+@@ -50,24 +50,20 @@
+ .
+ .br
+ .B mplayer
+-[options] file1
+-[specific options] [file2] [specific options]
++[options] file1 [file-specific-options] [file2]
++[file-specific options]
+ .
+ .br
+-.B mplayer
+-[options]
+-{group of files and options}
++.B mplayer [options] {files-and-options}
+ [group-specific options]
+-.
++
+ .br
+ .B mplayer
+-[br]://[title][/device]
+-[options]
++[br]://[title][/device] [options]
+ .
+ .br
+ .B mplayer
+-[dvd|dvdnav]://[title|[start_title]\-end_title][/device]
+-[options]
++[dvd|dvdnav]://[title|[start_title]\-end_title][/device] [options]
+ .
+ .br
+ .B mplayer
+@@ -1500,7 +1496,7 @@
+ .TP
+ .B \-capture (MPlayer only)
+ Allows capturing the primary stream (not additional audio tracks or other
+-kind of streams) into the file specified by \-dumpfile or \"stream.dump\"
++kind of streams) into the file specified by \-dumpfile or "stream.dump"
+ by default.
+ If this option is given, capturing can be started and stopped by pressing
+ the key bound to this function (see section INTERACTIVE CONTROL).
+@@ -9317,6 +9313,7 @@
+ .IPs eq(a,b)
+ is 1 if a==b, 0 otherwise
+ .IPs "sin, cos, tan, sinh, cosh, tanh, exp, log, abs"
++normal trigonometric functions
+ .RE
+ .
+ .TP

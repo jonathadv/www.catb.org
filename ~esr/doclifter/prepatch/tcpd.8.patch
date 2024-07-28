@@ -1,0 +1,44 @@
+--- tcpd.8-unpatched	2012-06-28 13:33:32.121172586 -0400
++++ tcpd.8	2012-06-28 13:34:58.585170970 -0400
+@@ -88,13 +88,13 @@
+ original finger daemon to the "other" place and install tcpd in the
+ place of the original finger daemon. No changes are required to
+ configuration files.
++.RS
+ .nf
+-.sp
+-.in +5
+ # mkdir /other/place
+ # mv /usr/sbin/in.fingerd /other/place
+ # cp tcpd /usr/sbin/in.fingerd
+ .fi
++.RE
+ .PP
+ The example assumes that the network daemons live in /usr/sbin. On some
+ systems, network daemons live in /usr/sbin or in /usr/libexec, or have
+@@ -106,17 +106,21 @@
+ In order to monitor access to the \fIfinger\fR service, perform the
+ following edits on the \fIinetd\fR configuration file (usually 
+ \fI/etc/inetd.conf\fR):
+-.nf
+ .sp
+-.ti +5
++.RS
++.nf
+ finger  stream  tcp  nowait  nobody  /usr/sbin/in.fingerd  in.fingerd
++.fi
++.RE
+ .sp
+ becomes:
+ .sp
+-.ti +5
++.RS
++.nf
+ finger  stream  tcp  nowait  nobody  /usr/sbin/tcpd     in.fingerd
+-.sp
+ .fi
++.RE
++.sp
+ .PP
+ The example assumes that the network daemons live in /usr/sbin. On some
+ systems, network daemons live in /usr/sbin or in /usr/libexec, the

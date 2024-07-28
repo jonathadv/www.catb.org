@@ -1,0 +1,18 @@
+--- pbget.1-unpatched	2012-06-29 12:51:58.309889429 -0400
++++ pbget.1	2012-06-29 12:52:17.097889078 -0400
+@@ -1,10 +1,10 @@
+ .TH pbput 1 "6 Oct 2010" bikeshed "bikeshed"
+ .SH NAME
+-pbput - compress and encode arbitrary files to pastebin.com
+-
+-pbputs - compress, encrypt, encode arbitrary files to pastebin.com
+-
+-pbget - decode and decompress arbitrary files from pastebin.com
++pbput \- compress and encode arbitrary files to pastebin.com
++.sp
++pbputs \- compress, encrypt, encode arbitrary files to pastebin.com
++.sp
++pbget \- decode and decompress arbitrary files from pastebin.com
+ 
+ .SH SYNOPSIS
+ \fBpbput\fP [FILENAME]

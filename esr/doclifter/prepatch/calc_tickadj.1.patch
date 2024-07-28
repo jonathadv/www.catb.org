@@ -1,0 +1,20 @@
+--- calc_tickadj.1-unpatched	2018-05-18 14:23:30.356673821 -0400
++++ calc_tickadj.1	2018-05-18 14:23:46.460564379 -0400
+@@ -15,14 +15,13 @@
+ .Op Fl flags
+ .Op Fl flag Op Ar value
+ .Op Fl \-option\-name Ns Oo Oo Ns "=| " Oc Ns Ar value Oc
+-.Pp
+-All arguments must be options.
+-.Pp
+ .Sh DESCRIPTION
+ The \fBcalc_tickadj\fP script uses provided ntp drift file to generate optimal
+ tick value. Generally, ntpd can do better job if the drift value is the
+ smallest possible number. 
+-.sp
++.Pp
++All arguments must be options.
++.Pp
+ The example output of 
+ .Bd -literal -offset indent
+ $ ./calc_tickadj

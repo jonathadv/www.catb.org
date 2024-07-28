@@ -1,0 +1,78 @@
+--- iptables-extensions.8-unpatched	2018-05-18 17:26:40.277985709 -0400
++++ iptables-extensions.8	2018-05-18 17:26:39.853988590 -0400
+@@ -3,10 +3,10 @@
+ iptables-extensions \(em list of extensions in the standard iptables distribution
+ .SH SYNOPSIS
+ \fBip6tables\fP [\fB\-m\fP \fIname\fP [\fImodule-options\fP...]]
+-[\fB\-j\fP \fItarget-name\fP [\fItarget-options\fP...]
++[\fB\-j\fP \fItarget-name\fP [\fItarget-options\fP...]]
+ .PP
+ \fBiptables\fP [\fB\-m\fP \fIname\fP [\fImodule-options\fP...]]
+-[\fB\-j\fP \fItarget-name\fP [\fItarget-options\fP...]
++[\fB\-j\fP \fItarget-name\fP [\fItarget-options\fP...]]
+ .SH MATCH EXTENSIONS
+ iptables can use extended packet matching modules
+ with the \fB\-m\fP or \fB\-\-match\fP
+@@ -2078,7 +2078,7 @@
+ Gives a client the same source-/destination-address for each connection.
+ This supersedes the SAME target. Support for persistent mappings is available
+ from 2.6.29-rc2.
+-.TP
++.PP
+ IPv6 support available since Linux kernels >= 3.7.
+ .SS DNPT (IPv6-specific)
+ Provides stateless destination IPv6-to-IPv6 Network Prefix Translation (as
+@@ -2098,7 +2098,7 @@
+ .PP
+ You have to use the SNPT target to undo the translation. Example:
+ .IP
+-ip6tables \-t mangle \-I POSTROUTING \-s fd00::/64 \! \-o vboxnet0
++ip6tables \-t mangle \-I POSTROUTING \-s fd00::/64 \-o vboxnet0
+ \-j SNPT \-\-src-pfx fd00::/64 \-\-dst-pfx 2001:e20:2000:40f::/64
+ .IP
+ ip6tables \-t mangle \-I PREROUTING \-i wlan0 \-d 2001:e20:2000:40f::/64
+@@ -2348,7 +2348,7 @@
+ If option
+ \fB\-\-random\fP
+ is used then port mapping will be randomized (kernel >= 2.6.21).
+-.TP
++.PP
+ IPv6 support available since Linux kernels >= 3.7.
+ .SS NETMAP
+ This target allows you to statically map a whole network of addresses onto
+@@ -2360,7 +2360,7 @@
+ Network address to map to.  The resulting address will be constructed in the
+ following way: All 'one' bits in the mask are filled in from the new `address'.
+ All bits that are zero in the mask are filled in from the original address.
+-.TP
++.PP
+ IPv6 support available since Linux kernels >= 3.7.
+ .SS NFLOG
+ This target provides logging of matching packets. When this target is
+@@ -2469,7 +2469,7 @@
+ If option
+ \fB\-\-random\fP
+ is used then port mapping will be randomized (kernel >= 2.6.22).
+-.TP
++.PP
+ IPv6 support available starting Linux kernels >= 3.7.
+ .SS REJECT (IPv6-specific)
+ This is used to send back an error packet in response to the matched
+@@ -2644,7 +2644,7 @@
+ in the
+ .B INPUT
+ chain.
+-.TP
++.PP
+ IPv6 support available since Linux kernels >= 3.7.
+ .SS SNPT (IPv6-specific)
+ Provides stateless source IPv6-to-IPv6 Network Prefix Translation (as described
+@@ -2664,7 +2664,7 @@
+ .PP
+ You have to use the DNPT target to undo the translation. Example:
+ .IP
+-ip6tables \-t mangle \-I POSTROUTING \-s fd00::/64 \! \-o vboxnet0
++ip6tables \-t mangle \-I POSTROUTING \-s fd00::/64 \-o vboxnet0
+ \-j SNPT \-\-src-pfx fd00::/64 \-\-dst-pfx 2001:e20:2000:40f::/64
+ .IP
+ ip6tables \-t mangle \-I PREROUTING \-i wlan0 \-d 2001:e20:2000:40f::/64

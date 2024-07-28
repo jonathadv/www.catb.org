@@ -1,0 +1,11 @@
+--- objdump.1-unpatched	2018-05-21 09:24:20.621123684 -0400
++++ objdump.1	2018-05-21 09:25:15.140753167 -0400
+@@ -163,7 +163,7 @@
+         [\fB\-R\fR|\fB\-\-dynamic\-reloc\fR]
+         [\fB\-s\fR|\fB\-\-full\-contents\fR]
+         [\fB\-W[lLiaprmfFsoRtUuTgAckK]\fR|
+-         \fB\-\-dwarf\fR[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames,=frames\-interp,=str,=loc,=Ranges,=pubtypes,=trace_info,=trace_abbrev,=trace_aranges,=gdb_index,=addr,=cu_index,=links,=follow\-links]
++         \fB\-\-dwarf\fR[=rawline,=decodedline,=info,=abbrev,=pubnames,=aranges,=macro,=frames,=frames\-interp,=str,=loc,=Ranges,=pubtypes,=trace_info,=trace_abbrev,=trace_aranges,=gdb_index,=addr,=cu_index,=links,=follow\-links]]
+         [\fB\-G\fR|\fB\-\-stabs\fR]
+         [\fB\-t\fR|\fB\-\-syms\fR]
+         [\fB\-T\fR|\fB\-\-dynamic\-syms\fR]

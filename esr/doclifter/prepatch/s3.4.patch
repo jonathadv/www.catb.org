@@ -1,0 +1,14 @@
+--- s3.4-unpatched	2012-08-10 08:37:52.936469789 -0400
++++ s3.4	2012-08-10 08:38:15.176469364 -0400
+@@ -50,9 +50,9 @@
+ 
+ .PP
+ Also driver supports the following RAMDACs:
+-.TP 12
++.IP 12
+ .B IBM 524, IBM 524A, IBM 526, IBM 526DB
+-.TP 12
++.IP 12
+ .B TI ViewPoint 3025 
+ 
+ .SH DESCRIPTION

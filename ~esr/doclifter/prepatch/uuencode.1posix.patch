@@ -1,0 +1,29 @@
+--- uuencode.1posix-unpatched	2018-04-17 21:29:15.222415662 -0400
++++ uuencode.1posix	2018-04-17 21:33:07.169958437 -0400
+@@ -128,7 +128,6 @@
+ used as an index into an array of 64 printable characters, as shown in
+ .IR "Table 4-22, uuencode Base64 Values".
+ .sp
+-.ce 1
+ \fBTable 4-22: uuencode Base64 Values\fR
+ .TS
+ center box tab(!);
+@@ -248,13 +247,14 @@
+ shall be converted into the four octets:
+ .sp
+ .RS 4
++.ft CW
+ .nf
+-\fB
+ 0x20 + (( A >> 2                    ) & 0x3F)
+-0x20 + (((A << 4) |\h'\n(XX' ((B >> 4) & 0xF)) & 0x3F)
+-0x20 + (((B << 2) |\h'\n(XX' ((C >> 6) & 0x3)) & 0x3F)
++0x20 + (((A << 4) | ((B >> 4) & 0xF)) & 0x3F)
++0x20 + (((B << 2) | ((C >> 6) & 0x3)) & 0x3F)
+ 0x20 + (( C                         ) & 0x3F)
+-.fi \fR
++.fi
++.ft R
+ .P
+ .RE
+ .P

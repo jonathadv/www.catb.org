@@ -1,0 +1,13 @@
+--- rz.1-unpatched	2012-06-28 13:11:22.985197444 -0400
++++ rz.1	2012-06-28 13:11:47.849196979 -0400
+@@ -126,8 +126,9 @@
+ The following entry works for
+ .SM Unix
+ SYS III/V:
+-.ce
++.RS
+ rzrmail::5:1::/bin:/usr/local/rzrmail
++.RE
+ If the SHELL environment variable includes
+ .I "rsh"
+ ,

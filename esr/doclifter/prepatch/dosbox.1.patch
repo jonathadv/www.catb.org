@@ -1,0 +1,67 @@
+--- dosbox.1-unpatched	2012-08-10 07:38:20.600536598 -0400
++++ dosbox.1	2012-08-10 07:38:33.200535971 -0400
+@@ -136,6 +136,15 @@
+ .B MOUNT \-u driveletter
+ .LP
+ .RB "Program to mount local directories as drives inside " dosbox .
++.sp 
++.B "Example:" 
++.RB "To mount your /home/dos/dosgames directory as the C drive in " dosbox :
++.RS
++mount c /home/dos/dosgames
++.RE
++.sp
++The following mount options and arguments are available:
++.sp
+ .RS
+ .TP
+ .I driveletter
+@@ -183,13 +192,6 @@
+ .B \-u
+ Unmounts a mounted drive. Doesn't work on virtual Drives (like Z:\\)
+ .RE
+-.PP 
+-.B "Example:" 
+-.TP
+-.RB "To mount your /home/dos/dosgames directory as C drive in " dosbox :
+-.RS
+-mount c /home/dos/dosgames
+-.RE
+ .TP
+ .B MEM
+ .LP
+@@ -251,7 +253,7 @@
+ .B IMGMOUNT
+ .LP
+ .RB "A utility to mount disk images and CD\(hyROM images in " dosbox .
+-.TP
++.PP
+ .RB "Read the " README " of " dosbox " for the full and correct syntax."
+ .RE
+ .TP
+@@ -259,7 +261,7 @@
+ .LP
+ Boot will start floppy images or hard disk images independent of the
+ .RB "operating system emulation offered by " dosbox ".  This will allow you to play booter floppies or boot to other operating systems inside " dosbox .
+-.TP
++.PP
+ .RB "Read the " README " of " dosbox " for the full and correct syntax."
+ .RE
+ .TP
+@@ -269,14 +271,14 @@
+ .RB "All of the IPX networking is managed through the internal " dosbox " program
+ .BR IPXNET ". For help on the IPX networking from inside " dosbox ", type"
+ .BR "IPXNET HELP" " and the program will list out the commands and relevant documentation."
+-.TP
++.PP
+ .RB "Read the " README " of " dosbox " for the full and correct syntax."
+ .RE
+ .TP
+ .B KEYB
+ .LP
+ Keyb can change the keyboardlayout and the codepage used inside dosbox.
+-.TP
++.PP
+ .RB "Read the " README " of " dosbox " for the full and correct syntax."
+ .RE
+ .SH FILES

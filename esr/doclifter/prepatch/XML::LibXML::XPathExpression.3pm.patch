@@ -1,0 +1,11 @@
+--- XML::LibXML::XPathExpression.3pm-unpatched	2018-06-03 06:17:57.307796793 -0400
++++ XML::LibXML::XPathExpression.3pm	2018-06-03 06:17:57.139797936 -0400
+@@ -73,7 +73,7 @@
+ .if n .ad l
+ .nh
+ .SH "NAME"
+-XML::LibXML::XPathExpression \- XML::LibXML::XPathExpression \- interface to libxml2 pre\-compiled XPath expressions
++XML::LibXML::XPathExpression \- interface to libxml2 pre\-compiled XPath expressions
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ .Vb 2

@@ -1,0 +1,23 @@
+
+REFERENCES:
+
+Tom's Root Boot: 
+http://www.toms.net/rb
+KRUD home page:
+http://tummy.com/krud
+KDE home page:
+http://www.kde.org
+Wine home page:
+http://winehq.com
+AntiWord:
+http://www.winfield.nl
+WV:
+http://wvware.sourceforge.net
+Google:
+http://www.google.com
+Chester County Interlink:
+http://www.ccil.org
+StarOffice:
+http://www.sun.com/software/star/staroffice
+Eric's Lookout Page:
+http://www.tuxedo.org/~esr/lookout

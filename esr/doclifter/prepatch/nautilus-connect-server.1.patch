@@ -1,0 +1,11 @@
+--- nautilus-connect-server.1-unpatched	2012-07-24 03:31:10.710390722 -0400
++++ nautilus-connect-server.1	2012-07-24 03:31:38.718390202 -0400
+@@ -39,7 +39,7 @@
+ .TP
+ .B \-\-version
+ Show version.
+-.TP
++.PP
+ Other standard GNOME options not listed here are also supported.
+ .SH SEE ALSO
+ Nautilus Connect Server documentation can be found from the "Help" menu, or by pressing the

@@ -1,0 +1,257 @@
+--- lftp.1-unpatched	2016-03-05 06:04:51.351879190 -0500
++++ lftp.1	2016-03-05 06:04:50.915880227 -0500
+@@ -31,15 +31,15 @@
+ .\"-------
+ .de Ds
+ .Sp
+-.in +0.5i
++.RS
+ .nf
+ ..
+ .\"-------
+ .\" De  end a display (no trailing vertical spacing)
+ .\"-------
+ .de De
++.RE
+ .fi
+-.in
+ ..
+ .TH lftp 1 "16 Jun 2015"
+ .SH NAME
+@@ -165,7 +165,7 @@
+ Site names can be used in the \fIopen\fP command directly as-is or in
+ any command that accepts input URLs using the \fIbm:site/path\fP format.
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ add <name> [<loc>]	T{
+@@ -183,7 +183,7 @@
+ The cache command controls local memory cache.
+ The following subcommands are recognized:
+ .Sp
+-.in +0.5i
++.RE
+ .TS
+ l	lx	.
+ stat	print cache status (default)
+@@ -375,7 +375,7 @@
+ instances of \fIrfile\fP (and \-o \fIlfile\fP). Does not expand wildcards, use
+ \fBmget\fR for that.
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-c	continue, reget
+@@ -386,6 +386,7 @@
+ specifies base directory or URL where files should be placed
+ T}
+ .TE
++.RE
+ .PP
+ Examples:
+ .Ds
+@@ -402,7 +403,7 @@
+ .PP
+ Transfer a single file. Options:
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-o <lfile>	T{
+@@ -420,6 +421,7 @@
+ position in target file to write data at
+ T}
+ .TE
++.RE
+ .P
+ .B glob
+ .RI " [" OPTS "] "
+@@ -515,7 +517,7 @@
+ Gets selected files with expanded wildcards.
+ .PP
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-c	continue, reget.
+@@ -528,6 +530,7 @@
+ specifies base directory or URL where files should be placed
+ T}
+ .TE
++.RE
+ .P
+ .B mirror
+ .RI [ OPTS "] [" source
+@@ -538,7 +541,7 @@
+ directory name. Source and/or target can be URLs pointing to directories.
+ .PP
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l1	l	lx	.
+ \-c,	\-\-continue	T{
+@@ -680,6 +683,7 @@
+ same as \-\-allow-chown \-\-allow-suid \-\-no-umask
+ T}
+ .TE
++.RE
+ .P
+ When using \-R, the source directory is local and the target is remote.
+ If the target directory is omitted, base name of the source directory is used.
+@@ -763,7 +767,7 @@
+ Upload files with wildcard expansion. By default it uses the base name of
+ local name as remote one. This can be changed by `\-d' option.
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-c	continue, reput
+@@ -778,6 +782,7 @@
+ specifies base directory or URL where files should be placed
+ T}
+ .TE
++.RE
+ .P
+ .B mrm
+ \fIfile(s)\fP
+@@ -811,7 +816,7 @@
+ you really have to transfer the file ASAP.
+ Options:
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-c	T{
+@@ -821,6 +826,7 @@
+ set maximum number of connections (default is taken from \fBpget:default-n\fP setting)
+ T}
+ .TE
++.RE
+ .P
+ .B put
+ .RB [ \-E ]
+@@ -833,7 +839,7 @@
+ Upload \fIlfile\fP with remote name \fIrfile\fP. If \-o omitted, the base name
+ of \fIlfile\fP is used as remote name. Does not expand wildcards, use \fBmput\fR for that.
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-o <rfile>	T{
+@@ -850,6 +856,7 @@
+ specifies base directory or URL where files should be placed
+ T}
+ .TE
++.RE
+ .P
+ .B pwd
+ .RB [ \-p ]
+@@ -888,7 +895,7 @@
+ destination is given.
+ .PP
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-q	Be quiet.
+@@ -897,6 +904,7 @@
+ Output in a format that can be used to re-queue. Useful with \-\-delete.
+ T}
+ .TE
++.RE
+ .PP
+ Examples:
+ .Ds
+@@ -909,7 +917,7 @@
+ .De
+ .PP
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ queue \-d 3	Delete the third item in the queue.
+@@ -923,6 +931,7 @@
+ Delete all commands matching "get*zip".
+ T}
+ .TE
++.RE
+ .P
+ .B quote
+ \fIcmd\fP
+@@ -972,7 +981,7 @@
+ Default delay is one second, default command is empty.
+ .PP
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-c <count>	maximum number of iterations
+@@ -981,6 +990,7 @@
+ \-\-until\-ok	stop when command exits with zero code
+ \-\-weak     	stop when lftp moves to background.
+ .TE
++.RE
+ .PP
+ Examples:
+ .Ds
+@@ -1019,12 +1029,13 @@
+ It can be changed by options:
+ .PP
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-a	list all settings, including default values
+ \-d	list only default values, not necessary current ones
+ .TE
++.RE
+ .P
+ .B site
+ \fIsite_cmd\fP
+@@ -1078,7 +1089,7 @@
+ .PP
+ Options:
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \-O <directory>	T{
+@@ -1105,6 +1116,7 @@
+ is printed when it's ready.
+ T}
+ .TE
++.RE
+ .P
+ .B user
+ \fIuser\fP [\fIpass\fP]
+@@ -1349,7 +1361,7 @@
+ 
+ The following escapes are supported:
+ .Sp
+-.in +0.5i
++.RS
+ .TS
+ l	lx	.
+ \\a	bell
+@@ -1359,6 +1371,7 @@
+ \\v	lftp version
+ \\T	the status string
+ .TE
++.RE
+ .TP
+ .BR cmd:time-style \ (string)
+ This setting is the default value for cls \-\-time\-style option.

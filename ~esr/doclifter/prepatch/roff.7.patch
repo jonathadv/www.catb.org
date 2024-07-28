@@ -1,0 +1,15 @@
+--- roff.7-unpatched	2016-03-08 13:42:22.792967604 -0500
++++ roff.7	2016-03-08 13:42:37.404939862 -0500
+@@ -1040,9 +1040,9 @@
+ .RS
+ .IP
+ .EX
+-\&.\[rs]" Local Variables:\""
+-\&.\[rs]" mode: nroff\""
+-\&.\[rs]" End:\""
++\&.\[rs]" Local Variables:
++\&.\[rs]" mode: nroff
++\&.\[rs]" End:
+ .EE
+ .RE
+ .

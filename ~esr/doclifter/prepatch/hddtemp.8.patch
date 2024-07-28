@@ -1,0 +1,61 @@
+I've also canonicalized the email address so doclifter can turn it
+into a mailto URL.
+
+--- hddtemp.8-unpatched	2016-03-07 10:14:13.166168573 -0500
++++ hddtemp.8	2016-03-07 10:16:01.101868294 -0500
+@@ -106,15 +106,15 @@
+ is, and/or just add a new entry in /etc/hddtemp.db.  Each
+ line of hddtemp.db is either a comment, a blank line or a line
+ containing:
+-.TP
+-- a regular expression that allow hddtemp to recognize a drive or a
++.IP
++a regular expression that allow hddtemp to recognize a drive or a
+ set of drives from its model name or from a generic model name,
+-.TP
+-- a value (ATTRIBUTE_ID from S.M.A.R.T.),
+-.TP
+-- a C or an F to set the unit to Celsius or Fahrenheit,
+-.TP
+-- a description.
++.IP
++a value (ATTRIBUTE_ID from S.M.A.R.T.),
++.IP
++a C or an F to set the unit to Celsius or Fahrenheit,
++.IP
++a description.
+ .PP
+ Feedback is welcome (see the REPORT section below).
+ 
+@@ -157,14 +157,14 @@
+ .PP
+ So, you can try to guess which field by is the good one by running
+ hddtemp at regular intervals:
+-.TP
+- - just after starting up your PC/server/station,
+-.TP
+- - after opening a window (a physical window :),
+-.TP
+- - after opening the case,
+-.TP
+- - whatever you can think of...
++.IP
++just after starting up your PC/server/station,
++.IP
++after opening a window (a physical window :),
++.IP
++after opening the case,
++.IP
++whatever you can think of...
+ .PP
+ and looking for a field's value that would increase or decrease
+ depending on what effect you want to induce.  Be careful, fields 4, 9,
+@@ -188,7 +188,7 @@
+ 
+ .SH "AUTHOR"
+ .PP
+-Emmanuel Varagnat (hddtemp@guzu.net).
++Emmanuel Varagnat <hddtemp@guzu.net>.
+ .PP
+ This manual page was originally written by Aurelien Jarno <aurel32@debian.org>,
+ for the Debian GNU/Linux system (but may be used by others).

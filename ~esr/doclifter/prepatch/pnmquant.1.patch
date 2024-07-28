@@ -1,0 +1,26 @@
+--- pnmquant.1-unpatched	2012-06-29 15:06:42.109738253 -0400
++++ pnmquant.1	2012-06-29 15:07:30.101737353 -0400
+@@ -13,11 +13,6 @@
+ .RI [ pnmfile ]
+ .fi
+ 
+-All options can be abbreviated to their shortest unique prefix.  You
+-may use two hyphens instead of one to designate an option.  You may
+-use either white space or equals signs between an option name and its
+-value.
+-
+ .SH DESCRIPTION
+ Reads a PNM image as input.  Chooses
+ .I ncolors
+@@ -35,6 +30,11 @@
+ understand
+ .BR pnmquant .
+ 
++As with those programs, options can be abbreviated to their shortest
++unique prefix.  You may use two hyphens instead of one to designate an
++option.  You may use either white space or equals signs between an
++option name and its value.
++
+ It is much faster to call 
+ .B pnmcolormap
+ and

@@ -1,0 +1,81 @@
+				yacchack
+
+For updates and related resources, http://www.tuxedo.org/~esr/home.html.
+
+This package contains four files:
+
+0. READ.ME
+	This file.
+
+1. yaccpar
+	This is an upward-compatible replacement for /usr/lib/yaccpar.
+A quick diff will show that the only changes are enclosed in #ifdef YYPARSE/
+#endif pairs; the old interface to YACC-generated parsers is still supported.
+
+2. yyparse.h
+	This file #defines YYPARSE and the yyparse_t parse control structure.
+If you include it in your .y file, therefore, the new interface features will
+be automatically enabled.
+
+3. yacc
+	This shellscript is a front end for /usr/bin/yacc that implements
+both the postprocessing necessary to seal off new-style YACC parsers from
+the outside world and the proposed changes in output file naming (and the
+-b option to generate old-style y.tab.[ch] files).
+
+The new features enabled by these files are as follows:
+
+A. Multiple parsers in one runtime without conflict
+B. Parsing functions may be named by the user.
+C. Lexer functions may have any user-specified name.
+D. Compilation of multiple grammars in one directory won't screw up.
+
+Features A, B and C require inclusion of the yyparse.h header file in your
+YACC source; feature D is implemented (imperfectly, concurrent yacc runs can
+still lose) by the yacc front end.
+
+If the new header file is included, the value of the preprocessor symbol
+YYPARSE will become the name of the parsing function. This name is set by
+yyparse.h to default to 'yyparse' if no other definition is given.
+
+If the header file is *not* included, yaccpar will compile to the old-style
+code, with the old-style interface and all its globals indecently exposed.
+
+In the new interface, the parser function takes an argument which is the
+address of a parse control block (yyparse_t) as defined in yyparse.h.
+This structure contains
+
+	1. three writeable members; these are to contain the address of
+	   your lexer function, the place the parser expects to find
+ 	   token values after a lexer call, and the runtime debug flag.
+
+	2. readable members holding all the rest of the parser's state
+	   information.
+
+New-style parsers have no public data other than what's in their control
+blocks. Thus, several may coexist happily in a single runtime.
+
+Most grammar-production and helper code will not need to be modified at all
+to move to the new interface. The yaccpar file defines macros that map all
+the old global names to the corresponding elements of the parse control
+block; these macros are effective over all user code in the parser.
+
+The interface to the lexer changes slightly in that the parse control
+block must be initialized with the lexer function address. Also,
+references to yylval from outside the generated module will raise a
+link error; they'll need to be replaced with references to the proper
+control block slot.
+
+(In C++, the parse control block should become a class with the generated
+parser as a member function associated with each instance. Then the renaming
+kluge via YYPARSE could go away!)
+
+The proposed new naming convention is simply that (unless the new -b option
+is given to force the old behavior) a yacc run on <stem>.y produces output
+files <stem>.c (instead of y.tab.c), <stem>.h (instead of y.tab.h), and
+<stem>.d (instead of y.output).
+
+Since the default .y.c make rule moves y.tab.c to <stem>.c already, the only
+incompatibility risk this poses is to sites that a) use y.tab.c explicitly in
+their makefiles, or b) both use the -d option *and* have header files named
+<stem>.h (a rather unlikely circumstance).

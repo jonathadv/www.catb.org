@@ -1,0 +1,37 @@
+--- html2text.1-unpatched	2013-06-10 13:31:37.719812847 -0400
++++ html2text.1	2013-06-10 13:31:55.287812519 -0400
+@@ -4,6 +4,10 @@
+ .\"
+ .\" Comments and suggestions are welcome.
+ .\"
++.de URL
++\\$2 \(laURL: \\$1 \(ra\\$3
++..
++.if \n[.g] .mso www.tmac 
+ .TH html2text 1 2008\-09\-20
+ .SH NAME
+ html2text \- an advanced HTML\-to\-text converter
+@@ -26,11 +30,11 @@
+ .I path
+ ] [
+ .B \-style
+-(
++{
+ .B compact
+ |
+ .B pretty
+-)
++}
+ ] [
+ .B \-width
+ .I width
+@@ -230,8 +234,7 @@
+ .br
+ Martin Bayer <mail@mbayer.de>
+ .br
+-.UR
+-http://www.mbayer.de/html2text/files.shtml
++.URL http://www.mbayer.de/html2text/files.shtml
+ .P
+ This man page was modified for Debian by Eugene V. Lyubimkin <jackyf.devel@gmail.com>
+ .UE

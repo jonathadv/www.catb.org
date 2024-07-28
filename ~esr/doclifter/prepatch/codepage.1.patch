@@ -1,0 +1,27 @@
+The incorrect sytntax used to express option alternation cannot be lifted
+to XML.  In addition, use of <> around the filename argument violates
+the normal convention and is unparseable.
+
+--- codepage.1-unpatched	2010-07-24 20:52:28.000000000 -0400
++++ codepage.1	2010-07-24 20:53:50.000000000 -0400
+@@ -7,16 +7,16 @@
+ .B codepage 
+ [ 
+ .I \-c 
+-] | [ 
++| 
+ .I \-l
+-] | 
++| 
+ .I \-L 
+-] | [
++|
+ .I \-a 
+ | 
+ .I nnn
+ ] 
+-.I <file.cpi>
++.I file.cpi
+ 
+ .SH DESCRIPTION
+ The

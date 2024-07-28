@@ -1,0 +1,19 @@
+--- ppmtoxpm.1-unpatched	2012-06-29 16:28:46.453646161 -0400
++++ ppmtoxpm.1	2012-06-29 16:28:56.281645978 -0400
+@@ -9,8 +9,6 @@
+ .RB [ -alphamask=\fIpgmfile ]
+ .RI [ ppmfile ]
+ 
+-Minimum unique abbrevations are acceptable.
+-
+ .SH DESCRIPTION
+ Reads a portable pixmap as input.  Produces X11 pixmap (version 3) as
+ output which can be loaded directly by the XPM library.
+@@ -26,6 +24,7 @@
+ xbmtopbm dot | ppmtoxpm -name dot -rgb rgb.txt
+ 
+ .SH OPTIONS
++Minimum unique abbrevations are acceptable.
+ .TP
+ .B -name=\fIxpmname\fR
+ The 

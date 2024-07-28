@@ -1,0 +1,41 @@
+= pytogo README =
+// SPDX-FileCopyrightText: (C) Eric S. Raymond <esr@thyrsus.com>
+// SPDX-License-Identifier: BSD-2-Clause
+
+pytogo is a fast, crude, incomplete Python-to-Go translator meant to
+assist a human programmer in translating large volumes of Python to
+idiomatic Go, preserving comments and structure. It does the
+mechanical things that are easy for software but hard for humans,
+leaving a human free to concentrate on the hard parts like type
+annotations.
+
+It exists because at the time it was written the only automated
+translators available either produced rather horrifying generated Go
+or wouldn't translate standalone Python code to standalone Go.
+
+It is conservative, never actually throwing away information from the
+input Python (there is one carefully-documented exception to this). It
+assumes its Python input is well-formed, and can fail on inputs that
+are sufficiently weird.
+
+You can use PEP484 type annotations to improve the quality of the
+generated Go code.
+
+A detailed sequence of steps for relisable conversion is desceibed on
+the manual page.
+
+People using this tool might also want to know about these projects:
+
+https://github.com/ianbruene/go-difflib[go-difflib]::
+	Much of Python's difflib ported to Go.
+
+https://gitlab.com/esr/gogetopt::
+	Python getopt ported to Go.
+
+https://gitlab.com/ianbruene/kommandant[kommandant]::
+	Python Cmd ported to Go.
+
+https://github.com/chzyer/readline::
+	Readline workalike that can be used to translate Python raw_input().
+
+// end

@@ -1,0 +1,55 @@
+# Example Ruleset
+# Scott Bronson
+# 11 Nov 2001
+
+condition trits on y	# always use trits (Y/M/N) instead of booleans
+
+start main         		# Start with the menu named 'main'
+
+
+# First define the symbols to configure
+symbols
+AP1	'Use Symbol 1' text
+This is the help text for symbol 1.
+.
+AP2	'Use Symbol 2' text
+This is the help text for symbol 2.
+.
+AP21 'Use Symbol 2.1' text
+This is the help text for symbol 2.1
+.
+AP3	'Use Symbol 3' text
+This is the help text for symbol 3.
+.
+SUB1	'Not normally visble' text
+But defaults to y
+.
+
+main 'Simple CML2 Example'
+subordinate 'Visibility check'
+
+explain_ap1		'If AP1 is y, then AP2 and AP3 both must be n.  This is just a random restriction.'
+
+
+# We'll set AP1 to y by default.
+default AP1 from y
+
+
+# Define the relationships between the options:
+unless AP2>=m suppress AP21 			# AP21 is not visible unless ap2 is either y or m
+require AP1 implies AP2==n and AP3==n	# if AP1 is y, then everything else is n
+	explanation explain_ap1
+
+
+menu main
+	AP1
+	AP2?
+	AP21
+	AP3? {subordinate}
+
+default SUB1 from y
+
+menu subordinate
+	SUB1?
+	
+derive SAMPLE_STRING from "foo?"

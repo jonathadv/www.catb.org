@@ -1,0 +1,11 @@
+--- B::Hooks::EndOfScope::XS.3pm-unpatched	2018-05-29 06:46:38.471995554 -0400
++++ B::Hooks::EndOfScope::XS.3pm	2018-05-29 06:46:38.311996640 -0400
+@@ -77,7 +77,7 @@
+ .if n .ad l
+ .nh
+ .SH "NAME"
+-B::Hooks::EndOfScope::XS \- Execute code after a scope finished compilation \- XS implementation
++B::Hooks::EndOfScope::XS \- Execute code after a scope finished compilation
+ .SH "VERSION"
+ .IX Header "VERSION"
+ version 0.21

@@ -1,0 +1,27 @@
+--- open.1-unpatched	2013-05-25 13:59:12.816419954 -0400
++++ open.1	2013-05-25 13:59:12.548419959 -0400
+@@ -75,18 +75,17 @@
+ .SH EXAMPLES
+ .B openvt
+ can be used to start a shell on the next free VT, by using the command:
+-.TP
++.RS
+ .I "openvt bash"
+-.TP
+-
++.RE
+ To start the shell as a login shell, use:
+-.TP
++.RS
+ .I "openvt -l bash"
+-.TP
+-
++.RE
+ To get a long listing you must supply the \-\- separator:
+-.TP
++.RS
+ .I "openvt -- ls -l"
++.RE
+ .BR
+ 
+ .SH HISTORY

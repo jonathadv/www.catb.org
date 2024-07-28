@@ -1,0 +1,19 @@
+--- sane-lexmark.5-unpatched	2018-05-14 01:02:33.947984542 -0400
++++ sane-lexmark.5	2018-05-14 01:04:04.163371433 -0400
+@@ -135,13 +135,13 @@
+ 
+ 
+ .SH "AUTHOR"
+-.TP 
++.PP 
+ The backend was originally written by Fred Odendaal.
+ .I http://ca.geocities.com/freshshelf@rogers.com/
+-.TP 
++.PP 
+ The new version is currently developed by St\['e]phane Voltz.
+ .I http://stef.dev.free.fr/sane/lexmark
+-.TP
++.PP
+ X74 support was written by Torsten Houwaart (<ToHo@gmx.de>)
+ .SH "CREDITS"
+ .TP 

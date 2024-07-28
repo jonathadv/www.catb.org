@@ -1,0 +1,44 @@
+--- ilbmtoppm.1-unpatched	2012-07-05 21:44:32.827597079 -0400
++++ ilbmtoppm.1	2012-07-05 21:44:45.543596861 -0400
+@@ -15,21 +15,21 @@
+ .IX "ILBM"
+ Produces a portable pixmap as output.
+ Supported ILBM types are:
+-.TP
++.IP
+ Normal ILBMs with 1-16 planes.
+-.TP
++.IP
+ Amiga Extra_Halfbrite (EHB)
+ .IX "Amiga"
+-.TP
++.IP
+ Amiga HAM with 3-16 planes.
+ .IX "HAM"
+-.TP
++.IP
+ 24 bit.
+-.TP
++.IP
+ Multiplatte (normal or HAM) pictures.
+-.TP
++.IP
+ Color map (BMHD + CMAP chunk only, nPlanes = 0).
+-.TP
++.IP
+ Unofficial direct color.
+ 1-16 planes for each color component.
+ .TP
+@@ -42,10 +42,10 @@
+ .TP
+ Other chunks (ignored but displayed in verbose mode):
+ NAME, AUTH, (c), ANNO, DPI
+-.TP
++.PP
+ Unknown chunks are skipped.
+ .SH OPTIONS
+-.TP
++.PP
+ .B -verbose
+ Give some information about the ILBM file.
+ .TP

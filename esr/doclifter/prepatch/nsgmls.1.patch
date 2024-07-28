@@ -1,0 +1,104 @@
+--- nsgmls.1-unpatched	2012-07-26 11:53:06.542595929 -0400
++++ nsgmls.1	2012-07-26 11:53:15.650595762 -0400
+@@ -17,12 +17,6 @@
+ .TH NSGMLS 1
+ .SH NAME
+ nsgmls \- a validating SGML parser
+-.sp
+-An \*S System Conforming to
+-.if n .br
+-International Standard ISO 8879 \(em
+-.br
+-Standard Generalized Markup Language
+ .SH SYNOPSIS
+ .B nsgmls
+ [
+@@ -62,6 +56,13 @@
+ .IR sysid \|.\|.\|.
+ ]
+ .SH WARNING
++.I Nsgmls
++is a \*S System Conforming to
++.if n .br
++International Standard ISO 8879 \(em
++.br
++Standard Generalized Markup Language
++
+ This manual page may be out of date.  Consult the HTML documentation for
+ the most up-to-date information concerning this program.
+ You can find the HTML document in:
+@@ -836,6 +837,7 @@
+ .I nsgmls
+ is as follows:
+ .LP
++ft CW
+ .TS
+ tab(&);
+ c1 s1 s1 s1 s1 s1 s1 s1 s
+@@ -856,7 +858,7 @@
+ SYSTEM "ISO 8879:1986"
+ CHARSET
+ BASESET&"ISO 646-1983//CHARSET
+-&\h'\w'"'u'International Reference Version (IRV)//ESC 2/5 4/0"
++&\ International Reference Version (IRV)//ESC 2/5 4/0"
+ DESCSET&0\0128\00
+ CAPACITY&PUBLIC&"ISO 8879:1986//CAPACITY Reference//EN"
+ FEATURES
+@@ -875,6 +877,7 @@
+ SDIF
+ &PACK&NO&UNPACK&NO
+ .TE
++.ft
+ .LP
+ The limit for the \s-1SUBDOC\s0 parameter is memory dependent.
+ .LP
+@@ -885,6 +888,7 @@
+ .B SGMLDECL
+ entry in a catalog,
+ the following declaration will be implied:
++.ft CW
+ .TS
+ tab(&);
+ c1 s1 s1 s1 s1 s1 s1 s1 s
+@@ -893,7 +897,7 @@
+ <!SGML "ISO 8879:1986"
+ CHARSET
+ BASESET&"ISO 646-1983//CHARSET
+-&\h'\w'"'u'International Reference Version (IRV)//ESC 2/5 4/0"
++&\ International Reference Version (IRV)//ESC 2/5 4/0"
+ DESCSET&\0\00\0\09\0UNUSED
+ &\0\09\0\02\0\09
+ &\011\0\02\0UNUSED
+@@ -910,7 +914,7 @@
+ SHUNCHAR&CONTROLS 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+ &18 19 20 21 22 23 24 25 26 27 28 29 30 31 127 255
+ BASESET&"ISO 646-1983//CHARSET International Reference Version
+-&\h'\w'"'u'(IRV)//ESC 2/5 4/0"
++&\ (IRV)//ESC 2/5 4/0"
+ DESCSET&0\0128\00
+ .T&
+ l l l l s s s s s.
+@@ -958,6 +962,7 @@
+ c s s s s s s s s.
+ APPINFO NONE>
+ .TE
++.ft
+ with the exception that all characters that are neither significant
+ not shunned will be assigned to \s-1DATACHAR\s0.
+ .LP
+@@ -998,6 +1003,7 @@
+ These are identified using the designating sequence in the
+ public identifier.  The following designating sequences are
+ recognized:
++.ft CW
+ .TS
+ tab(&);
+ c c c c c
+@@ -1013,6 +1019,7 @@
+ ESC 2/8 4/2&6&0&128&G0 set of ASCII
+ ESC 2/1 4/0&1&0&32&C0 set of ISO 646
+ .TE
++.ft
+ .LP
+ The graphic character sets do not strictly include
+ C0 and C1 control character sets.

@@ -1,0 +1,23 @@
+--- buildhash.1-unpatched	2016-02-19 06:50:58.170526134 -0500
++++ buildhash.1	2016-02-19 06:50:57.726527467 -0500
+@@ -172,7 +172,10 @@
+ .br
+ .B ispell
+ .BR \-v [ v ]
+-.IP \fIcommon-flags\fP:
++
++\fIcommon-flags\fP:
++
++.B ispell
+ .RB [ \-t ]
+ .RB [ \-n ]
+ .RB [ \-H ]
+@@ -198,6 +201,8 @@
+ .IR list ]
+ .RB [ \-F
+ .IR program ]
++
++Helper programs:
+ .PP
+ Helper programs:
+ .PP

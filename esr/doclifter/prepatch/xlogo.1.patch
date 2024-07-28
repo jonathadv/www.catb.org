@@ -1,0 +1,16 @@
+--- xlogo.1-unpatched	2012-07-25 04:35:32.228702714 -0400
++++ xlogo.1	2012-07-25 04:36:00.528702188 -0400
+@@ -64,10 +64,10 @@
+ is given first, followed by the widget instance name.
+ .sp
+ .nf
+-.TA .5i
+-.ta .5i
++.ft CW
+ XLogo  xlogo
+-	Logo  xlogo
++        Logo  xlogo
++.ft
+ .fi
+ .sp
+ .SH ENVIRONMENT

@@ -1,0 +1,12 @@
+--- pnmhisteq.1-unpatched	2012-06-29 14:58:38.993747288 -0400
++++ pnmhisteq.1	2012-06-29 14:59:18.833746539 -0400
+@@ -151,8 +151,8 @@
+ Boca Raton: CRC Press, 1992.  Pages 105-110.
+ .ne 10
+ .SH AUTHOR
+-.ce 2
+ Copyright (C) 1995 by John Walker (kelvin@fourmilab.ch).
++.br
+ WWW home page: http://www.fourmilab.ch/
+ .PP
+ Permission to use, copy, modify, and distribute this software and its

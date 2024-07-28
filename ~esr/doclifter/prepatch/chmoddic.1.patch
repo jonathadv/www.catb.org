@@ -1,0 +1,11 @@
+--- chmoddic.1-unpatched	2014-06-03 14:38:58.300316497 -0400
++++ chmoddic.1	2014-06-03 14:39:50.681554776 -0400
+@@ -26,7 +26,7 @@
+ .SH "SYNOPSIS"
+ .nf
+ .ft 4
+-chmoddic [{(\-cs | \- cannaserver} \f2canna-server\f4] {+ | \-}{r|w|rw|wr} 
++chmoddic [{\-cs | \- cannaserver} \f2canna-server\f4] {+ | \-}{r|w|rw|wr} 
+ [\-G] \f2dicname\f4
+ .ft 1
+ .fi

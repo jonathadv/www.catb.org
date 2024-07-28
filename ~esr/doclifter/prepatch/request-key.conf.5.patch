@@ -1,0 +1,17 @@
+--- request-key.conf.5-unpatched	2016-03-05 09:04:54.492319620 -0500
++++ request-key.conf.5	2016-03-05 09:05:22.500228269 -0500
+@@ -130,12 +130,9 @@
+ will create an instantiated user-defined key with the callout information as
+ the payload.
+ .SH FILES
+-.ul
++.IP ""
+ /etc/request-key.conf
+-.ul 0
+-.br
+-.ul
++.IP ""
+ /etc/request-key.d/<keytype>.conf
+-.ul 0
+ .SH SEE ALSO
+ \fBkeyctl\fR(1), \fBrequest-key.conf\fR(5)

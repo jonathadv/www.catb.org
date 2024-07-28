@@ -1,0 +1,56 @@
+Renaming stock man macros is likely to fail on third-party readers sucj
+as Rosetta, TKMan, or Xman.  Please fix up this page so it doesn't use rn.
+
+--- formail.1-unpatched	2012-08-10 09:23:09.128418993 -0400
++++ formail.1	2012-08-10 09:23:42.532418332 -0400
+@@ -5,36 +5,6 @@
+ ..
+ .Id $Id: formail.man,v 1.46 2001/08/04 06:08:17 guenther Exp $
+ .TH FORMAIL 1 \*(Dt BuGless
+-.rn SH Sh
+-.de SH
+-.br
+-.ne 11
+-.Sh "\\$1"
+-..
+-.rn SS Ss
+-.de SS
+-.br
+-.ne 10
+-.Ss "\\$1"
+-..
+-.rn TP Tp
+-.de TP
+-.br
+-.ne 9
+-.Tp \\$1
+-..
+-.rn RS Rs
+-.de RS
+-.na
+-.nf
+-.Rs
+-..
+-.rn RE Re
+-.de RE
+-.Re
+-.fi
+-.ad
+-..
+ .de Sx
+ .PP
+ .ne \\$1
+@@ -550,13 +520,3 @@
+ <guenther@sendmail.com>
+ .RE
+ .\".if n .pl -(\n(.tu-1i)
+-.rm SH
+-.rn Sh SH
+-.rm SS
+-.rn Ss SS
+-.rm TP
+-.rn Tp TP
+-.rm RS
+-.rn Rs RS
+-.rm RE
+-.rn Re RE

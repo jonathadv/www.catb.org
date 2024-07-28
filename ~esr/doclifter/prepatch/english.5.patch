@@ -1,0 +1,326 @@
+--- english.5-unpatched	2012-07-29 23:18:40.370906648 -0400
++++ english.5	2012-07-29 23:18:50.674905592 -0400
+@@ -88,212 +88,152 @@
+ .IR ispell (5)).
+ .PP
+ The meaning of the prefix flags is as follows:
+-.IP "*A"
+-.in +5m
+-.ti -5m
+-\&... --> re...  as in cover --> recover
+-.in -5m
+-.IP "*I"
+-.in +5m
+-.ti -5m
+-\&... --> in...  as in firm --> infirm
+-.in -5m
+-.IP "*U"
+-.in +5m
+-.ti -5m
+-\&... --> un...  as in able --> unable
+-.in -5m
++.TP
++*A
++\&... \[->] re...  as in cover \[->] recover
++.TP
++*I
++\&... \[->] in...  as in firm \[->] infirm
++.TP
++*U
++\&... \[->] un...  as in able \[->] unable
+ .PP
+ The meaning of the suffix flags is as follows:
+-.IP "V"
+-.in +5m
+-.ti -5m
+-\&...e --> ...ive  as in create --> creative
+-.br
+-.ti -5m
+-if # .ne. e, ...# --> ...#ive  as in prevent --> preventive
+-.in -5m
+-.IP "*N"
+-.in +5m
+-.ti -5m
+-\&...e --> ...ion  as in create --> creation
+-.br
+-.ti -5m
+-\&...y --> ...ication  as in multiply --> multiplication
+-.br
+-.ti -5m
+-if # .ne. e or y, ...# --> ...#en  as in fall --> fallen
+-.in -5m
+-.IP "*X"
+-.in +5m
+-.ti -5m
+-\&...e --> ...ions  as in create --> creations
+-.br
+-.ti -5m
+-\&...y --> ...ications  as in multiply --> multiplications
+-.br
+-.ti -5m
+-if # .ne. e or y, ...# --> ...#ens  as in weak --> weakens
+-.in -5m
+-.IP "H"
+-.in +5m
+-.ti -5m
+-\&...y --> ...ieth  as in twenty --> twentieth
+-.br
+-.ti -5m
+-if # .ne. y, ...# --> ...#th  as in hundred --> hundredth
+-.in -5m
+-.IP "*Y"
+-.in +5m
+-.ti -5m
+-\&...y --> ..ily as in messy --> messily
+-.br
+-.ti -5m
+-if # .ne y, ...# --> ...#ly  as in quick --> quickly
+-.in -5m
+-.IP "*G"
+-.in +5m
+-.ti -5m
+-\&...e --> ...ing  as in file --> filing
+-.br
+-.ti -5m
+-if # .ne. e, ...# --> ...#ing  as in cross --> crossing
+-.in -5m
+-.IP "*J"
+-.in +5m
+-.ti -5m
+-\&...e --> ...ings  as in file --> filings
+-.br
+-.ti -5m
+-if # .ne. e, ...# --> ...#ings  as in cross --> crossings
+-.in -5m
+-.IP "*D"
+-.in +5m
+-.ti -5m
+-\&...e --> ...ed  as in create --> created
++.TP
++V
++\&...e \[->] ...ive  as in create \[->] creative
++.br
++if # .ne. e, ...# \[->] ...#ive  as in prevent \[->] preventive
++
++.TP
++*N
++\&...e \[->] ...ion  as in create \[->] creation
++.br
++\&...y \[->] ...ication  as in multiply \[->] multiplication
++if # .ne. e or y, ...# \[->] ...#en  as in fall \[->] fallen
++.TP
++*X
++\&...e \[->] ...ions  as in create \[->] creations
++.br
++\&...y \[->] ...ications  as in multiply \[->] multiplications
++.br
++if # .ne. e or y, ...# \[->] ...#ens  as in weak \[->] weakens
++.TP
++H
++\&...y \[->] ...ieth  as in twenty \[->] twentieth
++.br
++if # .ne. y, ...# \[->] ...#th  as in hundred \[->] hundredth
++.TP
++*Y
++\&...y \[->] ..ily as in messy \[->] messily
++.br
++if # .ne y, ...# \[->] ...#ly  as in quick \[->] quickly
++.TP
++*G
++\&...e \[->] ...ing  as in file \[->] filing
++.br
++if # .ne. e, ...# \[->] ...#ing  as in cross \[->] crossing
++.TP
++*J
++\&...e \[->] ...ings  as in file \[->] filings
++.br
++if # .ne. e, ...# \[->] ...#ings  as in cross \[->] crossings
++.TP
++*D
++\&...e \[->] ...ed  as in create \[->] created
+ .br
+-.ti -5m
+-.br
+-.ti -5m
+ if @ .ne. a, e, i, o, or u,
+-\&...@y --> ...@ied  as in imply --> implied
++\&...@y \[->] ...@ied  as in imply \[->] implied
+ .br
+-.ti -5m
+ if # .ne. e or y, or (# = y and @ = a, e, i, o, or u)
+-\&...@# --> ...@#ed  as in cross --> crossed
+-or convey --> conveyed
+-.in -5m
+-.IP "T"
+-.in +5m
+-.ti -5m
+-\&...e --> ...est  as in late --> latest
++\&...@# \[->] ...@#ed  as in cross \[->] crossed
++or convey \[->] conveyed
++.TP
++T
++\&...e \[->] ...est  as in late \[->] latest
+ .br
+-.ti -5m
+ if @ .ne. a, e, i, o, or u,
+-\&...@y --> ...@iest  as in dirty --> dirtiest
++\&...@y \[->] ...@iest  as in dirty \[->] dirtiest
+ .br
+-.ti -5m
+ if # .ne. e or y, or (# = y and @ = a, e, i, o, or u)
+-\&...@# --> ...@#est  as in small --> smallest
+-or gray --> grayest
+-.in -5m
+-.IP "*R"
+-.in +5m
+-.ti -5m
+-\&...e --> ...er  as in skate --> skater
++\&...@# \[->] ...@#est  as in small \[->] smallest
++or gray \[->] grayest
++.TP 
++*R
++\&...e \[->] ...er  as in skate \[->] skater
+ .br
+-.ti -5m
+ if @ .ne. a, e, i, o, or u,
+-\&...@y --> ...@ier  as in multiply --> multiplier
++\&...@y \[->] ...@ier  as in multiply \[->] multiplier
+ .br
+-.ti -5m
+ if # .ne. e or y, or (# = y and @ = a, e, i, o, or u)
+-\&...@# --> ...@#er  as in build --> builder
+-or convey --> conveyer
+-.in -5m
+-.IP "*Z"
+-.in +5m
+-.ti -5m
+-\&...e --> ...ers  as in skate --> skaters
++\&...@# \[->] ...@#er  as in build \[->] builder
++or convey \[->] conveyer
++.TP
++*Z
++\&...e \[->] ...ers  as in skate \[->] skaters
+ .br
+-.ti -5m
+ if @ .ne. a, e, i, o, or u,
+-\&...@y --> ...@iers  as in multiply --> multipliers
++\&...@y \[->] ...@iers  as in multiply \[->] multipliers
+ .br
+-.ti -5m
+ if # .ne. e or y, or (# = y and @ = a, e, i, o, or u)
+-\&...@# --> ...@#ers  as in build --> builders
+-or slay --> slayers
+-.in -5m
+-.IP "*S"
+-.in +5m
+-.ti -5m
++\&...@# \[->] ...@#ers  as in build \[->] builders
++or slay \[->] slayers
++.TP
++*S
+ if @ .ne. a, e, i, o, or u,
+-\&...@y --> ...@ies  as in imply --> implies
++\&...@y \[->] ...@ies  as in imply \[->] implies
+ .br
+-.ti -5m
+ if # .eq. c, s, or t,
+-\&...#h --> ...#hes as in lash --> lashes
++\&...#h \[->] ...#hes as in lash \[->] lashes
+ .br
+-.ti -5m
+ if # .ne. c, s, or t,
+-\&...#h --> ...#hs as in cough --> coughs
++\&...#h \[->] ...#hs as in cough \[->] coughs
+ .br
+-.ti -5nm
+ if # .eq. s, x, or z,
+-\&...# --> ...#es  as in fix --> fixes
++\&...# \[->] ...#es  as in fix \[->] fixes
+ .br
+-.ti -5m
+ if # .ne. s, x, z, h, or y, or (# = y and @ = a, e, i, o, or u)
+-\&...@# --> ...@#s  as in bat --> bats
+-or convey --> conveys
+-.in -5m
+-.IP "P"
+-.in +5m
+-.ti -5m
++\&...@# \[->] ...@#s  as in bat \[->] bats
++or convey \[->] conveys
++.TP
++P
+ if @ .ne. a, e, i, o, or u,
+-\&...@y --> ...@iness  as in cloudy --> cloudiness
++\&...@y \[->] ...@iness  as in cloudy \[->] cloudiness
+ .br
+-.ti -5m
+ if # .ne. y, or @ = a, e, i, o, or u,
+-\&...@# --> ...@#ness  as in late --> lateness
+-or gray --> grayness
+-.in -5m
+-.IP "*M"
+-.in +5m
+-.ti -5m
+-\&... --> ...'s  as in dog --> dog's
+-.in -5m
++\&...@# \[->] ...@#ness  as in late \[->] lateness
++or gray \[->] grayness
++.TP
++*M
++\&... \[->] ...'s  as in dog \[->] dog's
+ .PP
+ To summarize more briefly:
+ .PP
+ Prefixes:
+-.RS
+-.nf
+-*A \- re
+-*I \- in
+-*U \- un
+-.fi
+-.RE
++.TS
++l l.
++*A	re
++*I	in
++*U	un
++.TE
+ .PP
+ Suffixes:
+-.RS
+-.nf
+-V \- ive
+-*N \- ion, tion, en
+-*X \- ions, ications, ens
+-H \- th, ieth
+-*Y \- ly, ily
+-*G \- ing
+-*J \- ings
+-*D \- ed
+-T \- est
+-*R \- er
+-*Z \- ers
+-*S \- s, es, ies
+-*P \- ness, iness
+-*M \- 's
+-.fi
+-.RE
++.TS
++l l.
++V	ive
++*N	ion, tion, en
++*X	ions, ications, ens
++H	th, ieth
++*Y	ly, ily
++*G	ing
++*J	ings
++*D	ed
++T	est
++*R	er
++*Z	ers
++*S	s, es, ies
++*P	ness, iness
++*M	's
++.TE
+ .SH "SEE ALSO"
+ ispell(1), ispell(5)

@@ -1,0 +1,50 @@
+--- groff_char.7-unpatched	2016-02-29 04:41:04.637145153 -0500
++++ groff_char.7	2016-02-29 04:42:04.720991734 -0500
+@@ -768,10 +768,10 @@
+ .nf
+ .RS
+ .ft C
+-\&.\e" Make a pile centered vertically 0.5em\""
+-\&.\e" above the baseline.\""
+-\&.\e" The first argument is placed at the top.\""
+-\&.\e" The pile is returned in string `pile'\""
++\&.\e" Make a pile centered vertically 0.5em
++\&.\e" above the baseline.
++\&.\e" The first argument is placed at the top.
++\&.\e" The pile is returned in string `pile'
+ \&.eo
+ \&.de pile-make
+ \&.  nr pile-wd 0
+@@ -782,16 +782,16 @@
+ \&.  while \en[pile-#] \e{\e
+ \&.    nr pile-wd (\en[pile-wd] >? \ew'\e$[\en[pile-#]]')
+ \&.    nr pile-ht +(\en[rst] - \en[rsb])
+-\&.    as pile-args \ev'\en[rsb]u'\e"\""
+-\&.    as pile-args \eZ'\e$[\en[pile-#]]'\e"\""
+-\&.    as pile-args \ev'-\en[rst]u'\e"\""
++\&.    as pile-args \ev'\en[rsb]u'\e"
++\&.    as pile-args \eZ'\e$[\en[pile-#]]'\e"
++\&.    as pile-args \ev'-\en[rst]u'\e"
+ \&.    nr pile-# -1
+ \&.  \e}
+ \&.
+-\&.  ds pile \ev'(-0.5m + (\en[pile-ht]u / 2u))'\e"\""
+-\&.  as pile \e*[pile-args]\e"\""
+-\&.  as pile \ev'((\en[pile-ht]u / 2u) + 0.5m)'\e"\""
+-\&.  as pile \eh'\en[pile-wd]u'\e"\""
++\&.  ds pile \ev'(-0.5m + (\en[pile-ht]u / 2u))'\e"
++\&.  as pile \e*[pile-args]\e"
++\&.  as pile \ev'((\en[pile-ht]u / 2u) + 0.5m)'\e"
++\&.  as pile \eh'\en[pile-wd]u'\e"
+ \&..
+ \&.ec
+ .ft
+@@ -808,7 +808,7 @@
+ glyphs.
+ .
+ For this reason, the four glyphs \[oq]lf\[cq], \[oq]rf\[cq],
+-\[o]lc\[cq], and \[oq]rc\[cq] are not unified with similarly looking
++\[oq]lc\[cq], and \[oq]rc\[cq] are not unified with similarly looking
+ bracket pieces.
+ .
+ In

@@ -1,0 +1,11 @@
+--- mtr.8-unpatched	2018-06-02 22:41:48.789794755 -0400
++++ mtr.8	2018-06-02 22:41:48.565796277 -0400
+@@ -164,7 +164,7 @@
+ .B \-c
+ option, and then print statistics and exit.  
+ .TP
+-\c
++\-c
+ This mode is useful for generating statistics about network quality.  
+ Note that each running instance of 
+ .B mtr

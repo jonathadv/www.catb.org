@@ -1,0 +1,71 @@
+--- eqn.1-unpatched	2016-03-05 14:02:14.691951378 -0500
++++ eqn.1	2016-03-05 14:02:24.619936183 -0500
+@@ -36,10 +36,6 @@
+ .  el .TP "\\$1"
+ ..
+ .
+-.\" The BSD man macros can't handle " in arguments to font change macros,
+-.\" so use \(ts instead of ".
+-.tr \(ts"\""
+-.
+ .
+ .\" --------------------------------------------------------------------
+ .SH SYNOPSIS
+@@ -313,8 +309,7 @@
+ .
+ .RS
+ .TP \w'punctuation'u+2n
+-ordinary an ordinary character such as \[oq]1\[cq] or \[oq]\c
+-.IR x \[cq];
++ordinary an ordinary character such as \[oq]1\[cq] or \[oq]\fIx\fP\[cq];
+ .
+ .TP
+ operator
+@@ -341,7 +336,7 @@
+ .
+ .TP
+ punctuation
+-a punctuation character such as \[oq],\[cl];
++a punctuation character such as \[oq],\[cq];
+ .
+ .TP
+ inner
+@@ -468,7 +463,7 @@
+ about the math axis.
+ .
+ The math axis is the vertical position about which characters such as
+-\[oq]\[pl]\[]cq and \[oq]\[mi]\[cq] are centered; also it is the
++\[oq]\[pl]\[cq] and \[oq]\[mi]\[cq] are centered; also it is the
+ vertical position used for the bar of fractions.
+ .
+ For example,
+@@ -537,7 +532,7 @@
+ as a tilde accent below the baseline.
+ .
+ .TP
+-.BI split\ \(ts text \(ts
++.BI split\ \[dq] text \[dq]
+ This has the same effect as simply
+ .
+ .RS
+@@ -558,7 +553,7 @@
+ .
+ .RS
+ .IP
+-.BI \(ts text \(ts
++.BI \[dq] text \[dq]
+ .RE
+ .
+ .IP
+@@ -1154,9 +1149,9 @@
+ is not recognized if called with arguments.
+ .
+ .TP
+-.BI include\ \(ts file \(ts
++.BI include\ \[dq] file \[dq]
+ .TQ
+-.BI copy\ \(ts file \(ts
++.BI copy\ \[dq] file \[dq]
+ Include the contents of
+ .I file
+ .RB ( include

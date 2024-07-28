@@ -1,0 +1,95 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>sitemap</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry"><a name="sitemap.man"></a><div class="titlepage"></div><div class="refnamediv"><a name="name"></a><h2>Name</h2><p> sitemap &#8212; make a site map from meta tags in an HTML tree</p></div><div class="refsynopsisdiv"><a name="synopsis"></a><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">sitemap</code>  [-x] [-h <em class="replaceable"><code>start-dir</code></em>] [-c <em class="replaceable"><code>config-file</code></em>]</p></div></div><div class="refsect1"><a name="idm20"></a><h2>Description</h2><p><span class="command"><strong>sitemap</strong></span> indexes all pages under the start
+directory and writes an HTML map page to standard output.  The code
+looks for description information for each page in a META DESCRIPTION
+header; if it doesn't find one, the page is omitted from the index.
+That is, HTML pages to be indexed should have a <span class="markup">meta</span>
+tag with its <span class="markup">name</span> attribute set to
+<span class="markup">description</span> and its <span class="markup">content</span>
+attribute set to a brief description of the contents.  For example,
+</p><div class="literallayout"><p><br>
+ &lt;head&gt;<br>
+   &lt;title&gt;Sitemap documentation&lt;/title&gt;<br>
+   &lt;meta name="description" <br>
+     content="Documentation for <span class="command"><strong>sitemap</strong></span> program to index HTML pages."&gt;<br>
+ &lt;/head&gt;<br>
+</p></div><p>The output of <span class="command"><strong>sitemap</strong></span> is an HTML page that
+contains a list of descriptions and links to the indexed pages.  This
+output can be configured via an rc file (see below).</p><p>With the <code class="option">-x</code>, the script emits a list of pathnames 
+of pages that would be eligible for indexing but have no meta tags.
+This can be helpful in finding pages from which thuis information
+was omitted by mistake.</p></div><div class="refsect1"><a name="idm34"></a><h2>Arguments</h2><p>If no options are supplied, the start directory is the directory
+indicated by the DOCUMENT_ROOT or HOME environment variables, in that
+order.  If neither variable is specified on a UNIX system, the
+effective user's home directory (as indicated in the passwd file) will
+be used.  If a <code class="filename">start-dir</code> directory is supplied with the <code class="option">-h</code>, then that directory will be used as the start directory.
+In both of these cases, the configuration will be read from a file
+named .sitemaprc in the start directory.  If the configuration file
+does not exist, <span class="command"><strong>sitemap</strong></span> will run with a set of
+default parameters, which is usually not what you want.</p><p>If a <code class="filename">config-file</code> configuration file is
+specified with the <code class="option">-c</code>, then the configuration for
+<span class="command"><strong>sitemap</strong></span> will be read from that file.  In this case,
+the start directory will be the directory containing the configuration
+file.</p></div><div class="refsect1"><a name="idm44"></a><h2>Configuration File</h2><p><span class="command"><strong>sitemap</strong></span> is a Python script.  To configure the
+strings used in the index page header and footer, you can create a
+configuration file in your home directory called .sitemaprc (or as
+indicated by the command-line parameter).  A skeleton of a
+configuration file is provided with the program.  The file should
+start with the text <span class="markup">[sitemap]</span> on a line
+by itself.  Subsequent lines should be name=value pairs.  Lines
+beginning with the # character are treated as comments and are
+ignored. The possible field names in the configuration file are listed
+below:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Hometitle=<em class="replaceable"><code>title</code></em></span></dt><dd><p>The title of your homepage.  The generated site map
+will contain a link with this text.</p></dd><dt><span class="term">Homepage=<em class="replaceable"><code>url</code></em></span></dt><dd><p>The URL of your homepage.  The generated site map will
+contain a link back to this page.</p></dd><dt><span class="term">Indextitle=<em class="replaceable"><code>title</code></em></span></dt><dd><p>The title for the generated site map
+page.</p></dd><dt><span class="term">Headinfo=<em class="replaceable"><code>any Html Text</code></em></span></dt><dd><p>Any additional HTML you want to include in the
+&lt;head&gt; section of the site map.  Use with care - only certain
+tags are legal in the &lt;head&gt; of a page.</p></dd><dt><span class="term">Sitemap=<em class="replaceable"><code>string</code></em></span></dt><dd><p>Path of a filr to be used as the stylesheet attribute</p></dd><dt><span class="term">Prefix=<em class="replaceable"><code>url</code></em></span></dt><dd><p>An optional URL prefix to put before each
+pathname. Normally, <span class="command"><strong>sitemap</strong></span> outputs each filename
+as a site-relative path beginning with a '/', in the assumption that
+the start-directory can be accessed with the URL '/'.  (That is, the
+start directory would be the directory indciated by the web server's
+DOCUMENT_ROOT.)  If this is incorrect (e.g. you are indexing a user's
+home page whose URL begins with '/~username') you can supply the
+alternative URL prefix here.</p></dd><dt><span class="term">Dirtitle=<em class="replaceable"><code>title</code></em></span></dt><dd><p>The title string to use for directories.  Directories
+are listed and linked in the generated site map page with this
+text.</p></dd><dt><span class="term">Fullname=<em class="replaceable"><code>name</code></em></span></dt><dd><p>Your full name.  This name will be included in one
+corner of the generated site map page.  You may want to list a company
+name or a copyright statement instead, for example. </p></dd><dt><span class="term">Mailaddr=<em class="replaceable"><code>address</code></em></span></dt><dd><p>E-mail address of a contact person.  Since the e-mail
+address will be linked on the generated site map page, you may want to
+set this parameter to the e-mail address of a contact person or a
+webmaster.</p></dd><dt><span class="term">Lang=<em class="replaceable"><code>languuage</code></em></span></dt><dd><p>ISO 639-1 language code for the boilerplate text included in the
+output (Czech = cs, English = en, French = fr, German = de, Italian =
+it, Norwegian = nb, Portuguese = pt, Spanish = es,
+or Swedish = sv). </p></dd><dt><span class="term">Icondirs=<em class="replaceable"><code>icon Path</code></em></span></dt><dd><p>The path (relative to the start directory or a URL) of
+the icon for directories.  The icon must be 33 pixels wide (or
+scaleable to that size).  If omitted, no icon will be displayed next
+to site map entries for directories.</p></dd><dt><span class="term">Icontext=<em class="replaceable"><code>icon Path</code></em></span></dt><dd><p>The path (relative to the start directory or a URL) of
+the icon for HTML files.  The icon must be 33 pixels wide (or
+scaleable to that size).  If omitted, no icon will be displayed next
+to site map entries for HTML pages.</p></dd><dt><span class="term">Indexfiles=<em class="replaceable"><code>file1 File2 File3</code></em></span></dt><dd><p>A space-separated list of files to treat as index or
+main pages for a directory.  Any file with a filename exactly equal to
+one of the indicated filenames will be treated as an index page.
+Index pages sort to the top of the list of files in a directory.  For
+example, index.html or default.htm might be good candidates for this
+parameter.</p></dd><dt><span class="term">Exclude=<em class="replaceable"><code>word1 Word2</code></em></span></dt><dd><p>A space-separated list of words to ignore when
+scanning files and directories.  <span class="command"><strong>sitemap</strong></span> will skip
+any file or entire subdirectories the contain any of the words in
+their path.  For example, Test or CVS may be good candidates for this
+parameter.</p></dd><dt><span class="term">Debug=<em class="replaceable"><code>y</code></em></span></dt><dd><p>Set this parameter to view the computed configuration
+file name, start directory, document root, and prefix in the generated
+site map page.  You'll need to view the source of the generated HTML
+file because these values will be listed within and HTML comment.
+Search for the word <span class="emphasis"><em>Debugging</em></span> in the generated
+HTML page.</p></dd></dl></div></div><div class="refsect1"><a name="idm128"></a><h2>Use Under CGI</h2><p>You can use <span class="command"><strong>sitemap</strong></span> to generate site maps on
+the fly. Any command-line argument can be passed as the query string
+(i.e. a string immediately following the URL of the CGI script and a
+'?' character).</p><p><span class="command"><strong>sitemap</strong></span> will deduce that it is running under
+the CGI by virtue of the fact that the REMOTE_ADDR environment
+variable is defined. If so, it outputs a content-type header
+(text/html) ahead of the HTML page.</p><p>When running as a CGI script, <span class="command"><strong>sitemap</strong></span> does
+not assume that the document root is necessarily identical with the
+start directory.  It inspects the DOCUMENT_ROOT environment variable
+and constructs a prefix in an attempt to get from the server document
+root to the start directory. This will fail if the start directory is
+not a subdirectory under the document root, in which case the prefix
+directive in the configuration file should be used.</p></div><div class="refsect1"><a name="idm136"></a><h2>Authors</h2><p>Eric S. Raymond <code class="email">&lt;<a class="email" href="mailto:esr@thyrsus.com">esr@thyrsus.com</a>&gt;</code>.</p><p>Immo Huneke <code class="email">&lt;<a class="email" href="mailto:HunekeI@Logica.Com">HunekeI@Logica.Com</a>&gt;</code>.</p><p>Tom Bryan <code class="email">&lt;<a class="email" href="mailto:tbryan@python.net">tbryan@python.net</a>&gt;</code>.</p></div></div></body></html>

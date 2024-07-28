@@ -1,0 +1,126 @@
+--- upstart-events.7-unpatched	2014-06-02 23:12:29.584504282 -0400
++++ upstart-events.7	2014-06-02 23:12:46.600875133 -0400
+@@ -1,4 +1,20 @@
+ '\" t
++.de FL
++.\" Flush-left to allow table to be viewed on 80-col display without
++.\" wrapping. We want this only to happen on nroff-style devices, and
++.\" only if the line length is nonzero (the latter helps translators
++.\" like doclifter that run in nroff mode but never set a line length)
++.if (n&(\n(.l>0)) {
++.po 0
++.in 0
++.\}
++..
++.de FE
++.if (n&(\n(.l>0)) {
++.in
++.po
++.\}
++..
+ .TH upstart-events 7 2013-12-20 upstart
+ .\"
+ .SH NAME
+@@ -50,12 +66,7 @@
+ job configuration files, usually located in \fI/etc/init\fP.
+ .\"
+ 
+-.\" Flush-left to allow table to be viewed on 80-col display without
+-.\" wrapping.
+-.nr old_po .po
+-.nr old_in .in
+-.po 0
+-.in 0
++.FL
+ .sp 1
+ \fBTable 1: Well-Known System Events Summary.\fP
+ .TS
+@@ -107,20 +118,14 @@
+ T}@L
+ 6@\fBvirtual\-\:filesystems\fP(7)@S@M@> last virtual FS (1)@M
+ .TE
+-.po \n[old_po]
+-.in \n[old_in]
++.FE
+ .P
+ Key:
+   \(aqDM\(aq is an abbreviation for Display Manager.
+   \(aqFS\(aq is an abbreviation for filesystem.
+   \(aqIF\(aq is an abbreviation for Network Interface.
+ 
+-.\" Flush-left to allow table to be viewed on 80-col display without
+-.\" wrapping.
+-.nr old_po .po
+-.nr old_in .in
+-.po 0
+-.in 0
++.FL
+ .sp 1
+ \fBTable 2: Well-Known User Events Summary.\fP
+ .TS
+@@ -140,16 +145,11 @@
+  @:sys:restarted@S@E@> \fBupstart\-event\-bridge\fP(8) start@V
+ 3@xsession@M@H@> (1)@T
+ .TE
+-.po \n[old_po]
+-.in \n[old_in]
++.FL
+ 
+ .\"
+ .P
+-.sp 1
+-.nr old_po .po
+-.nr old_in .in
+-.po 0
+-.in 0
++.FL
+ \fBTable 3: Event Types.\fP
+ .TS
+ box, tab (@);
+@@ -164,16 +164,9 @@
+ M@Method@Blocking task.
+ S@Signal@Non-blocking.
+ .TE
+-.po \n[old_po]
+-.in \n[old_in]
+-
+-.\"
+-.P
+-.nr old_po .po
+-.nr old_in .in
+-.po 0
+-.in 0
++.FE
+ .sp 1
++.FL
+ \fBTable 4: Event Emitters.\fP
+ .TS
+ box, tab (@);
+@@ -203,15 +196,9 @@
+ V@System V init system@
+ X@failsafe job@
+ .TE
+-.po \n[old_po]
+-.in \n[old_in]
+-
+-.\"
++.FE
+ .P
+-.nr old_po .po
+-.nr old_in .in
+-.po 0
+-.in 0
++.FL
+ \fBTable 5: Event Summary Notes.\fP
+ .TS
+ box, tab (@);
+@@ -297,8 +284,7 @@
+ \fI/usr/share/upstart/sessions/logrotate.conf\fP.
+ T}
+ .TE
+-.po \n[old_po]
+-.in \n[old_in]
++.FE
+ 
+ .\"
+ .SH AUTHOR

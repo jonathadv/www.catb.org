@@ -1,0 +1,338 @@
+--- efax.1-unpatched	2012-06-27 21:14:08.714271541 -0400
++++ efax.1	2012-06-27 21:14:26.858271204 -0400
+@@ -1,4 +1,14 @@
+ .TH EFAX 1 "February 1999" ""  ""
++.de EX
++.RS
++.nf
++.ft CW
++..
++.de EE
++.ft P
++.fi
++.RE
++..
+ .UC 1
+ .SH NAME
+ efax \- send/receive faxes with Class 1, 2 or 2.0 fax modem
+@@ -426,7 +436,7 @@
+ Intel 14.4 fax modem,
+ .\" (matloff@cs.ucdavis.edu)
+ Megahertz 14.4,
+-,\" norman@bellcore.com
++.\" norman@bellcore.com
+ Microcom DeskPorte FAST ES 28.8,
+ .\" Skip Montanaro (skip@automatrix.com), 0.6a, Linux
+ Motorola UDS FasTalk II,
+@@ -548,17 +558,17 @@
+ 
+ .TP 9
+ .I wd \fP (width) =
+-0 for 8.5" (21.5 cm) page width
++0 for 8.5in (21.5 cm) page width
+ .br
+-1 for 10" (25.5 cm)
++1 for 10in (25.5 cm)
+ .br
+-2 for 12" (30.3 cm)
++2 for 12in (30.3 cm)
+ 
+ .TP 9
+ .I ln  \fP (length) =
+-0 for 11" (A4: 29.7 cm) page length
++0 for 11in (A4: 29.7 cm) page length
+ .br
+-1 for 14" (B4: 36.4 cm)
++1 for 14in (B4: 36.4 cm)
+ .br
+ 2 for unlimited page length
+ 
+@@ -597,7 +607,7 @@
+ When \fIreceiving\fP a fax the \fIvr\fP, \fIwd\fP, and \fIln\fP
+ fields of the capability string should be set to the maximum
+ values that your display software supports.  The default is 196
+-lpi, standard (8.5"/21.5cm) width and unlimited length.
++lpi, standard (8.5in/21.5cm) width and unlimited length.
+ 
+ When \fIsending\fP a fax efax will determine \fIvr\fP and
+ \fIln\fP from the image file and set \fIwd\fP to the default.
+@@ -614,7 +624,7 @@
+ 
+ efax adds blank scan lines at the top of each image when it is
+ sent.  This allows room for the page header but increases the
+-length of the image (by default about 0.1" or 2.5mm of blank
++length of the image (by default about 0.1in or 2.5mm of blank
+ space is added).
+ 
+ The header placed in this area typically includes the date and
+@@ -682,24 +692,18 @@
+ file \fBletter\fP to the files \fBletter.001\fP,
+ \fBletter.002\fP, etc,:
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ efix -nletter.%03d letter
+-.ft P
+-.fi
++.EE
+ .LP
+-
+ Ghostscript's \fBtiffg3\fP driver can generate fax files in
+ TIFF-G3 format from postscript files.  For example, the command:
+ 
+-.IP
+-.nf
+-\f(CW gs -q -sDEVICE=tiffg3 -dNOPAUSE \\
++.EX
++gs -q -sDEVICE=tiffg3 -dNOPAUSE \e
+ 	-sOutputFile=letter.%03d letter.ps </dev/null\fP
+-.fi
++.EE
+ .LP
+-
+ will convert the Postscript file
+ .BR letter.ps
+ into high-resolution
+@@ -719,12 +723,9 @@
+ HP-PCL (LaserJet) printers.  For example, to print the received
+ fax file \fBreply.001\fP on a Postscript printer use the command:
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ efix -ops reply.001 | lpr
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ .B Sending fax files
+@@ -733,13 +734,10 @@
+ dialing and send a two-page fax from the TIFF-G3 files letter.001
+ and letter.002 using the fax modem connected to device /dev/cua1.
+ 
+-.IP
+-.nf
+-.ft CW
+-efax -d /dev/cua1 \\
++.EX
++efax -d /dev/cua1 \e
+      -t T222-2222 letter.001 letter.002
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ .B Manual answer
+@@ -755,13 +753,10 @@
+ identify itself as "555 1212" and receive faxes at high or low
+ resolution (\fIvr\fP=1), at up to 14.4 kbps (\fIbr\fP=5).
+ 
+-.IP
+-.nf
+-.ft CW
+-efax -d /dev/ttyS1 -l "555 1212" \\
++.EX
++efax -d /dev/ttyS1 -l "555 1212" \e
+    -c 1,5 -r reply
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ .B Automatic answer
+@@ -774,12 +769,9 @@
+ calls in fax mode on the fourth ring and save the received faxes
+ using files names corresponding to the reception date and time.
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ efax -d /dev/ttyb -w -iS0=4 2>&1 >> fax.log
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ .B Sharing the modem with outgoing calls
+@@ -858,20 +850,17 @@
+ directory and the log file will be appended to
+ \fB/usr/spool/fax/faxlog.cua1\fP.
+ 
+-.IP
+-.nf
+-.ft CW
+-efax -d /dev/cua1  -j '+FAA=1' \\
+-   -x /usr/spool/uucp/LCK..cua1 \\
+-   -x /usr/spool/uucp/LCK..ttyS1 \\
+-   -g "exec /sbin/getty -h /dev/cua1 %d" \\
+-   -iS0=2 -w -s \\
+-   -r "/usr/spool/fax/incoming/%b%d-%H.%I.%S" \\
++.EX
++efax -d /dev/cua1  -j '+FAA=1' \e
++   -x /usr/spool/uucp/LCK..cua1 \e
++   -x /usr/spool/uucp/LCK..ttyS1 \e
++   -g "exec /sbin/getty -h /dev/cua1 %d" \e
++   -iS0=2 -w -s \e
++   -r "/usr/spool/fax/incoming/%b%d-%H.%I.%S" \e
+    >> /usr/spool/fax/faxlog.cua1 2>&1
+-.ft P
+-.fi
+-.LP
++.EE
+ 
++.LP
+ Note that adaptive answer of either type will not work for all
+ callers.  For some data calls the duration of the initial
+ data-mode answer may be too short for data handshaking to
+@@ -909,23 +898,17 @@
+ with the argument \fBanswer\fP every time previous process
+ terminates and \fBinit\fP is in runlevel 4 or 5.
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ s1:45:respawn:/bin/sh /usr/bin/fax answer
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ For BSD-like systems (e.g. SunOS), a line such as the following
+ in \fB/etc/ttytab\fP will have the same effect:
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ ttya "/usr/local/bin/fax answer" unknown on
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ You should protect the fax script and configuration files against
+@@ -951,9 +934,7 @@
+ shell script ``wrapper'' below around such programs to make them
+ work properly.  Change BIN and LOCKF to suit.
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ #!/bin/sh
+ BIN=/bin/badprogram
+ LOCKF=/var/spool/uucp/LCK..cua1
+@@ -962,12 +943,11 @@
+         echo lock file $LOCKF exists
+         exit 1
+ else
+-        printf "%10d\n" $$ >$LOCKF
++        printf "%10d\en" $$ >$LOCKF
+         $BIN $*
+         rm $LOCKF
+ fi
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ 
+@@ -987,9 +967,9 @@
+ will cause the fax file attachments to be displayed using the
+ ``fax view'' command.
+ 
+-.ft CW
++.EX
+ image/tiff; fax view %s
+-.ft P
++.EE
+ 
+ .SH SENDING FAXES USING THE PRINT SPOOLER
+ 
+@@ -1005,19 +985,15 @@
+ script can determine when it is being invoked from the print
+ spooler:
+ 
+-.ft CW
++.EX
+ ln -s /usr/bin/fax /usr/bin/faxlpr
+-.ft P
+-
++.EE
+ 
+ (2) Edit /etc/printcap and add an entry such as:
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ fax:lp=/dev/null:sd=/var/spool/fax:if=/usr/bin/faxlpr:
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ to define a printer called "fax".  Print files will be spooled to
+@@ -1028,35 +1004,26 @@
+ (3) Create and/or set the permissions to allow anyone to read and
+ write in the fax spool directory.  For example:
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ mkdir /var/spool/fax
+ chmod 777 /var/spool/fax
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ (4) Create a printer daemon lock file that is readable by anyone:
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ touch /var/spool/fax/lock
+ chmod 644 /var/spool/fax/lock
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ You should now be able to send a fax using the lpr interface by
+ using a command such as:
+ 
+-.IP
+-.nf
+-.ft CW
++.EX
+ lpr -P fax -J "555 1212" file.ps
+-.ft P
+-.fi
++.EE
+ .LP
+ 
+ where the -J option is used to specify the phone number or alias
+@@ -1175,11 +1142,10 @@
+ 
+ A Web Page with pointers to the latest version, known bugs and
+ patches is available at:
+-.IP
+-.ft CW
++
++.EX
+ http://www.cce.com/efax/
+-.ft P
+-.LP
++.EE
+ 
+ .SH RELATED SOFTWARE
+ 

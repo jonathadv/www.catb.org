@@ -1,0 +1,21 @@
+= letterize project news =
+
+1.5: 2024-02-09::
+   Fix compilation to not ship any warnings under GCC 10.
+
+1.4: 2015-04-05::
+  *Really* polish to modern C - prototypes and bool, oh my. 
+
+1.3: 2010-10-20::
+  Polish to modern C, with like, #includes and everything.  
+  Change license to BSD.
+
+1.2: 2003-12-29::
+  RPM packaging fixes for freshmeat release.
+
+1.1: 2002-07-30::
+  Convert document master to XML
+
+1.0: 1994-10-24::
+  Initial release.
+

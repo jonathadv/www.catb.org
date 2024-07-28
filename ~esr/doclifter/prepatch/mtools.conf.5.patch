@@ -1,0 +1,11 @@
+--- mtools.conf.5-unpatched	2013-05-26 15:18:35.502715092 -0400
++++ mtools.conf.5	2013-05-26 15:18:45.794714899 -0400
+@@ -14,8 +14,6 @@
+ .tr \(pd"
+ 
+ .ds St Mtools\ 4.0.18
+-.oh '\\*(St''%'
+-.eh '%''\\*(St'
+ .PP
+ .SH Description
+ .PP

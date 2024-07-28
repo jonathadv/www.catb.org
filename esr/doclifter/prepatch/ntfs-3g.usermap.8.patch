@@ -1,0 +1,16 @@
+--- ntfs-3g.usermap.8-unpatched	2012-07-20 08:06:32.317765602 -0400
++++ ntfs-3g.usermap.8	2012-07-20 08:06:43.325765793 -0400
+@@ -8,9 +8,11 @@
+ .B ntfs-3g.usermap
+ \fIwindows-system-device\fP
+ \fB[\fIother-ntfs-device\fP...\fB]\fR
++.SH OPTIONS
+ .PP
+-Where \fIwindows-system-device\fP is the device containing the Windows system
+-whose users are to be mapped to current Linux system.
++In the synopsis, \fIwindows-system-device\fP is the device containing
++the Windows system whose users are to be mapped to current Linux
++system.
+ .PP
+ And \fIother-ntfs-device\fP is another device containing files which are
+ to be accessed both by the Windows mentioned above and current Linux system.

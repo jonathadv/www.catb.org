@@ -1,0 +1,142 @@
+This patch hacks urlview-0.9 to add and document BROWSER support.
+See the BROWSER page at http://www.tuxedo.org/~esr/BROWSER/ for discussion.
+
+Diffs between last version checked in and current workfile(s):
+
+--- README	2001/01/24 14:55:19	1.1
++++ README	2001/01/24 14:56:39
+@@ -5,7 +5,8 @@
+ 
+ `urlview' is a curses program for extracting URLs from text files and
+ displaying a menu from which you can select a specific URL to view using
+-your favorite browser program.
++your favorite browser program.  It respects the BROWSER convention
++(see <http://www.tuxedo.org/~esr/BROWSER/>)
+ 
+ Requires: working regcomp() or GNU rx.
+ 
+@@ -15,4 +16,6 @@
+ Thomas Roessler <roessler@does-not-exist.org>
+ July 4, 2000
+ 
++Eric S. Raymond <esr@thyrsus.com>
++Jan 24, 2001
+ 
+--- sample.urlview	2001/01/24 14:55:41	1.1
++++ sample.urlview	2001/01/24 14:56:40
+@@ -20,7 +20,8 @@
+ REGEXP (((http|https|ftp|gopher)|mailto)[.:][^ >"\t]*|www\.[-a-z0-9.]+)[^ .,;\t>">\):]
+ 
+ # Command to invoke for selected URL.  Use lynx, netscape, or url_handler.sh
+-# shell script.
++# shell script.  Alternatively, you can leave COMMAND unset and set the BROWSER
++# environment variable instead.
+ 
+ #COMMAND lynx %s
+ #COMMAND netscape -remote 'openURL(%s)'
+--- urlview.c	2001/01/24 14:53:41	1.1
++++ urlview.c	2001/01/24 15:20:40
+@@ -174,6 +174,7 @@
+   int optind = 1;
+   int reopen_tty = 0;
+   int is_filter = 0;
++  int noquote;
+ 
+   int expert = 0;
+   
+@@ -181,7 +182,19 @@
+     is_filter = 1;
+ 
+   strncpy (regexp, DEFAULT_REGEXP, sizeof (regexp) - 1);
+-  strncpy (command, DEFAULT_COMMAND, sizeof (command) - 1);
++
++  pc = getenv("BROWSER");
++  if (pc)
++  {
++      strncpy (command, pc, sizeof (command) - 1);
++      noquote = 1;
++  }
++  else
++  {
++      strncpy (command, DEFAULT_COMMAND, sizeof (command) - 1);
++      noquote = 0;
++  }
++  printf("Using %s\n", command);
+ 
+   /*** read the initialization file ***/
+ 
+@@ -503,16 +516,28 @@
+ 	mvaddstr (LINES - 1, 0, "URL: ");
+ 	if (mutt_enter_string (buf, sizeof (buf), LINES - 1, 5, 0) == 0 && buf[0])
+ 	{
++	  char *part;
++
+ 	  free (url[current]);
+ 	  url[current] = strdup (buf);
+ 	  endwin ();
+-	  if (strstr (command, "%s"))
+-	    snprintf (buf, sizeof (buf), command, quote (scratch, sizeof (scratch), url[current]));
+-	  else
+-	    snprintf (buf, sizeof (buf), "%s %s", command, quote (scratch, sizeof (scratch), url[current]));
+-	  printf ("Executing: %s...\n", buf);
+-	  fflush (stdout);
+-	  system (buf);
++
++	  part = strtok(command, ":");
++	  do {
++	      if (noquote)
++		  strncpy (scratch, url[current], sizeof (scratch));
++	      else
++		  quote (scratch, sizeof (scratch), url[current]);
++	      if (strstr (part, "%s"))
++		  snprintf (buf, sizeof (buf), part, scratch);
++	      else
++		  snprintf (buf, sizeof (buf), "%s %s", part, scratch);
++	      printf ("Executing: %s...\n", buf);
++	      fflush (stdout);
++	      if (system (buf) == 0)
++		  break;
++	  } while
++	      (part = strtok(command, NULL));
+ 	}
+ 	move (LINES - 1, 0);
+ 	clrtoeol ();
+--- urlview.man	2001/01/24 14:56:16	1.1
++++ urlview.man	2001/01/24 15:23:31
+@@ -59,11 +59,19 @@
+ .BR %s ,
+ it will be subsituted
+ with the URL that was requested, otherwise the URL is appended to
+-the COMMAND string.  The default COMMAND is:
++the COMMAND string separated by a space.  The default COMMAND is:
+ .br
+ .sp
+ url_handler.sh %s
+ .PP
++Actually, \fIcommand\fP may consist of a colon-separated sequence of
++browser commands to be tried in order until one succeeds.  This may
++help you if you routinely share your
++.I ~/.urlview
++file across systems; it can also be useful for specifying both X and
++console-based browsers so that urlview will do the right thing
++whichever environment it is invoked in.
++.PP
+ .B Note:
+ You should 
+ .I never
+@@ -80,6 +88,13 @@
+ system-wide urlview configuration file
+ .IP "~/.urlview"
+ urlview configuration file
++.SH ENVIRONMENT
++If the environment variable BROWSER exists and you have not specified
++COMMAND in your
++.IP "~/.urlview"
++file, the value of BROWSER is interpreted as though it were a COMMAND
++setting, except that urlview does not try to put quotes around %s
++substitutions.
+ .SH SEE ALSO
+ .PP
+ .BR printf (3),
+
+End of diffs.

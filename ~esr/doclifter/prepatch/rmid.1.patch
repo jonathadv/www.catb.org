@@ -1,0 +1,12 @@
+--- rmid.1-unpatched	2013-05-23 17:53:07.731389070 -0400
++++ rmid.1	2013-05-23 17:53:26.123388726 -0400
+@@ -25,9 +25,6 @@
+ .SH "Name"
+ rmid \- The Java RMI Activation System Daemon
+ .LP
+-.LP
+-\f3rmid\fP starts the activation system daemon that allows objects to be registered and activated in a virtual machine (VM).
+-.LP
+ .SH "SYNOPSIS"
+ .LP
+ .nf

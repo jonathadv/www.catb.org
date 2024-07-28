@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Trove Design Document: Data Formats</TITLE>
+<LINK HREF="trove-design-7.html" REL=next>
+<LINK HREF="trove-design-5.html" REL=previous>
+<LINK HREF="trove-design.html#toc6" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="trove-design-7.html">Next</A>
+<A HREF="trove-design-5.html">Previous</A>
+<A HREF="trove-design.html#toc6">Contents</A>
+<HR>
+<H2><A NAME="s6">6. Data Formats</A></H2>
+
+<P>
+<H2><A NAME="ss6.1">6.1 Text Field Rules</A>
+</H2>
+
+<P>Description fields are interpreted according to the following rules:
+<P>Text is plain text.  Paragraphs are separated by one or more blank
+lines.  No HTML tags are recognized; &gt;, &amp; and &lt; mean
+themselves.  Normal paragraphs are word-filled.  Indented text is
+treated as-is and converted to &lt;PRE&gt;...&lt;/PRE&gt; in HMTL
+(tabs should be expanded to spaces here).  A single word between
+*asterisks* means &lt;b&gt;bf&lt;/b&gt; and a single word in
+_underscores_ means &lt;i&gt;italics&lt;/i&gt; (even in indented
+text).  Any text that looks sufficiently like a URL
+(e.g. http://www.python.org) is turned into a hyperlink with an
+&lt;A...&gt;...&lt;/A&gt; tag pair (even in indented text).
+<P>
+<H2><A NAME="ss6.2">6.2 Mappings between Trove and RPM metadata</A>
+</H2>
+
+<P>
+<A NAME="rpm-import"></A> It would be highly desirable to be able to
+automatically import Red Hat RPMs and SRPMs into the Trove scheme.  To
+this end, we compare them here.
+<P>Here are the currently defined RPM metadata tags:
+<P>
+<UL>
+<LI><B>Name</B> -- the package name</LI>
+<LI><B>Version</B> -- the package version</LI>
+<LI><B>Release</B> -- the RPM release number</LI>
+<LI><B>Copyright</B> -- the license type of the software</LI>
+<LI><B>Group</B> -- topic category of the application</LI>
+<LI><B>Source</B> -- URL pointing to home archive of the sources</LI>
+<LI><B>URL</B> -- URL pointing to documentation</LI>
+<LI><B>Release</B> -- the RPM release number</LI>
+<LI><B>Distribution</B> -- the distribution this package belongs to</LI>
+<LI><B>Vendor</B> -- the organization distributing the software</LI>
+<LI><B>Packager</B> -- contact email of package maker</LI>
+<LI><B>Summary</B> -- one-line summary description</LI>
+<LI><B>Description</B> -- multiline description of package.</LI>
+<LI><B>Icon</B> -- GIF or XPM icon for package.</LI>
+</UL>
+<P>Going through the Trove schema package fields in order, we see that we
+can copy the Name, Summary, Description, and Icon fields directly.
+RPM's URL field is equivalent to our Home-Page field.  
+<P>We don't need RPMs to fill in the Crawl-To, Remote-Date, or Refresh-Date
+fields, as those are strictly for the crawler's use.
+<P>In the package access record, the Created, Update-Count, Modified,
+and Locked fields could be created at RPM translation time.  The
+Contributor field could be copied from the RPM Packager field.
+<P>Now, proceeding to the relations.  Assuming we had some systematic
+mapping of Group discriminators to Trove discriminators, we could
+derive exactly one topic discriminator.  We could derive `required-by'
+relations from the Required header.  We could derive the license-type
+controlled keywords from the Copyright header.  No way to extract
+`supercedes', `extends', or `see-also'.
+<P>The real problems are with the package-to-person relations.  RPM has
+no discriminators for contact people, authors, or maintainers.  Metadada
+maintainership privileges would default to the contributor, but in the case
+of RPMs created by (say) Red Hat for distribution this is unlikely to
+be useful.
+<P>The picture is a little brighter with respect to automatically
+declaring resources.  We could declare the RPM itself a resource with
+a version number composed from the Version and Release fields.  The
+Contributor field could set the maintainer.
+<P>Conclusion: RPM metadata is not really adequate for generating Trove
+records from.  The major problems are (a) it doesn't supply enough
+keyword/discriminator info, and (b) there is no way to derive a
+reliable maintainer or author list from it.
+<P>
+<H2><A NAME="ss6.3">6.3 Mappings between Debian and RPM metadata</A>
+</H2>
+
+<P>
+<A NAME="debian-import"></A> It would be desirable to be able to
+automatically import Debian .deb packages into the Trove scheme.  To
+this end, we compare them here.
+<P>Here are the Debian metadata tags defined in the
+<A HREF="http://fatman.mathematik.tu-muenchen.de/~schwarz/debian-doc/manuals/packaging-manual/">Debian Packaging Manual</A>:
+<P>
+<UL>
+<LI><B>Package</B> -- the package name</LI>
+<LI><B>Version</B> -- the package version</LI>
+<LI><B>Architecture</B> -- architecture the package is for</LI>
+<LI><B>Maintainer</B> -- contact email of package maker</LI>
+<LI><B>Source</B> -- name of corresponding source package</LI>
+<LI><B>Depends</B> -- declares an absolute dependency</LI>
+<LI><B>Recommends</B> -- declares a strong but not absolute dependency</LI>
+<LI><B>Suggests</B> -- recommends other packages to install</LI>
+<LI><B>Pre-Depends</B> -- declares an installation dependency</LI>
+<LI><B>Conflicts</B> -- says what this cannot coexist with</LI>
+<LI><B>Replaces</B> -- declares that this replaces given packages</LI>
+<LI><B>Provides</B> -- declares `virtual' packages for dependency purposes</LI>
+<LI><B>Description</B> -- multiline description of package.</LI>
+<LI><B>Essential</B> -- declares that a package cannot be removed (only replaced).</LI>
+<LI><B>Priority</B> -- how essential the package is.</LI>
+<LI><B>Section</B> -- application area of the package</LI>
+<LI><B>Installed-Size</B> -- installed size of the package</LI>
+<LI><B>Standards-Version</B> -- applicable version of Debian packaging standards</LI>
+<LI><B>Distribution</B> -- the distribution this package belongs to</LI>
+<LI><B>Urgency</B> -- how important it is to get current</LI>
+<LI><B>Date</B> -- last-modified-date of metadata</LI>
+<LI><B>Format</B> -- format level for changes file</LI>
+<LI><B>Changes</B> -- human-readable changelog data</LI>
+<LI><B>Size</B> -- size of binary package</LI>
+<LI><B>MD5sum</B> -- MD5 checksum of the package</LI>
+</UL>
+<P>(A few listed fields which are not package metadata have been omitted.  Note
+that the Maintainer field is the <EM>.deb</EM> maintainer, analogous
+to the RPM Packager field, not the person responsible for the software.)
+<P>We can copy the Package, Version, and Description fields directly.
+Our Requires field might be derivable from Debian's Depends.  It has
+been noted that we might be able to derive Crawl-To, Latest-Version,
+and Last-Stable Version by looking at the Debian FTP site.  Otherwise
+there is little overlap -- not nearly enough to make using Debian
+metadata reasonable.
+<P>
+<H2><A NAME="ss6.4">6.4 Comparison with Dublin Core metadata</A>
+</H2>
+
+<P>The 
+<A HREF="http://purl.oclc.org/metadata/dublin_core">Dublin Core</A>) is a set of 15 metadata items that are meant to be fully
+general across all kinds of intellectual-property resources.  Here
+is a summary of the Dublin Core fields:
+<P>
+<UL>
+<LI><B>Title:</B> -- the name of the resource</LI>
+<LI><B>Creator:</B> -- the person who created the intellectual content of
+the resource</LI>
+<LI><B>Subject:</B> -- structured keywords</LI>
+<LI><B>Description:</B> -- free text</LI>
+<LI><B>Publisher:</B> -- the entity responsible for making the resource
+available</LI>
+<LI><B>Contributor:</B> -- secondary provider of content</LI>
+<LI><B>Date:</B> -- creation or first-ability date of the resource</LI>
+<LI><B>Type:</B> -- category of work (home page, novel, poem, working
+paper)</LI>
+<LI><B>Format:</B> -- data format, intended to identify what is required
+to present or use the resource</LI>
+<LI><B>Identifier:</B> -- URL, URN, ISBN, or other unique identifier
+within category</LI>
+<LI><B>Source:</B> -- information about a base resource from which
+this one is derived.</LI>
+<LI><B>Language</B> -- language of the intellectual content of the
+resource</LI>
+<LI><B>Relation</B> -- relates this reasource to another, via
+assertion such as IsVersionOf(), IsBasedOn(), IsPartOf(),
+etc.</LI>
+<LI><B>Coverage:</B> -- spatial or temporal characteristics of the
+intellectual content of the resource.</LI>
+<LI><B>Rights:</B> -- pointer to license and rights information.</LI>
+</UL>
+<P>We are certainly not going to be able to use the Dublin Core as a
+complete set of descriptors.  But there are some things we could do to
+be name-compatible where we're semantically compatible, and avoid name
+clashes where we cannot be semantically compatible.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+Simple renamings:
+        Author -> Creator
+        Maintainer -> Contributor
+        Contributor -> Publisher        
+        Discriminators -> Subject
+
+Fieldnames to avoid in our metadata:
+        Title      (hard experience that people don't interpret this well)
+        Date       (because of creation vs. last-modified ambiguity)
+        Type       (incompatible vocabulary with Dublin Core's)
+        Format     (incompatible vocabulary with Dublin Core's)
+        Identifier (there isn't any natural scheme)
+        Source     (doesn't specify mode of derivation well enough)
+        Language   (doc-language vs. implementation-language ambiguity)
+        Relation   (incompatible vocabulary with Dublin Core's)
+        Coverage   (just irrelevant)
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Finally, we could set a bit that if we end up disambiguating package names
+with a site prefix or other uniquifying prefix (rather than resolving
+collisions), the "true name" could be designated the Identifier.
+<P>No decision has been made on this yet.
+<P>
+<HR>
+<A HREF="trove-design-7.html">Next</A>
+<A HREF="trove-design-5.html">Previous</A>
+<A HREF="trove-design.html#toc6">Contents</A>
+</BODY>
+</HTML>

@@ -1,0 +1,21 @@
+--- gdiffmk.1-unpatched	2016-03-05 12:56:11.794107909 -0500
++++ gdiffmk.1	2016-03-05 12:56:24.314072740 -0500
+@@ -1,8 +1,7 @@
+ .\"-*- nroff -*-
+ .TH GDIFFMK 1 "04 November 2014" "Groff Version 1.22.3"
+ .SH NAME
+-.
+-.\" gdiffmk \- mark differences between groff/nroff/troff files
++gdiffmk \- mark differences between groff/nroff/troff files
+ .
+ .
+ .\" --------------------------------------------------------------------
+@@ -33,7 +32,7 @@
+ This document was written and is maintained by
+ .MT MBianchi@Foveal.com
+ Mike Bianchi
+-.MT .
++.ME .
+ ..
+ .
+ .\" --------------------------------------------------------------------

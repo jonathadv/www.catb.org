@@ -1,0 +1,28 @@
+--- ident.1-unpatched	2014-03-20 12:07:45.000000000 -0400
++++ ident.1	2014-03-20 12:07:44.000000000 -0400
+@@ -171,16 +171,16 @@
+ to keep keyword strings well-formed.
+ .LP
+ .RS
+-.nf
+-.ne 6
+-.ta \w'newline  'u
+-\f2char	escape sequence\fP
+-tab	\f3\et\fP
+-newline	\f3\en\fP
+-space	\f3\e040
++.TS
++li li
++lb l.
++char	escape sequence
++tab	\et
++newline	\en
++space	\e040
+ $	\e044
+-\e	\e\e\fP
+-.fi
++\e	\e\e
++.TE
+ .RE
+ .ds EY 1990, 1992, 1993
+ .SH IDENTIFICATION

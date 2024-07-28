@@ -1,0 +1,43 @@
+--- libtiff.3tiff-unpatched	2012-07-19 17:52:11.524876722 -0400
++++ libtiff.3tiff	2012-07-19 17:54:07.620878735 -0400
+@@ -92,25 +92,24 @@
+ format.
+ The following typedefs are exposed to users either through function
+ definitions or through parameters passed through the varargs interfaces.
+-.in +.5i
+-.sp 5p
+-.ta +\w'typedef unsigned <\fIthing\fP> uint32;    'u
++.RS
++.ft CW
+ .nf
+-typedef unsigned short uint16;	16-bit unsigned integer
+-typedef unsigned <\fIthing\fP> uint32;	32-bit unsigned integer
++typedef unsigned short uint16;  16-bit unsigned integer
++typedef unsigned <\fIthing\fP> uint32;  32-bit unsigned integer
+ .sp 5p
+-typedef unsigned int ttag_t;	directory tag
+-typedef uint16 tdir_t;	directory index
+-typedef uint16 tsample_t;	sample number
+-typedef uint32 tstrip_t;	strip number
+-typedef uint32 ttile_t;	tile number
+-typedef int32 tsize_t;	i/o size in bytes
+-typedef void* tdata_t;	image data ref
+-typedef void* thandle_t;	client data handle
+-typedef int32 toff_t;	file offset
++typedef unsigned int ttag_t;    directory tag
++typedef uint16 tdir_t;  directory index
++typedef uint16 tsample_t;       sample number
++typedef uint32 tstrip_t;        strip number
++typedef uint32 ttile_t; tile number
++typedef int32 tsize_t;  i/o size in bytes
++typedef void* tdata_t;  image data ref
++typedef void* thandle_t;        client data handle
++typedef int32 toff_t;   file offset
+ .fi
+-.sp 5p
+-.in -.5i
++.ft
++.RE
+ Note that
+ .IR tstrip_t ,
+ .IR ttile_t ,

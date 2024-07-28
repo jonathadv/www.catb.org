@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="SGML-Tools 1.0.9">
+ <TITLE>The Magic Cauldron: Indirect Sale-Value Models</TITLE>
+ <LINK HREF="magic-cauldron-10.html" REL=next>
+ <LINK HREF="magic-cauldron-8.html" REL=previous>
+ <LINK HREF="magic-cauldron.html#toc9" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="magic-cauldron-10.html">Next</A>
+<A HREF="magic-cauldron-8.html">Previous</A>
+<A HREF="magic-cauldron.html#toc9">Contents</A>
+<HR>
+<H2><A NAME="s9">9. Indirect Sale-Value Models</A></H2>
+
+<P>Nevertheless, there are ways to make markets in software-related
+services that capture something like indirect sale value.  There
+are five known and two speculative models of this kind (more may
+be developed in the future).
+<P>
+<H2><A NAME="ss9.1">9.1 Loss-Leader/Market Positioner</A>
+</H2>
+
+<P>In this model, you use open-source software to create or maintain a
+market position for proprietary software that generates a direct
+revenue stream.  In the most common variant, open-source client
+software enables sales of server software, or subscription/advertising 
+revenue associated with a portal site.
+<P>Netscape Communications, Inc. was pursuing this strategy when it
+open-sourced the Mozilla browser in early 1998.  The browser side of
+their business was at 13% of revenues and dropping when Microsoft
+first shipped Internet Explorer.  Intensive marketing of IE (and shady
+bundling practices that would later become the central issue of an
+antitrust lawsuit) quickly ate into Netscape's browser market share,
+creating concern that Microsoft intended to monopolize the browser
+market and then use de-facto control of HTML to drive Netscape out of
+the server market.
+<P>By open-sourcing the still-widely-popular Netscape browser, Netscape
+effectively denied Microsoft the possibility of a browser monopoly.
+They expected that open-source collaboration would accelerate the
+development and debugging of the browser, and hoped that Microsoft's IE
+would be reduced to playing catch-up and prevented from exclusively
+defining HTML.
+<P>This strategy worked.  In November 1998 Netscape actually began to
+regain business-market share from IE.  By the time Netscape was
+acquired by AOL in early 1999, the competitive advantage of
+keeping Mozilla in play was sufficiently clear that one of AOL's first
+public commitments was to continue supporting the Mozilla project,
+even though it was still in alpha stage.
+<P>
+<H2><A NAME="ss9.2">9.2 Widget Frosting</A>
+</H2>
+
+<P>This model is for hardware manufacturers (hardware, in this context,
+includes anything from Ethernet or other peripheral boards all the way
+up to entire computer systems).  Market pressures have forced hardware
+companies to write and maintain software (from device drivers through
+configuration tools all the way up to the level of entire operating
+systems), but the software itself is not a profit center.  It's an
+overhead -- often a substantial one.
+<P>In this situation, opening source is a no-brainer.  There's no revenue
+stream to lose, so there's no downside.  What the vendor gains is a
+dramatically larger developer pool, more rapid and flexible response
+to customer needs, and better reliability through peer review.  It
+gets ports to other environments for free. It probably also gains
+increased customer loyalty as its customers' technical staffs put
+increasing amounts of time into the code to do the customizations they
+require.
+<P>There are a couple of vendor objections commonly raised specifically
+to open-sourcing hardware drivers.  Rather than mix them with
+discussion of more general issues here, I have written an 
+<A HREF="magic-cauldron-17.html#drivers">appendix</A> specifically on this topic.
+<P>The `future-proofing' effect of open source is particularly strong
+with respect to widget frosting.  Hardware products have a finite
+production and support lifetime; after that, the customers are on
+their own.  But if they have access to driver source and can patch
+them as needed, they're more likely to be happier repeat customers of
+the same company.
+<P>A very dramatic example of adopting the widget frosting model was
+Apple Computer's decision in mid-March 1999 to open-source "Darwin",
+the core of their MacOSX server operating system.
+<P>
+<H2><A NAME="ss9.3">9.3 Give Away the Recipe, Open A Restaurant</A>
+</H2>
+
+<P>In this model, one open-sources software to create a market position
+not for closed software (as in the Loss-Leader/Market-Positioner case)
+but for services. 
+<P>(I used to call this `Give Away the Razor, Sell Razor Blades', The
+coupling is not really as tight as the razor/razor-blade analogy
+implies.)
+<P>This is what Red Hat and other Linux distributors do.  What they are
+actually selling is not the software, the bits itself, but the value
+added by assembling and testing a running operating system that is
+warranted (if only implicitly) to be merchantable and to be
+plug-compatible with other operating systems carrying the same brand.
+Other elements of their value proposition include free installation
+support and the provision of options for continuing support contracts.
+<P>The market-building effect of open source can be extremely powerful,
+especially for companies which are inevitably in a service position
+to begin with.  One very instructive recent case is Digital
+Creations, a website-design house started up in 1998 that specializes
+in complex database and transaction sites.  Their major tool, the
+intellectual-property crown jewels of the company, is an object
+publisher that has been through several names and incarnations but
+is now called Zope.
+<P>When the Digital Creations people went looking for venture capital,
+the VC they brought in carefully evaluated their prospective market 
+niche, their people, and their tools.  He then recommended that
+Digital Creations take Zope to open source.
+<P>By traditional software-industry standards, this looks like an
+absolutely crazy move.  Conventional business-school wisdom has it
+that core intellectual property like Zope is a company's crown jewels,
+never under any circumstances to be given away.  But the VC had two
+related insights.  One is that Zope's true core asset is actually the
+brains and skills of its people.  The second is that Zope is likely
+to generate more value as a market-builder than as a secret tool.
+<P>To see this, compare two scenarios.  In the conventional one, Zope
+remains Digital Creations's secret weapon.  Let's stipulate that it's
+a very effective one.  As a result, the firm will able to deliver
+superior quality on short schedules -- <EM>but nobody knows that</EM>.
+It will be easy to satisfy customers, but harder to build a customer
+base to begin with.
+<P>The VC, instead, saw that open-sourcing Zope could be critical
+advertising for Digital Creations's <EM>real</EM> asset -- its people.
+He expected that customers evaluating Zope would consider it more
+efficient to hire the experts than to develop in-house Zope expertise.
+<P>One of the Zope principals has since confirmed very publicly that
+their open-source strategy has "opened many doors we wouldn't have got
+in otherwise".  Potential customers do indeed respond to the logic of
+the situation -- and Digital Creations, accordingly, is prospering.
+<P>Another up-to-the-minute example is 
+<A HREF="http://www.e-smith.net/">e-smith, inc.</A>. This company sells support contracts for
+turnkey Internet server software that is open-source, a customized
+Linux.  One of the principals, describing the spread of free downloads
+of e-smith's software, 
+<A HREF="http://www.globetechnology.com/gam/News/19990625/BAND.html">says</A>
+``Most companies would consider that software piracy; we consider it
+free marketing''.
+<P>
+<H2><A NAME="ss9.4">9.4 Accessorizing</A>
+</H2>
+
+<P>In this model, you sell accessories for open-source software.  At the
+low end, mugs and T-shirts; at the high end, professionally-edited and
+produced documentation.  
+<P>O'Reilly Associates, publishers of many excellent references volumes
+on open-source software, is a good example of an accessorizing
+company.  O'Reilly actually hires and supports well-known open-source
+hackers (such as Larry Wall and Brian Behlendorf) as a way of building
+its reputation in its chosen market.
+<P>
+<H2><A NAME="ss9.5">9.5 Free the Future, Sell the Present</A>
+</H2>
+
+<P>In this model, you release software in binaries and source with a
+closed license, but one that includes an expiration date on the
+closure provisions.  For example, you might write a license that
+permits free redistribution, forbids commercial use without fee, and
+guarantees that the software come under GPL terms a year after
+release or if the vendor folds.
+<P>Under this model, customers can ensure that the product is
+customizable to their needs, because they have the source.  The
+product is future-proofed -- the license guarantees that an open
+source community can take over the product if the original company
+dies.
+<P>Because the sale price and volume are based on these customer
+expectations, the original company should enjoy enhanced revenues from
+its product versus releasing it with an exclusively closed source
+license.  Furthermore, as older code is GPLed, it will get serious peer
+review, bug fixes, and minor features, which removes some of the 75%
+maintainance burden on the originator.
+<P>This model has been successfully pursued by Aladdin Enterprises,
+makers of the popular Ghostscript program (a PostScript interpreter
+that can translate to the native languages of many printers).  
+<P>The main drawback of this model is that the closure provisions tend
+to inhibit peer review and participation early in the product cycle,
+precisely when they are needed most.
+<P>
+<H2><A NAME="ss9.6">9.6 Free the Software, Sell the Brand</A>
+</H2>
+
+<P>This is a speculative business model.  You open-source a software 
+technology, retain a test suite or set of compatibility criteria,
+then sell users a brand certifying that their implementation of
+the technology is compatible with all others wearing the brand.
+<P>(This is how Sun Microsystems ought to be handling Java and Jini.)
+<P>
+<H2><A NAME="ss9.7">9.7 Free the Software, Sell the Content</A>
+</H2>
+
+<P>This is another speculative business model.  Imagine something like a
+stock-ticker subscription service.  The value is neither in the client
+software nor the server but in providing objectively reliable
+information.  So you open-source all the software and sell
+subscriptions to the content.  As hackers port the client to new
+platforms and enhance it in various ways, your market automatically
+expands.
+<P>(This is why AOL ought to open-source its client software.)
+<P>
+<HR>
+<A HREF="magic-cauldron-10.html">Next</A>
+<A HREF="magic-cauldron-8.html">Previous</A>
+<A HREF="magic-cauldron.html#toc9">Contents</A>
+</BODY>
+</HTML>

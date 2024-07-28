@@ -1,0 +1,15 @@
+--- zipsplit.1-unpatched	2012-07-07 16:13:51.172736555 -0400
++++ zipsplit.1	2012-07-07 16:14:05.224736293 -0400
+@@ -17,9 +17,9 @@
+ zipfile
+ 
+ .SH ARGUMENTS
+-.in +13
+-.ti -13
+-zipfile  Zipfile to split.
++.TP
++zipfile
++Zipfile to split.
+ 
+ .SH OPTIONS
+ .TP

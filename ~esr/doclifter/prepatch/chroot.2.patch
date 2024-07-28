@@ -1,0 +1,20 @@
+--- chroot.2-unpatched	2018-05-17 13:06:30.287251247 -0400
++++ chroot.2	2018-05-17 13:08:13.406550442 -0400
+@@ -46,17 +46,13 @@
+ .BR chroot ():
+ .ad l
+ .RS 4
+-.PD 0
+-.TP 4
+ Since glibc 2.2.2:
+ .nf
+ _XOPEN_SOURCE && ! (_POSIX_C_SOURCE\ >=\ 200112L)
+     || /* Since glibc 2.20: */ _DEFAULT_SOURCE
+     || /* Glibc versions <= 2.19: */ _BSD_SOURCE
+-.TP 4
+ .fi
+ Before glibc 2.2.2: none
+-.PD
+ .RE
+ .ad b
+ .SH DESCRIPTION

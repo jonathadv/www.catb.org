@@ -1,0 +1,11 @@
+--- B::Hooks::EndOfScope::PP.3pm-unpatched	2018-05-29 06:45:42.952372867 -0400
++++ B::Hooks::EndOfScope::PP.3pm	2018-05-29 06:45:42.784374010 -0400
+@@ -77,7 +77,7 @@
+ .if n .ad l
+ .nh
+ .SH "NAME"
+-B::Hooks::EndOfScope::PP \- Execute code after a scope finished compilation \- PP implementation
++B::Hooks::EndOfScope::PP \- Execute code after a scope finished compilation
+ .SH "VERSION"
+ .IX Header "VERSION"
+ version 0.21

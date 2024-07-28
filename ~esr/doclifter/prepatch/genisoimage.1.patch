@@ -1,0 +1,21 @@
+--- genisoimage.1-unpatched	2012-07-02 11:46:16.541115766 -0400
++++ genisoimage.1	2012-07-02 11:46:24.733115613 -0400
+@@ -2392,15 +2392,15 @@
+ section 7.3.1 ("little endian") format.
+ .sp
+ .RS +.2i
+-.ta 1.0i 2.5i 3.5i
+-.nf
++.TS
++l l l l.
+ Offset	Name	Size	Meaning
+  8	bi_pvd	4 bytes	LBA of primary volume descriptor
+ 12	bi_file	4 bytes	LBA of boot file
+ 16	bi_length	4 bytes	Boot file length in bytes
+ 20	bi_csum	4 bytes	32-bit checksum
+ 24	bi_reserved	40 bytes	Reserved
+-.fi
++.TE
+ .RE
+ .IP
+ The 32-bit checksum is the sum of all the 32-bit words in the boot

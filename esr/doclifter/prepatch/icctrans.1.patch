@@ -1,0 +1,11 @@
+--- icctrans.1-unpatched	2012-07-04 15:03:12.741663199 -0400
++++ icctrans.1	2012-07-04 15:03:47.205662556 -0400
+@@ -45,7 +45,7 @@
+ .TP
+ .B \-x
+ Hexadecimal.
+-.TP
++.PP
+ You can use '*Lab' and '*xyz' as built-in profiles.
+ .SH NOTES
+ For suggestions, comments, bug reports etc. send mail to

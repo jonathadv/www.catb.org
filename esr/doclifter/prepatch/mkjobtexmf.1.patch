@@ -1,0 +1,19 @@
+--- mkjobtexmf.1-unpatched	2013-05-25 13:54:25.844425321 -0400
++++ mkjobtexmf.1	2013-05-25 13:54:25.556425326 -0400
+@@ -381,7 +381,7 @@
+ one \s-1TEXMF\s0 tree for the result. However, the source files
+ can come from different directories and \s-1TEXMF\s0 trees.
+ Therefore name collisions are possible.
+-.Sp
++.sp
+ The program follows the strategy not to delete files
+ in the destination directory. That allows to collect files
+ from differnt runs. Thus collisions are resolved
+@@ -395,7 +395,6 @@
+ Bugs in TeX's file recording might result in incomplete
+ file recording (e.g. pdfTeX 1.40.3 does not record .pfb and
+ \&.pk files).
+-.IP "..." 4
+ .SH "FILES"
+ .IX Header "FILES"
+ .PD 0

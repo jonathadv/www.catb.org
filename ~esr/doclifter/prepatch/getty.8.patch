@@ -1,0 +1,11 @@
+--- getty.8-unpatched	2018-05-18 17:27:33.601623318 -0400
++++ getty.8	2018-05-18 17:29:20.684895574 -0400
+@@ -208,7 +208,7 @@
+ replaced by the login name. For example:
+ .RS
+ .IP "" 4
+-.B "\-\-login\-options '-h darkstar -- \\\u'"
++.B "\-\-login\-options '-h darkstar -- \eu'"
+ .PP
+ See \fB\-\-autologin\fR, \fB\-\-login\-program\fR and \fB\-\-remote\fR.
+ .PP

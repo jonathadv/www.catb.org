@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>manlifter</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /></head><body><div class="refentry"><a id="manlifter.1"></a><div class="titlepage"></div><div class="refnamediv"><a id="name"></a><h2>Name</h2><p>manlifter — mass-conversion script and test harness for doclifter</p></div><div class="refsynopsisdiv"><a id="synopsis"></a><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">manlifter</code>  [-d <em class="replaceable"><code>option</code></em>] [-e] [-f <em class="replaceable"><code>listfile</code></em>] [-h] [-I <em class="replaceable"><code>mandir</code></em>] [-m] [-M] [-o <em class="replaceable"><code>outdir</code></em>] [-p <em class="replaceable"><code>patch-directory</code></em>] [-P] [-q] [-v] [-s <em class="replaceable"><code>section</code></em>] [-X <em class="replaceable"><code>exclude</code></em>]  <em class="replaceable"><code>name</code></em>... </p></div><div class="cmdsynopsis"><p><code class="command">manlifter</code>  [-S]</p></div></div><div class="refsect1"><a id="idm41"></a><h2>Description</h2><p><span class="command"><strong>manlifter</strong></span> is a script that sequences
+<span class="citerefentry"><span class="refentrytitle">doclifter</span>(1)</span>
+to convert an entire manual-page tree to XML-Docbook, optionally also
+generating HTML from the XML.  Another use is as a torture-test tool
+for doclifter; it logs errors to standard output and collects
+timings.</p><p>Called without any file arguments, manlifter tries to convert
+all eligible man pages installed on the system, placing the resulting xml files
+under <code class="filename">xmlman</code> in the current directory.  Each
+successfully translated page foo.N is copied to manN/foo.xml beneath
+the output directory, regardless of what source directory it came
+from.
+</p><p>A manual page is considered ineligible for batch conversion if
+it contains text indicating it has been generated from DocBook masters
+of from Doxygen.</p><p>For each source file examined, if the destination file exists
+and is newer than the source, the conversion is skipped; thus,
+incremental runs of <span class="command"><strong>manlifter</strong></span> do the least work
+needed to keep the target XML tree up to date.  Likewise, in -h mode derived
+HTML files are only made when necessary.</p><p>Stub pages that are just <span class="markup">.so</span> redirections are
+translated to corresponding symlinks of XML files (and, with -h, HTML
+files).</p><p><span class="command"><strong>manlifter</strong></span> may also be called with a single
+file argument, which is interpreted as the stem name of a potential
+manual page.  <span class="command"><strong>manlifter</strong></span> then searches all selected
+manual sections for a matching page and attempts to convert it.  In
+this case, a copy of the man page and the converted version are
+dropped immediately beheath the output directory, with the names
+foobar.man and foobar.man.xml, respectively.  This mode is normally
+only of interest only to <span class="command"><strong>doclifter</strong></span> developers for
+debugging that program.</p><p>In either of the above cases, <span class="command"><strong>manlifter</strong></span> will
+uncompress the file if it has a <code class="filename">.gz</code>, 
+<code class="filename">.bz2</code> or <code class="filename">.Z</code> suffix on the
+name.</p><p>Options are as follows:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">-d</span></dt><dd><p>Pass the string argument to each doclifter call as options.
+Each space-separated token in the string becomes a separate argument
+in the call.</p></dd><dt><span class="term">-e</span></dt><dd><p>Run in log-filter mode (mainly of interest to
+<span class="command"><strong>doclifter</strong></span> developers).  In this mode,
+<span class="command"><strong>manlifter</strong></span> reads a test log from standard input and
+filters it in a a way dependent on the -f and -q options.  If neither
+of these is given, messages from successful runs are stripped out and
+only errors passed through to standard output.</p></dd><dt><span class="term">-f</span></dt><dd><p>Normally, run doclifter on the files named by each line in the
+argument file.  In error-filter mode the argument is instead
+interpreted as a filtering regular expression.</p></dd><dt><span class="term">-h</span></dt><dd><p>Also generate HTML translations into the output
+directory. DocBook citerefentry markup is transformed to hyperlinks in
+the directory, and a contents listing is generated to
+<code class="filename">index.html</code>.</p></dd><dt><span class="term">-I</span></dt><dd><p>Specify the root of the manual-page tree.  By default
+this is <code class="filename">/usr/share/man</code>.</p></dd><dt><span class="term">-m</span></dt><dd><p>Make a patch to correct the last page fetched. It is
+copied, an editor is called on the copy (using the environment
+variable <code class="envar">$EDITOR</code>), and then
+<span class="citerefentry"><span class="refentrytitle">diff</span>(1)</span>
+is called to drop the patch in the prepatch directory. Fails with an
+error if such a patch is already present.</p></dd><dt><span class="term">-M</span></dt><dd><p>Lift the specified files, then do the equivalent of
+the -m option.</p></dd><dt><span class="term">-o</span></dt><dd><p>Set the output directory into which
+XML-DocBook translations will be dropped.  By default this is
+<code class="filename">xmlman</code> under the current directory in batch mode, 
+or the current directory otherwise.</p></dd><dt><span class="term">-p</span></dt><dd><p>Interpret the argument as the name of a patch
+directory (the default name is <code class="filename">prepatch</code> under the
+current directory).  Each file named <code class="filename">foo.N.patch</code> is
+interpreted as a patch to be applied to the manual page foo(N) before
+doclifter translates it.</p></dd><dt><span class="term">-q</span></dt><dd><p>Normally, pass the -q (quiet) option to each doclifter call.
+In error-filter mode, return a list of files on which translation failed.
+</p></dd><dt><span class="term">-v</span></dt><dd><p>Pass the -v (verbose) option to each
+doclifter call.  This option can be repeated to increase the verbosity
+level.</p></dd><dt><span class="term">-s</span></dt><dd><p>Specify a section to scan.  Use this with an argument;
+it should not be necessary when doing a conversion of the entire
+tree.</p></dd><dt><span class="term">-S</span></dt><dd><p>Compile error statistics from a
+<span class="command"><strong>manlifter</strong></span> logfile presented on standard input.
+This option will be of interest mainly to <span class="command"><strong>doclifter</strong></span>
+developers.</p></dd><dt><span class="term">-X</span></dt><dd><p>In batch mode exclude pages listed in the argument file.  
+Meant to be used for pages that are known good and take an extremely
+long time to lift, in order to cut down the time for a test run. (Most
+pages lift in less than a half second, but a few can take 15 minutes
+or longer.)
+</p></dd></dl></div><p><span class="command"><strong>manlifter</strong></span> emits a logfile to standard
+output. The file begins with a timestamp line and a blank line,
+and ends with a line giving run time and various interesting
+statistics.  Between these are stanzas, separated by blank lines,
+one for each file on which <span class="command"><strong>doclifter</strong></span> was
+run.</p><p>The first line of each stanza beguns with "! ", followed by the 
+pathname of the source manual pager, followed by "=" and the return
+status of doclifter run on that file.  Following that is a space
+and <span class="command"><strong>doclifter</strong></span>'s runtime in seconds.</p><p>This initial line may be followed by information messages and
+the error output of the doclifter run.</p><p><span class="command"><strong>manlifter</strong></span> must find a copy of
+<span class="command"><strong>doclifter</strong></span> in either the current directory or one of
+the command directories in your <code class="envar">PATH</code> in order to
+run.</p></div><div class="refsect1"><a id="idm145"></a><h2>Bugs</h2><p>HTML generation is painfully slow.  Unfortunately, there is
+little we can do to remedy this, because XSLT engines are painfully
+slow.</p></div><div class="refsect1"><a id="idm148"></a><h2>See Also</h2><p>
+<span class="citerefentry"><span class="refentrytitle">doclifter</span>(1)</span>,
+<span class="citerefentry"><span class="refentrytitle">xmlto</span>(1)</span>
+</p></div><div class="refsect1"><a id="idm157"></a><h2>Author</h2><p>Eric S. Raymond <code class="email">&lt;<a class="email" href="mailto:esr@thyrsus.com">esr@thyrsus.com</a>&gt;</code></p><p>There is a project web page at
+<a class="ulink" href="http://www.catb.org/~esr/doclifter/" target="_top">http://www.catb.org/~esr/doclifter/</a>.</p></div></div></body></html>

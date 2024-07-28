@@ -1,0 +1,11 @@
+--- SSL_get_cipher_bits.3ssl-unpatched	2018-06-05 08:38:56.223951177 -0400
++++ SSL_get_cipher_bits.3ssl	2018-06-05 08:39:04.667893792 -0400
+@@ -146,7 +146,7 @@
+ \&
+ \& const char *SSL_get_cipher_name(const SSL *s);
+ \& const char *SSL_get_cipher(const SSL *s);
+-\& int SSL_get_cipher_bits(const SSL *s, int *np) \e
++\& int SSL_get_cipher_bits(const SSL *s, int *np);
+ \& const char *SSL_get_cipher_version(const SSL *s);
+ .Ve
+ .SH "DESCRIPTION"

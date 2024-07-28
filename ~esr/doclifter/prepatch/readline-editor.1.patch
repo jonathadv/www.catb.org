@@ -1,0 +1,48 @@
+--- readline-editor.1-unpatched	2018-05-18 15:14:56.615699434 -0400
++++ readline-editor.1	2018-05-18 15:16:32.163050090 -0400
+@@ -1,6 +1,4 @@
+ .TH rlwrap 1 "July 19, 2016"
+-.SH NAME
+-rlwrap \- readline wrapper
+ .de OP
+ .ie \\n(.$-1 .RI "[\ \fB\\$1\fP " "\\$2" "\ ]"
+ .el .RB "[\ " "\\$1" "\ ]"
+@@ -15,6 +13,8 @@
+ .ie 'yes'yes' .B \\$1, \\$2  \\$3
+ .el  .B \\$1 \\$3
+ ..
++.SH NAME
++rlwrap \- readline wrapper
+ .SH SYNOPSIS
+ .B rlwrap
+ .I [rlwrap\-options]
+@@ -66,7 +66,8 @@
+ always word\-breaking). This determines what is considered a "word",
+ both when completing and when building a completion word list from
+ files specified by \fB\-f\fP options following (not preceding!) it.
+-Default list (){}[],'+\-=&^%$#@"";|\\ Unless \-c is specified, \" twice " to keep emacs happy :\-(
++Default list (){}[],'+\-=&^%$#@"";|\\ Unless \-c is specified,
++.\" twice " to keep emacs happy :\-(
+ / and \. (period) are included in the default list.
+ .TP
+ .OL \-c \-\-complete\-filenames
+@@ -167,8 +168,8 @@
+ .TP
+ .OL \-q \-\-quote\-characters \fIlist_of_characters\fP
+ Assume that the given characters act as quotes, e.g. when matching
+-parentheses. Take care to escape the list properly for your shell (example: \-q "\\"'", which happens to be the
+-default, or \-q "\\"" which will be better for lisp-like input) 
++parentheses. Take care to escape the list properly for your shell (example: \-q "\e"'", which happens to be the
++default, or \-q "\e"" which will be better for lisp-like input) 
+ .TP
+ .OL \-r \-\-remember
+ Put all words seen on in\- and output on the completion list.  
+@@ -224,7 +225,7 @@
+ .B rlwrap\ \-aPassword:\ \-N\ smbclient //PEANUT/C
+ .TP 
+ Wrap \fBgauche\fP (a Scheme interpreter) with a bold blue prompt, enable multi\-line editing (using .scm as filename extension) and don't consider single quotes as quotes (so that the parentheses in e.g. (print 'q) match)   
+-.B rlwrap\ \-pBlue \-m\ \-M\ .scm\ \-q'\"' gosh
++.B rlwrap\ \-pBlue \-m\ \-M\ .scm\ \-q'\e"' gosh
+ .TP
+ Get a list of all currently installed filters
+ .B rlwrap\ \-z\ listing

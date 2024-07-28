@@ -1,0 +1,20 @@
+--- ppmntsc.1-unpatched	2012-06-29 16:25:08.629650234 -0400
++++ ppmntsc.1	2012-06-29 16:25:17.949650060 -0400
+@@ -21,8 +21,6 @@
+ .I infile
+ ]
+ 
+-Minimum unique abbreviations of options are acceptable.
+-
+ .SH DESCRIPTION
+ This program makes colors legal in the NTSC (or PAL) color systems.
+ Often, images generated on the computer are made for use in movies
+@@ -56,6 +54,8 @@
+ output.
+ 
+ .SH OPTIONS
++Minimum unique abbreviations of options are acceptable.
++
+ .TP
+ .B \-\-pal
+ Use the PAL transform instead of the default NTSC.

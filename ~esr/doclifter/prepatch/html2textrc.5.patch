@@ -1,0 +1,23 @@
+--- html2textrc.5-unpatched	2013-06-10 13:35:23.223808630 -0400
++++ html2textrc.5	2013-06-10 13:35:42.487808270 -0400
+@@ -4,6 +4,10 @@
+ .\"
+ .\" Comments and suggestions are welcome.
+ .\"
++.de URL
++\\$2 \(laURL: \\$1 \(ra\\$3
++..
++.if \n[.g] .mso www.tmac 
+ .TH html2textrc 5 2001\-06\-11
+ .SH NAME
+ html2textrc \- formatting properties file for html2text(1)
+@@ -243,8 +247,6 @@
+ .br
+ Martin Bayer <mbayer@zedat.fu-berlin.de>
+ .br
+-.UR
+-http://userpage.fu-berlin.de/~mbayer/tools/
+-.UE
++.URL http://userpage.fu-berlin.de/~mbayer/tools/
+ .SH "SEE ALSO"
+ .BR html2text (1)

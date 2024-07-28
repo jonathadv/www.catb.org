@@ -1,0 +1,18 @@
+		letterize -- phone digits to letter-mnemonics
+	by Eric S. Raymond <esr@snark.thyrsus.com> Oct 24 1994
+
+I built this around some code for detecting pronounceable letter combinations
+that I picked up off the net.  Not sure who wrote it.
+
+Files:
+
+	README		-- this file
+	letterize.c	-- the code
+	Makefile	-- A simple Makefile
+	letterize.1	-- man page
+	letterize.adoc	-- XML DocBook master for the man page
+
+Bugs.  Don't talk to me about bugs.  Email me at esr@thyrsus.com instead.
+
+You can surf to http://www.catb.org/~esr/ for updates and related resources.
+

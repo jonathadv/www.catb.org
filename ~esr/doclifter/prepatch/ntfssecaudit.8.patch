@@ -1,0 +1,13 @@
+--- ntfssecaudit.8-unpatched	2018-05-29 00:30:49.381240422 -0400
++++ ntfssecaudit.8	2018-05-29 00:31:45.072861938 -0400
+@@ -8,8 +8,9 @@
+ .B ntfssecaudit
+ \fB[\fIoptions\fP\fB]\fR
+ .I args
++.SH OPTIONS
+ .PP
+-Where \fIoptions\fP is a combination of :
++The \fIoptions\fP may be a combination of:
+ .RS
+ -a full auditing of security data (Linux only)
+ .RE

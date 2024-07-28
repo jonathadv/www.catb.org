@@ -1,0 +1,11 @@
+--- driverless.1-unpatched	2018-05-16 17:37:11.600053564 -0400
++++ driverless.1	2018-05-16 17:37:51.731780827 -0400
+@@ -58,7 +58,7 @@
+ .B
+ \fIIPP printer URI\fB
+ Generate the PPD file for the supplied \fIIPP printer URI\fP (suitable URIs are listed when calling driverless without options).
+-.TP
++.PP
+ When called without options, the IPP printer URIs of all available IPP printers will be listed.
+ .P
+ .SH SEE ALSO

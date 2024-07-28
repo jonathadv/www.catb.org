@@ -1,0 +1,13 @@
+--- cmake.1-unpatched	2018-04-17 22:07:39.309873753 -0400
++++ cmake.1	2018-04-17 22:08:17.661798152 -0400
+@@ -36,8 +36,8 @@
+ .sp
+ .nf
+ .ft C
+-cmake [<options>] (<path\-to\-source> | <path\-to\-existing\-build>)
+-cmake [(\-D <var>=<value>)...] \-P <cmake\-script\-file>
++cmake [<options>] {<path\-to\-source> | <path\-to\-existing\-build>}
++cmake [{\-D <var>=<value>}...] \-P <cmake\-script\-file>
+ cmake \-\-build <dir> [<options>] [\-\- <build\-tool\-options>...]
+ cmake \-E <command> [<options>...]
+ cmake \-\-find\-package <options>...

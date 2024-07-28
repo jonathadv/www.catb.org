@@ -1,0 +1,14 @@
+--- tc-cbq-details.8-unpatched	2018-05-18 17:00:55.116486712 -0400
++++ tc-cbq-details.8	2018-05-18 17:01:06.988406029 -0400
+@@ -4,9 +4,9 @@
+ .SH SYNOPSIS
+ .B tc qdisc ... dev
+ dev
+-.B  ( parent
++.B  { parent
+ classid
+-.B | root) [ handle
++.B | root} [ handle
+ major:
+ .B ] cbq avpkt
+ bytes

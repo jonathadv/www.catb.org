@@ -1,0 +1,20 @@
+--- irda.7-unpatched	2012-08-06 18:23:24.718143125 -0400
++++ irda.7	2012-08-06 18:24:33.350141840 -0400
+@@ -12,13 +12,13 @@
+ .br
+ 
+ .br
+-.IB stream_s " = socket(PF_INET, SOCK_STREAM, 0);"
++.B int socket(PF_INET, SOCK_STREAM, 0)
+ .br
+-.IB seqpkt_s " = socket(PF_INET, SOCK_SEQPACKET, 0);"
++.B int socket(PF_INET, SOCK_SEQPACKET, 0)
+ .br
+-.IB dgram_s " = socket(PF_INET, SOCK_DGRAM, IRDAPROTO_UNITDATA);"
++.B int socket(PF_INET, SOCK_DGRAM, IRDAPROTO_UNITDATA)
+ .br
+-.IB ultra_s " = socket(PF_INET, SOCK_DGRAM, IRDAPROTO_ULTRA);"
++.B int socket(PF_INET, SOCK_DGRAM, IRDAPROTO_ULTRA)
+ .\"
+ .\" DESCRIPTION part
+ .\"

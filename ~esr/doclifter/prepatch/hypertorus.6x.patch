@@ -1,0 +1,11 @@
+--- hypertorus.6x-unpatched	2012-07-06 04:43:02.559127492 -0400
++++ hypertorus.6x	2012-07-06 04:43:37.687126835 -0400
+@@ -15,7 +15,7 @@
+ [\-transparent]
+ [\-solid]
+ [\-bands]
+-[\-spirals-{1,2,4,8,16}]
++[\-spirals-{1|2|4|8|16}]
+ [\-twosided]
+ [\-colorwheel]
+ [\-perspective-3d]

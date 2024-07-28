@@ -1,0 +1,11 @@
+--- gthumb.1-unpatched	2013-05-24 05:54:04.770580106 -0400
++++ gthumb.1	2013-05-24 05:54:17.514579868 -0400
+@@ -32,7 +32,7 @@
+ .TP 
+ \fB\-\-version\fR
+ Output version information and exit.
+-.TP 
++.PP 
+ Usual other GNOME options apply as well.
+ 
+ .SH "EXAMPLES"

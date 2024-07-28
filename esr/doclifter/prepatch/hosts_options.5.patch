@@ -1,0 +1,85 @@
+--- hosts_options.5-unpatched	2012-07-22 02:46:13.665672749 -0400
++++ hosts_options.5	2012-07-22 02:49:01.993669599 -0400
+@@ -37,18 +37,26 @@
+ To permit access from specific hosts only:
+ .sp
+ .ne 2
+-.ti +3
++.RS
++.nf
++.ft CW
+ ALL: .friendly.domain: ALLOW
+-.ti +3
+ ALL: ALL: DENY
++.ft
++.fi
++.RE
+ .sp
+ To permit access from all hosts except a few trouble makers:
+ .sp
+ .ne 2
+-.ti +3
++.RS
++.nf
++.ft CW
+ ALL: .bad.domain: DENY
+-.ti +3
+ ALL: ALL: ALLOW
++.ft
++.fi
++.RE
+ .sp
+ Notice the leading dot on the domain name patterns.
+ .SH RUNNING OTHER COMMANDS
+@@ -59,10 +67,11 @@
+ connected to the null device, so that it won't mess up the
+ conversation with the client host. Example:
+ .sp
++.RS
+ .nf
+-.ti +3
+ smtp : ALL : aclexec checkdnsbl %a
+ .fi
++.RE
+ .sp
+ executes, in a background child process, the shell command "checkdnsbl %a"
+ after replacing %a by the address of the remote host.
+@@ -76,10 +85,11 @@
+ connected to the null device, so that it won't mess up the
+ conversation with the client host. Example:
+ .sp
++.RS
+ .nf
+-.ti +3
+ spawn (/usr/sbin/safe_finger -l @%h | /usr/bin/mail root) &
+ .fi
++.RE
+ .sp
+ executes, in a background child process, the shell command "safe_finger
+ -l @%h | mail root" after replacing %h by the name or address of the
+@@ -99,10 +109,11 @@
+ To send a customized bounce message to the client instead of
+ running the real ftp daemon:
+ .sp
++.RS
+ .nf
+-.ti +3
+ in.ftpd : ... : twist /bin/echo 421 Some bounce message
+ .fi
++.RE
+ .sp
+ For an alternative way to talk to client processes, see the
+ \fIbanners\fR option below.
+@@ -110,10 +121,11 @@
+ To run /some/other/in.telnetd without polluting its command-line
+ array or its process environment:
+ .sp
++.RS
+ .nf
+-.ti +3
+ in.telnetd : ... : twist PATH=/some/other; exec in.telnetd
+ .fi
++.RE
+ .sp
+ Warning:  in case of UDP services, do not twist to commands that use
+ the standard I/O or the read(2)/write(2) routines to communicate with

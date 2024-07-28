@@ -1,0 +1,11 @@
+--- pylint.1-unpatched	2018-05-18 08:21:03.576466143 -0400
++++ pylint.1	2018-05-18 08:21:03.392467392 -0400
+@@ -231,7 +231,7 @@
+ .IP "--max-line-length=<int>"
+ Maximum number of characters on a single line. [current: 100]
+ .IP "--ignore-long-lines=<regexp>"
+-Regexp for a line that is allowed to be longer than the limit. [current: ^\s*(# )?<?https?://\S+>?$]
++Regexp for a line that is allowed to be longer than the limit. [current: ^\es*(# )?<?https?://\eS+>?$]
+ .IP "--single-line-if-stmt=<y_or_n>"
+ Allow the body of an if to be on the same line as the test if there is no else. [current: no]
+ .IP "--no-space-check=NO_SPACE_CHECK"

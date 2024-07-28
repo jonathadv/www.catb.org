@@ -1,0 +1,23 @@
+--- libcaca-env.3caca-unpatched	2018-06-02 21:58:09.183597743 -0400
++++ libcaca-env.3caca	2018-06-02 21:59:13.211162609 -0400
+@@ -2,8 +2,9 @@
+ .ad l
+ .nh
+ .SH NAME
+-libcaca-envLibcaca environment variables 
+- \- Some environment variables can be used to change the behaviour of \fIlibcaca\fP without having to modify the program which uses it\&. These variables are:
++libcaca-env \- Libcaca environment variables 
++.SH
++Some environment variables can be used to change the behaviour of \fIlibcaca\fP without having to modify the program which uses it\&. These variables are:
+ .PP
+ .PD 0
+ .IP "\(bu" 2
+@@ -22,7 +23,7 @@
+ \fCraw\fP outputs to the standard output instead of rendering the canvas\&. This is can be used together with cacaserver\&.
+ .PP
+ 
+-.PP
++.SH ENVIRONMENT VARIABLES
+ .PD 0
+ .IP "\(bu" 2
+ \fBCACA_GEOMETRY:\fP set the video display size\&. The format of this variable must be \fCXxY\fP, with \fCX\fP and \fCY\fP being integer values\&. This option currently works with the raw, X11 and GL drivers\&.

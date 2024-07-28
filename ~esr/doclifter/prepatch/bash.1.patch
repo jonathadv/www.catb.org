@@ -1,0 +1,33 @@
+--- bash.1-unpatched	2018-05-19 06:01:39.042132803 -0400
++++ bash.1	2018-05-19 06:01:37.902140551 -0400
+@@ -10562,22 +10562,22 @@
+ .if \n(zY=1 .ig zY
+ .SH "SEE ALSO"
+ .PD 0
+-.TP
++.IP
+ \fIBash Reference Manual\fP, Brian Fox and Chet Ramey
+-.TP
++.IP
+ \fIThe Gnu Readline Library\fP, Brian Fox and Chet Ramey
+-.TP
++.IP
+ \fIThe Gnu History Library\fP, Brian Fox and Chet Ramey
+-.TP
++.IP
+ \fIPortable Operating System Interface (POSIX) Part 2: Shell and Utilities\fP, IEEE --
+ http://pubs.opengroup.org/onlinepubs/9699919799/
+-.TP
++.IP
+ http://tiswww.case.edu/~chet/bash/POSIX -- a description of posix mode
+-.TP
++.IP
+ \fIsh\fP(1), \fIksh\fP(1), \fIcsh\fP(1)
+-.TP
++.IP
+ \fIemacs\fP(1), \fIvi\fP(1)
+-.TP
++.IP
+ \fIreadline\fP(3)
+ .PD
+ .SH FILES

@@ -1,0 +1,15 @@
+--- zipnote.1-unpatched	2012-07-07 16:15:00.088735266 -0400
++++ zipnote.1	2012-07-07 16:15:12.688735030 -0400
+@@ -12,9 +12,9 @@
+ zipfile
+ 
+ .SH ARGUMENTS
+-.in +13
+-.ti -13
+-zipfile  Zipfile to read comments from or edit.
++.TP
++zipfile
++Zipfile to read comments from or edit.
+ 
+ .SH OPTIONS
+ .TP

@@ -1,0 +1,10 @@
+--- libcaca-authors.3caca-unpatched	2013-05-27 21:10:59.858638642 -0400
++++ libcaca-authors.3caca	2013-05-27 21:11:23.838638194 -0400
+@@ -3,6 +3,7 @@
+ .nh
+ .SH NAME
+ libcaca-authors \- Libcaca authors 
++.SH DESCRIPTION
+ Sam Hocevar sam@hocevar.net
+ .IP "\(bu" 2
+ main programmer

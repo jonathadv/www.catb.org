@@ -1,0 +1,11 @@
+--- preconv.1-unpatched	2016-03-05 18:21:47.805225539 -0500
++++ preconv.1	2016-03-05 18:22:03.697188765 -0500
+@@ -251,7 +251,7 @@
+ .RS
+ .PP
+ .EX
+-\&.\[rs]" \-*\- mode: troff; coding: latin-2 \-*\-\""
++\&.\[rs]" \-*\- mode: troff; coding: latin-2 \-*\-
+ .EE
+ .RE
+ .

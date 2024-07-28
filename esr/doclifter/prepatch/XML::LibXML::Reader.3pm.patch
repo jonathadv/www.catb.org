@@ -1,0 +1,11 @@
+--- XML::LibXML::Reader.3pm-unpatched	2018-06-03 06:17:15.920078067 -0400
++++ XML::LibXML::Reader.3pm	2018-06-03 06:17:15.716079453 -0400
+@@ -73,7 +73,7 @@
+ .if n .ad l
+ .nh
+ .SH "NAME"
+-XML::LibXML::Reader \- XML::LibXML::Reader \- interface to libxml2 pull parser
++XML::LibXML::Reader \- interface to libxml2 pull parser
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ .Vb 1

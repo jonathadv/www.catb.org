@@ -1,0 +1,13 @@
+--- extractres.1-unpatched	2012-06-27 21:32:24.642251045 -0400
++++ extractres.1	2012-06-27 21:32:45.394250655 -0400
+@@ -18,8 +18,9 @@
+ files with the same name as the resource, and an appropriate extension. The
+ pipeline
+ .sp
+-.ce
++.RS
+ extractres file.ps | includeres >out.ps
++.RE
+ .sp
+ will move all resources appearing in a document to the document prologue,
+ removing redundant copies. The output file can then be put through page

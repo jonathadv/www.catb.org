@@ -1,0 +1,17 @@
+--- tek2plot.1-unpatched	2012-07-18 22:48:17.175686575 -0400
++++ tek2plot.1	2012-07-18 22:49:06.371687430 -0400
+@@ -1,12 +1,9 @@
+ .TH TEK2PLOT 1 "Jun 2000" "FSF" "GNU Plotting Utilities"
+-.SH NAME
+-tek2plot \- translate Tektronix files to other graphics formats
+-.ig
+-Not all man macros define SB (and not all whatis parsers stop on .\")
+-..
+ .de SB
+ \&\fB\s-1\&\\$1 \\$2\s0\fR
+ ..
++.SH NAME
++tek2plot \- translate Tektronix files to other graphics formats
+ .SH SYNOPSIS
+ .B tek2plot 
+ [ 

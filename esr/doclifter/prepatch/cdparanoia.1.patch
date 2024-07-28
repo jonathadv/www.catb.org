@@ -1,0 +1,33 @@
+--- cdparanoia.1-unpatched	2012-08-09 16:27:51.885558227 -0400
++++ cdparanoia.1	2012-08-09 16:28:28.653557539 -0400
+@@ -361,21 +361,25 @@
+ A few examples, protected from the shell:
+ .TP
+ Query only with exhaustive search for a drive and full reporting of auto-sense:
+-.P
++.RS
+        cdparanoia -vsQ
++.RE
+ .TP
+ Extract an entire disc, putting each track in a separate file:
+-.P
++.RS
+        cdparanoia -B 
++.RE
+ .TP
+ Extract from track 1, time 0:30.12 to 1:10.00:
+-.P
++.RS
+        cdparanoia "1[:30.12]-1[1:10]"
++.RE
+ .TP
+ Extract from the beginning of the disc up through track 3:
+-.P
++.RS
+        cdparanoia -- -3
+-.TP
++.RE
++.PP
+ The "--" above is to distinguish "-3" from an option flag.
+ .SH OUTPUT
+ 

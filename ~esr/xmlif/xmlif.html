@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>xmlif</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /></head><body><div class="refentry"><a id="xmlif.1"></a><div class="titlepage"></div><div class="refnamediv"><a id="name"></a><h2>Name</h2><p>xmlif — conditional processing instructions for XML</p></div><div class="refsynopsisdiv"><a id="synopsis"></a><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">xmlif</code>  [--help] [--version] [attrib=value...]</p></div></div><div class="refsect1"><a id="options"></a><h2>OPTIONS</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term">--help</span></dt><dd><p>Emit a usage summary and exit.</p></dd><dt><span class="term">--version</span></dt><dd><p>Emit the program version and exit.</p></dd></dl></div></div><div class="refsect1"><a id="description"></a><h2>DESCRIPTION</h2><p><span class="application">xmlif</span> filters XML according to
+conditionalizing markup.  This can be useful for formatting one of several
+versions of an XML document depending on conditions passed to the
+command.</p><p>Attribute/value pairs from the command line are matched against
+the attributes associated with certain processing instructions in the
+document.  The instructions are <code class="sgmltag-element">&lt;?maybe if?&gt;</code>
+and its inverse <code class="sgmltag-element">&lt;?maybe if not?&gt;</code>,
+<code class="sgmltag-element">&lt;?maybe elif?&gt;</code> and its inverse
+<code class="sgmltag-element">&lt;?maybe elif not?&gt;</code>, <code class="sgmltag-element">&lt;?maybe
+else?&gt;</code>, and <code class="sgmltag-element">&lt;?maybe fi?&gt;</code>.</p><p>Argument/value pairs given on the command line are checked
+against the value of corresponding attributes in the conditional
+processing instructions.  An ‘attribute match’ happens if
+an attribute occurs in both the command-line arguments and the tag,
+and the values match.  An ‘attribute mismatch’ happens if
+an attribute occurs in both the command-line arguments and the tag,
+but the values do not match.</p><p>Spans between <code class="sgmltag-element">&lt;?maybe if?&gt;</code> or
+<code class="sgmltag-element">&lt;?maybe elif?&gt;</code> and the next conditional
+processing instruction at the same nesting level are passed through
+unaltered if there is at least one attribute match and no attribute
+mismatch; spans between <code class="sgmltag-element">&lt;?maybe if not?&gt;</code> and
+<code class="sgmltag-element">&lt;?maybe elif not?&gt;</code> and the next conditional
+processing instruction are passed otherwise.  Spans between
+<code class="sgmltag-element">&lt;?maybe else?&gt;</code> and the next
+conditional-processing tag are passed through only if no previous span
+at the same level has been passed through. <code class="sgmltag-element">&lt;?maybe
+if?&gt;</code> and <code class="sgmltag-element">&lt;?maybe fi?&gt;</code> (and their
+‘not’ variants) change the current nesting level;
+<code class="sgmltag-element">&lt;?maybe else?&gt;</code> and <code class="sgmltag-element">&lt;?maybe
+elif?&gt;</code> do not.</p><p>Conditionals can be nested to any depth.</p><p>All these processing instructions will be removed from the output
+produced. Aside from the conditionalization, all other input is passed
+through untouched; in particular, entity references are not resolved.</p><p>Value matching is by string equality, except that "|"
+in an attribute value is interpreted as an alternation
+character.  Thus, saying foo='red|blue' on the command line enables 
+conditions red and blue.  Saying color='black|white' in a tag matches 
+command-line conditions color='black' or color='white'.</p><p>Here is an example:</p><pre class="programlisting">
+Always issue this text.
+&lt;?maybe if condition='html'?&gt;
+Issue this text if 'condition=html' is given on the command line.
+&lt;?maybe elif condition='pdf|ps'?&gt;
+Issue this text if 'condition=pdf' or 'condition=ps'
+is given on the command line.
+&lt;?maybe else?&gt;
+Otherwise issue this text.
+&lt;?maybe fi?&gt;
+Always issue this text.
+</pre></div><div class="refsect1"><a id="warning"></a><h2>WARNING</h2><p>Thanks to a previously-unsuspected landmine in the depths of the
+XML standard, it was necessary to change the processing instruction
+from 'xmlif' to 'maybe' in release 1.2 of this tool.  This is an
+incompatible change from previous versions, The management regrets any
+inconvenience.</p></div><div class="refsect1"><a id="authors"></a><h2>AUTHOR</h2><p>Eric S. Raymond &lt;esr@snark.thyrsus.com&gt;.</p></div></div></body></html>

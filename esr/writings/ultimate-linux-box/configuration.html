@@ -1,0 +1,986 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Linux Configuration</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="HOME"
+TITLE="The Ultimate Linux Box 2001: How to Design Your Dream Machine"
+HREF="ulb2001.html"><LINK
+REL="PREVIOUS"
+TITLE="The Inevitable Horror Story"
+HREF="horror_story.html"><LINK
+REL="NEXT"
+TITLE="Conclusion"
+HREF="conclusion.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>The Ultimate Linux Box 2001: How to Design Your Dream Machine: (Bigger, Longer, and Uncut)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="horror_story.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="conclusion.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="CONFIGURATION">Linux Configuration</H1
+><P
+>Here is a detailed recipe for getting the most out of this
+hardware.  This recipe applies to conditions in August 2001. If you
+are reading this months afterwards you may be able to skip some steps,
+and of course the software version numbers you want will be different.</P
+><P
+>How much swap space to allocate on a machine with 2GB core is a
+vexing theological question that even the wizards of the Linux kernel
+mailing list can't seem to agree on. The usual rule &#8212; twice your
+amount of physical memory &#8212; would tie up 4GB, which both seems
+and is ridiculous unless you're doing very heavy-duty database work or
+scientitic computing with <I
+CLASS="EMPHASIS"
+>very</I
+> large datasets.
+On the other hand, the advice to top out at 128MB in the Red Hat
+manual is obsolete, predating the efforts at VM tuning in the 2.4
+series.  Early 2.4.x kernels wanted more than 2 × RAM; more
+recent ones (2.4.8) use less swap.</P
+><P
+>A better way, according to Arjan de Ven of Red Hat, is to try to
+estimate the size of your working set (the core utilization of your
+typical mix of programs) and allocate 150% of that.  For people doing
+typical workstation or light-duty server workloads, the working set is
+unlikely to go above 128MB.  But 2.4.8 and later kernels permit
+swap partions up to 64GB in size.</P
+><DIV
+CLASS="PROCEDURE"
+><OL
+TYPE="1"
+><LI
+><P
+>Remove the SB Live!, so your pre-2.4.8 kernel won't hang.</P
+></LI
+><LI
+><P
+>Disable the ATA controller and set "Use PCI Interrupt Entries In MP
+Table" in the BIOS configuration screen as you reboot.</P
+></LI
+><LI
+><P
+>Install KRUD or your favorite distribution in text mode. If your X
+version lacks the Radeon timing patch, be sure to tell your distribution
+that logins should come up in text mode too, otherwise your first login may
+get clobbered by the Radeon timing bug.</P
+></LI
+><LI
+><P
+>If your X version lacks the Radeon timing patch, hack your
+XF86Config-4 to turn off acceleration. This will make it safe to use X
+until you can patch it.</P
+></LI
+><LI
+><P
+>Download and install a 2.4.8+ kernel (see below).</P
+></LI
+><LI
+><P
+>Power down, re-install your SB Live!, and boot into 2.4.8+. You
+can now have sound without system hangs.</P
+></LI
+><LI
+><P
+>If your X has the Radeon timing patch, you're done. Otherwise...</P
+></LI
+><LI
+><P
+>Download the X source tree.  If it requires the Radeon timing patch
+(see below) apply that patch. Build it.</P
+></LI
+><LI
+><P
+>Copy the rebuilt X server (<TT
+CLASS="FILENAME"
+>XFree86</TT
+>) to wherever
+it lives on your system (usually
+<TT
+CLASS="FILENAME"
+>/usr/X11R6/bin/XFree86</TT
+>) Then copy the Radeon X
+module <TT
+CLASS="FILENAME"
+>radeon_drv.o</TT
+> to where it lives (usually
+<TT
+CLASS="FILENAME"
+>/usr/X11R6/lib/modules/drivers/radeon_drv.o</TT
+>).</P
+></LI
+><LI
+><P
+>You can now re-enable acceleration and the hardware cursor 
+support.</P
+></LI
+></OL
+></DIV
+><P
+>Here are the things you need to know about your XFree86
+configuration file (normally
+<TT
+CLASS="FILENAME"
+>/etc/X11/XF86Config-4</TT
+>).</P
+><DIV
+CLASS="PROCEDURE"
+><OL
+TYPE="1"
+><LI
+><P
+>If your installer only autodetects available
+screen resolutions up to 1600x1200, then you'll want to change the
+Modes entry in the Screen section corresponding to the Radeon device so
+it reads 2048x1536.</P
+></LI
+><LI
+><P
+>Next, set your mouse protocol to "MouseManPlusPS/2", if you didn't
+already during the distribution install; 
+you will get the use of the mouse wheel -- it will work X scrollbars.
+Look in the the Input Device section corresponding to your PS/2 mouse.</P
+></LI
+><LI
+><P
+>If you need to temporarily disable acceleration in order not to
+trigger the Radeon timing bug, look in the Device section corresponding
+to the Radeon.  You'll need to insert an option line that reads
+"Option NoAccel".</P
+></LI
+></OL
+></DIV
+><P
+>The change in the third step will be backed out after we fix
+X.</P
+><P
+>Here are the kernel configuration options you must specify to get
+full support for your ULB hardware:</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN604"><P
+><B
+>Table 2. ULB kernel configuration symbols (2.4.8)</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Symbol</TH
+><TH
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Value(s)</TH
+><TH
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>General options</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_MK7</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Athlon/Duron/K7</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_SMP</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Symmetric Multi-Processing support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_HIGHMEM4G</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>High memory support (up to 4G)</TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>System buses</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_PCI</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Support for PCI bus hardware</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_PNP</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Support for Plug'n'Play hardware.</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_USB</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Universal Serial Bus support</TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>Graphics options</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_AGP</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>/dev/agpgart (AGP Support)</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_DRM</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Direct Rendering Manager (XFree86 DRI support)</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_DRM_RADEON</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>ATI Radeon</TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>SCSI options</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_SCSI</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>SCSI support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_BLK_DEV_SD</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>SCSI disk support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_BLK_DEV_ST</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>SCSI tape support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_BLK_DEV_SR</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>SCSI CD-ROM support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_SCSI_AIC7XXX</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Adaptec AIC7xxx support</TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>Networking options</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_NET</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Networking support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_NET_ETHERNET</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Ethernet support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_NETDEVICES</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Network device support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_NET_VENDOR_3COM</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>3COM Ethernet cards</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_VORTEX</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>3c590/3c900 series (592/595/597) "Vortex/Boomerang/Cyclone" support</TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>Note: Vortex support has to be compiled modular
+	because we have two NICs of the same type.</TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>Sound options</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_SOUND</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Sound card support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_SOUND_OSS</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>OSS sound modules</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_SOUND_SB</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>100% Sound Blaster compatibles (SB16/32/64, ESS, Jazz16) support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_SOUND_EMU10K1</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Creative SBLive! (EMU10K1) based PCI sound cards</TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>System self-monitoring options</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_I2C</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>I2C support (needed for SMBus)</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_I2C_CHARDEV</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>I2C device interface</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_I2C_ALGOBIT</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Support for `bit-banging' I2C device</TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>Serial and Parallel ports</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_SERIAL</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>RS232C serial-port support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_PARPORT</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Parallel-port support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_PARPORT_PC</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y or M</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>PC-style hardware</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_PARPORT_PC_FIFO</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Use FIFO/DMA if available</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_PARPORT_1284</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>IEEE 1284 transfer modes</TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+VALIGN="TOP"
+>Other device options</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_BLK_DEV_FD</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Floppy disk support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_PSMOUSE</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>PS/2 mouse (aka "auxiliary device") support</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>CONFIG_RTC</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Y</TD
+><TD
+WIDTH="33%"
+ALIGN="LEFT"
+VALIGN="TOP"
+>Real-Time Clock support</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Now here is the patch for the Radeon timing bug:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>Index: radeon_driver.c
+===================================================================
+RCS file: /home/x-cvs/xc/programs/Xserver/hw/xfree86/drivers/ati/radeon_driver.c,v
+retrieving revision 1.33
+diff -u -r1.33 radeon_driver.c
+--- radeon_driver.c	2001/08/07 07:04:43	1.33
++++ radeon_driver.c	2001/08/09 23:00:20
+@@ -3588,6 +3588,7 @@
+         OUTREG(RADEON_DAC_CNTL2, restore-&#62;dac2_cntl);
+ 
+     RADEONRestoreMode(pScrn, restore);
++    usleep(100000);
+     if(!info-&#62;IsSecondary)
+     {
+     vgaHWUnlock(hwp);</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="horror_story.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ulb2001.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="conclusion.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The Inevitable Horror Story</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Conclusion</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

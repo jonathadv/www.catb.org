@@ -1,0 +1,105 @@
+= News file for loccount =
+
+2.16: 2024-02-07::
+     Add support for Pkl.
+
+2.15: 2023-02-01::
+     Fixes for Rust.
+
+2.14: 2022-07-05::
+     More Kotlin fixes.
+     Fixes for PHP, XML, Groovy, and Swift.
+     GENERATED added as a signal not to count.
+
+2.13: 2022-05-06::
+     Add support for Stan, TLA+.
+     Fix up Kotlin entry, adding Ml.
+
+2.12: 2021-05-12::
+     Fix failure to count Tex/Texinfo files properly.
+     Add support for F*, JAI, Less, Logtalk, Maven, Mint, RAML, Solidity, zsh.
+     Count rakefiles as Ruby.
+     Recognize .for and .ftn as Fortan77 extensions. Correct processing of .f.
+     Recognize Docker files.
+     Add support for Meson and for rakefiles (counted as Ruby), 
+
+2.11: 2021-02-12::
+     Recognize .tsx extension for Typescript.
+     Added LLOC support for Beeflang.
+
+2.10: 2020-04-21::
+     Recognize extensionless Python 3 scripts.
+     Fix typo that prevented .cxx recognition.
+
+2.9: 2020-02-03::
+     Python 2 is EOLed; move tablegen.py to Python 3.
+     asciidoc has no strings.
+
+2.8: 2019-08-01::
+     Improve installation instructions.
+     Fix a silly packaging error.
+     SLOC support for BitBake.
+     Recognize .sty as a TeX extension.
+     Remove slightly buggy custom Python counter; the generic parser works.
+     Added file extensions for Scheme and PowerShell.
+
+2.7: 2019-03-20::
+     Language traits are now captured in a JSON file from which code is generated.
+     LLOC support for XC.
+     SLOC support for JSX, Moonscript, Pony.
+
+2.6: 2019-03-15::
+     A bug that affected line counting in Rust and Ruby has been corrected.
+     SLOC support for ActionScript, Fantom, Elvish, Forth, Smalltalk,
+     LiveScript, PostScript, PowerShell, Visual Basic, VimScript, and XSL.
+
+2.5: 2019-03-13::
+     SLOC support for Factor, Hy, Io, Logo, R, Skew, and ntroff .me/.ms/.mm.
+
+2.4: 2019-03-11::
+     Add cbs quirk for Tcl/Wish/Expect and Clojure/ClojureScript, eols for shell.
+     SLOC support for J, es6, wasm, Yorick, CoffeeScript, Crystal, Elixir, and BCPL.
+     LLOC support for BASIC, ChucK, Haxe.
+     Ignore an installed copy of waf and its build directory, but not wscript.
+     Distinguish Perl6 from Perl.
+
+2.3: 2019-03-07::
+     Added Designer's Notes
+     Handle single quote in C-like languages correctly.
+     Handle mixed double and single quotes in, e.g., Javascript directly.
+     Ignore files generated with DocBook XSL Stylesheets.
+     Added -g option to list files excluded because they look generated.
+     LLOC support for Dylan, Seed7, Metafont, Protocol Buffers, and SETL.
+     SLOC support for Rexx, Arc, B, BLISS, and SNOBOL4.
+     SLOC support for serialization languages/configs: JSON, YAML, TOML, INI.
+
+2.2: 2019-03-05::
+     SLOC support for ABC, Idris, Frege, Chapel, Scala, cmake, and DOS batch files.
+     Corrected erroneous salary base in COCOMO model.
+
+2.1: 2019-03-03::
+     Added a Hacking Guide describing how to add support for a language.
+     Languages in which block comments nest are now handled properly.
+     SLOC in Julia, Groovy, Racket, SML, CML, MATLAB, Elm, TypeScript, ABC, and Nim.
+     LLOC in Go, Zephir, and Vala.
+     Handle GAS- and Motorola-style assembler comments as well as Intel style.
+     Oberon is now recognized by .ob and .ob2; .mod now maps to Modula.
+     Simula and Algol 60 block comments are recognized.
+     Well-known markups (HTML, asciidoc, man, Tex, Texinfo) are now counted.
+
+2.0: 2019-02-23::
+     Added ability to count LLOC in many languages and make COCOMO II estimates.
+     Support Algol 60, F#, Dart, Cobra, VRML, Modula-2, and Kotlin.
+
+1.3: 2019-02-20::
+     Added support for Rebol, Verilog, Simula, Icon, VHDL.
+
+1.2: 2017-12-05::
+     Work around bug in the parallelized treewalker that barfed on .. paths.
+
+1.1: 2017-07-09::
+     Documentation fix for copy-paste error.
+     Cleanup suggested by https://goreportcard.com/report/gitlab.com/esr/loccount
+
+1.0: 2017-02-13::
+     Initial release.

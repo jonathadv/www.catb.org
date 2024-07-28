@@ -1,0 +1,15 @@
+--- dump-acct.8-unpatched	2012-07-06 14:23:36.138476057 -0400
++++ dump-acct.8	2012-07-06 14:24:27.238475103 -0400
+@@ -7,10 +7,10 @@
+ .B dump-acct
+ .RB [\| \-r \||\| \-\-reverse \|]
+ .RB [\| \-R \||\| \-\-raw \|]
+-.RB [\| \-\-format \|]
++.RB [\| \-\-format
+ .IR version \|]
+ .RB [\| \-\-byteswap \|]
+-.RB [\| \-\-ahz \|]
++.RB [\| \-\-ahz
+ .IR hertz \|]
+ .RB [\| \-n \||\| \-\-num
+ .IR recs \|]

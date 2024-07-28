@@ -1,0 +1,28 @@
+--- [.1-unpatched	2018-04-17 21:54:23.971441556 -0400
++++ [.1	2018-04-17 21:58:02.075011621 -0400
+@@ -7,20 +7,15 @@
+ \fI\,EXPRESSION\/\fR
+ .br
+ .B test
+-
+-.br
+-.B [
+-\fI\,EXPRESSION \/\fR]
+-.br
+-.B [
+-]
+-.br
+-.B [
+-\fI\,OPTION\/\fR
+ .SH DESCRIPTION
+ .\" Add any additional description here
+ .PP
+ Exit with the status determined by EXPRESSION.
++.PP
++The command "[" is linked to test, and a trailing "]" im the arguments
++is ignored.  Thus, acomposition of the operations described below may
++be surrounded by [ ] and will be interpreted as a test command.  This
++syntax is frequently used in shell conditionals.
+ .TP
+ \fB\-\-help\fR
+ display this help and exit

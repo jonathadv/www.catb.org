@@ -1,0 +1,18 @@
+= mstrans project news =
+
+1.4: 2024-02-07::
+   Ensure we cann handle maximum-sized Unix pathnames.
+   Always build the Unix version, the MS-DOS version is obsolete
+
+1.3: 2021-02-14::
+   Minor bugfixes; use ANSI C bools.
+
+1.2: 2015-04-05::
+   Upgrade C to use prototypes.
+   Remove RPM specfile, add control file.
+
+1.1: 2002-07-30::
+   Add RPM packaging.
+
+1.0: 1985-10-18::
+   Initial version.

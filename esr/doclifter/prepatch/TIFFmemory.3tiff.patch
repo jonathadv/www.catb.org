@@ -1,0 +1,21 @@
+--- TIFFmemory.3tiff-unpatched	2012-07-27 00:45:30.435656590 -0400
++++ TIFFmemory.3tiff	2012-07-27 00:46:21.571655638 -0400
+@@ -25,12 +25,12 @@
+ .if n .po 0
+ .TH MEMORY 3TIFF "October 15, 1995" "libtiff"
+ .SH NAME
+-_TIFFmalloc, \c
+-_TIFFrealloc, \c
+-_TIFFfree, \c
+-_TIFFmemset, \c
+-_TIFFmemcpy, \c
+-_TIFFmemcmp, \c
++_TIFFmalloc, \
++_TIFFrealloc, \
++_TIFFfree, \
++_TIFFmemset, \
++_TIFFmemcpy, \
++_TIFFmemcmp \
+ \- memory management-related functions for use with
+ .SM TIFF
+ files

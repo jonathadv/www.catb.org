@@ -1,0 +1,13 @@
+--- ntfs-3g.secaudit.8-unpatched	2012-07-29 21:25:55.799033156 -0400
++++ ntfs-3g.secaudit.8	2012-07-29 21:27:18.783031604 -0400
+@@ -8,8 +8,8 @@
+ .B ntfs-3g.secaudit
+ \fB[\fIoptions\fP\fB]\fR
+ .I args
+-.PP
+-Where \fIoptions\fP is a combination of :
++.SH OPTION OVERVIEW
++In the above, \fIoptions\fP may be a combination of :
+ .RS
+ -a full auditing of security data (Linux only)
+ .RE

@@ -1,0 +1,31 @@
+--- ssh_config.5-unpatched	2018-06-02 23:30:24.297980801 -0400
++++ ssh_config.5	2018-06-02 23:33:21.088779320 -0400
+@@ -688,7 +688,7 @@
+ .It Cm ForwardX11Timeout
+ Specify a timeout for untrusted X11 forwarding
+ using the format described in the
+-.Sx TIME FORMATS
++TIME FORMATS
+ section of
+ .Xr sshd_config 5 .
+ X11 connections received by
+@@ -1333,7 +1333,7 @@
+ depending on the cipher.
+ The optional second value is specified in seconds and may use any of the
+ units documented in the
+-.Sx TIME FORMATS
++TIME FORMATS
+ section of
+ .Xr sshd_config 5 .
+ The default value for
+@@ -1686,8 +1686,8 @@
+ The default is
+ .Cm no .
+ .Pp
+-See also
+-.Sx VERIFYING HOST KEYS
++.\"See also
++.\".Sx VERIFYING HOST KEYS
+ in
+ .Xr ssh 1 .
+ .It Cm VisualHostKey

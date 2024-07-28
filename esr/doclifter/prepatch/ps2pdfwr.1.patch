@@ -1,0 +1,13 @@
+--- ps2pdfwr.1-unpatched	2013-05-25 14:05:36.736412774 -0400
++++ ps2pdfwr.1	2013-05-25 14:05:36.496412779 -0400
+@@ -8,8 +8,9 @@
+ .BR gs (1)
+ with following arguments
+ 
+-.ce
++.RS
+ .B -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite
++.RE
+ 
+ as well as the appropriate
+ .B -dOutputFile

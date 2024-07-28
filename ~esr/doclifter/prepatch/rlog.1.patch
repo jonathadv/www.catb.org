@@ -1,0 +1,14 @@
+--- rlog.1-unpatched	2013-06-14 14:15:55.310746889 -0400
++++ rlog.1	2013-06-14 14:16:06.958746672 -0400
+@@ -40,10 +40,7 @@
+ .B rlog
+ prints complete information.
+ The options below restrict this output.
+-.nr n \w'\f3\-V\fP\f2n\fP'+2n-1/1n
+-.ds n \nn
+-.if \n(.g .if r an-tag-sep .ds n \w'\f3\-V\fP\f2n\fP'u+\n[an-tag-sep]u
+-.TP \*n
++.TP
+ .B \-L
+ Ignore \*os that have no locks set.
+ This is convenient in combination with

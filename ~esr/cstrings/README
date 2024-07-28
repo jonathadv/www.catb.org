@@ -1,0 +1,12 @@
+				cstrings
+
+A quick-and-dirty internationalization tool for C code.  Extracts
+strings from a program and turns them into #defines in a prepended
+code section.  Has good features for incremental use.
+
+The latest sources for this utility live at 
+
+	http://www.catb.org/~esr/cstrings/
+
+							Eric S. Raymond
+							esr@thyrsus.com

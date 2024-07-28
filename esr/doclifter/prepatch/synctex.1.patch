@@ -1,0 +1,29 @@
+--- synctex.1-unpatched	2018-05-28 03:39:05.347651587 -0400
++++ synctex.1	2018-05-28 03:39:44.143387929 -0400
+@@ -14,18 +14,20 @@
+ .Pp
+ Run `synctex help' to access the built-in tool documentation.
+ .Sh TEX ENGINE OPTION -synctex=NUMBER
++.Bl -bullet compact
+ .It
+-.Li If NUMBER=0 or no option is given, no synctex file is created.
++If NUMBER=0 or no option is given, no synctex file is created.
+ .It
+-.Li If NUMBER<0, synctex files are text files.
++If NUMBER<0, synctex files are text files.
+ .It
+-.Li If NUMBER>0, synctex files are compressed with gz.
++If NUMBER>0, synctex files are compressed with gz.
+ .It
+-.Li If NUMBER&2, no .gz extension is used.
++If NUMBER&2, no .gz extension is used.
+ .It
+-.Li If NUMBER&4, activate form support, useful for pdftex.
++If NUMBER&4, activate form support, useful for pdftex.
+ .It
+-.Li If NUMBER&8, better file compression.
++If NUMBER&8, better file compression.
++.El
+ .Pp
+ Use for example `pdftex -synctex=15 foo.tex' to activate all the options.
+ .Pp

@@ -1,0 +1,9 @@
+--- ua.1-unpatched	2018-05-18 15:55:56.694980600 -0400
++++ ua.1	2018-05-18 15:56:44.790653739 -0400
+@@ -125,5 +125,5 @@
+ .B
+ 8
+ The requested service is already disabled
+-.TP
++.PP
+ If apt commands run by the tool fail, the exit status from apt is returned.

@@ -1,0 +1,38 @@
+--- CPAN::Meta::History::Meta_1_2.3pm-unpatched	2016-03-06 05:58:39.325224221 -0500
++++ CPAN::Meta::History::Meta_1_2.3pm	2016-03-06 06:01:19.828856972 -0500
+@@ -140,18 +140,6 @@
+ .nh
+ .SH "NAME"
+ CPAN::Meta::History::Meta_1_2 \- Version 1.2 metadata specification for META.yml
+-.SH "PREFACE"
+-.IX Header "PREFACE"
+-This is a historical copy of the version 1.2 specification for \fI\s-1META\s0.yml\fR
+-files, copyright by Ken Williams and licensed under the same terms as Perl
+-itself.
+-.PP
+-Modifications from the original:
+-.IP "\(bu" 4
+-Various spelling corrections
+-.IP "\(bu" 4
+-Include list of valid licenses from Module::Build 0.2611 rather than
+-linking to the module.
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ .Vb 10
+@@ -192,6 +180,16 @@
+ \& generated_by: Module::Build version 0.20
+ .Ve
+ .SH "DESCRIPTION"
++This is a historical copy of the version 1.2 specification for \fI\s-1META\s0.yml\fR
++files, copyright by Ken Williams and licensed under the same terms as Perl
++itself.
++.PP
++Modifications from the original:
++.IP "\(bu" 4
++Various spelling corrections
++.IP "\(bu" 4
++Include list of valid licenses from Module::Build 0.2611 rather than
++linking to the module.
+ .IX Header "DESCRIPTION"
+ This document describes version 1.2 of the \fI\s-1META\s0.yml\fR specification.
+ .PP

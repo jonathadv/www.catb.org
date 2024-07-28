@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head xmlns="http://www.w3.org/1999/xhtml"><title xmlns="http://www.w3.org/1999/xhtml"> What To Optimize</title><meta xmlns="http://www.w3.org/1999/xhtml" name="generator" content="DocBook XSL Stylesheets V1.49"/><link rel="home" href="index.html" title="Building the Perfect Box: How to Design Your Linux Workstation"/><link rel="up" href="index.html" title="Building the Perfect Box: How to Design Your Linux Workstation"/><link rel="previous" href="index.html" title="Building the Perfect Box: How to Design Your Linux Workstation"/><link rel="next" href="ar01s03.html" title=" So What Processor Should I Buy, Then?"/></head><body><div xmlns="http://www.w3.org/1999/xhtml" class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"> What To Optimize</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s03.html">Next</a></td></tr></table><hr/></div><div xmlns="http://www.w3.org/1999/xhtml" class="sect1"><div xmlns="http://www.w3.org/1999/xhtml" class="titlepage"><div xmlns="http://www.w3.org/1999/xhtml"><h2 class="title" style="clear: both"><a xmlns="http://www.w3.org/1999/xhtml" id="id2764938"/> What To Optimize</h2></div></div><p xmlns="http://www.w3.org/1999/xhtml">Most people think of the processor as the most important choice in
+specifying any kind of personal-computer system.  Our first lesson in
+building Linux boxes is this: for Linux, the processor type is nearly
+a red herring.  It's far more important to specify a capable system
+bus and disk I/O subsystem.</p><p xmlns="http://www.w3.org/1999/xhtml">One important reason for this is precisely because PC systems are
+marketed in a way that presents processor speed as a primary figure of
+merit.  The result is that the development of processor technology
+naturally has gotten pushed harder than anything else, and off-the-shelf PCs 
+have processors that are quite overpowered relative to the speed
+of everything else in the system.  Your typical PC these days has
+spare CPU-seconds it will never use, because the screen and disk
+and modem and other peripherals can't be driven fast enough to tax it.</p><p xmlns="http://www.w3.org/1999/xhtml">If you're already running Linux, you may find it enlightening to
+keep top(1) running for a while as you use your machine.  Notice how
+seldom the CPU idle percentage drops below 90%!</p><p xmlns="http://www.w3.org/1999/xhtml">It's true that after people upgrade their motherboards they
+often do report a throughput increase.  But this is often more due to
+other changes that go with the processor upgrade, such as improved
+cache memory or an increase in the system bus's clocking speed
+(enabling data to get in and out of the processor faster).</p><p xmlns="http://www.w3.org/1999/xhtml">The unbalanced, processor-heavy architecture of PCs is hard to notice
+under DOS and Windows 3.1, because neither OS hits the disk very much.
+But any OS that uses virtual memory, and keeps lots of on-disk logs
+and other transaction state, is a different matter -- it will load the
+disk more heavily and suffer worse from the imbalance.</p><p xmlns="http://www.w3.org/1999/xhtml">Linux is in this category (and, I'd guess, Windows NT and OS/2 are
+too).  Assuming you're buying for Linux a fixed budget, it makes sense
+to trade away some excess processor clocks to get a faster bus and
+disk subsystem.</p><p xmlns="http://www.w3.org/1999/xhtml">The truth is that <span xmlns="http://www.w3.org/1999/xhtml" class="emphasis"><i xmlns="http://www.w3.org/1999/xhtml">any</i></span> true 32-bit processor
+now on the market is more than fast enough for your disks under a
+typical Linux-like load, even if it's a lowly 386/25!  Your screen, if
+you're running X, can be a bit more demanding -- but even a 486/50
+will let you drag Xterm windows around like paper.  And that's way
+slower than the cheapest new desktop machine you'll be able to find by
+the time this article hits paper.</p><p xmlns="http://www.w3.org/1999/xhtml">So buy a fast bus.  And (especially) buy fast disks.</p><p xmlns="http://www.w3.org/1999/xhtml">How does this translate into a recipe?  Like this:</p><div xmlns="http://www.w3.org/1999/xhtml" class="itemizedlist"><ul type="disc"><li xmlns="http://www.w3.org/1999/xhtml"><p xmlns="http://www.w3.org/1999/xhtml"><span xmlns="http://www.w3.org/1999/xhtml" class="emphasis"><i xmlns="http://www.w3.org/1999/xhtml">Don't</i></span> bother with the latest
+Pentium Pro whizbang 300MHz super-scorcher with a cooling fan bigger
+than it is.</p></li><li xmlns="http://www.w3.org/1999/xhtml"><p xmlns="http://www.w3.org/1999/xhtml"><span xmlns="http://www.w3.org/1999/xhtml" class="emphasis"><i xmlns="http://www.w3.org/1999/xhtml">Do</i></span> get a PCI-bus
+machine.</p></li><li xmlns="http://www.w3.org/1999/xhtml"><p xmlns="http://www.w3.org/1999/xhtml"><span xmlns="http://www.w3.org/1999/xhtml" class="emphasis"><i xmlns="http://www.w3.org/1999/xhtml">Do</i></span> get a SCSI
+controller.</p></li><li xmlns="http://www.w3.org/1999/xhtml"><p xmlns="http://www.w3.org/1999/xhtml"><span xmlns="http://www.w3.org/1999/xhtml" class="emphasis"><i xmlns="http://www.w3.org/1999/xhtml">Do</i></span> get the fastest SCSI disks you
+can afford.</p></li></ul></div><p xmlns="http://www.w3.org/1999/xhtml">Buying PCI will get you maximum bus throughput, and makes sense from
+several other angles as well.  The doggy old ISA bus is clearly headed
+for extinction at this point, and you don't hear much about its
+other competitors (EISA, VESA local-bus video, or MCA) anymore.  With PCI
+now being used in Macintoshes and Alphas as well as all high-end Intel
+boxes, it's clearly here to stay, and a good way to protect your
+investment in I/O cards from rapid obsolescence.</p><p xmlns="http://www.w3.org/1999/xhtml">The case for SCSI is a little less obvious but still compelling.  For
+starters, SCSI is still at least 10%-15% faster than EIDE running flat
+out.  Furthermore, EIDE is still something of a jerry-rig.  Like
+Windows, it's layered over an ancestral design (ST-512) that's
+antiquated and prone to failure under stress.  SCSI, on the other
+hand, was designed from the beginning to scale up well to high-speed,
+high-throughput systems.  Because it's perceived as a &quot;professional&quot;
+choice, SCSI peripherals are generally better engineered than EIDE
+equivalents.  You'll pay a few dollars more, but for Linux the cost
+is well repaid in increased throughput and reliability.</p><p xmlns="http://www.w3.org/1999/xhtml">For the fastest disks you can find, pay close attention to
+seek and latency time.  The former is an upper bound on the time
+required to seek to any track; the latter is the maximum time 
+required for any sector on a track to come under the heads, and is
+a function of the disk's rotation speed.</p><p xmlns="http://www.w3.org/1999/xhtml">Of these, seek time is more important and is the one manufacturers
+usually quote.  When you're running Linux, a one millisecond faster
+seek time can make a really substantial difference in system
+throughput.  Back when PC processors were slow enough for the
+comparison to be possible (and I was running System V Unix), it was
+easily worth as much as a 30MHz increment in processor speed.  Today
+the corresponding figure would be higher!</p></div><div xmlns="http://www.w3.org/1999/xhtml" class="navfooter"><hr/><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ar01s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Building the Perfect Box: How to Design Your Linux Workstation </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">  So What Processor Should I Buy, Then?</td></tr></table></div></body></html>

@@ -1,0 +1,67 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>gif2png</title><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry"><a name="gif2png.1"></a><div class="titlepage"></div><div class="refnamediv"><a name="name"></a><h2>Name</h2><p>gif2png &#8212; convert GIFs to PNGs</p></div><div class="refsynopsisdiv"><a name="synopsis"></a><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">gif2png</code>  [-bdfmvwO] [<em class="replaceable"><code>file.[gif]</code></em>...]</p></div></div><div class="refsect1"><a name="description"></a><h2>DESCRIPTION</h2><p>The <span class="command"><strong>gif2png</strong></span> program converts files in the
+obsolescent Graphic Interchange Format (GIF) to Portable Network
+Graphics (PNG) format, an open W3C standard.</p><p>Normally <span class="command"><strong>gif2png</strong></span> converts each file named on
+the command line, leaving the original in place.  If a name does not
+have a .gif extension, the unmodified name will be tried first,
+followed by the name with .gif appended.  For each file named
+<code class="filename">foo.gif</code>, a foo.png will be created.</p><p>When a multi-image GIF file named <code class="filename">foo.gif</code>
+is converted, gif2png creates multiple PNG files, each containing one
+frame; their names will be <code class="filename">foo.png</code>,
+<code class="filename">foo.p01</code>, <code class="filename">foo.p02</code> etc.</p><p>If no source files are specified and stdin is a terminal,
+<span class="command"><strong>gif2png</strong></span> lists a usage summary and version
+information, then exits.</p><p>If no source files are specified, and stdin is a device or pipe,
+stdin is converted to <code class="filename">noname.png</code>.  (The program
+can't be a normal stdin-to-stdout filter because of the possibility
+that the input GIF might have multiple images).</p><p>However, if filter mode is forced (with -f) stdin will be
+converted to stdout, with <span class="command"><strong>gif2png</strong></span> returning an
+error code if the GIF is multi-image.</p><p>All graphics data (pixels, RGB color tables) will be converted
+without loss of information.  Transparency is also preserved.  The GIF
+aspect-ratio field, offset fireld, and extensions are dropped.</p><p>The program automatically detects images in which all colors are
+gray (equal R, G, and B values) and converts such images to PNG
+grayscale.  Other images are converted to use the PNG palette type.
+Duplicate color entries are silently preserved.  Interlacing is
+removed.</p><p>The action of the program can be modified with the following
+command-line switches:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+  <code class="option">-b</code> {#}RRGGBB
+</span></dt><dd><p>Background.  Replace transparent pixels with given RGB value,
+six hexadecimal digits interpreted as two hexits each of red,
+green, and blue value.  The value may optionally be led with
+a #, HTML-style.</p></dd><dt><span class="term">
+  <code class="option">-d </code>
+</span></dt><dd><p>Delete source GIF files after successful conversion.</p></dd><dt><span class="term">
+  <code class="option">-f </code>
+</span></dt><dd><p>Filter mode.  Convert GIF on stdin to PNG on stdout, return error
+if the GIF is multi-image.</p></dd><dt><span class="term">
+  <code class="option">-m </code>
+</span></dt><dd><p>Preserve file modification time. The PNG output gets the mod time of the
+input file, not the time it was converted.</p></dd><dt><span class="term">
+  <code class="option">-v </code>
+</span></dt><dd><p>Verbose mode; show summary line, -vv enables conversion-statistics and
+debugging messages.</p></dd><dt><span class="term">
+  <code class="option">-w </code>
+</span></dt><dd><p>Web-probe switch; list GIFs that do not have multiple images 
+to stdout.  GIFs that fail this filter cause error messages to stderr.</p></dd><dt><span class="term">
+  <code class="option"> -O </code>
+</span></dt><dd><p>Use zlib compression level 9 (best compression) instead of the
+default level.</p></dd></dl></div></div><div class="refsect1"><a name="problems"></a><h2>LIMITATIONS</h2><p>Naively converting all your GIFs at one go with
+<span class="command"><strong>gif2png</strong></span> is not likely to give you the results you
+want. Animated GIFs cannot be translated to PNG, which is a 
+single-image format.</p><p>The web-probe switch is intended to be used with scripts for
+converting web sites.  In versions of this tool up to 2.5.2
+it filtered out GIFs with transparency as well as GIFs with
+animations, but support for PNG transparency has been universal
+in browsers since about 2006.</p></div><div class="refsect1"><a name="returns"></a><h2>RETURN VALUES</h2><p>Normally
+returns 0 for successful comp[letion.  A return of 1 is a recoverable
+error (batch processing continues). </p></div><div class="refsect1"><a name="standards_and_specifications"></a><h2>STANDARDS AND SPECIFICATIONS</h2><p>Copies of the GIF89 specification are widely available on the
+Web; search for "GRAPHICS INTERCHANGE FORMAT".  The Graphics
+Interchange Format(c) is the Copyright property of CompuServe
+Incorporated. GIF(sm) is a Service Mark property of CompuServe
+Incorporated.  The GIF format was formerly covered by a blocking
+patent on LZW compression, but it expired in June 2003.</p><p>The PNG home site at &lt;<a class="ulink" href="http://www.libpng.org/pub/png/" target="_top">http://www.libpng.org/pub/png/</a>&gt;
+has very complete information on the PNG standard, PNG libraries, and
+PNG tools.</p></div><div class="refsect1"><a name="see_also"></a><h2>SEE ALSO</h2><p>web2png(1)</p></div><div class="refsect1"><a name="authors"></a><h2>AUTHORS</h2><p>Code by Alexander
+Lehmann &lt;alex@hal.rhein-main.de&gt;, 1995.  Auto-interlace
+conversion and tRNS optimization by Greg Roelofs
+&lt;newt@pobox.com&gt;, 1999.  Man page, -O, -w, and production
+packaging by Eric S. Raymond &lt;esr@thyrsus.com&gt;, 1999. -m option
+by Steve Ward, 2012.</p></div></div></body></html>

@@ -1,0 +1,11 @@
+--- sk_TYPE_set_cmp_func.3ssl-unpatched	2018-06-05 00:32:02.366490168 -0400
++++ sk_TYPE_set_cmp_func.3ssl	2018-06-05 00:32:02.182491418 -0400
+@@ -187,7 +187,7 @@
+ \& STACK_OF(TYPE) *sk_TYPE_deep_copy(const STACK_OF(TYPE) *sk,
+ \&                                   sk_TYPE_copyfunc copyfunc,
+ \&                                   sk_TYPE_freefunc freefunc);
+-\& sk_TYPE_compfunc (*sk_TYPE_set_cmp_func(STACK_OF(TYPE) *sk, sk_TYPE_compfunc compare);
++\& sk_TYPE_compfunc (*sk_TYPE_set_cmp_func(STACK_OF(TYPE) *sk, sk_TYPE_compfunc compare));
+ .Ve
+ .SH "DESCRIPTION"
+ .IX Header "DESCRIPTION"

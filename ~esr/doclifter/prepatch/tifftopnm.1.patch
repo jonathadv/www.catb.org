@@ -1,0 +1,24 @@
+--- tifftopnm.1-unpatched	2012-06-30 12:58:46.512266002 -0400
++++ tifftopnm.1	2012-06-30 12:59:02.888265700 -0400
+@@ -10,10 +10,6 @@
+ .RB [ -respectfillorder ]
+ .RI [ tiff-filename ]
+ 
+-You may abbreviate any option to its shortest unique prefix.  You may use
+-two hyphens instead of one in options.  You may separate an option and
+-its value either by an equals sign or white space.
+-
+ .SH DESCRIPTION
+ Reads a TIFF file as input.
+ .IX TIFF
+@@ -67,6 +63,10 @@
+ means no pipe, but any regular file is fine.
+ 
+ .SH OPTIONS
++You may abbreviate any option to its shortest unique prefix.  You may use
++two hyphens instead of one in options.  You may separate an option and
++its value either by an equals sign or white space.
++
+ .TP
+ .BI -alphaout= alpha-filename
+ .B tifftopnm 

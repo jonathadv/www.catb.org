@@ -1,0 +1,106 @@
+<!-- received="Sat Oct 19 18:01:56 1996 EST" -->
+<!-- sent="Sat, 19 Oct 96 14:51 PDT" -->
+<!-- name="Daniel Quinlan" -->
+<!-- email="quinlan@proton.pathname.com" -->
+<!-- subject="Re: I found your name in Linux's /usr/lib/magic" -->
+<!-- id="m0vEjIc-000SouC@proton.pathname.com" -->
+<!-- inreplyto="199610192052.QAA05736@snark.thyrsus.com" -->
+<title>magic-numbers: Re: I found your name in Linux's /usr/lib/magic</title>
+<h1>Re: I found your name in Linux's /usr/lib/magic</h1>
+Daniel Quinlan (<i>quinlan@proton.pathname.com</i>)<br>
+<i>Sat, 19 Oct 96 14:51 PDT</i>
+<p>
+<ul>
+<li> <b>Messages sorted by:</b> <a href="date.html#1">[ date ]</a><a href="index.html#1">[ thread ]</a><a href="subject.html#1">[ subject ]</a><a href="author.html#1">[ author ]</a>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0002.html">Daniel Quinlan: "Re: Netscape 4.0 press release at their server"</a>
+<li> <b>Previous message:</b> <a href="0000.html">Christos Zoulas: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<!-- nextthread="start" -->
+</ul>
+<!-- body="start" -->
+Eric S Raymond &lt;esr@snark.thyrsus.com&gt; writes:<br>
+<p>
+<i>&gt; Let's do it!</i><br>
+<p>
+Christos, I assume you want to help.  Right?  You're the one with the<br>
+real experience with file(1).<br>
+<p>
+We might also want to bring in Greg Roelofs &lt;newt@uchicago.edu&gt;.  He<br>
+designed the magic for PNG and might have a few good ideas.<br>
+<p>
+<i>&gt; If you'll ship me a copy of your magic-number selection guidelines,</i><br>
+<i>&gt; I'll take a shot at drafting the RFC, then bounce it back to you for</i><br>
+<i>&gt; edits and expansion.</i><br>
+<p>
+I couldn't find the darned file (just moved all of my files to<br>
+pathname.com and I am still sorting them out), but I remember most of<br>
+the guidelines, so here they are.<br>
+<p>
+The tricky thing is that we have to store both the offset and the<br>
+magic in any registry.  And we have to take that into account for an<br>
+RFC.<br>
+<p>
+We also need to determine the relationship between the registry and<br>
+the RFC, guidelines for acceptance into the registry, and stuff we'll<br>
+recommend in the RFC, but not require for RFC comformance.<br>
+<p>
+I'm going to walk through /etc/magic and see if there are any other<br>
+things we want to include.  I'll also pick out a few bad magics and<br>
+tell I think they are bad.<br>
+<p>
+ Dan<br>
+<p>
+------- start of cut text --------------<br>
+GLOSSARY<br>
+<p>
+Primary magic<br>
+  magic numbers used to recognize the type of data stream or file<br>
+Secondary magic<br>
+  magic numbers used to determine characteristics of the data stream<br>
+  of file such as version, sub-type, etc.<br>
+<p>
+REQUIREMENTS<br>
+<p>
+These are required for compatibility with both traditional and POSIX<br>
+versions of file(1).<br>
+<p>
+1. Magic must be located at a predictable offset from the beginning<br>
+   of the data stream.<br>
+<p>
+2. Primary magic must be located in a single block of bytes and should<br>
+   be byte-aligned.<br>
+<p>
+RECOMMENDATIONS<br>
+<p>
+1. Length of magic.  4 is enough, but I think we should consider jumping<br>
+   to 8 for future entries.<br>
+<p>
+   Better yet, reserve a CLEAR range of magic (at offset 0) for 8 byte<br>
+   magic.  I'll look at /etc/magic and figure out what range would be<br>
+   best.<br>
+<p>
+2. Magic should not composed solely of text characters, especially<br>
+   English text.  It should be a randomish-mix of text and non-text<br>
+   characters, preferrably including characters in each of these ranges:<br>
+   ASCII, Latin-1 extensions to ASCII, and everything else.<br>
+<p>
+   A program to generate random hex numbers is useful.  (hpa wrote one)<br>
+<p>
+3. Don't use null characters in magic.<br>
+<p>
+4. Offsets close to the beginning of the file are better.  0 is best.<br>
+   Having magic located in the first disk block (if on a fixed disk)<br>
+   is ideal, meaning it should be in the first 512 bytes.<br>
+<p>
+5. The primary magic should be constant for a particular application<br>
+   or data type.  Magic should not change depending on the version of<br>
+   an application or data type.  Secondary magic should be used for that.<br>
+------- end ----------------------------<br>
+<!-- body="end" -->
+<p>
+<ul>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0002.html">Daniel Quinlan: "Re: Netscape 4.0 press release at their server"</a>
+<li> <b>Previous message:</b> <a href="0000.html">Christos Zoulas: "Re: I found your name in Linux's /usr/lib/magic"</a>
+<!-- nextthread="start" -->
+</ul>

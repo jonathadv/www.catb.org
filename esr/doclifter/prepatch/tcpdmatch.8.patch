@@ -1,0 +1,29 @@
+--- tcpdmatch.8-unpatched	2012-07-04 02:30:30.070507804 -0400
++++ tcpdmatch.8	2012-07-04 02:31:25.894506757 -0400
+@@ -56,20 +56,22 @@
+ To predict how \fItcpd\fR would handle a telnet request from the local
+ system:
+ .sp
+-.ti +5
++.RS
+ tcpdmatch in.telnetd localhost
++.RE
+ .PP
+ The same request, pretending that hostname lookup failed:
+ .sp
+-.ti +5
++.RS
+ tcpdmatch in.telnetd 127.0.0.1
++.RE
+ .PP
+ To predict what tcpd would do when the client name does not match the
+ client address:
+ .sp
+-.ti +5
++.RS
+ tcpdmatch in.telnetd paranoid
+-.PP
++.RE
+ On some systems, daemon names have no `in.\' prefix, or \fItcpdmatch\fR
+ may need some help to locate the inetd configuration file.
+ .SH FILES

@@ -1,0 +1,24 @@
+	ifdex - a tool for excavating configuration macros
+
+The purpose of this tool is to walk through a C codebase and generate
+a report listing symbols used as conditionals in #ifdef/#ifndef/#elif
+lines.  By default it processes files with the extensions .c, .h, .cpp,
+.y, and .l.
+
+Tis program knows how to ignore a large number of guard symbols that
+are conventional parts of, .e.g. POSIX, and would on;y add noise to
+the report. This filter can be turned off.
+
+This is useful information to have if you are trying to identify
+configuration symbols intended to be set by a build system.  The use
+case this tool was originally built for was prying 227 KLOC of C loose
+from the clammy grip of autoconf.
+
+It's also useful for detecting stray or broken guard symbols.
+
+You can run a simple regression test with 'make check".  Examining
+smoketest.tst and smoketest.chk may be instructive.
+
+						Eric S. Raymond
+						<esr@thyrsus.com>
+						September 2015

@@ -1,0 +1,11 @@
+--- groffer.1-unpatched	2016-03-05 08:40:45.796751105 -0500
++++ groffer.1	2016-03-05 08:42:36.844417781 -0500
+@@ -238,7 +238,7 @@
+ .OP \-\-ps\-viewer prog
+ .OP \-\-tty\-viewer prog
+ .OP \-\-www\-viewer prog
+-.OP \-\-x\-viewer\~\fR|\fB\~\-\-X\-viewer prog
++.OP \-\-x\-viewer\~\fR|\fB\~\-\-X\-viewer prog\fR
+ ..
+ .
+ .

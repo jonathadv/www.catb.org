@@ -1,0 +1,11 @@
+--- nsenter.1-unpatched	2018-05-16 20:43:33.556060373 -0400
++++ nsenter.1	2018-05-16 20:44:56.259498316 -0400
+@@ -91,7 +91,7 @@
+ .BR CLONE_NEWCGROUP
+ flag in
+ .BR clone (2).
+-.TP
++.PP
+ See \fBclone\fP(2) for the exact semantics of the flags.
+ .SH OPTIONS
+ Various of the options below that relate to namespaces take an optional

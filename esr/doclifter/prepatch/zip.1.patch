@@ -1,0 +1,29 @@
+--- zip.1-unpatched	2018-06-03 16:41:09.049680448 -0400
++++ zip.1	2018-06-03 16:41:45.857430301 -0400
+@@ -26,16 +26,7 @@
+ .RB [\- tt " date]"
+ [\fIzipfile\fR [\fIfile\fR \.\|.\|.]]
+ [\fB-xi\fR list]
+-.PP
+-.B zipcloak
+-(see separate man page)
+-.PP
+-.B zipnote
+-(see separate man page)
+-.PP
+-.B zipsplit
+-(see separate man page)
+-.PP
++.SH WARNING
+ Note:  Command line processing in
+ .I zip
+ has been changed to support long options and handle all
+@@ -2633,7 +2624,7 @@
+ .I zip
+ do the pattern matching for file paths, and always for
+ paths and strings that have spaces or wildcards for
+-\fB\-\i\fP, \fB\-x\fP, \fB\-R\fP, \fB\-d\fP, and \fB\-U\fP
++\fB\-i\fP, \fB\-x\fP, \fB\-R\fP, \fB\-d\fP, and \fB\-U\fP
+ and anywhere \fIzip\fP needs to process the wildcards.
+ .SH "ENVIRONMENT"
+ .LP

@@ -1,0 +1,11 @@
+--- omfonts.1-unpatched	2012-07-04 01:01:36.926607538 -0400
++++ omfonts.1	2012-07-04 01:02:26.202606616 -0400
+@@ -1,7 +1,7 @@
+ .TH "omfonts" "1" "March 2006" "Omega" "Omega" 
+ .PP 
+ .SH "NAME" 
+-omfonts \ - the driver program behind  ofm2opl, opl2ofm, ovf2ovp, and ovp2ovf.
++omfonts \- the driver program behind  ofm2opl, opl2ofm, ovf2ovp, and ovp2ovf.
+ .PP 
+ .SH "DESCRIPTION and SEE ALSO" 
+ .PP 

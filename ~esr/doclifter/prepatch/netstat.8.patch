@@ -1,0 +1,482 @@
+--- netstat.8-unpatched	2018-05-21 10:21:48.121694281 -0400
++++ netstat.8	2018-05-21 10:21:58.113626374 -0400
+@@ -111,14 +111,16 @@
+ .B Netstat
+ prints information about the Linux networking subsystem.  The type of
+ information printed is controlled by the first argument, as follows:
+-.SS (none)
++.TP
++none
+ By default,
+ .B
+ netstat 
+ displays a list of open sockets.  If you don't specify any
+ address families, then the active sockets of all configured address
+ families will be printed.
+-.SS "\-\-route, \-r"
++.TP
++\-\-route, \-r
+ Display the kernel routing tables. See the description in 
+ .BR route (8) 
+ for details. 
+@@ -126,35 +128,45 @@
+ and 
+ .B route -e 
+ produce the same output.
+-.SS "\-\-groups, \-g"
++.TP
++\-\-groups, \-g
+ Display multicast group membership information for IPv4 and IPv6.
+-.SS "\-\-interfaces, \-i"
++.TP
++\-\-interfaces, \-i
+ Display a table of all network interfaces.
+-.SS "\-\-masquerade, \-M"
++.TP
++\-\-masquerade, \-M
+ Display a list of masqueraded connections.
+-.SS "\-\-statistics, \-s"
++.TP
++\-\-statistics, \-s
+ Display summary statistics for each protocol.
+ .SH OPTIONS
+-.SS "\-\-verbose, \-v"
++.TP
++\-\-verbose, \-v
+ Tell the user what is going on by being verbose. Especially print some
+ useful information about unconfigured address families.
+-.SS "\-\-wide, \-W"
++.TP
++\-\-wide, \-W
+ Do not truncate IP addresses by using output as wide as needed. This is
+ optional for now to not break existing scripts.
+-.SS "\-\-numeric, \-n"
++.TP
++\-\-numeric, \-n
+ Show numerical addresses instead of trying to determine symbolic host, port
+ or user names.
+-.SS "\-\-numeric\-hosts"
++.TP
++\-\-numeric\-hosts
+ shows numerical host addresses but does not affect the resolution of
+ port or user names.
+-.SS "\-\-numeric\-ports"
++.TP
++\-\-numeric\-ports
+ shows numerical port numbers but does not affect the resolution of
+ host or user names.
+-.SS "\-\-numeric\-users"
++.TP
++\-\-numeric\-users
+ shows numerical user IDs but does not affect the resolution of host or
+ port names.
+-
+-.SS "\-\-protocol=\fIfamily\fR, \fB\-A"
++.TP
++\-\-protocol=\fIfamily\fR, \fB\-A
+ Specifies the address families (perhaps better described as low level
+ protocols) for which connections are to be shown.
+ .I family 
+@@ -180,7 +192,7 @@
+ and
+ .B \-\-bluetooth
+ options.
+-.P
++.RS
+ The address family
+ .B inet
+ (Iv4) includes raw, udp, udplite and tcp protocol sockets.
+@@ -188,92 +200,100 @@
+ The address family
+ .B bluetooth
+ (Iv4) includes l2cap and rfcomm protocol sockets.
+-.SS "\-c, \-\-continuous"
++.RE
++.TP
++\-c, \-\-continuous
+ This will cause
+ .B netstat
+ to print the selected information every second continuously.
+-.SS "\-e, \-\-extend"
++.TP
++\-e, \-\-extend
+ Display additional information.  Use this option twice for maximum detail.
+-.SS "\-o, \-\-timers"
++.TP
++\-o, \-\-timers
+ Include information related to networking timers.
+-.SS "\-p, \-\-program"
++.TP
++\-p, \-\-program
+ Show the PID and name of the program to which each socket belongs.
+-.SS "\-l, \-\-listening"
++.TP
++\-l, \-\-listening
+ Show only listening sockets.  (These are omitted by default.)
+-.SS "\-a, \-\-all"
++.TP
++\-a, \-\-all
+ Show both listening and non-listening sockets.  With the
+ .B \-\-interfaces
+ option, show interfaces that are not up
+-.SS "\-F"
++.TP
++\-F
+ Print routing information from the FIB.  (This is the default.)
+-.SS "\-C"
++.TP
++\-C
+ Print routing information from the route cache.
+ .P
+ .SH OUTPUT
+ .P
+-.SS Active Internet connections \fR(TCP, UDP, UDPLite, raw)\fR
+-.SS "Proto" 
++Active Internet connections \fR(TCP, UDP, UDPLite, raw)\fR
++.TP
++Proto
+ The protocol (tcp, udp, udpl, raw) used by the socket. 
+-.SS "Recv\-Q"
++.TP
++Recv\-Q
+ Established: The count of bytes not copied by the user program connected to this socket.
+ Listening: Since Kernel 2.6.18 this column contains the current syn backlog.
+-.SS "Send\-Q"
++.TP
++Send\-Q
+ Established: The count of bytes not acknowledged by the remote host.
+-Listening: Since Kernel 2.6.18 this column contains the maximum size of the syn backlog.
+-.SS "Local Address" 
++Listening: Since Kernel 2.6.18 this column contains the maximum size
++of the syn backlog.
++.TP
++Local Address
+ Address and port number of the local end of the socket.  Unless the
+ .BR \-\-numeric " (" \-n )
+ option is specified, the socket address is resolved to its canonical
+ host name (FQDN), and the port number is translated into the
+ corresponding service name.
+-.SS "Foreign Address"
++.TP
++Foreign Address
+ Address and port number of the remote end of the socket.
+ Analogous to "Local Address".
+-.SS "State"
++.RS
++.TP
++State
+ The state of the socket. Since there are no states in raw mode and usually no
+ states used in UDP and UDPLite, this column may be left blank. Normally this can be one
+ of several values:
++.RS
+ .TP
+-.I
+-ESTABLISHED
++\fIESTABLISHED\fR
+ The socket has an established connection.
+ .TP
+-.I
+-SYN_SENT
++\fISYN_SENT\fR
+ The socket is actively attempting to establish a connection.
+ .TP
+-.I
+-SYN_RECV
++\fISYN_RECV\fR
+ A connection request has been received from the network.
+ .TP
+-.I
+-FIN_WAIT1
++\fIFIN_WAIT1\fR
+ The socket is closed, and the connection is shutting down.
+ .TP
+-.I
+-FIN_WAIT2
++\fIFIN_WAIT2\fR
+ Connection is closed, and the socket is waiting for a shutdown from the
+ remote end.
+ .TP
+-.I
+-TIME_WAIT
++\fITIME_WAIT\fR
+ The socket is waiting after close to handle packets still in the network.
+ .TP
+-.I
+-CLOSE
++\fICLOSE\fR
+ The socket is not being used.
+ .TP
+-.I
+-CLOSE_WAIT
++\fICLOSE_WAIT\fR
+ The remote end has shut down, waiting for the socket to close.
+ .TP
+-.I
+-LAST_ACK
++\fILAST_ACK\fR
+ The remote end has shut down, and the socket is closed. Waiting for
+ acknowledgement.
+ .TP
+-.I
+-LISTEN
++\fILISTEN\fR
+ The socket is listening for incoming connections.  Such sockets are 
+ not included in the output unless you specify the 
+ .BR \-\-listening " (" \-l )
+@@ -281,17 +301,18 @@
+ .BR \-\-all " (" \-a )
+ option.
+ .TP
+-.I
+-CLOSING
++\fICLOSING\fR
+ Both sockets are shut down but we still don't have all our data
+ sent.
+ .TP
+-.I
+-UNKNOWN
++\fIUNKNOWN]FR
+ The state of the socket is unknown.
+-.SS "User"
++.RE
++.TP
++User
+ The username or the user id (UID) of the owner of the socket.
+-.SS "PID/Program name"
++.TP
++PID/Program name
+ Slash-separated pair of the process id (PID) and process name of the 
+ process that owns the socket.
+ .B \-\-program
+@@ -299,15 +320,20 @@
+ .I superuser
+ privileges to see this information on sockets you don't own.  This
+ identification information is not yet available for IPX sockets.
+-.SS "Timer"
++.TP
++Timer
+ (this needs to be written)
+-.P
+-.SS Active UNIX domain Sockets
+-.SS "Proto" 
++.TP
++Active UNIX domain Socket
++(this needs to be written)
++.TP
++Proto
+ The protocol (usually unix) used by the socket.
+-.SS "RefCnt"
++.TP
++RefCnt
+ The reference count (i.e. attached processes via this socket).
+-.SS "Flags"
++.TP
++Flags
+ The flags displayed is SO_ACCEPTON (displayed as 
+ .BR ACC ),
+ SO_WAITDATA 
+@@ -318,44 +344,41 @@
+ is used on unconnected sockets if their corresponding
+ processes are waiting for a connect request. The other flags are not
+ of normal interest.
+-.SS "Type"
++.TP
++Type
+ There are several types of socket access:
++.RS
+ .TP
+-.I
+-SOCK_DGRAM
++\fISOCK_DGRAM\fR
+ The socket is used in Datagram (connectionless) mode.
+ .TP
+-.I
+-SOCK_STREAM
++\fISOCK_STREAM\fR
+ This is a stream (connection) socket.
+ .TP
+-.I
+-SOCK_RAW
++\fISOCK_RAW\fR
+ The socket is used as a raw socket.
+ .TP
+-.I
+-SOCK_RDM
++\fISOCK_RDM\fR
+ This one serves reliably-delivered messages.
+ .TP
+-.I
+-SOCK_SEQPACKET
++\fISOCK_SEQPACKET\fR
+ This is a sequential packet socket.
+ .TP
+-.I
+-SOCK_PACKET
++\fISOCK_PACKET\fR
+ Raw interface access socket.
+ .TP
+-.I
+-UNKNOWN
++\fIUNKNOWN\fR
+ Who ever knows what the future will bring us - just fill in here :-)
++.RE
+ .PP
+-.SS "State"
++.TP
++State
+ This field will contain one of the following Keywords:
+ .TP
+-.I FREE
++\fIFREE\fR
+ The socket is not allocated
+ .TP
+-.I LISTENING 
++\fILISTENING \fR
+ The socket is listening for a connection request.  Such
+ sockets are only included in the output if you specify the
+ .BR \-\-listening " (" \-l )
+@@ -363,105 +386,129 @@
+ .BR \-\-all " (" \-a )
+ option.
+ .TP
+-.I CONNECTING
++\fICONNECTING\fR
+ The socket is about to establish a connection.
+ .TP
+-.I CONNECTED
++\fICONNECTED\fR
+ The socket is connected.
+ .TP
+-.I DISCONNECTING
++\fIDISCONNECTING\fR
+ The socket is disconnecting.
+ .TP
+-.I (empty)
++\fI(empty)\fR
+ The socket is not connected to another one.
+ .TP
+-.I UNKNOWN
++\fIUNKNOWN\fR
+ This state should never happen.
+-.SS "PID/Program name"
++.RE
++.TP
++PID/Program name
+ Process ID (PID) and process name of the process that has the socket open. 
+ More info available in
+ .B "Active Internet connections"
+ section written above.
+-.SS "Path"
++.TP
++Path
+ This is the path name as which the corresponding processes attached
+ to the socket.
+-.P
+-.SS Active IPX sockets
++.TP
++Active IPX socket
+ (this needs to be done by somebody who knows it)
+-.P
+-.SS Active NET/ROM sockets
++.TP
++Active NET/ROM sockets
+ (this needs to be done by somebody who knows it)
+-.P
+-.SS Active AX.25 sockets
++.TP
++Active AX.25 sockets
+ (this needs to be done by somebody who knows it)
+-.PP
+ 
+ .SH FILES
+-.ta
++
++.TP
+ .I /etc/services
+ -- The services translation file
+ 
++.TP
+ .I /proc
+ -- Mount point for the proc filesystem, which gives access to kernel 
+ status information via the following files.
+ 
++.TP
+ .I /proc/net/dev
+ -- device information
+ 
++.TP
+ .I /proc/net/raw
+ -- raw socket information
+ 
++.TP
+ .I /proc/net/tcp
+ -- TCP socket information
+ 
++.TP
+ .I /proc/net/udp
+ -- UDP socket information
+ 
++.TP
+ .I /proc/net/udplite
+ -- UDPLite socket information
+ 
++.TP
+ .I /proc/net/igmp
+ -- IGMP multicast information
+ 
++.TP
+ .I /proc/net/unix
+ -- Unix domain socket information
+ 
++.TP
+ .I /proc/net/ipx
+ -- IPX socket information
+ 
++.TP
+ .I /proc/net/ax25
+ -- AX25 socket information
+ 
++.TP
+ .I /proc/net/appletalk
+ -- DDP (appletalk) socket information
+ 
++.TP
+ .I /proc/net/nr
+ -- NET/ROM socket information
+ 
++.TP
+ .I /proc/net/route
+ -- IP routing information
+ 
++.TP
+ .I /proc/net/ax25_route
+ -- AX25 routing information
+ 
++.TP
+ .I /proc/net/ipx_route
+ -- IPX routing information
+ 
++.TP
+ .I /proc/net/nr_nodes
+ -- NET/ROM nodelist
+ 
++.TP
+ .I /proc/net/nr_neigh
+ -- NET/ROM neighbours
+ 
++.TP
+ .I /proc/net/ip_masquerade
+ -- masqueraded connections
+ 
++.TP
+ .I /sys/kernel/debug/bluetooth/l2cap
+ -- Bluetooth L2CAP information
+ 
++.TP
+ .I /sys/kernel/debug/bluetooth/rfcomm
+ -- Bluetooth serial connections
+ 
++.TP
+ .I /proc/net/snmp
+ -- statistics
+ .fi

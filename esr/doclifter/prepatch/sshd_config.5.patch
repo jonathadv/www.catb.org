@@ -1,0 +1,38 @@
+--- sshd_config.5-unpatched	2018-06-02 23:43:30.684636473 -0400
++++ sshd_config.5	2018-06-02 23:44:08.852377084 -0400
+@@ -270,7 +270,7 @@
+ .Pp
+ The program should produce on standard output zero or
+ more lines of authorized_keys output (see
+-.Sx AUTHORIZED_KEYS
++AUTHORIZED_KEYS
+ in
+ .Xr sshd 8 ) .
+ If a key supplied by
+@@ -298,7 +298,7 @@
+ .It Cm AuthorizedKeysFile
+ Specifies the file that contains the public keys used for user authentication.
+ The format is described in the
+-.Sx AUTHORIZED_KEYS FILE FORMAT
++AUTHORIZED_KEYS FILE FORMAT
+ section of
+ .Xr sshd 8 .
+ Arguments to
+@@ -363,7 +363,7 @@
+ this file lists names, one of which must appear in the certificate for it
+ to be accepted for authentication.
+ Names are listed one per line preceded by key options (as described in
+-.Sx AUTHORIZED_KEYS FILE FORMAT
++AUTHORIZED_KEYS FILE FORMAT
+ in
+ .Xr sshd 8 ) .
+ Empty lines and comments starting with
+@@ -1075,7 +1075,7 @@
+ .Cm Address .
+ The match patterns may consist of single entries or comma-separated
+ lists and may use the wildcard and negation operators described in the
+-.Sx PATTERNS
++PATTERNS
+ section of
+ .Xr ssh_config 5 .
+ .Pp

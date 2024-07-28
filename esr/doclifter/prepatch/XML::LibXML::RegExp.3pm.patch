@@ -1,0 +1,11 @@
+--- XML::LibXML::RegExp.3pm-unpatched	2018-06-03 06:17:32.823963186 -0400
++++ XML::LibXML::RegExp.3pm	2018-06-03 06:17:32.651964355 -0400
+@@ -73,7 +73,7 @@
+ .if n .ad l
+ .nh
+ .SH "NAME"
+-XML::LibXML::RegExp \- XML::LibXML::RegExp \- interface to libxml2 regular expressions
++XML::LibXML::RegExp \- interface to libxml2 regular expressions
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ .Vb 4

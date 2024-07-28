@@ -1,0 +1,13 @@
+--- rexec.3-unpatched	2018-06-05 07:55:18.577740846 -0400
++++ rexec.3	2018-06-05 07:55:45.997554498 -0400
+@@ -53,6 +53,10 @@
+ .BI "             sa_family_t " af  );
+ .fi
+ .PP
++.in -4n
++Feature Test Macro Requirements for glibc (see
++.BR feature_test_macros (7)):
++.in
+ .BR rexec (),
+ .BR rexec_af ():
+ .nf

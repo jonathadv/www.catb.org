@@ -1,0 +1,22 @@
+Removed unneccessary relative indent changes: the examples seem to fit 
+on an 80-char xterm just fine without them.  (This gets rid of a flood of 
+warnings when I run doclifter on it.)
+
+--- zipinfo.1-unpatched	2012-08-09 07:24:36.490167804 -0400
++++ zipinfo.1	2012-08-09 07:25:59.422166247 -0400
+@@ -12,13 +12,9 @@
+ .de X
+ .nf
+ .ft CW
+-.ie n .ti -5
+-.el \{ .ti +2m
+-.ps -1 \}
++.if t .ps -1
+ \&\\$1
+-.ie n .ti +5
+-.el \{ .ti -2m
+-.ps +1 \}
++.if t .ps +1
+ .ft
+ .fi
+ ..

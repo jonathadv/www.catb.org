@@ -1,0 +1,26 @@
+--- dkms.8-unpatched	2018-05-19 07:19:26.046415583 -0400
++++ dkms.8	2018-05-19 07:19:25.814417161 -0400
+@@ -248,8 +248,8 @@
+ on all of your other systems to get the same built modules loaded
+ without having to wait for anything to compile.
+ .SY ldtarball
+-.OS /path/to/tarball.tar
+-.OS --force
++.OP /path/to/tarball.tar
++.OP --force
+ .YS
+ .IP "" 4
+ This takes a tarball made from the
+@@ -983,9 +983,9 @@
+ .I dkms.conf
+ files. Every time after a  dkms.conf file is read, dkms will look for and read the following files in order:
+ 
+-.I /etc/dkms/<module>.conf\p
+-.I /etc/dkms/<module>\-<module\-version>.conf\p
+-.I /etc/dkms/<module>\-<module\-version>\-<kernel>.conf\p
++.I /etc/dkms/<module>.conf
++.I /etc/dkms/<module>\-<module\-version>.conf
++.I /etc/dkms/<module>\-<module\-version>\-<kernel>.conf
+ .I /etc/dkms/<module>\-<module\-version>\-<kernel>\-<arch>.conf
+ 
+ You can use these files to override settings in the module-provided dkms.conf files.

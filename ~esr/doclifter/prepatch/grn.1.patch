@@ -1,0 +1,11 @@
+--- grn.1-unpatched	2016-03-03 08:57:30.925162277 -0500
++++ grn.1	2016-03-03 08:57:48.341105793 -0500
+@@ -751,7 +751,7 @@
+ For horizontal pictures, x-values range from 0 to 511 and y-values
+ range from 0 to 367.
+ .
+-Although you needn\[aq]t absolutely stick to this range, you\[aq]\ll
++Although you needn\[aq]t absolutely stick to this range, you\[aq]ll
+ get best results if you at least stay in this vicinity.
+ .
+ Also, point lists are terminated by a point of (\-1, \-1), so you

@@ -1,0 +1,11 @@
+--- pbmtextps.1-unpatched	2012-07-04 14:19:50.473711866 -0400
++++ pbmtextps.1	2012-07-04 14:20:14.085711423 -0400
+@@ -12,7 +12,7 @@
+ .IR resolution ]
+ .RB [ \-stroke
+ .IR strokesize ]
+-.RB [ \-verbose
++.RB [ \-verbose ]
+ .RI [ text ]
+ 
+ .SH DESCRIPTION

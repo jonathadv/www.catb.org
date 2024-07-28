@@ -1,0 +1,827 @@
+<!DOCTYPE HTML public "-//W3O//DTD W3 HTML 4.0//EN">
+<HTML>
+<HEAD>
+<link rev=made href="mailto:esr@snark.thyrsus.com">
+<meta name="description" content="">
+<meta name="keywords" content=""> 
+<TITLE>CML2 Transition Guide</TITLE>
+</HEAD>
+<BODY>
+<table width="100%" cellpadding=0><tr>
+<td width="30%">Back to <a href="/~esr">Eric's Home Page</a>
+<td width="30%" align=center>Up to <a href="/~esr/sitemap.html">Site Map</a>
+<td width="30%" align=right>$Date: 2001/04/10 00:12:08 $
+</table>
+<HR>
+<H1 ALIGN=CENTER>CML2 Transition Guide</H1>
+
+<P>You need to read this guide if you are a maintainer of configuration
+code in the Linux kernel.  Linus has scheduled this work to be
+incorporated in the tree during the 2.5.1/2.5.2 series. It will
+explain the plan for transitioning from the old system to the new one,
+what I'm planning to do, and what I need you to do.<P>
+
+<P>I have made every effort to minimize the amount of work anybody but me
+has to do, but some is unavoidable.  I don't think anybody will have
+more than maybe two hours' work to do, and it will save all of us 
+a lot of future grief.
+
+<H1>How to transition your code</H1>
+
+<H2>Step 1: Get the background</H2>
+
+Read, or at least skim, the following files:
+
+<DL>
+<DT><a href="ANNOUNCEMENT">Release 1.0.0 announcement</a>
+<DD>Goals of the project.  Why it's worthwhile.  What you will gain.<P>
+
+<DT><a href="NEWS">Recent news</a>
+<DD>Project release history.<P>
+
+<DT><a href="cml2-paper.html">The CML2 Language</a>
+<DD>Overview of CML2.  Design philosophy, language
+    semantics, implementation.<P>
+
+<DT><a href="cml2-reference.html">CML2 Reference</a>
+<DD>A complete description of CML2.<P>
+</DL>
+
+<H2>Step 2: Install the CML2 tools and rules files</H2>
+
+<P>You can untar the source distribution anywhere.  Run the
+install-cml2 utility to install it in a Linux source directory on your
+system.  The install-cml2 script will make sure your build environment
+is adequate, prompt you for a source tree location if there is more
+than one, and install the CML2 files there.
+
+<P>The installer has been carefully designed not to step on or
+interfere with the existing config system, except that it will modify
+the configuration productions in the top-level makefile. (The old ones
+will remain available under different names.)
+
+<H2>Step 3: Take a look at the menu map</H2>
+
+<P>Change directory to your source tree. Do:
+
+<listing>
+make menu-map
+</listing>
+
+<P>This will generate a map of the menu hierarchy defined by the rules
+file.  Notice that it first compiles the rules file using cmlcompile.
+All the configuration productions will do this when necessary (which
+is only when configuration rules change).
+
+<P>For a more verbose result, including default values and
+requirements, add the -v debugging option to the command that make
+generates.  (If this doesn't match what you remeber, it's OK; the
+debugging option was -d in pre-1.0.0 versions of CML2.)  You can
+do it this way:
+
+<listing>
+make CONFIGOPTS=-v menu-map
+</listing>
+
+<H2>Step 4: Run the interpreter in interactive mode</H2>
+
+<P>Next, try `make ttyconfig' to see the line-oriented mode.  The
+line-oriented mode is intended to be used as a configuration debugger;
+adding the -v option to the command (with `make CONFIGOPTS=-v
+ttyconfig') will tell you a lot about what the interpreter is doing.
+
+<P>You can try via `make menuconfig' to test the curses mode. This is the
+one I expect people will use the most.
+
+<P>Run via `make xconfig' to test the Tkinter mode.<p>
+
+<H2>Step 5: Take a harder look at the configuration parts you own</H2>
+
+<P>The rules files (.cml extension) will be distributed through your
+kernel tree near the code and drivers they configure.  One or more of
+them is yours.  Find them and try to grok what's going on with
+them.
+
+<P><H2>Step 6: Now get serious and try to break it</H2>
+
+<P>Do a bunch of configurations.  Try weird stuff -- stress-test the
+constraint machinery.  Use the line-oriented `make ttyconfig' mode for
+this; it makes the debugging output easiest to read.
+
+<P>Remember that you can write out partial configurations with `s' and
+read them back in with the `i' command, so you don't have to re-do
+your boilerplate multiple times.  Also remember the `g' command that
+lets you go straight to your piece after you've set up stuff like
+architecture and system buses (possibly with an `i').
+
+<P>Finally, be aware of the (undocumented) `e' command in the curses and
+tty modes, with which you can examine the state of any symbol at any
+time.
+
+<P>You can run the curses mode with 2>LOG to capture debug output from it.
+
+<H2>Step 7: Tell me what you found</H2>
+
+If the configurator breaks, tell me.  When you're satisfied with your
+piece of the translation, please email me and tell me so.
+
+<H2>Step 8: Do your bit to keep CML2 in sync</H2>
+
+<P>Until CML1 is scrapped and the CML2 rules files owned by different
+maintainers, I'll need you to keep me up to date on the changes you're
+making to your CML1 files so I can keep the CML2 rulebase current.
+
+<H1>State of the maintainers</H1>
+
+In the following table, status marks are as follows:
+<DL>
+<DT>certified
+<DD>Maintainer has certified that configuration behavior is correct
+    for his subystem.
+
+<DT>testing
+<DD>Maintainer is testing CML2's behavior.
+ 
+<DT>confirmed
+<DD>Maintainer has acknowledged responsibility for the subsystem,
+    but not yet reported on CML2's behavior.
+<DT>-
+<DD>Maintainer not yet confirmed.
+</DL>
+
+<P>Here is the current state of the transition:
+
+<P>There are 48 identified configuration subsystems.  5 have been
+certified.  Maintainers for 19 others have confirmed and 3 others are
+testing.  The table below covers every nonempty configuration file in
+the CML1 corpus at the time of the most recent CML2 release.<p>
+
+<table border=2>
+<tr>
+<td><em>Maintainer</em></td>
+<td><em>Subsystem</em></td>
+<td><em>Files</em></td>
+<td><em>Status</td>
+</tr>
+
+<tr>
+<td>
+Urban Widmark<br>
+Andrzej Krzysztofowicz
+</td>
+<td>NLS configuration</td>
+<td>
+fs/nls/Config.in
+</td>
+<td>
+<font color=green>certified<br>
+12 Jun 2000</font>
+</td>
+</tr>
+
+<tr>
+<td>Niibe Yutaka</td>
+<td>SuperH port</td>
+<td>
+arch/sh/config.in
+</td>
+<td>
+<font color=green>certified<br>
+26 Jun 2000</font>
+</td>
+</tr>
+
+<tr>
+<td>
+Simon Vogl
+</td>
+<td>I2C configuration</td>
+<td>
+drivers/i2c/Config.in
+</td>
+<td>
+<font color=green>certified<br>
+30 Jun 2000</font>
+</td>
+</tr>
+
+<tr>
+<td>
+Andreas Bombe
+</td>
+<td>IEEE394 configuration</td>
+<td>
+drivers/ieee1394/Config.in
+</td>
+<td>
+<font color=green>certified<br>
+13 Jul 2000</font>
+</td>
+</td>
+</tr>
+
+<tr>
+<td>
+Randy Dunlap
+</td>
+<td>USB configuration</td>
+<td>
+drivers/usb/Config.in
+</td>
+<td>
+<font color=green>certified<br>
+24 Jul 2000</font>
+</td>
+</td>
+</tr>
+
+<tr>
+<td>Theodore Y. Ts'o</td>
+<td>File-system configuration</td>
+<td>
+fs/Config.in<br>
+fs/partitions/Config.in<br>
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>Petr Vandrovec</td>
+<td>NCP configuration</td>
+<td>
+fs/ncpfs/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Matthias Welwarsky
+</td>
+<td>AX25 configuration</td>
+<td>
+net/ax25/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Steven Whitehouse
+</td>
+<td>Decnet configuration</td>
+<td>
+net/decnet/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+David S. Miller<br>
+Andi Kleen<br>
+Alexey Kuznetsov<br>
+</td>
+<td>TCP/IP support</td>
+<td>
+net/Config.in<br>
+net/ipv4/Config.in<br>
+net/ipv6/Config.in<br>
+net/sched/Config.in<br>
+drivers/net/Config.in<br>
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Rusty Russell
+</td>
+<td>IPv4 netfilter configuration</td>
+<td>
+net/ipv4/netfilter/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Phil Blundell
+</td>
+<td>IPv6 netfilter configuration</td>
+<td>
+net/ipv6/netfilter/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Jay Schulist
+</td>
+<td>IPX support</td>
+<td>
+net/ipx/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Dag Brattli
+</td>
+<td>IRDA configuration</td>
+<td>
+net/irda/Config.in<br>
+net/irda/compressors/Config.in<br>
+net/irda/ircomm/Config.in<br>
+net/irda/irlan/Config.in<br>
+drivers/net/irda/Config.in<br>
+drivers/net/irnet/Config.in<br>
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Arjan van de Ven
+</td>
+<td>KHTTPD configuration</td>
+<td>
+net/khttpd/Config.in
+</td>
+<td>
+testing
+</td>
+</tr>
+
+<tr>
+<td>
+Jaspreet Singh
+</td>
+<td>WAN configuration</td>
+<td>
+drivers/net/wan/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Alan Cox
+</td>
+<td>Alan holds up the earth</td>
+<td>
+drivers/sound/Config.in<br>
+</td>
+<td>
+testing
+</td>
+</tr>
+
+<tr>
+<td>
+Geert Uytterhoven
+</td>
+<td>DMA sound and video</td>
+<td>
+drivers/sound/dmasound/Config.in<br>
+drivers/video/Config.in<br>
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Boji T Kannanthanam
+</td>
+<td>I20 support</td>
+<td>
+drivers/i2o/Config.in<br>
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Mike Phillips
+</td>
+<td>Responsible</td>
+<td>
+drivers/net/tokenring/Config.in<br>
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Joerg Reuter
+</td>
+<td>ham-radio configuration</td>
+<td>
+drivers/net/hamradio/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+David Woodhouse
+</td>
+<td>ARCnet configuration</td>
+<td>
+drivers/mtd/Config.in
+drivers/net/arcnet/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+David Hinds
+</td>
+<td>PCMCIA configuration</td>
+<td>
+drivers/net/pcmcia/Config.in<br>
+drivers/char/pcmcia/Config.in<br>
+drivers/scsi/pcmcia/Config.in<br>
+drivers/pcmcia/Config.in<br>
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Jay Schulist
+</td>
+<td>Appletalk configuration</td>
+<td>
+drivers/net/appletalk/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Tim Waugh
+</td>
+<td>Parallel-port and parallel-IDE configuration</td>
+<td>
+drivers/parport/Config.in<br>
+drivers/block/paride/Config.in<br>
+</td>
+<td>
+testing
+</td>
+</tr>
+
+<tr>
+<td>
+Theodore Ts'o
+</td>
+<td>Character-device configuration</td>
+<td>
+drivers/char/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Claus-Justus Heine
+</td>
+<td>Floppy-tape configuration</td>
+<td>
+drivers/char/ftape/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Vojtech Pavlik
+</td>
+<td>Joystick configuration</td>
+<td>
+drivers/char/joystick/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+linux-scsi@vger.rutgers.edu
+</td>
+<td>SCSI configuration</td>
+<td>
+drivers/scsi/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Martin Mares
+</td>
+<td>PCI configuration</td>
+<td>
+drivers/pci/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Jens Axboe
+</td>
+<td>CD-ROM configuration</td>
+<td>
+drivers/cdrom/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Fritz Elfert
+</td>
+<td>ISDN configuration</td>
+<td>
+drivers/isdn/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+David S. Miller
+</td>
+<td>Sun SBUS configuration</td>
+<td>
+drivers/sbus/char/Config.in<br>
+drivers/sbus/audio/Config.in<br>
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Andre Hedrick
+</td>
+<td>Block and IDE configuration</td>
+<td>
+drivers/block/Config.in<br>
+drivers/ide/Config.in<br>
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Jaroslav Kysela
+</td>
+<td>PNP configuration</td>
+<td>
+drivers/pnp/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Jakub Jelinek
+</td>
+<td>Fiber Channel configuration</td>
+<td>
+drivers/fc4/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Russell King
+</td>
+<td>ARM port</td>
+<td>
+drivers/acorn/scsi/Config.in<br>
+drivers/acorn/block/Config.in<br>
+drivers/acorn/net/Config.in<br>
+arch/arm/config.in<br>
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Werner Almesberger
+</td>
+<td>ATM configuration</td>
+<td>
+drivers/atm/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Ed Okerson
+</td>
+<td>Telephony configuration</td>
+<td>
+drivers/telephony/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Martin Schwidefsky
+</td>
+<td>S390 port</td>
+<td>
+arch/s390/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Linus Torvalds
+</td>
+<td>386 port</td>
+<td>
+arch/i386/Config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Richard Henderson
+</td>
+<td>alpha port</td>
+<td>
+arch/alpha/Config.in
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+David S. Miller
+</td>
+<td>SPARC port</td>
+<td>
+arch/sparc/Config.in<br>
+arch/sparc64/Config.in<br>
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Ralf Baechle
+</td>
+<td>MIPS64 port</td>
+<td>
+arch/mips/config.in<br>
+arch/mips64/config.in<br>
+drivers/sgi/Config.in<br>
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Cort Dougan
+</td>
+<td>PowerPC port</td>
+<td>
+arch/ppc/config.in<br>
+arch/ppc/8xx_io/Config.in<br>
+arch/ppc/8260_io/Config.in<br>
+</td>
+<td>
+confirmed
+</td>
+</tr>
+
+<tr>
+<td>
+Jes S&oslash;rensen
+</td>
+<td>M68K port</td>
+<td>
+arch/m68k/config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+<tr>
+<td>
+Walt Drummond
+</td>
+<td>IA64 port</td>
+<td>
+arch/ia64/config.in
+arch/parisc/config.in
+</td>
+<td>
+-
+</td>
+</tr>
+
+</table>
+
+<HR>
+<table width="100%" cellpadding=0><tr>
+<td width="30%">Back to <a href="/~esr">Eric's Home Page</a>
+<td width="30%" align=center>Up to <a href="/~esr/sitemap.html">Site Map</a>
+<td width="30%" align=right>$Date: 2001/04/10 00:12:08 $
+</table>
+
+<P><ADDRESS>Eric S. Raymond <A HREF="mailto:esr@thyrsus.com">&lt;esr@thyrsus.com&gt;</A></ADDRESS>
+</BODY>
+</HTML>
+
+<!--
+Local Variables:
+compile-command: "(cd ~/WWW; upload cml2/transition.html)"
+End:
+-->
+

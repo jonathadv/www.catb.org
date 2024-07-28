@@ -1,0 +1,29 @@
+= README for loccount =
+by Eric S. Raymond
+November 2016
+
+loccount is a re-implementation of David A. Wheeler's sloccount tool
+in Go.  It is faster, handles more different languages, can report LLOC
+as well as SLOC, and can do COCOMO II as well as COCOMO I estimates. Because
+it's one source file in Go, it is easier to maintain and extend than the
+multi-file, multi-language implementation of the original.
+
+The algorithms are largely unchanged and can be expected to produce
+identical numbers for languages supported by both tools.  Python is
+an exception; loccount corrects buggy counting of single-quote multiline
+literals in sloccount 2.26.
+
+To build it, have the Go compiler and Python installed and do "make"
+in the top-level directory. 
+
+If you get a message about genericLanguages being undefined, you did "go build"
+which is not enough.  The make production generates some Go from a JSON file; 
+this is why you needed Python installed.
+
+You can run a self-test with 'make check'.  The sample sources are in
+the test/ subdirectory.
+
+See hacking.adoc for information on how to add support for a language.
+You may also want to read the design notes in design-notes.adoc
+
+

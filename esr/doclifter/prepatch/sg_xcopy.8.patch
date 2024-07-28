@@ -1,0 +1,11 @@
+--- sg_xcopy.8-unpatched	2016-03-05 12:31:23.122192231 -0500
++++ sg_xcopy.8	2016-03-05 12:31:35.926159380 -0500
+@@ -38,7 +38,7 @@
+ Both groups are defined below in combined, alphabetical order.
+ .PP
+ By default the XCOPY command is sent to \fIOFILE\fR. This can be changed
+-with the \fI\-\-on_src\fR or \fIiflag=xflag\R options which cause the XCOPY
++with the \fI\-\-on_src\fR or \fIiflag=xflag\fR options which cause the XCOPY
+ command to be sent to \fIIFILE\fR instead. Also see the section on
+ ENVIRONMENT VARIABLES.
+ .PP

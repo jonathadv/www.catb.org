@@ -1,0 +1,11 @@
+--- rhythmbox-client.1-unpatched	2018-06-02 12:21:43.994640600 -0400
++++ rhythmbox-client.1	2018-06-02 12:21:43.834641688 -0400
+@@ -165,7 +165,7 @@
+ .TP
+ %te
+ track elapsed time
+-.TP
++.PP
+ Variables can be combined using quotes. For example "%tn %aa %tt", will print the track number followed by the artist and the title of the track.
+ .SH AUTHOR
+ This manual page was written by Sven Arvidsson <sa@whiz.se>,

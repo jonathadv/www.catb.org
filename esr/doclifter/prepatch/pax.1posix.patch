@@ -1,0 +1,94 @@
+--- pax.1posix-unpatched	2018-06-04 06:15:53.301460370 -0400
++++ pax.1posix	2018-06-04 06:19:43.083898755 -0400
+@@ -1625,8 +1625,9 @@
+ preceding it, presumably because it has no need for extended
+ attributes.
+ .sp
+-.ce 1
++.RS
+ \fBFigure 4-1: pax Format Archive Example\fR
++.RE
+ .SS "pax Header Block"
+ .P
+ The
+@@ -2206,10 +2207,10 @@
+ table. All lengths and offsets are in decimal.
+ .br
+ .sp
+-.ce 1
++.RS
+ \fBTable 4-14: ustar Header Block\fR
+ .TS
+-center box tab(@);
++box tab(@);
+ cB | cB | cB
+ lI | n | n.
+ Field Name@Octet Offset@Length (in Octets)
+@@ -2231,6 +2232,7 @@
+ devminor@337@8
+ prefix@345@155
+ .TE
++.RE
+ .P
+ All characters in the header logical record shall be represented in the
+ coded character set of the ISO/IEC\ 646:\|1991 standard. For maximum portability between
+@@ -2326,7 +2328,7 @@
+ The encoded bits shall represent the following values:
+ .br
+ .sp
+-.ce 1
++.RS
+ \fBTable: ustar \fImode\fP Field\fR
+ .TS
+ tab(!) center box;
+@@ -2347,6 +2349,7 @@
+ 00\|002!S_IWOTH!Write permission for file other class.
+ 00\|001!S_IXOTH!Execute/search permission for file other class.
+ .TE
++.RE
+ .P
+ When appropriate privileges are required to set one of these mode bits,
+ and the user restoring the files from the archive does not have
+@@ -2545,7 +2548,7 @@
+ header.
+ .br
+ .sp
+-.ce 1
++.RS
+ \fBTable 4-16: Octet-Oriented cpio Archive Entry\fR
+ .TS
+ center box tab(!);
+@@ -2579,6 +2582,7 @@
+ _
+ c_filedata!c_filesize!Data
+ .TE
++.RE
+ .SS "cpio Header"
+ .P
+ For each file in the archive, a header as defined previously shall be
+@@ -2605,7 +2609,7 @@
+ following table.
+ .br
+ .sp
+-.ce 1
++.RS
+ \fBTable 4-17: Values for cpio c_mode Field\fR
+ .TS
+ center box tab(@);
+@@ -2643,6 +2647,7 @@
+ .P
+ C_ISCTG@0110\|000@Reserved
+ .TE
++.RE
+ .P
+ Directories, FIFOs, symbolic links, and regular files shall be
+ supported on a system conforming to this volume of POSIX.1\(hy2008; additional values defined
+@@ -3079,7 +3084,7 @@
+ superuser, by default, is historical practice in
+ .IR cpio ,
+ but not in
+-.Im tar .)
++.IR tar .)
+ In order to avoid these two problems, the
+ .IR pax
+ specification has an additional ``privilege'' mechanism, the

@@ -1,0 +1,11 @@
+--- transicc.1-unpatched	2016-03-05 12:41:19.336620463 -0500
++++ transicc.1	2016-03-05 12:41:27.708596819 -0500
+@@ -45,7 +45,7 @@
+ .TP
+ .B \-x
+ Hexadecimal.
+-.TP
++.PP
+ You can use '*Lab' and '*xyz' as built-in profiles.
+ .SH NOTES
+ For suggestions, comments, bug reports etc. send mail to

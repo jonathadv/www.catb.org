@@ -1,0 +1,55 @@
+--- e2image.8-unpatched	2014-06-02 15:24:55.371859485 -0400
++++ e2image.8	2014-06-02 15:26:12.457592909 -0400
+@@ -183,10 +183,12 @@
+ In order to send filesystem to the maintainer as a part of bug report to
+ e2fsprogs, use following commands (replace hda1 with the appropriate device):
+ .PP
+-.br
+-\	\fBe2image \-Q /dev/hda1 hda1.qcow2\fR
+-.br
+-\	\fBbzip2 -z hda1.qcow2\fR
++.RS
++.nf
++\fBe2image \-Q /dev/hda1 hda1.qcow2\fR
++\fBbzip2 -z hda1.qcow2\fR
++.fi
++.RE
+ .PP
+ This will only send the metadata information, without any data blocks.
+ However, the filenames in the directory blocks can still reveal
+@@ -209,9 +211,9 @@
+ .PP
+ You can convert a qcow2 image into a raw image with:
+ .PP
+-.br
+-\	\fBe2image \-r hda1.qcow2 hda1.raw\fR
+-.br
++.RS
++\fBe2image \-r hda1.qcow2 hda1.raw\fR
++.RE
+ .PP
+ This can be useful to write a qcow2 image containing all data to a
+ sparse image file where it can be loop mounted, or to a disk partition.
+@@ -258,16 +260,16 @@
+ image of a whole hard drive that contains an ext2 fs in a partition
+ starting at 1 MiB, you can clone that fs with:
+ .PP
+-.br
+-\	\fBe2image \-aro 1048576 img /dev/sda1\fR
+-.br
++.RS
++\fBe2image \-aro 1048576 img /dev/sda1\fR
++.RE
+ .PP
+ Or you can clone a fs into an image file, leaving room in the first
+ MiB for a partition table with:
+ .PP
+-.br
+-\	\fBe2image -arO 1048576 /dev/sda1 img\fR
+-.br
++.RS
++\fBe2image -arO 1048576 /dev/sda1 img\fR
++.RE
+ .PP
+ If you specify at least one offset, and only one file, an in-place
+ move will be performed, allowing you to safely move the filesystem

@@ -1,0 +1,31 @@
+Add BROWSER as a standard environment variable.
+See the BROWSER page at http://www.tuxedo.org/~esr/BROWSER/ for discussion.
+
+--- environ.5	2001/01/24 11:36:57	1.1
++++ environ.5	2001/01/24 11:42:54
+@@ -24,9 +24,9 @@
+ .\" 
+ .\" Modified Sun Jul 25 10:45:30 1993 by Rik Faith (faith@cs.unc.edu)
+ .\" Modified Sun Jul 21 21:25:26 1996 by Andries Brouwer (aeb@cwi.nl)
+-.\" Modified Mon Oct 21 17:47:19 1996 by Eric S. Raymond (esr@thyrsus.com)
+ .\" Modified Wed Aug 27 20:28:58 1997 by Nicolás Lichtmaier <nick@debian.org>
+ .\" Modified Mon Sep 21 00:00:26 1998 by Andries Brouwer (aeb@cwi.nl)
++.\" Modified Wed Jan 24 06:37:24 2001 by Eric S. Raymond (esr@thyrsus.com)
+ .\"
+ .TH ENVIRON 5 "October 21, 1996" "Linux" "Linux Programmer's Manual"
+ .SH NAME
+@@ -89,6 +89,14 @@
+ .TP
+ .BR EDITOR / VISUAL
+ The user's preferred utility to edit text files.
++.TP
++.B BROWSER
++The user's preferred utility to browse URLs.  May actually consist
++of a sequence of colon-separated browser commands to be tried in
++order until one succeeds. If a command part contains %s, the URL is
++substituted there, otherwise the browser command is simply called
++with the URL as its first argument.
++.\" See the BROWSER project page at http://www.tuxedo.org/~esr/BROWSER/  
+ .PP
+ Further names may be placed in the environment by the \fBexport\fP
+ command and `name=value' in \fBsh\fP(1), or by the \fBsetenv\fP command

@@ -1,0 +1,13 @@
+--- ppmcie.1-unpatched	2012-06-29 16:20:02.465655960 -0400
++++ ppmcie.1	2012-06-29 16:20:32.513655398 -0400
+@@ -231,8 +231,8 @@
+ .BR ppm (5)
+ 
+ .SH AUTHOR
+-.ce 2
+-Copyright (C) 1995 by John Walker (kelvin@fourmilab.ch)
++Copyright (C) 1995 by John Walker <kelvin@fourmilab.ch>
++.br
+ WWW home page: http://www.fourmilab.ch/
+ .PP
+ Permission to use, copy, modify, and distribute this software and its

@@ -1,0 +1,12 @@
+--- dh_install.1-unpatched	2018-06-03 05:51:10.126719285 -0400
++++ dh_install.1	2018-06-03 05:51:09.946720508 -0400
+@@ -76,7 +76,8 @@
+ dh_install \- install files into package build directories
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+-\&\fBdh_install\fR [\fB\-X\fR\fIitem\fR] [\fB\-\-autodest\fR] [\fB\-\-sourcedir=\fR\fIdir\fR] [\fIdebhelper options\fR] [\fIfile|dir\fR ... \fIdestdir\fR]
++\&\fBdh_install\fR [\fB\-X\fR\fIitem\fR] [\fB\-\-autodest\fR]
++[\fB\-\-sourcedir=\fR\fIdir\fR] [\fIdebhelper options\fR] [\fIfile|dir\fR ... \fIdestdir\fR]
+ .SH "DESCRIPTION"
+ .IX Header "DESCRIPTION"
+ \&\fBdh_install\fR is a debhelper program that handles installing files into package

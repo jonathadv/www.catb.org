@@ -1,0 +1,72 @@
+Use uniform .Ir instead of .I for tag list items. While .I may produce a line
+break, and happens to in groff, it is not required to and may cause bad
+rendering in third-party viewers.  Also, remove an empty tagged entry that
+looks like a paste error.
+--- sysfs.5-unpatched	2018-06-06 18:57:13.092659629 -0400
++++ sysfs.5	2018-06-06 18:58:35.920096729 -0400
+@@ -214,44 +214,44 @@
+ In each of the subdirectories, there may be following files:
+ .RS
+ .TP
+-.I coresize
++.IR coresize
+ [to be documented]
+ .TP
+-.I initsize
++.IR initsize
+ [to be documented]
+ .TP
+-.I initstate
++.IR initstate
+ [to be documented]
+ .TP
+ .I refcnt
+ [to be documented]
+ .TP
+-.I srcversion
++.IR srcversion
+ [to be documented]
+ .TP
+-.I taint
++.IR taint
+ [to be documented]
+ .TP
+-.I uevent
++.IR uevent
+ [to be documented]
+ .TP
+-.I version
++.IR version
+ [to be documented]
+ .RE
+ .IP
+ In each of the subdirectories, there may be following subdirectories:
+ .RS
+ .TP
+-.I drivers
++.IR drivers
+ [To be documented]
+ .TP
+-.I holders
++.IR holders
+ [To be documented]
+ .TP
+-.I notes
++.IR notes
+ [To be documented]
+ .TP
+-.I parameters
++.IR parameters
+ This directory contains one file for each module parameter,
+ with each file containing the value of the corresponding parameter.
+ Some of these files are writable, allowing the
+@@ -259,9 +259,6 @@
+ .I sections
+ This subdirectories contains files with information about module sections.
+ This information is mainly used for debugging.
+-.TP
+-.I
+-[To be documented]
+ .RE
+ .TP
+ .IR /sys/power

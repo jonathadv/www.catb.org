@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rev="made" href="mailto:esr@snark.thyrsus.com" />
+<link rel="stylesheet" href="/~esr/sitestyle.css" type="text/css" />
+<meta name="description" content="How to support the Anti-Idiotarian Manifesto" />
+<meta name="keywords" content="" />
+<meta name="MSSmartTagsPreventParsing" content="TRUE" />
+<title>Supporting the Anti-Idiotarian Manifesto</title>
+</head>
+<body>
+
+<div id="Header">
+<table width="100%" cellpadding="0" summary="Canned page header">
+<tr>
+<td>Supporting the Anti-Idiotarian Manifesto</td>
+<!-- have to fill this in manually; the JavaScripts clah -->
+<td align="right">08 Aug 03</td>
+</tr>
+</table>
+</div>
+
+<div id="Menu">
+	<hr/>
+	<a href="/~esr" title="My home page">Home Page</a><br />
+	<a href="/~esr/sitemap.html" title="Map of the site">Site Map</a><br />
+	<a href="/~esr/software.html" title="Software I maintain">Software</a><br />
+	<a href="/~esr/projects.html" title="My projects">Projects</a><br />
+	<a href="/~esr/faqs/" title="My FAQ documents">HOWTOs</a><br />
+	<a href="/~esr/writings/" title="Essays and ruminations">Essays</a><br />
+	<a href="/~esr/personal.html" title="Portrait of the author">Personal</a><br />
+	<a href="http://www.ibiblio.org/esrblog/">Weblog</a><br/>	
+	<a href="/~esr/netfreedom/">Freedom!</a><br />
+	<a href="/~esr/guns/">Firearms!</a><br />
+	<hr/>
+</div>
+
+<div id="Content">
+
+<h1 class="c1">Supporting the Manifesto</h1>
+
+<p>You can show support on your web pages with the following buttons
+linking back to the Manifesto page.  First, for Javascript-capable
+browsers, this one:</p><br />
+
+<div class="centered">
+<script language="JavaScript">
+function swtchon(nav){document[nav].src="http://www.catb.org/~esr/graphics/aim-on.png"};
+function swtchoff(nav){document[nav].src="http://www.catb.org/~esr/graphics/aim-off.png"};	
+</script>
+<a href="http://www.catb.org/~esr/aim/">
+<img name="aim" width=100 height=40 border=0 
+src="http://www.catb.org/~esr/graphics/aim-off.png" 
+onMouseover="swtchon('aim')" onMouseout="swtchoff('aim')" 
+alt="Click to Read" title="Click to Read"/></a></p>
+</div>
+<br clear="left">
+
+<p>To include it, paste in the following:</p>
+
+<pre>
+&lt;script language="JavaScript"&gt;
+function swtchon(nav){document[nav].src="http://www.catb.org/~esr/aim/aim-on.png"};
+function swtchoff(nav){document[nav].src="http://www.catb.org/~esr/aim/aim-off.png"};	
+&lt;/script&gt;
+&lt;a href="http://www.catb.org/~esr/aim/"&gt;
+&lt;img name="aim" width=100 height=40 border=0 
+src="http://www.catb.org/~esr/aim/aim-off.png" 
+onMouseover="swtchon('aim')" onMouseout="swtchoff('aim')" 
+alt="Click to Read" title="Click to Read"/&gt;&lt;/a&gt;&lt;/p&gt;
+</pre>
+
+<p>Here's a static button:</p><br />
+
+<div class='centered'>
+<img name="aim-thumb-button.png" border=0
+src="http://www.catb.org/~esr/aim/aim-button-thumb.jpg"/></div>
+<br clear='left'>
+
+<p>To include this, paste in the following:</p>
+
+<pre>
+&lt;img name="aim-thumb-button.png" border=0
+src="http://www.catb.org/~esr/aim/aim-button-thumb.jpg"/&gt;
+</pre>
+
+<p>If you're here by accident, you can read some <a
+href="background.html">background</a>.  The Manifesto itself is 
+<a href="index.html">here</a>.</p>
+
+</div>
+
+<br clear="left" />
+<address>Eric S. Raymond <a
+href="mailto:esr@thyrsus.com">&lt;esr@thyrsus.com&gt;</a></address>
+</body>
+</html>
+
+<!--
+Local Variables:
+compile-command: "(cd ~/WWW; upload aim/support.html)"
+End:
+-->

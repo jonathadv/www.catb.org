@@ -1,0 +1,26 @@
+--- pgmnorm.1-unpatched	2012-06-29 15:13:11.149730977 -0400
++++ pgmnorm.1	2012-06-29 15:13:22.273730771 -0400
+@@ -19,11 +19,6 @@
+ 
+ .RI [ ppmfile ]
+ 
+-All options can be abbreviated to their shortest unique prefix.  You
+-may use two hyphens instead of one to designate an option.  You may
+-use either white space or an equals sign between an option name and
+-its value.
+-
+ .SH DESCRIPTION
+ Reads a PNM image (PBM, PGM, or PPM).
+ Normalizes the contrast by forcing the lightest pixels to white, the
+@@ -46,6 +41,11 @@
+ normalizing the individual color components.
+ 
+ .SH OPTIONS
++All options can be abbreviated to their shortest unique prefix.  You
++may use two hyphens instead of one to designate an option.  You may
++use either white space or an equals sign between an option name and
++its value.
++
+ .PP
+ By default, the darkest 2 percent of all pixels are mapped to black, and
+ the lightest 1 percent are mapped to white.

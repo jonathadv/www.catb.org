@@ -1,0 +1,155 @@
+<!-- received="Mon Oct 21 00:06:54 1996 EST" -->
+<!-- sent="Sun, 20 Oct 96 20:40 PDT" -->
+<!-- name="Daniel Quinlan" -->
+<!-- email="quinlan@proton.pathname.com" -->
+<!-- subject="file(1) specification" -->
+<!-- id="m0vFBEN-000Sp3C@proton.pathname.com" -->
+<!-- inreplyto="199610210006.UAA09651@snark.thyrsus.com" -->
+<title>magic-numbers: file(1) specification</title>
+<h1>file(1) specification</h1>
+Daniel Quinlan (<i>quinlan@proton.pathname.com</i>)<br>
+<i>Sun, 20 Oct 96 20:40 PDT</i>
+<p>
+<ul>
+<li> <b>Messages sorted by:</b> <a href="date.html#16">[ date ]</a><a href="index.html#16">[ thread ]</a><a href="subject.html#16">[ subject ]</a><a href="author.html#16">[ author ]</a>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0017.html">Daniel Quinlan: "current draft of POSIX 1003.2B file"</a>
+<li> <b>Previous message:</b> <a href="0015.html">Daniel Quinlan: "Re: Magic Numbers list announcement"</a>
+<!-- nextthread="start" -->
+</ul>
+<!-- body="start" -->
+Eric S Raymond &lt;esr@locke.ccil.org&gt; writes:<br>
+<p>
+<i>&gt; [...] Once the magic numbers RFC and the Magic Numbers Registry hve</i><br>
+<i>&gt; been developed, the list may take on other challenges including</i><br>
+<i>&gt; extension of the file(1) specification language to be able to get</i><br>
+<i>&gt; hints from filename patterns.</i><br>
+<p>
+A new version of the POSIX 2 specification, including file(1), is<br>
+under development.  The last drafting I saw had some problems and I<br>
+began writing a critique, but didn't go anywhere with it because of<br>
+time constraints.<br>
+<p>
+I just mailed hlj@posix.com, the editor of POSIX 2, to ask for an<br>
+updated version of the draft (of the file(1) section).  I'll forward<br>
+that to here when I get it.  If I can manage to locate my last draft I<br>
+had (draft 11), I'll send that here too.<br>
+<p>
+Anyway, I might as well include the critique as it stands.<br>
+<p>
+------- start of cut text --------------<br>
+Comments concerning POSIX 1003.2B, draft 11, section 5.14:<br>
+<p>
+1. byte-order<br>
+-------------<br>
+<p>
+The current draft has no provision for the differentiation between magic<br>
+numbers originating from big-endian (MSB first or Motorola-order) and<br>
+little-endian (LSB first or Intel-order) machines.<br>
+<p>
+With the exception of string matches, this places the validity of any<br>
+match under serious question.  It also makes the porting of magic files<br>
+between big-endian and little-endian architectures impossible.  (Note:<br>
+byte matches are even worse, Darwin file only uses them for subtests.)<br>
+<p>
+Darwin file was extended in 1993 to provide byte-order handling.  It was<br>
+accomplished through the addition of several new magic types: "beshort",<br>
+"leshort", "belong", and "lelong" (where the "be" and "le" prefixes<br>
+refer to big-endian and little-endian, respectively).<br>
+<p>
+There was been a lot of work to update the Darwin file collection of<br>
+magic entries to byte-order specific forms, where possible.<br>
+<p>
+2. Strings<br>
+----------<br>
+<p>
+According to the current draft, any non-ASCII characters included in<br>
+string magic must be written with octal escapes.  Providing a mechanism<br>
+to support hexadecimal escape sequences would be beneficial to writers<br>
+of magic files.<br>
+<p>
+A common coding practice is to specify magic in a hexadecimal format;<br>
+manual conversion from hexadecimal numbers to "hexadecimal strings" is<br>
+very simple (especially on big-endian machines).<br>
+<p>
+Additionally, this is a very simple extension to support in file.<br>
+<p>
+Darwin file supports the use of \x?? or \X?? to specify an escaped<br>
+character, where '??' is the value of the character in hexadecimal<br>
+notation.<br>
+<p>
+Without this extension, SGI had to do use this magic, which has the<br>
+potential to match much more than IRIX vmcore dumps, especially since<br>
+"belong" isn't being used.<br>
+<p>
+# New style crash dump file<br>
+0       long    0x43727368<br>
+<i>&gt;4      long    0x44756d70                      IRIX vmcore dump of</i><br>
+<i>&gt;36     addr    x                               '%s'</i><br>
+<p>
+Darwin file was able to use:<br>
+<p>
+# New style crash dump file<br>
+0	string	\x43\x72\x73\x68\x44\x75\x6d\x70	IRIX vmcore dump of<br>
+<i>&gt;36	string	&gt;\0					'%s'</i><br>
+<p>
+Translating from the "long long" 0x4372736844756d70 to the octal string<br>
+notation is an awkward and time-consuming task.<br>
+<p>
+3. Multiple levels of subtests<br>
+------------------------------<br>
+<p>
+Multiple levels of subtests should be supported in magic files.  This is<br>
+an essential facility for the accurate recognition of files.<br>
+<p>
+The Solaris 5.4 magic(4) manual page lists the lack of multiple levels<br>
+of subtests as a bug.<br>
+<p>
++----<br>
+<i>| BUGS</i><br>
+<i>|      There should be more than one level of  subtests,  with  the</i><br>
+<i>|      level indicated by the number of `&gt;' at the beginning of the</i><br>
+<i>|      line.</i><br>
++----<br>
+<p>
+Darwin file supports multiple file levels, in the manner proposed by<br>
+Sun's magic(4) manual page.<br>
+<p>
+For example, the following section of magic file, intended for ELF<br>
+objects, becomes impossible without multiple test levels.  Please also<br>
+note the use of byte-order specific magic.<br>
+<p>
+[insert ELF magic here]<br>
+<p>
+4. Required &lt;type&gt; strings<br>
+--------------------------<br>
+<p>
+Each &lt;type&gt; string is completely in lower case, but several of the words<br>
+are almost always written with some (or all) upper case characters.  The<br>
+left column of the table even lists several items in upper case: "FIFO",<br>
+"C program text", and "FORTRAN program text".<br>
+<p>
+POSIX should allow either upper or lower case output or perhaps it<br>
+should specify a sensible usage of capital letters.<br>
+<p>
+5. Types<br>
+--------<br>
+<p>
+Section 5.14.7, subsection "type", contains very serious problems.<br>
+<p>
+The number of bytes for any particular type must not be implementation<br>
+defined.  Doing so would make magic files completely non-portable.<br>
+Files should be identifiable on any system.<br>
+<p>
+This section of the specification also breaks historical implementations<br>
+in a drastic way, such as Darwin file, Sun's file, and other<br>
+implementations.<br>
+------- end ----------------------------<br>
+<!-- body="end" -->
+<p>
+<ul>
+<!-- next="start" -->
+<li> <b>Next message:</b> <a href="0017.html">Daniel Quinlan: "current draft of POSIX 1003.2B file"</a>
+<li> <b>Previous message:</b> <a href="0015.html">Daniel Quinlan: "Re: Magic Numbers list announcement"</a>
+<!-- nextthread="start" -->
+</ul>

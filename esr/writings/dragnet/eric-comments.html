@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rev="made" href="mailto:esr@snark.thyrsus.com" />
+<link rel="stylesheet" href="/~esr/sitestyle.css" type="text/css" />
+<meta name="description" content="Technical notes on the DRAG.NET production." />
+<meta name="keywords" content="" />
+<meta name="MSSmartTagsPreventParsing" content="TRUE" />
+<title>Epilogue: The Making of DRAG.NET</title>
+</head>
+<body>
+
+<div id="Header">
+<table width="100%" cellpadding="0" summary="Canned page header">
+<tr>
+<td>Epilogue: The Making of DRAG.NET</td>
+<td align="right">
+<script language="JavaScript" src="/~esr/datestamp.js"></script>
+</td>
+</tr>
+</table>
+</div>
+
+<div id="Menu">
+	<hr/>
+	<a href="/~esr" title="My home page">Home Page</a><br />
+	<a href="/~esr/whatsnew.html" title='What's new on this site'">What's New</a><br />
+	<a href="/~esr/sitemap.html" title="Map of the site">Site Map</a><br />
+	<a href="/~esr/software.html" title="Software I maintain">Software</a><br />
+	<a href="/~esr/projects.html" title="My projects">Projects</a><br />
+	<a href="/~esr/faqs/" title="My FAQ documents">HOWTOs</a><br />
+	<a href="/~esr/writings/" title="Essays and ruminations">Essays</a><br />
+	<a href="/~esr/personal.html" title="Portrait of the author">Personal</a><br />
+	<a href="http://armedndangerous.blogspot.com">Weblog</a><br/>	
+	<a href="/~esr/netfreedom/">Freedom!</a><br />
+	<a href="/~esr/guns/">Firearms!</a><br />
+	<hr/>
+</div>
+
+<div id="Content">
+
+<p>Since making presentations like this one is a significant
+application area for many non-technical users, there are some
+useful lessons in our experience putting this production
+together.</p>
+
+<p>No proprietary software was used in the making of this
+production. No animals were harmed, either, although we did
+brainstorm it over a couple of damn good steak dinners.</p>
+
+<p>We used <a href="http://www.xsane.org/">xsane 0.77</a> with an
+Epson Perfection 1650 scanner for photograph capture. This
+combination worked extremely well. Kudos to the authors of xsane
+for excellent work; the only two nits we found were that it really
+ought to default to color mode, and needs to handle out-of-memory
+errors induced by very large image dumps more gracefully.</p>
+
+<p>We heartily recommend the <a
+href="http://www.epson.com/cgi-bin/Store/ProductQuickSpec.jsp?BV_SessionID=@@@@0701153446.1012160183@@@@&amp;BV_EngineID=eadcddlmdlmibfdmcfjgckidnf.0&amp;oid=6464130&amp;category=Products">
+Perfection 1650</a> to anyone looking for a quality scanner at a
+good price. Epson has cooperated well with the open-source
+community, and the results do all parties proud.</p>
+
+<p>Before we settled on the Epson, we had a
+very...educational...experience with a $40 scanner that shall
+remain nameless. It claimed to be a USB scanner, but lied -- it
+required a proprietary firmware upload at initialization time and
+would not work with Linux's USB scanner driver. Yes, we encountered
+a WinScanner! Stay out of the price basement; it's more trouble
+than it's worth.</p>
+
+<p>We did image conversion, cropping and resizing using the
+ImageMagick convert(1) and display(1) tools. The xwd(1) utility was
+used to capture screen displays. All these programs worked well and
+without fuss.</p>
+
+<p>The presentation was sequenced with Kpresenter (from koffice
+1.1), which is marginally usable but in no way ready for the
+non-techie. The UI is cluttered, inconsistent, confusing, and at
+times capricious. We tripped over many bugs and instabilities, and
+hung it at least a dozen times during simple, basic operations like
+resizing text. It is also very poorly documented, and uses an
+opaque binary file format.</p>
+
+<p>(I have since been told that the "opaque binary file format" is
+actually a tar archive of XML files and PNG images. That's still
+opaque, since as far as I know this fact is not documented, and
+it's still binary.)</p>
+
+<p>Kpresenter's most serious flaw was functional -- no way to
+associate sound clips with the slides. As a result, we experimented
+with using a browser in full-screen mode as a presentation engine,
+only to discover that embedding sound in in local web pages is
+unusably flaky. We couldn't get it to work in either Mozilla or
+Konqueror, and for the same reason. Both paint the web page twice,
+and spawn two sound helpers that fight with each other.</p>
+
+<p>As a result, we ended up planning to drive the presentation
+visuals and sound from two different computers, with manual
+sequencing. This <em>must</em> be fixed if kpresenter is going to
+be competitive -- because the night before going to LWE, I found
+MagicPoint.</p>
+
+<p>MagicPoint is a rather more powerful and simpler presentation
+package than kpresenter. It can attach sound clips to slides and do
+all manner of other interesting things that kpresenter cannot,
+including allowing you to scribble on a slide while it is being
+displayed.</p>
+
+<p>MagicPoint has only one drawback: no GUI. You write your slides
+in a simple markup language, bashing tags with a text editor. This
+is great for geeks but a deadly turnoff to end-users. Someone could
+do the world a great service by writing a GUI editor for MagicPoint
+files.</p>
+
+<p>About those sound clips...we found a clean MP3 of the entire
+Dragnet theme on the Web. When it became apparent that we would
+need to drop out the middle section with the voiceover, I went
+looking for an MP3 audio editor. We found one: <a
+href="http://audacity.sourceforge.net/">Audacity</a>. I love this
+piece of software -- it's beautifully designed, has a clean and
+readily accessible UI, and is excellently documented to boot. Using
+it helped banish the bad taste kpresenter had left in our
+mouths.</p>
+
+<p>We tripped over a couple of dozen embarrassing bugs in a few
+days' work. We have no doubt that all could easily be fixed. Our
+experience suggests that the problem with open-source applications
+is not poor design or implementation, it's inadequate testing. The
+usage patterns of developers don't match those of end-users, so
+they sail right by the bugs that actual users would trip right over
+and be immediately turned off by.</p>
+
+<p>It's a self-reinforcing problem -- untested software drives away
+real users, so it never gets properly tested, so it never gets good
+enough not to drive away users. Somehow we need to set up more
+tests with ordinary users.</p>
+
+<p>The software we had to learn to use during production refutes
+the canard that Linux hackers as a group are hopelessly bad at
+interface design for non-techies. Rather, open source completely
+spans the gamut -- from clumsy, overcomplex and brittle UIs like
+that of kpresenter, through excellent if somwhat complex interfaces
+like that of xsane, all the way to superbly simple UIs like that of
+audacity.</p>
+
+<p>Audacity has a UI as good or better than the average Macintosh
+application. That's where we need to be for Linux on the desktop to
+stop being a subject for vaudeville routines, and start being an
+unstoppable tide.</p>
+
+</div>
+
+</body>
+</html>
+

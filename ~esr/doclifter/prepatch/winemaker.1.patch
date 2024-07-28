@@ -1,0 +1,10 @@
+--- winemaker.1-unpatched	2014-06-02 09:52:02.517334795 -0400
++++ winemaker.1	2014-06-02 09:54:21.272566508 -0400
+@@ -29,7 +29,6 @@
+ .br
+   [
+ .BR               "--generated-files " "] [ " "--nogenerated-files " "]
+-]
+ .br
+   [
+ .BR               "--wine32 " "]

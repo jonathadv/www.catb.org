@@ -1,0 +1,21 @@
+--- pnmtotiff.1-unpatched	2012-06-29 15:11:02.781733378 -0400
++++ pnmtotiff.1	2012-06-29 15:11:11.617733213 -0400
+@@ -19,9 +19,6 @@
+ .IR 1|2|4|8 ]
+ .RI [ pnmfile ]
+ 
+-
+-Minimum unambiguous abbreviations of options are acceptable.
+-
+ .SH DESCRIPTION
+ Reads a PNM image as input.
+ Produces a TIFF file as output.
+@@ -32,6 +29,8 @@
+ 
+ 
+ .SH OPTIONS
++Minimum unambiguous abbreviations of options are acceptable.
++
+ .PP
+ By default,
+ .B pnmtotiff

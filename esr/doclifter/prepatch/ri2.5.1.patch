@@ -1,0 +1,12 @@
+--- ri2.5.1-unpatched	2018-05-14 00:34:06.959585330 -0400
++++ ri2.5.1	2018-05-14 00:35:29.855021968 -0400
+@@ -32,9 +32,7 @@
+ can be:
+ .Bl -diag -offset indent
+ .It Class | Module | Module::Class
+-.Pp
+ .It Class::method | Class#method | Class.method | method
+-.Pp
+ .It gem_name: | gem_name:README | gem_name:History
+ .El
+ .Pp
